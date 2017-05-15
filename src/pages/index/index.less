@@ -1,5 +1,77 @@
+page {
+  background-color: #fff;
+}
+//日历相关样式
+.calendar-navbar {
+  display: flex;
+  justify-content: space-around;
+  @image: 140rpx;
+  image {
+    height: @image;
+    width: @image;
+    border-radius: 50%;
+    //transform: translateX(-50rpx);
+    background: #FCC0A4;
+  }
+  .current-day-info-top {
+    display: flex;
+    align-items: center;
+    .cur-Month {
+      font-size: 80rpx;
+      //letter-spacing: 20rpx;
+    }
+    //左右箭头样式
+    @lenght: 30rpx;
+    .cur-month-left::before, .cur-month-right::before {
+      content: '';
+      margin: 0 10rpx;
+      border: 4rpx solid #000;
+      border-color: transparent transparent #000 #000;
+      height: @lenght;
+      width: @lenght;
+      display: block;
+      transform: scaleX(0.45) rotate(45deg);
+    }
+    .cur-month-right::before {
+      border-color: #000 #000 transparent transparent;
+    }
+  }
+  .current-week {
+    transform: translateX(20rpx);
+    .current-week-year {
+      padding-bottom: 5rpx;
+      border-bottom: 4rpx solid #000;
+    }
+  }
+}
+
+// 底部样式
 .schedule {
   text-align: center;
+  border: 1rpx solid #eee;
   background-color: #ffffff;
   //border-radius: 20rpx;
 }
+.show-bottom {
+  position: relative;
+  @height: 80rpx;
+  .show-bottom-wrap {
+    position: absolute;
+    width: 50%;
+    height: @height;
+    border: 1rpx solid #FCC0A4;
+    padding: 8rpx;
+    top: 50rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    .show {
+      line-height: @height;
+      font-size: 44rpx;
+      background-color: #FCC0A4;
+      color: #fff;
+    }
+  }
+}
+
+

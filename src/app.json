@@ -16,13 +16,13 @@
     "navigationBarBackgroundColor": "#ffffff",
     // 类型：String；默认值：white
     // 导航栏标题颜色，仅支持 black/white
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     // 类型：String；默认值：无
     // 导航栏标题文字内容
-    "navigationBarTitleText": "我们约会吧",
+    "navigationBarTitleText": "约会日",
     // 类型：HexColor；默认值：#ffffff
     // 窗口的背景色
-    "backgroundColor": "#000000",
+    "backgroundColor": "#fff",
     // 类型：String；默认值：dark
     // 下拉背景字体、loading 图的样式，仅支持 dark/light
     "backgroundTextStyle": "light",
@@ -35,7 +35,7 @@
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#tabBar
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "green",
+    "selectedColor": "#FCC0A4",
     "borderStyle": "white",
     "backgroundColor": "#f5f5f5",
     "list": [
