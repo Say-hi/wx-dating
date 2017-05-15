@@ -58,11 +58,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/index/index.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="20" column="73" lean-forward="false" selection-start-line="20" selection-start-column="73" selection-end-line="20" selection-end-column="73" />
+            <state relative-caret-position="-467">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="n#view#1;n#view#0;n#!!top" expanded="false" />
                 <element signature="n#view#0;n#view#2;n#view#0;n#!!top" expanded="false" />
@@ -91,20 +91,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/index/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="494" column="8" lean-forward="true" selection-start-line="494" selection-start-column="8" selection-end-line="494" selection-end-column="8" />
+            <state relative-caret-position="456">
+              <caret line="349" column="29" lean-forward="true" selection-start-line="349" selection-start-column="29" selection-end-line="349" selection-end-column="29" />
               <folding>
                 <element signature="e#2832#3097#0" expanded="false" />
                 <element signature="e#9028#9369#0" expanded="false" />
-                <element signature="e#10219#10536#0" expanded="false" />
-                <element signature="e#11842#11915#0" expanded="false" />
-                <element signature="e#11942#13196#0" expanded="false" />
-                <element signature="e#14195#14225#0" expanded="false" />
-                <element signature="e#14252#14433#0" expanded="false" />
-                <element signature="e#14437#14466#0" expanded="false" />
+                <element signature="e#11530#11847#0" expanded="false" />
+                <element signature="e#13153#13226#0" expanded="false" />
+                <element signature="e#13253#14507#0" expanded="false" />
+                <element signature="e#15569#15599#0" expanded="false" />
+                <element signature="e#15626#15807#0" expanded="false" />
+                <element signature="e#15811#15840#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -224,14 +224,14 @@
       <find>getDayCount</find>
       <find>choose</find>
       <find>sel</find>
-      <find>dateData</find>
       <find>curStatus</find>
       <find>initCurDate2</find>
       <find>refreshDetailData</find>
+      <find>dateData</find>
     </findStrings>
     <replaceStrings>
-      <replace>dateData2</replace>
       <replace>pageData2</replace>
+      <replace>dateData2</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -250,8 +250,8 @@
         <option value="$PROJECT_DIR$/app.less" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/index/index.less" />
-        <option value="$PROJECT_DIR$/pages/index/index.js" />
         <option value="$PROJECT_DIR$/pages/index/index.xml" />
+        <option value="$PROJECT_DIR$/pages/index/index.js" />
       </list>
     </option>
   </component>
@@ -463,12 +463,12 @@
       <workItem from="1493774879302" duration="19074000" />
       <workItem from="1493862130113" duration="5726000" />
       <workItem from="1493880449700" duration="84000" />
-      <workItem from="1494819474343" duration="26652000" />
+      <workItem from="1494819474343" duration="27919000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120469000" />
+    <option name="totallyTimeSpent" value="121736000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
@@ -609,12 +609,12 @@
           <folding>
             <element signature="e#2832#3097#0" expanded="false" />
             <element signature="e#9028#9369#0" expanded="false" />
-            <element signature="e#10219#10536#0" expanded="false" />
-            <element signature="e#11842#11915#0" expanded="false" />
-            <element signature="e#11942#13196#0" expanded="false" />
-            <element signature="e#14195#14225#0" expanded="false" />
-            <element signature="e#14252#14433#0" expanded="false" />
-            <element signature="e#14437#14466#0" expanded="false" />
+            <element signature="e#11530#11847#0" expanded="false" />
+            <element signature="e#13153#13226#0" expanded="false" />
+            <element signature="e#13253#14507#0" expanded="false" />
+            <element signature="e#15569#15599#0" expanded="false" />
+            <element signature="e#15626#15807#0" expanded="false" />
+            <element signature="e#15811#15840#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -694,12 +694,12 @@
           <folding>
             <element signature="e#2832#3097#0" expanded="false" />
             <element signature="e#9028#9369#0" expanded="false" />
-            <element signature="e#10219#10536#0" expanded="false" />
-            <element signature="e#11842#11915#0" expanded="false" />
-            <element signature="e#11942#13196#0" expanded="false" />
-            <element signature="e#14195#14225#0" expanded="false" />
-            <element signature="e#14252#14433#0" expanded="false" />
-            <element signature="e#14437#14466#0" expanded="false" />
+            <element signature="e#11530#11847#0" expanded="false" />
+            <element signature="e#13153#13226#0" expanded="false" />
+            <element signature="e#13253#14507#0" expanded="false" />
+            <element signature="e#15569#15599#0" expanded="false" />
+            <element signature="e#15626#15807#0" expanded="false" />
+            <element signature="e#15811#15840#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -887,30 +887,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
+    <entry file="file://$PROJECT_DIR$/pages/index/index.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="494" column="8" lean-forward="true" selection-start-line="494" selection-start-column="8" selection-end-line="494" selection-end-column="8" />
+        <state relative-caret-position="-467">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
-            <element signature="e#2832#3097#0" expanded="false" />
-            <element signature="e#9028#9369#0" expanded="false" />
-            <element signature="e#10219#10536#0" expanded="false" />
-            <element signature="e#11842#11915#0" expanded="false" />
-            <element signature="e#11942#13196#0" expanded="false" />
-            <element signature="e#14195#14225#0" expanded="false" />
-            <element signature="e#14252#14433#0" expanded="false" />
-            <element signature="e#14437#14466#0" expanded="false" />
+            <element signature="n#view#1;n#view#0;n#!!top" expanded="false" />
+            <element signature="n#view#0;n#view#2;n#view#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index/index.xml">
+    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="20" column="73" lean-forward="false" selection-start-line="20" selection-start-column="73" selection-end-line="20" selection-end-column="73" />
+        <state relative-caret-position="456">
+          <caret line="349" column="29" lean-forward="true" selection-start-line="349" selection-start-column="29" selection-end-line="349" selection-end-column="29" />
           <folding>
-            <element signature="n#view#1;n#view#0;n#!!top" expanded="false" />
-            <element signature="n#view#0;n#view#2;n#view#0;n#!!top" expanded="false" />
+            <element signature="e#2832#3097#0" expanded="false" />
+            <element signature="e#9028#9369#0" expanded="false" />
+            <element signature="e#11530#11847#0" expanded="false" />
+            <element signature="e#13153#13226#0" expanded="false" />
+            <element signature="e#13253#14507#0" expanded="false" />
+            <element signature="e#15569#15599#0" expanded="false" />
+            <element signature="e#15626#15807#0" expanded="false" />
+            <element signature="e#15811#15840#0" expanded="false" />
           </folding>
         </state>
       </provider>

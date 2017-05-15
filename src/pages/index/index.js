@@ -334,17 +334,64 @@ Page({
   },
   // 回到今天
   goToday: function(){
+    var that = this
     var curDate = new Date();
     curMonth = curDate.getMonth();
     curYear = curDate.getFullYear();
     curDay = curDate.getDate();
-    this.initCurDate2(curYear, curMonth, curDay);
-    this.setData({
-      dateData: pageData2.dateData,
-      detailData: pageData2.detailData
-      // dateData2: pageData.dateData,
-      // detailData2: pageData.detailData
-    })
+    if (this.data.animateStatus === 'left') {
+      this.initCurDate2(curYear, curMonth, curDay);
+      that.setData({
+        dateData2: pageData2.dateData,
+        one_one: 'animated fadeOutRight',
+        two_two: 'animated fadeInLeft'
+      })
+      setTimeout(function () {
+        // that.goLastMonth()
+        that.setData({
+          dateData: that.data.dateData2,
+          detailData: pageData2.detailData
+        })
+      }, 600)
+      setTimeout(function () {
+        that.setData({
+          touchStatus: false,
+          one_one: '',
+          two_two: '',
+          animateStatus: ''
+        })
+      }, 1000)
+    } else if (this.data.animateStatus === 'right') {
+      this.initCurDate2(curYear, curMonth, curDay);
+      that.setData({
+        dateData2: pageData2.dateData,
+        one_one: 'animated fadeOutLeft',
+        two_two: 'animated fadeInRight'
+      })
+      setTimeout(function () {
+        // that.goLastMonth()
+        that.setData({
+          dateData: that.data.dateData2,
+          detailData: pageData2.detailData
+        })
+      }, 600)
+      setTimeout(function () {
+        that.setData({
+          touchStatus: false,
+          one_one: '',
+          two_two: '',
+          animateStatus: ''
+        })
+      }, 1000)
+    } else {
+      this.initCurDate2(curYear, curMonth, curDay);
+      this.setData({
+        dateData: pageData2.dateData,
+        detailData: pageData2.detailData
+        // dateData2: pageData.dateData,
+        // detailData2: pageData.detailData
+      })
+    }
   },
   // 选择picker日期
   bindDateChange: function(e){
@@ -477,7 +524,8 @@ Page({
       that.setData({
         touchStatus: false,
         one_one: '',
-        two_two: ''
+        two_two: '',
+        animateStatus: 'left'
       })
     }, 1000)
     pageData = pageData2
@@ -498,7 +546,8 @@ Page({
       that.setData({
         touchStatus: false,
         one_one: '',
-        two_two: ''
+        two_two: '',
+        animateStatus: 'right'
       })
     }, 1000)
     pageData = pageData2
