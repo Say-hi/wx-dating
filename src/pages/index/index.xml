@@ -16,12 +16,12 @@
             <view class="current-day-info-top">
                 <view class="cur-month-left" bindtap="goNextMonthAnimate"></view>
                 <view class="cur-Month" catchtap="goToday">
-                    {{ dateData.curMonth }}月
+                    {{ detailData.curMonth }}月
                 </view>
                 <view class="cur-month-right" bindtap="goLastMonthAnimate"></view>
             </view>
             <view class="current-week" >
-                {{ dateData.week }},<text class="current-week-year">{{ dateData.curYear }}</text>
+                {{ detailData.curMonthEN }},<text class="current-week-year">{{ detailData.curYear }}</text>
             </view>
         </view>
     </view>

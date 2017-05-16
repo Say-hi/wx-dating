@@ -45,6 +45,7 @@ var DAY_OF_MONTH = [
   [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 ]
 var DAY_ENGLISH = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+var MONTH_ENGLISH = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July',  'August', 'September', 'October', 'November', 'December']
 //获取月份天数
 var getDayCount = function(year, month){
   return DAY_OF_MONTH[isLeapYear(year)][month];
@@ -71,6 +72,7 @@ var refreshDetailData = function(pageData, index){
   curDay = curEx.sDay;
   pageData.detailData.curMonth = curEx.sMonth;
   pageData.detailData.curYear = curEx.sYear;
+  pageData.detailData.curMonthEN = MONTH_ENGLISH[curEx.sMonth - 1];
   pageData.detailData.curDay = curEx.sDay;
   pageData.detailData.showDay = curEx.sYear + "年" +  curEx.sMonth + "月";
   pageData.detailData.curInfo1 = "农历" + curEx.lunarMonth + "月" + curEx.lunarDay + " " + curEx.lunarFestival;
@@ -126,7 +128,10 @@ Page({
       pageData.dateData.curYear = curYear
       pageData.dateData.curMonth = curMonth + 1
       pageData.dateData.curDay = curDay
-      pageData.dateData.week = DAY_ENGLISH[getOffset(curYear, curMonth)]
+      var weekDay = new Date(curYear, curMonth, curDay).getDay()
+      weekDay = weekDay == 0 ? 6 : weekDay - 1
+      pageData.dateData.week = DAY_ENGLISH[weekDay]
+      pageData.dateData.month = MONTH_ENGLISH[curMonth]
       this.setData({
         curStatus: true
       })
@@ -198,7 +203,10 @@ Page({
       pageData2.dateData.curYear = curYear
       pageData2.dateData.curMonth = curMonth + 1
       pageData2.dateData.curDay = curDay
-      pageData2.dateData.week = DAY_ENGLISH[getOffset(curYear, curMonth)]
+      var weekDay = new Date(curYear, curMonth, curDay).getDay()
+      weekDay = weekDay == 0 ? 6 : weekDay - 1
+      pageData2.dateData.week = DAY_ENGLISH[weekDay]
+      pageData2.dateData.month = MONTH_ENGLISH[curMonth]
       this.setData({
         curStatus2: true
       })
