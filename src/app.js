@@ -4,7 +4,7 @@
  * 用于将微信官方`API`封装为`Promise`方式
  * > 小程序支持以`CommonJS`规范组织代码结构
  */
-const wechat = require('./utils/wechat')
+// const wechat = require('./utils/wechat')
 // const Promise = require('./utils/bluebird')
 
 App({
@@ -1157,7 +1157,7 @@ App({
     console.log(' ========== Application is launched ========== ')
     wx.login({
       success (res) {
-        console.log(res)
+        // console.log(res)
       }
     })
   },

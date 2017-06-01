@@ -1,0 +1,115 @@
+// 视屏区域样式
+.video-area {
+  width: 100%;
+  height: 480rpx; // 视屏区域高度
+  position: relative;
+  z-index: 998;
+  .user-video {
+    width: 100%;
+    height: 100%;
+  }
+  .video-cover-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    .video-cover {
+      width: 100%;
+      height: 100%;
+    }
+    .video-play {
+      width: 150rpx;
+      height: 100rpx;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+// 个人信息样式
+.user-info {
+  position: relative;
+  .user-avatar-url{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    @length: 200rpx;
+    width: @length;
+    height: @length;
+    border-radius: 50%;
+    z-index: 1000;
+    border: 6rpx solid #FCC0A4;
+  }
+  .no-show {
+    z-index: 10;
+  }
+  .user-nick-name-wrap {
+    position: relative;
+    padding-bottom: 20rpx;
+    border-bottom: 10rpx solid #eee;
+    //background-color: #f00;
+    .order, .message {
+      position: absolute;
+      top: 120rpx;
+      font-size: 30rpx;
+      text-align: center;
+      color: #999;
+    }
+    .order::before, .message::before {
+      position: absolute;
+      top: -90rpx;
+      left: -10rpx;
+      font-size: 80rpx;
+    }
+    @distacne: 100rpx;
+    .order {
+      left: @distacne;
+    }
+    .message {
+      right: @distacne;
+    }
+    .user-nick-name {
+      padding-top: 120rpx;
+      text-align: center;
+    }
+  }
+  //相册
+  .photo {
+    //height: 100rpx;
+    //padding: 0 20rpx;
+    line-height: 80rpx;
+    //background-color: #f00;
+    @image: 170rpx;
+    .photo-top {
+      border-bottom: 2rpx solid #eee;
+    }
+    .photo-show {
+      height: @image;
+      //background-color: #f00;
+      padding: 20rpx;
+      display: flex;
+      border-bottom: 10rpx solid #eee;
+      image {
+        height: @image;
+        width: @image;
+        margin-right: 10rpx;
+      }
+      image:nth-child(4) {
+        margin: 0;
+      }
+    }
+  }
+  //用户操作
+  .operation {
+    border-bottom: 30rpx solid #eee;
+    .op {
+      line-height: 80rpx;
+      //background-color: #f00;
+      margin-left: 70rpx;
+      border-bottom: 1rpx solid #eee;
+    }
+  }
+}

@@ -49,7 +49,7 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    current: 0
+    i: 0
   },
   // swiper 切换月份
   swiperChange (e) {
@@ -147,8 +147,8 @@ Page({
   // 选择日期
   selectDay (e) {
     let that = this
-    let current = this.data.current
-    let currentMonth = this.data.dateArr[current].dateData.arrInfoEx
+    let i = e.currentTarget.dataset.i
+    let currentMonth = this.data.dateArr[i].dateData.arrInfoEx
     let d = e.currentTarget.dataset.dayIndex
     let detailDate = {
       curYear: currentMonth[d].sYear,

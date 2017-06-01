@@ -1,0 +1,80 @@
+// 视屏区域样式
+.video-area {
+  width: 100%;
+  height: 480rpx; // 视屏区域高度
+  position: relative;
+  z-index: 998;
+  .user-video {
+    width: 100%;
+    height: 100%;
+  }
+  .video-cover-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    .video-cover {
+      width: 100%;
+      height: 100%;
+    }
+    .video-play {
+      width: 150rpx;
+      height: 100rpx;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+// 个人信息样式
+.user-info {
+  position: relative;
+  .user-avatar-url{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    @length: 200rpx;
+    width: @length;
+    height: @length;
+    border-radius: 50%;
+    z-index: 1000;
+    border: 6rpx solid #FCC0A4;
+  }
+  .no-show {
+    z-index: 10;
+    //visibility: hidden;
+  }
+  .user-nick-name {
+    padding-top: 110rpx;
+    text-align: center;
+  }
+  .user-info-detail {
+    padding: 20rpx 100rpx;
+    //background-color: #f00;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 24rpx;
+    .user-detail::after {
+      content: '|';
+      color: #eee;
+      margin-left: 30rpx;
+    }
+    .user-detail:nth-child(4)::after {
+      content: '';
+      margin-left: 0rpx;
+    }
+  }
+  .follow-btn {
+    width: 180rpx;
+    line-height:60rpx;
+    color: #FCC0A4;
+    font-size: 24rpx;
+  }
+  .follow-btn::after {
+    border-color: #FCC0A4;
+  }
+}

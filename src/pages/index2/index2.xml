@@ -8,12 +8,12 @@
       <view class="current-day-info-top">
         <!--<view class="cur-month-left" bindtap="goNextMonthAnimate"></view>-->
         <view class="cur-Month" catchtap="goToday">
-          {{ dateArr[current].dateData.curMonth }}月
+          {{ dateArr[i].dateData.curMonth }}月
         </view>
         <!--<view class="cur-month-right" bindtap="goLastMonthAnimate"></view>-->
       </view>
       <view class="current-week" >
-        {{ dateArr[current].dateData.month }},<text class="current-week-year">{{ dateArr[current].dateData.curYear }}</text>
+        {{ dateArr[i].dateData.month }},<text class="current-week-year">{{ dateArr[i].dateData.curYear }}</text>
       </view>
     </view>
   </view>
@@ -22,16 +22,15 @@
     <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
   </view>
   <!--日历主体-->
-  <swiper bindchange="swiperChange" vertical="{{vertical}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique">
-      <swiper-item>
+  <scroll-view scroll-y style="height: 300px;">
+    <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique" wx:for-index="i">
         <!--日历主体-->
         <view class="calendar-body-wrap">
           <!--当月数据-->
           <view class="calendar-body">
             <view  wx:if="{{ !(!out.dateData.arrIsShow[35] && row == 5) }}" class="{{ !out.dateData.arrIsShow[35] ? 'calendar-body-rows-height' : '' }}   calendar-body-rows" wx:for="012345" wx:for-index="row" wx:key="*this">
               <view class="calendar-body-cols" wx:for="0123456" wx:for-index="col" wx:key="*this">
-                <view class="{{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }} {{ out.dateData.arrInfoEx[row * 7 + col].sYear == detailData.curYear && out.dateData.arrInfoEx[row * 7 + col].sMonth == detailData.curMonth && out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.curDay ? 'chooseDay':''}} {{ out.dateData.arrInfoEx[row * 7 + col].sYear + '年'+ out.dateData.arrInfoEx[row * 7 + col].sMonth + '月' + out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.date ? 'curToday' : '' }} calendar-body-item {{ dateData.arrInfoEx[row * 7 + col].week == '六' || dateData.arrInfoEx[row * 7 + col].week == '日' ? 'week' : '' }}" hover="true" hover-class="view-hover"  data-day-false="{{ dateData.arrIsShow[row * 7 + col] }}" data-day-index="{{row * 7 + col}}" bindtap="selectDay">
+                <view class="{{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }} {{ out.dateData.arrInfoEx[row * 7 + col].sYear == detailData.curYear && out.dateData.arrInfoEx[row * 7 + col].sMonth == detailData.curMonth && out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.curDay ? 'chooseDay':''}} {{ out.dateData.arrInfoEx[row * 7 + col].sYear + '年'+ out.dateData.arrInfoEx[row * 7 + col].sMonth + '月' + out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.date ? 'curToday' : '' }} calendar-body-item {{ dateData.arrInfoEx[row * 7 + col].week == '六' || dateData.arrInfoEx[row * 7 + col].week == '日' ? 'week' : '' }}" hover="true" hover-class="view-hover"  data-day-false="{{ dateData.arrIsShow[row * 7 + col] }}" data-day-index="{{row * 7 + col}}" data-i="{{ i }}" bindtap="selectDay">
                   <!--<view  class="{{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }}">-->
                   <view>
                     <!--阳历-->
@@ -58,9 +57,8 @@
             </view>
           </view>
         </view>
-      </swiper-item>
     </block>
-  </swiper>
+  </scroll-view>
   <!--底部标题-->
   <view class="schedule"></view>
   <view class="show-bottom">

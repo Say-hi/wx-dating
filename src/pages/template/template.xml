@@ -1,0 +1,79 @@
+
+<template name="temp">
+    <!--日历头部-->
+    <view class="calendar-head">
+        <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
+    </view>
+    <!--日历主体-->
+    <view class="calendar-body-wrap">
+        <!--本月数据-->
+        <view class="calendar-body one {{ one_one }}">
+            <view  wx:if="{{ !(!dateData.arrIsShow[35] && row == 5) }}" class="{{ !dateData.arrIsShow[35] ? 'calendar-body-rows-height' : '' }}   calendar-body-rows" wx:for="012345" wx:for-index="row" wx:key="*this">
+                <view class="calendar-body-cols" wx:for="0123456" wx:for-index="col" wx:key="*this">
+                    <view class="{{ dateData.arrInfoEx[row * 7 + col].sYear == detailData.curYear && dateData.arrInfoEx[row * 7 + col].sMonth == detailData.curMonth && dateData.arrInfoEx[row * 7 + col].sDay == detailData.curDay ? 'chooseDay':''}} {{ dateData.arrInfoEx[row * 7 + col].sYear + '年'+ dateData.arrInfoEx[row * 7 + col].sMonth + '月' + dateData.arrInfoEx[row * 7 + col].sDay == dateData.date ? 'curToday' : '' }} calendar-body-item {{ dateData.arrInfoEx[row * 7 + col].week == '六' || dateData.arrInfoEx[row * 7 + col].week == '日' ? 'week' : '' }}" hover="true" hover-class="view-hover"  data-day-false="{{ dateData.arrIsShow[row * 7 + col] }}" data-day-index="{{row * 7 + col}}" bindtap="selectDay">
+                        <view  class="{{ !dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }}">
+                            <!--阳历-->
+                            <view class="calendar-body-day">
+                                {{dateData.arrDays[row * 7 + col]}}
+                                <!--{{dateData.arrInfoEx[row * 7 + col].solarFestival}}-->
+                            </view>
+                            <!--农历-->
+                            <view class="calendar-body-dayex">
+                                {{dateData.arrInfoEx[row * 7 + col].solarFestival || dateData.arrInfoExShow[row * 7 + col]}}
+                                <!--{{}}-->
+                            </view>
+                            <!--国假调休-->
+                            <view wx:if="{{ dateData.arrInfoEx[row * 7 + col].workRestDay }}" class="work-rest">
+                                <!--{{ dateData.arrInfoEx[row * 7 + col].workRestDay == 1 ? '休息' : '上班' }}-->
+                                <image class="tx-img" src="{{ dateData.arrInfoEx[row * 7 + col].workRestDay == 1 ? '../../images/x.png' : '../../images/b.png' }}"></image>
+                            </view>
+                            <!--<view class="calendar-body-workturn" style="color:{{workTurnData.arrWorkTurn[row * 7 + col] === '休' ? '#09BB07' : '#e64340'}}" hidden="{{!isWorkTurn}}">
+                                {{workTurnData.arrWorkTurn[row * 7 + col]}}
+                            </view>-->
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!--滑动后判断数据-->
+        <view class="calendar-body two {{ two_two }}">
+            <view  wx:if="{{ !(!dateData2.arrIsShow[35] && row == 5) }}" class="{{ !dateData2.arrIsShow[35] ? 'calendar-body-rows-height' : '' }}   calendar-body-rows" wx:for="012345" wx:for-index="row" wx:key="*this">
+                <view class="calendar-body-cols" wx:for="0123456" wx:for-index="col" wx:key="*this">
+                    <view class="{{ dateData2.arrInfoEx[row * 7 + col].sYear == detailData.curYear && dateData2.arrInfoEx[row * 7 + col].sMonth == detailData.curMonth && dateData2.arrInfoEx[row * 7 + col].sDay == detailData.curDay ? 'chooseDay':''}} {{ dateData2.arrInfoEx[row * 7 + col].sYear + '年'+ dateData2.arrInfoEx[row * 7 + col].sMonth + '月' + dateData2.arrInfoEx[row * 7 + col].sDay == dateData2.date ? 'curToday' : '' }} calendar-body-item {{ dateData2.arrInfoEx[row * 7 + col].week == '六' || dateData2.arrInfoEx[row * 7 + col].week == '日' ? 'week' : '' }}" hover="true" hover-class="view-hover"  data-day-false="{{ dateData2.arrIsShow[row * 7 + col] }}" data-day-index="{{row * 7 + col}}" bindtap="selectDay">
+                        <view  class="{{ !dateData2.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }}">
+                            <!--阳历-->
+                            <view class="calendar-body-day">
+                                {{dateData2.arrDays[row * 7 + col]}}
+                                <!--{{dateData2.arrInfoEx[row * 7 + col].solarFestival}}-->
+                            </view>
+                            <!--农历-->
+                            <view class="calendar-body-dayex">
+                                {{dateData2.arrInfoEx[row * 7 + col].solarFestival || dateData2.arrInfoExShow[row * 7 + col]}}
+                                <!--{{}}-->
+                            </view>
+                            <!--国假调休-->
+                            <view wx:if="{{ dateData2.arrInfoEx[row * 7 + col].workRestDay }}" class="work-rest">
+                                <!--{{ dateData2.arrInfoEx[row * 7 + col].workRestDay == 1 ? '休息' : '上班' }}-->
+                                <image class="tx-img" src="{{ dateData2.arrInfoEx[row * 7 + col].workRestDay == 1 ? '../../images/x.png' : '../../images/b.png' }}"></image>
+                            </view>
+                            <!--<view class="calendar-body-workturn" style="color:{{workTurnData.arrWorkTurn[row * 7 + col] === '休' ? '#09BB07' : '#e64340'}}" hidden="{{!isWorkTurn}}">
+                                {{workTurnData.arrWorkTurn[row * 7 + col]}}
+                            </view>-->
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+        <!--日历模板-->
+<template name="carousel">
+    <swiper indicator-dots="{{indicatorDots}}"
+            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}">
+            <swiper-item>
+                <image src="{{item}}" class="slide-image" width="355" height="150"/>
+            </swiper-item>
+        </block>
+    </swiper>
+</template>

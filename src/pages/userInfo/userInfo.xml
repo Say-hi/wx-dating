@@ -1,0 +1,20 @@
+<!--视屏-->
+<view class="video-area">
+  <video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>
+  <view wx:if="{{show}}" class="video-cover-wrap">
+    <image class="video-cover" src="{{videoCover}}"></image>
+    <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
+  </view>
+</view>
+        <!--用户信息-->
+<view class="user-info">
+<!--头像-->
+<image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
+<!--昵称-->
+<view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
+<!--身高相关信息-->
+<view class="user-info-detail">
+  <text class="user-detail" wx:for="{{ userDetail }}">{{item}}</text>
+</view>
+<button class="follow-btn">+关注</button>
+</view>
