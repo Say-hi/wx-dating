@@ -49,7 +49,14 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    i: 0
+    i: 0,
+    show: true
+  },
+  scroll () {
+    if (!this.data.show) return
+    this.setData({
+      show: false
+    })
   },
   // swiper 切换月份
   swiperChange (e) {

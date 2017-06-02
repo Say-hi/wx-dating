@@ -1,4 +1,12 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<view class="calendar">
-  index
+<view class="map">
+  <input bindinput="getSuggestion" placholder="输入搜索内容"/>
+  <view class="show-search">
+    <block>
+
+    </block>
+  </view>
+  <view catchtap="reverseGeocoder">逆地址解析</view>
+  <input bindinput="geocoder" placholder="输入内容"/>
+  <view catchtap="calculateDistance">distacnce</view>
+  <view catchtap="getCityList">citys</view>
 </view>

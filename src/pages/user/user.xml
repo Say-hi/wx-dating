@@ -1,4 +1,6 @@
+<import src="../template/template"></import>
 <!--视屏-->
+<!--<template is="video" data=""></template>-->
 <view class="video-area">
   <video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>
   <view wx:if="{{show}}" class="video-cover-wrap">
@@ -11,24 +13,25 @@
   <!--头像-->
   <image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
   <view class="user-nick-name-wrap">
-    <view class="order iconfont icon-301">订单</view>
+    <view class="order iconfont icon-dingdan">订单</view>
     <!--昵称-->
     <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
-    <view class="message iconfont icon-iconfontmark">消息</view>
+    <view class="message iconfont icon-xiaoxi">消息</view>
   </view>
   <!--相册-->
-  <navigator url="../photo/photo" class="photo">
-    <view class="photo-top iconfont arrow">我的相册</view>
-    <view class="photo-show">
-      <block wx:for="{{ userPhoto }}" wx:for-item="photo">
-        <image src="{{ photo }}"></image>
-      </block>
-    </view>
-  </navigator>
+  <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
+  <!--<navigator url="../photo/photo" class="photo">-->
+    <!--<view class="photo-top iconfont arrow">我的相册</view>-->
+    <!--<view class="photo-show">-->
+      <!--<block wx:for="{{ userPhoto }}" wx:for-item="photo">-->
+        <!--<image src="{{ photo }}"></image>-->
+      <!--</block>-->
+    <!--</view>-->
+  <!--</navigator>-->
   <!--用户操作-->
   <view class="operation">
     <block wx:for="{{ opertaion }}" wx:for-item="op">
-      <navigator class="op arrow iconfont {{ op.ico }}">{{op.title}}</navigator>
+      <navigator url="../WeChat/WeChat" class="op arrow iconfont {{ op.ico }}">{{op.title}}</navigator>
     </block>
   </view>
 </view>

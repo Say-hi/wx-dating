@@ -18,7 +18,66 @@ Page({
     playStatus: false,
     objectFit: 'Fill',
     // 用户信息
-    userDetail: ['单身', '20-28岁', '188cm', '广告行业']
+    userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
+    // 按钮文字
+    btnText: '+关注',
+    disabled: false,
+    // invite
+    invite: [
+      {
+        time: '2017-06-01',
+        address: '体育西路',
+        id: 'inv-123'
+      },
+      {
+        time: '2017-06-01',
+        address: '体育西路',
+        id: 'inv-123'
+      }
+    ],
+    // 相册
+    userPhotos: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    open_types: 'navigate',
+    // 评价
+    estimate: [
+      {
+        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        name: '李四',
+        gender: 2,
+        text: '我是李四'
+      },
+      {
+        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        name: '李四2',
+        gender: 2,
+        text: '李四222'
+      },
+      {
+        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        name: '李四3',
+        gender: 1,
+        text: '李四333'
+      },
+      {
+        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        name: '李四444',
+        gender: 1,
+        text: '李四444'
+      }
+    ]
+  },
+  // 关注
+  follow (e) {
+    console.log(e)
+    this.setData({
+      btnText: '已关注',
+      disabled: true
+    })
   },
   // 播放视屏
   playVideo () {
@@ -28,6 +87,7 @@ Page({
       playStatus: true
     })
   },
+  // 视屏结束
   playFinish () {
     this.setData({
       autoplay: false,
@@ -43,14 +103,13 @@ Page({
     let that = this
     wx.getUserInfo({
       success (res) {
-        console.log(res)
+        // console.log(res)
         that.setData({
           userInfo: res.userInfo
         })
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

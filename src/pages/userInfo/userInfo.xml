@@ -1,3 +1,4 @@
+<import src="../template/template"></import>
 <!--视屏-->
 <view class="video-area">
   <video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>
@@ -6,15 +7,46 @@
     <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
   </view>
 </view>
-        <!--用户信息-->
+<!--用户信息-->
 <view class="user-info">
-<!--头像-->
-<image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
-<!--昵称-->
-<view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
-<!--身高相关信息-->
-<view class="user-info-detail">
-  <text class="user-detail" wx:for="{{ userDetail }}">{{item}}</text>
+  <!--头像-->
+  <image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
+  <!--昵称-->
+  <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
+  <!--身高相关信息-->
+  <view class="user-info-detail">
+    <text class="user-detail" wx:for="{{ userDetail }}">{{item}}</text>
+  </view>
+  <button disabled="{{disabled}}" data-id="{{ user.id }}" catchtap="follow" class="follow-btn">{{ btnText }}</button>
 </view>
-<button class="follow-btn">+关注</button>
+<!--个人邀请信息-->
+<view class="invite">
+  <block wx:for-item="inv" wx:for="{{ invite }}">
+    <view class="inv-wrap">
+      <view class="inv-text">{{ inv.time }} {{ inv.address }}发布一个邀请</view>
+      <view class="slider iconfont icon-xin">应邀</view>
+    </view>
+  </block>
+</view>
+<!--相册-->
+<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
+<!--评价-->
+<view class="estimate">
+  <view class="es-title iconfont icon-pingjia">
+    Ta收到的评价
+  </view>
+  <block wx:for="{{estimate}}" wx:for-item="es">
+    <view class="es-wrap">
+      <image src="{{ es.src }}"></image>
+      <view class="es-es">
+        <view class="es-name iconfont {{ es.gender == 1 ? 'icon-nan' : 'icon-nv' }}">{{ es.name }}</view>
+        <view class="es-text">{{ es.text }}</view>
+      </view>
+    </view>
+  </block>
+</view>
+<!--显示更多-->
+<view class="show-more">
+  <view class="xsgd">显示更多</view>
+  <view class="xsgd-d"></view>
 </view>

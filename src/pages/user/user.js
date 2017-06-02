@@ -18,33 +18,34 @@ Page({
     playStatus: false,
     objectFit: 'fill',
     // 相册
-    userPhoto: [
+    userPhotos: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
+    open_types: 'navigate',
     // 用户操作
     opertaion: [
       {
         title: 'TA的档案',
-        ico: ''
+        ico: 'icon-dangan'
       },
       {
         title: '账户余额',
-        ico: ''
+        ico: 'icon-yue'
       },
       {
         title: '问卷调查',
-        ico: ''
+        ico: 'icon-wenjuan'
       },
       {
         title: 'FAQ',
-        ico: ''
+        ico: 'icon-FAQ'
       },
       {
         title: '反馈',
-        ico: ''
+        ico: 'icon-fankui'
       }
     ]
   },

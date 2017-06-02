@@ -1,4 +1,6 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<view class="container">
-  <text class="title">{{ title }}</text>
+<view class="photo">
+  <block wx:for="{{ userPhotos }}" wx:for-item="up" wx:key="unique">
+    <image src="{{ up }}"></image>
+  </block>
 </view>

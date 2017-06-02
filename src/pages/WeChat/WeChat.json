@@ -12,7 +12,7 @@
   "navigationBarTitleText": "WeChat",
   // 类型：HexColor；默认值：#ffffff
   // 窗口的背景色
-  "backgroundColor": "#ccc",
+  "backgroundColor": "#ffffff",
   // 类型：String；默认值：dark
   // 下拉背景字体、loading 图的样式，仅支持 dark/light
   "backgroundTextStyle": "light",

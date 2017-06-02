@@ -1,0 +1,33 @@
+//相册
+.photo {
+  //height: 100rpx;
+  //padding: 0 20rpx;
+  line-height: 80rpx;
+  //background-color: #f00;
+  @image: 170rpx;
+  .photo-top {
+    border-bottom: 2rpx solid #eee;
+    padding-left: 70rpx;
+  }
+  .photo-top::before {
+    font-size: 70rpx;
+    position: absolute;
+    top: 50%;
+    transform: translate(-70rpx,-50%);
+  }
+  .photo-show {
+    height: @image;
+    //background-color: #f00;
+    padding: 20rpx;
+    display: flex;
+    border-bottom: 10rpx solid #eee;
+    image {
+      height: @image;
+      width: @image;
+      margin-right: 10rpx;
+    }
+    image:nth-child(4) {
+      margin: 0;
+    }
+  }
+}

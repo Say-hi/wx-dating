@@ -3,12 +3,12 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/index2/index2",
     "pages/user/user",
+    "pages/index2/index2",
+    "pages/userInfo/userInfo",
     "pages/demo/demo",
     "pages/index/index",
     "pages/WeChat/WeChat",
-    "pages/userInfo/userInfo",
     "pages/photo/photo"
     // Dont remove this comment
   ],
@@ -45,19 +45,19 @@
     "list": [
       {
         "text": "首页",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/index2/index2",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home_hl.png"
       },
       {
         "text": "关注",
-        "pagePath": "pages/demo/demo",
+        "pagePath": "pages/userInfo/userInfo",
         "iconPath": "images/follow.png",
         "selectedIconPath": "images/follow_hl.png"
       },
       {
         "text": "我",
-        "pagePath": "pages/index2/index2",
+        "pagePath": "pages/user/user",
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user_hl.png"
       }

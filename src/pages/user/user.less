@@ -1,3 +1,4 @@
+@import "../template/template.less";
 // 视屏区域样式
 .video-area {
   width: 100%;
@@ -76,40 +77,26 @@
       text-align: center;
     }
   }
-  //相册
-  .photo {
-    //height: 100rpx;
-    //padding: 0 20rpx;
-    line-height: 80rpx;
-    //background-color: #f00;
-    @image: 170rpx;
-    .photo-top {
-      border-bottom: 2rpx solid #eee;
-    }
-    .photo-show {
-      height: @image;
-      //background-color: #f00;
-      padding: 20rpx;
-      display: flex;
-      border-bottom: 10rpx solid #eee;
-      image {
-        height: @image;
-        width: @image;
-        margin-right: 10rpx;
-      }
-      image:nth-child(4) {
-        margin: 0;
-      }
-    }
-  }
   //用户操作
   .operation {
     border-bottom: 30rpx solid #eee;
     .op {
+      font-size: 24rpx;
       line-height: 80rpx;
       //background-color: #f00;
       margin-left: 70rpx;
       border-bottom: 1rpx solid #eee;
+      position: relative;
+    }
+    .op:nth-last-child(1) {
+      border: none;
+    }
+    .op::before {
+      position: absolute;
+      font-size: 80rpx;
+      top: 50%;
+      color: #dbdbdb;
+      transform: translate(-74rpx,-50%);
     }
   }
 }

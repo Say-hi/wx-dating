@@ -2,7 +2,7 @@
   <!--日历顶部导航-->
   <view class="calendar-navbar">
     <!--约会日图标-->
-    <image src="../../images/icon_component.png"></image>
+    <image src="../../images/follow_hl.png"></image>
     <!--当前日期信息-->
     <view class="current-day-info">
       <view class="current-day-info-top">
@@ -22,7 +22,7 @@
     <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
   </view>
   <!--日历主体-->
-  <scroll-view scroll-y style="height: 300px;">
+  <scroll-view bindscroll="scroll" scroll-y style="height: 290px;">
     <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique" wx:for-index="i">
         <!--日历主体-->
         <view class="calendar-body-wrap">
@@ -59,6 +59,8 @@
         </view>
     </block>
   </scroll-view>
+  <!--遮罩层-->
+  <view wx:if="{{ show }}" class="mask"></view>
   <!--底部标题-->
   <view class="schedule"></view>
   <view class="show-bottom">

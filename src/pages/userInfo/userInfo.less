@@ -1,3 +1,4 @@
+@import "../template/template.less";
 // 视屏区域样式
 .video-area {
   width: 100%;
@@ -32,6 +33,8 @@
 // 个人信息样式
 .user-info {
   position: relative;
+  padding-bottom: 20rpx;
+  border-bottom: 10rpx solid #eee;
   .user-avatar-url{
     position: absolute;
     left: 50%;
@@ -77,4 +80,119 @@
   .follow-btn::after {
     border-color: #FCC0A4;
   }
+}
+// 个人邀请信息
+.invite {
+  border-bottom: 10rpx solid #eee;
+  .inv-wrap {
+    display: flex;
+    align-items: center;
+    //justify-items: center ;
+    border-bottom: 1rpx solid #eee;
+    padding: 0 40rpx;
+    color: #999;
+    line-height: 70rpx;
+    .inv-text {
+      font-size: 26rpx;
+      width: 520rpx;
+      color: #555;
+    }
+    .slider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 60%;
+      transform: translate(-30rpx, -50%);
+      width: 2rpx;
+      background-color: #eee;
+    }
+    .icon-xin {
+      position: relative;
+      margin-left: 30rpx;
+      color: #FCC0A4;
+    }
+    .icon-xin::before {
+      display: inline-block;
+      transform: translateX(-10rpx);
+    }
+  }
+}
+// 评价
+.estimate {
+  border-bottom: 20rpx solid #EEE;
+  .es-title {
+    border-bottom: 1rpx solid #EEE;
+    line-height: 60rpx;
+    font-size: 26rpx;
+    padding: 0 10rpx;
+    color: #999;
+    position: relative;
+    padding-left: 52rpx;
+  }
+  .icon-pingjia::before {
+    font-size: 60rpx;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50rpx,-50%);
+  }
+  .es-wrap {
+    margin: 20rpx;
+    display: flex;
+    border-bottom: 1rpx solid #eee;
+    padding-bottom: 20rpx;
+    @length: 100rpx;
+    image {
+      width: @length;
+      height: @length;
+      border-radius: 50%;
+    }
+    .es-es {
+      flex: 1;
+      margin-left: 10rpx;
+      font-size: 26rpx;
+      line-height: 40rpx;
+    }
+  }
+}
+//显示更多
+.show-more {
+  text-align: center;
+  background-color: #eee;
+  height: 200rpx;
+  position: relative;
+  .xsgd, .xsgd-d {
+    position: absolute;
+    left: 50%;
+    top: 20rpx;
+    line-height: 80rpx;
+    transform: translate(-50%, 0);
+    background-color: #fff;
+    width: 90%;
+    box-shadow: 2rpx 2rpx 5rpx #999;
+    z-index: 99;
+  }
+  .xsgd-d {
+    z-index: 88;
+  }
+  .xsgd-d::after, .xsgd-d::before {
+    box-shadow: 2rpx 2rpx 5rpx #999;
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    height: 40rpx;
+  }
+  .xsgd-d::after {
+    top: 70rpx;
+    background-color: #fff;
+    width: 90%;
+    z-index: 22;
+  }
+  .xsgd-d::before {
+     z-index: 10;
+     top: 100rpx;
+     background-color: #fff;
+     width: 80%;
+   }
 }

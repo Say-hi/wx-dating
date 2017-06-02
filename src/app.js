@@ -6,6 +6,8 @@
  */
 // const wechat = require('./utils/wechat')
 // const Promise = require('./utils/bluebird')
+/*eslint-disable*/
+const useUrl = require('./utils/service')
 
 App({
   /**
@@ -1130,9 +1132,6 @@ App({
     /*eslint-enable*/
   },
 
-  // 不是只能定义`data`，别的也可以
-  other: 'other variables',
-
   /**
    * 获取用户信息
    * @return {Promise} 包含获取用户信息的`Promise`
@@ -1148,7 +1147,6 @@ App({
   //       .catch(error => console.error('failed to get user info, error: ' + error))
   //   })
   // },
-
   /**
    * 生命周期函数--监听小程序初始化
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
