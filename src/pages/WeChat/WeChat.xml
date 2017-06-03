@@ -6,7 +6,11 @@
     </block>
   </view>
   <view catchtap="reverseGeocoder">逆地址解析</view>
-  <input bindinput="geocoder" placholder="输入内容"/>
+  <input bindinput="geocoder" placeholder="输入内容"/>
   <view catchtap="calculateDistance">distacnce</view>
   <view catchtap="getCityList">citys</view>
+  <input placeholder="input city id to search" bindinput="getCityById" type="number"/>
+  <view catchtap="wxSetting">setting</view>
 </view>
+
+

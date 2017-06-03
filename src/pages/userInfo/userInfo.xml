@@ -15,13 +15,13 @@
   <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
-    <text class="user-detail" wx:for="{{ userDetail }}">{{item}}</text>
+    <text class="user-detail" wx:for="{{ userDetail }}" wx:key="unique">{{item}}</text>
   </view>
   <button disabled="{{disabled}}" data-id="{{ user.id }}" catchtap="follow" class="follow-btn">{{ btnText }}</button>
 </view>
 <!--个人邀请信息-->
 <view class="invite">
-  <block wx:for-item="inv" wx:for="{{ invite }}">
+  <block wx:for-item="inv" wx:for="{{ invite }}" wx:key="unique">
     <view class="inv-wrap">
       <view class="inv-text">{{ inv.time }} {{ inv.address }}发布一个邀请</view>
       <view class="slider iconfont icon-xin">应邀</view>
@@ -35,7 +35,7 @@
   <view class="es-title iconfont icon-pingjia">
     Ta收到的评价
   </view>
-  <block wx:for="{{estimate}}" wx:for-item="es">
+  <block wx:for="{{estimate}}" wx:for-item="es" wx:key="unique">
     <view class="es-wrap">
       <image src="{{ es.src }}"></image>
       <view class="es-es">
@@ -46,7 +46,7 @@
   </block>
 </view>
 <!--显示更多-->
-<view class="show-more">
+<view class="show-more" bindtap="showMore">
   <view class="xsgd">显示更多</view>
   <view class="xsgd-d"></view>
 </view>

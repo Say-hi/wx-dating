@@ -62,14 +62,25 @@ Page({
         name: '李四3',
         gender: 1,
         text: '李四333'
-      },
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-        name: '李四444',
-        gender: 1,
-        text: '李四444'
       }
     ]
+  },
+  // 显示更多
+  showMore () {
+    let name = '李四' + Math.floor(Math.random() * 10)
+    let obj = {
+      src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+      name: name,
+      gender: 1,
+      text: '李四444'
+    }
+    this.data.estimate.push(obj)
+    this.data.estimate.push(obj)
+    this.data.estimate.push(obj)
+    let newestimate = this.data.estimate
+    this.setData({
+      estimate: newestimate
+    })
   },
   // 关注
   follow (e) {

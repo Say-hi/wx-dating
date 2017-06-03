@@ -52,6 +52,7 @@ Page({
     i: 0,
     show: true
   },
+  // 滚动去除遮罩
   scroll () {
     if (!this.data.show) return
     this.setData({
@@ -145,11 +146,6 @@ Page({
       }
     }
     return pageData
-    // refreshDetailData(pageData, offset + day - 1);
-    // this.setData({
-    //   dateData: pageData.dateData,
-    //   detailData: pageData.detailData
-    // })
   },
   // 选择日期
   selectDay (e) {
@@ -196,6 +192,8 @@ Page({
     this.setData({
       dateArr: dateArr
     })
+    // 用户登陆
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

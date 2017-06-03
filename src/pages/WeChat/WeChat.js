@@ -1,5 +1,5 @@
 // 获取全局应用程序实例对象
-const app = getApp()
+// const app = getApp()
 const QQMapWX = require('../../utils/qmapsdk')
 const qqmapsdkkey = '2D3BZ-2I7WU-F22VV-43SMX-W6Z5K-PDFYQ'
 let qqmapsdk
@@ -90,16 +90,48 @@ Page({
     }
     qqmapsdk.getCityList(obj)
   },
+  // 通过id获取城市信息
+  getCityById (e) {
+    let obj = {
+      id: e.detail.value,
+      success (res) {
+        console.log(res)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    }
+    qqmapsdk.getDistrictByCityId(obj)
+  },
+  // 微信设置
+  wxSetting () {
+    wx.openSetting({
+      success (res) {
+        console.log(res)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
-    this.setData({
-      userInfo: app.data.userInfo
-    })
     qqmapsdk = new QQMapWX({
       key: qqmapsdkkey
     })
+    // 重新授权
+    let obj = {
+      scope: 'scope.userInfo',
+      success (res) {
+        console.log(res)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    }
+    wx.authorize(obj)
   },
 
   /**

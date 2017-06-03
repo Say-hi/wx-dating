@@ -11,11 +11,11 @@
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
+  <image catchtap="getUserInfo" class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl || '../../images/home.png'}}"></image>
   <view class="user-nick-name-wrap">
     <view class="order iconfont icon-dingdan">订单</view>
     <!--昵称-->
-    <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
+    <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName || '请登录'}}</view>
     <view class="message iconfont icon-xiaoxi">消息</view>
   </view>
   <!--相册-->
@@ -30,7 +30,7 @@
   <!--</navigator>-->
   <!--用户操作-->
   <view class="operation">
-    <block wx:for="{{ opertaion }}" wx:for-item="op">
+    <block wx:for="{{ opertaion }}" wx:for-item="op" wx:key="unique">
       <navigator url="../WeChat/WeChat" class="op arrow iconfont {{ op.ico }}">{{op.title}}</navigator>
     </block>
   </view>

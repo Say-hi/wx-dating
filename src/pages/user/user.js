@@ -1,5 +1,5 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -49,6 +49,26 @@ Page({
       }
     ]
   },
+  // 重新拉起授权
+  getUserInfo () {
+    if (this.data.userInfo) return
+    let that = this
+    wx.openSetting({
+      success (res) {
+        // console.log(res)
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success (data) {
+              console.log(data)
+              that.setData({
+                userInfo: data.userInfo
+              })
+            }
+          })
+        }
+      }
+    })
+  },
   // 播放视屏
   playVideo () {
     this.setData({
@@ -69,15 +89,16 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
-    let that = this
-    wx.getUserInfo({
-      success (res) {
-        // console.log(res)
-        that.setData({
-          userInfo: res.userInfo
-        })
-      }
-    })
+    // let that = this
+    // wx.getUserInfo({
+    //   success (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       userInfo: res.userInfo
+    //     })
+    //   }
+    // })
+    // app.login()
   },
 
   /**

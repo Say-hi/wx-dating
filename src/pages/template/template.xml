@@ -3,7 +3,7 @@
     <navigator open-type="{{ open_type }}" url="../photo/photo" class="photo">
         <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
         <view class="photo-show">
-            <block wx:for="{{ userPhoto }}" wx:for-item="photo">
+            <block wx:for="{{ userPhoto }}" wx:for-item="photo" wx:key="unique">
                 <image src="{{ photo }}"></image>
             </block>
         </view>
