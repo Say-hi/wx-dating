@@ -11,6 +11,35 @@
   <view catchtap="getCityList">citys</view>
   <input placeholder="input city id to search" bindinput="getCityById" type="number"/>
   <view catchtap="wxSetting">setting</view>
+  <navigator open-type="switchTab" url="../user/user">gouser</navigator>
+  <view catchtap="showcitys">城市列表</view>
+
+  <!--城市联动-->
+  <view class="citys">
+    <view>
+      <block wx:for="{{ cityslist }}" wx:for-item="city">
+        <view class="city-one {{ current == city ? 'current' : '' }}" catchtap="showcitydetail" data-city="{{city}}">{{ city }}</view>
+      </block>
+    </view>
+    <scroll-view scroll-y style="height: 400rpx; width: 500rpx"  >
+      <block wx:for="{{ citydetail }}" wx:for-item="area">
+        <view catchtap="choosearea" class="city-two"  data-area="{{area}}">{{ area }}</view>
+      </block>
+    </scroll-view>
+  </view>
+  <!--video-->
+  <view class="video-warp">
+    <view class="video-warp-area">
+      <view class="video-volum">
+        <slider value="{{ volumValue }}"></slider>
+      </view>
+      <video enable-full-screen="{{ videoFull }}"  controls="{{controls}}" autoplay="{{ autoplay }}" objectFit="fill" class="video-show" src="{{videoSrc}}"></video>
+      <view class="video-control">
+        <slider value="{{ controlValue }}"></slider>
+      </view>
+      <view catchtap="fullscreen">click full screen</view>
+    </view>
+  </view>
 </view>
 
 

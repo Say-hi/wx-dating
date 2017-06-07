@@ -3,13 +3,13 @@
 {
   // 类型：HexColor；默认值：#000000
   // 导航栏背景颜色，如"#000000"
-  "navigationBarBackgroundColor": "#333",
+  "navigationBarBackgroundColor": "#ffffff",
   // 类型：String；默认值：white
   // 导航栏标题颜色，仅支持 black/white
-  "navigationBarTextStyle": "white",
+  "navigationBarTextStyle": "black",
   // 类型：String；默认值：无
   // 导航栏标题文字内容
-  "navigationBarTitleText": "WeChat",
+  "navigationBarTitleText": "个人资料",
   // 类型：HexColor；默认值：#ffffff
   // 窗口的背景色
   "backgroundColor": "#ffffff",

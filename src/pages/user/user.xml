@@ -20,14 +20,7 @@
   </view>
   <!--相册-->
   <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
-  <!--<navigator url="../photo/photo" class="photo">-->
-    <!--<view class="photo-top iconfont arrow">我的相册</view>-->
-    <!--<view class="photo-show">-->
-      <!--<block wx:for="{{ userPhoto }}" wx:for-item="photo">-->
-        <!--<image src="{{ photo }}"></image>-->
-      <!--</block>-->
-    <!--</view>-->
-  <!--</navigator>-->
+  <!--<view>123</view>-->
   <!--用户操作-->
   <view class="operation">
     <block wx:for="{{ opertaion }}" wx:for-item="op" wx:key="unique">

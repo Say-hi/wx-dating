@@ -6,6 +6,7 @@
             <block wx:for="{{ userPhoto }}" wx:for-item="photo" wx:key="unique">
                 <image src="{{ photo }}"></image>
             </block>
+            <view class="camera" wx:if="{{ userPhoto.length <= 3 }}"><image src="../../images/camera.png"></image></view>
         </view>
     </navigator>
 </template>

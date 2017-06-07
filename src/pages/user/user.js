@@ -1,5 +1,5 @@
 // 获取全局应用程序实例对象
-const app = getApp()
+// const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -12,7 +12,7 @@ Page({
     videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
     videoCover: '../../images/video_cover.jpg',
     videoPlay: '../../images/play.png',
-    videoControls: false,
+    videoControls: true,
     autoplay: false,
     show: true,
     playStatus: false,
@@ -21,8 +21,8 @@ Page({
     userPhotos: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      // 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg'
     ],
     open_types: 'navigate',
     // 用户操作
@@ -55,7 +55,6 @@ Page({
     let that = this
     wx.openSetting({
       success (res) {
-        // console.log(res)
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success (data) {
@@ -89,15 +88,6 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
-    // let that = this
-    // wx.getUserInfo({
-    //   success (res) {
-    //     console.log(res)
-    //     that.setData({
-    //       userInfo: res.userInfo
-    //     })
-    //   }
-    // })
     // app.login()
   },
 

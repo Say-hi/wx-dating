@@ -1,0 +1,26 @@
+<!--新用户首次登陆-->
+<view class="new">
+  <!--上传图片区域-->
+  <view class="up-photo">
+    <view class="photo-wrap" wx:for="{{ photos }}">
+      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item }}"></image>
+      <view catchtap="delphoto" data-index="{{index}}" class="del">×</view>
+    </view>
+    <image wx:if="{{photos.length < 9}}" catchtap="upPhoto" class="img" src="../../images/userUpPhoto.png"></image>
+  </view>
+  <view class="basic-data">基本资料</view>
+  <!--昵称-->
+  <view class="text-wrap">
+    <view class="name-l">昵称:</view>
+    <input class="name-r" placeholder='输入您的昵称'/>
+  </view>
+  <!--性别-->
+  <view class="text-wrap">
+    <view class="name-l">昵称:</view>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{gender}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+      </label>
+    </radio-group>
+  </view>
+</view>

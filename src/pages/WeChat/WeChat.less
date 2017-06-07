@@ -1,3 +1,33 @@
 input {
   border: 1rpx solid #eee;
 }
+//city
+.citys {
+  display: flex;
+  .city-one, .city-two {
+    border: 1rpx solid #eee;
+    margin-top: -1rpx;
+    line-height: 70rpx;
+  }
+  .current {
+    background-color: #eee;
+  }
+}
+//video
+.video-warp {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.3);
+  width: 100%;
+  height: 100%;
+  .video-warp-area {
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    width: 100%;
+    .video-show {
+      width: 100%;
+    }
+  }
+}

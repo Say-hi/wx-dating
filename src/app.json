@@ -3,12 +3,13 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
+    "pages/newuser/newuser",
     "pages/index2/index2",
+    "pages/WeChat/WeChat",
     "pages/user/user",
     "pages/userInfo/userInfo",
     "pages/demo/demo",
     "pages/index/index",
-    "pages/WeChat/WeChat",
     "pages/photo/photo"
     // Dont remove this comment
   ],

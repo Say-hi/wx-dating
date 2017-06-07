@@ -2,6 +2,7 @@
 // const app = getApp()
 const QQMapWX = require('../../utils/qmapsdk')
 const qqmapsdkkey = '2D3BZ-2I7WU-F22VV-43SMX-W6Z5K-PDFYQ'
+const citys = require('../../utils/citys')
 let qqmapsdk
 // 创建页面实例对象
 Page({
@@ -9,7 +10,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'WeChat'
+    title: 'WeChat',
+    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+    videoFull: false,
+    autoplay: true,
+    controls: false
+  },
+  fullscreen () {
+    wx.onVideoClickFullScreen()
+  },
+  smallscreen () {
+    wx.onVideoClickdanmu()
   },
   // 搜索
   search (obj) {
@@ -103,6 +114,7 @@ Page({
     }
     qqmapsdk.getDistrictByCityId(obj)
   },
+
   // 微信设置
   wxSetting () {
     wx.openSetting({
@@ -114,6 +126,61 @@ Page({
       }
     })
   },
+
+  // 城市列表
+  showcitys () {
+    if (this.data.status) {
+      return this.setData({
+        cityslist: [],
+        citydetail: [],
+        status: false
+      })
+    }
+    let cityslist = []
+    for (let i in citys) {
+      cityslist.push(i)
+    }
+    this.setData({
+      cityslist: cityslist,
+      status: true,
+      current: cityslist[0]
+    })
+    this.showcitydetail()
+  },
+  // 二级列表
+  showcitydetail (e) {
+    let flag
+    if (!e) {
+      flag = '上海'
+    } else {
+      flag = e.currentTarget.dataset.city
+    }
+    // console.log(flag)
+    let citydetail = citys[flag]
+    this.setData({
+      citydetail: citydetail,
+      current: flag
+    })
+  },
+  // 选择区域
+  choosearea (e) {
+    this.setData({
+      cityslist: [],
+      citydetail: [],
+      status: false,
+      current: null
+    })
+    let area = e.currentTarget.dataset.area
+    console.log(area)
+    wx.showModal({
+      title: '您选择的城市',
+      content: area,
+      showCancel: false
+    })
+  },
+
+  // 视屏设置
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -178,7 +245,7 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh;
-    console.info(123)
+    // console.info(123)
   },
 
   backIndex () {
