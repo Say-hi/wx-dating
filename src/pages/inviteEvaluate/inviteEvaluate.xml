@@ -1,0 +1,23 @@
+<!--邀请评价好友页面-->
+<view class="invite-evaluate">
+  <view class="title">以下好友邀请你给TA评价</view>
+  <!--好友信息-->
+  <view class="info">
+    <view class="top-height"></view>
+    <!--用户信息-->
+    <view class="user-info">
+      <!--头像-->
+      <image class="user-avatar-url" src="{{friendInfo.src}}"></image>
+      <!--昵称-->
+      <view class="user-nick-name iconfont {{friendInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{friendInfo.name}}</view>
+      <!--身高相关信息-->
+      <view class="user-info-detail">
+        <text class="user-detail" wx:for="{{ friendInfo.detail }}" wx:key="unique">{{item}}</text>
+      </view>
+    </view>
+    <view class="textarea-out">
+      <textarea bindinput="textInput" placeholder-class="cccc" class="evaluate-text" placeholder="请写下您对Ta的评论"></textarea>
+    </view>
+  </view>
+  <view catchtap="send" class="send">发送</view>
+</view>

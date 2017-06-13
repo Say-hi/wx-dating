@@ -1,5 +1,5 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -9,18 +9,94 @@ Page({
   data: {
     title: 'newuser',
     photos: [],
-    gender: [
+    // 性别
+    genderCur: 0,
+    genderChoose: [
       {
-        name: 1,
+        flag: 1,
         value: '男',
-        checked: 'true'
+        ico: 'icon-nanxing'
       },
       {
         name: 2,
         value: '女',
-        checked: 'true'
+        ico: 'icon-nvxing'
       }
-    ]
+    ],
+    // 婚姻
+    marryCur: 0,
+    marryChoose: [
+      {
+        flag: 1,
+        value: '单身',
+        ico: 'icon-nanxing'
+      },
+      {
+        name: 2,
+        value: '非单身',
+        ico: 'icon-nvxing'
+      }
+    ],
+    // 年龄
+    ageIndex: 0,
+    // 行业
+    two: 0,
+    industryIndex: 0,
+    value: [0, 0],
+    // 车房状况
+    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
+    houseIndex: 0,
+    show: true,
+    industryShow: false
+  },
+  // 行业遮罩
+  chooseIndustry () {
+    this.setData({
+      industryShow: true
+    })
+  },
+  // 去除遮罩
+  noMask () {
+    this.setData({
+      industryShow: false
+    })
+  },
+  // 行业选择
+  bindChange (e) {
+    var tempValue = []
+    if (e.detail.value[0] === this.data.value[0]) {
+      tempValue = e.detail.value
+    } else {
+      tempValue = [e.detail.value[0], 0]
+    }
+    this.setData({
+      two: e.detail.value[0],
+      value: tempValue
+    })
+  },
+  // 去除遮罩层
+  delMask () {
+    this.setData({
+      show: false
+    })
+  },
+  // picker选择器
+  bindPickerChange: function (e) {
+    let type = e.currentTarget.dataset.type
+    let value = e.detail.value
+    if (type === 'age') {
+      this.setData({
+        ageIndex: value
+      })
+    } else if (type === 'industry') {
+      this.setData({
+        industryIndex: value
+      })
+    } else if (type === 'house') {
+      this.setData({
+        houseIndex: value
+      })
+    }
   },
   // 用户上传图片
   upPhoto () {
@@ -71,11 +147,34 @@ Page({
       photos: photos
     })
   },
+  // 单项选择
+  chooseChange (e) {
+    let type = e.currentTarget.dataset.type
+    let index = e.currentTarget.dataset.index
+    let that = this
+    if (type === 'gender') {
+      that.setData({
+        genderCur: index
+      })
+    } else if (type === 'marry') {
+      that.setData({
+        marryCur: index
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
     // TODO: onLoad
+    app.data.ageArr.splice(0, 1, '请选择您的年龄区间')
+    app.data.industryOne.splice(0, 1, '请选择您所在的行业')
+    app.data.industryTwo.splice(0, 1, ['请选择您所在的行业'])
+    this.setData({
+      ageArr: app.data.ageArr,
+      industryOne: app.data.industryOne,
+      industryTwo: app.data.industryTwo
+    })
   },
 
   /**

@@ -1,0 +1,38 @@
+<!--套餐详情-->
+<import src="../../wxParse/wxParse"></import>
+<swiper style="height: {{ height }};" indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#ffc4a6" circular="{{ circular }}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <!--<image  src="{{item}}" class="slide-image" width="355" height="150"/>-->
+      <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<!--中间内容区域-->
+<view class="center">
+  <!--套餐标题-->
+  <view class="title">{{ title }}</view>
+  <view class="title-bottom"><text class="address">{{ address }}</text><text class="price">￥{{price}}/位</text></view>
+  <!--商店信息介绍-->
+  <view class="shopInfo">
+    <template is="WxParse" data=""></template>
+  </view>
+  <view class="shop-title">{{ shopTitle }}</view>
+  <view class="shop-time iconfont icon-riqi">{{ shopTime }}</view>
+  <view class="shop-address arrow iconfont icon-dizhi">{{ shopAddress }}</view>
+  <!--菜单-->
+  <view class="menu">菜单</view>
+  <view class="menu-content">
+    <template is="WxParse" data=""></template>
+  </view>
+  <view class="tips">温馨提示:</view>
+  <view class="tips-content">
+    <template is="WxParse" data=""></template>
+  </view>
+</view>
+<!--底部-->
+<view class="bottom">
+  <view catchtap="forOtherPeople">替Ta发起</view>
+  <view>发起</view>
+  <view>应邀</view>
+</view>

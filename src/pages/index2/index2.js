@@ -50,7 +50,37 @@ Page({
     interval: 5000,
     duration: 1000,
     i: 0,
-    show: true
+    show: true,
+    friendshow: true,
+    userList: [
+      {
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '好友一号',
+        nickName: 'Jack Jhon',
+        gender: 1,
+        id: 123,
+        money: 123,
+        address: '珠江新城',
+        time: '18:30',
+        title: 'Kiss Bottle 全新手工制甜品餐'
+      },
+      {
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '好友二号',
+        nickName: 'Jack Jhon',
+        gender: 2,
+        id: 234,
+        money: 123,
+        address: '珠江新城',
+        time: '18:30',
+        title: 'Kiss Bottle 全新手工制甜品餐'
+      }
+    ]
+  },
+  delfriend () {
+    this.setData({
+      friendshow: false
+    })
   },
   // 滚动去除遮罩
   scroll () {
@@ -160,6 +190,7 @@ Page({
       date: that.data.detailData.date
     }
     this.setData({
+      friendshow: true,
       detailData: detailDate
     })
   },

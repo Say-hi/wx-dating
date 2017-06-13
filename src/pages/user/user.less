@@ -21,8 +21,8 @@
       height: 100%;
     }
     .video-play {
-      width: 150rpx;
-      height: 100rpx;
+      width: 152rpx;
+      height: 152rpx;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -98,5 +98,23 @@
       color: #dbdbdb;
       transform: translate(-74rpx,-50%);
     }
+  }
+}
+// 视屏弹窗显示
+.video-mask {
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.9);
+  .user-video-two {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 400rpx;
+    transform: translate(0, -50%);
   }
 }

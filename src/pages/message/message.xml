@@ -1,0 +1,19 @@
+<!--消息列表页面-->
+<view class="wrap">
+  <blcok wx:for="{{ message }}">
+    <view class="out">
+      <view class="left">
+        <image src="../../images/laba.png"></image>
+      </view>
+      <view class="center">
+        <view class="title">通知消息</view>
+        <view class="content">
+          {{ item.content }}
+        </view>
+      </view>
+      <view class="time">
+        {{ item.time }}
+      </view>
+    </view>
+  </blcok>
+</view>

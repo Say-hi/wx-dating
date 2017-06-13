@@ -1,0 +1,46 @@
+.wrap {
+  padding: 0 24rpx;
+  border-top: 1rpx solid #ccc;
+}
+.out {
+  display: flex;
+  height: 137rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+  position: relative;
+  .left {
+    width: 98rpx;
+    height: 98rpx;
+    background-color: #ffc4a6;
+    border-radius: 50%;
+    position: relative;
+    image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48rpx;
+      height: 48rpx;
+    }
+  }
+  .center {
+    margin-left: 33rpx;
+    flex: 1;
+    .title {
+      font-size: 30rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    .content {
+      font-size: 28rpx;
+      color: #666;
+    }
+  }
+  .time {
+    font-size: 26rpx;
+    color: #ccc;
+    position: absolute;
+    top: 19rpx;
+    right: 0;
+  }
+}

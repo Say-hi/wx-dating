@@ -21,7 +21,6 @@ Page({
     userPhotos: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      // 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg'
     ],
     open_types: 'navigate',
@@ -29,11 +28,13 @@ Page({
     opertaion: [
       {
         title: 'TA的档案',
-        ico: 'icon-dangan'
+        ico: 'icon-dangan',
+        url: '../taRecord/taRecord'
       },
       {
         title: '账户余额',
-        ico: 'icon-yue'
+        ico: 'icon-yue',
+        url: '../newuser/newuser'
       },
       {
         title: '问卷调查',
@@ -48,6 +49,11 @@ Page({
         ico: 'icon-fankui'
       }
     ]
+  },
+  videodel () {
+    this.setData({
+      show: true
+    })
   },
   // 重新拉起授权
   getUserInfo () {
@@ -76,6 +82,7 @@ Page({
       playStatus: true
     })
   },
+  // 视频播放结束
   playFinish () {
     this.setData({
       autoplay: false,
@@ -89,6 +96,9 @@ Page({
   onLoad () {
     // TODO: onLoad
     // app.login()
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    })
   },
 
   /**
@@ -124,5 +134,7 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+    wx.stopPullDownRefresh()
+    this.playVideo()
   }
 })

@@ -1,0 +1,15 @@
+<!--个人中心的ta的档案页面-->
+<view class="ta-record">
+  <view wx:if="{{ userList.length == 0 }}" class="no-record">创建一份Ta的档案</view>
+  <block wx:for="{{ userList }}">
+    <view class="wrap">
+      <image src="{{ item.src }}"></image>
+      <view class="name-wrap">
+        <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
+        <view>昵称:{{ item.nickName }}</view>
+      </view>
+      <view wx:if="{{ !choose }}" class="edit" catchtap="gotodetail" data-id="{{item.id}}">编辑资料</view>
+      <view wx:if="{{ choose }}" class="edit" catchtap="backChoose" data-id="{{item.id}}">选择Ta</view>
+    </view>
+  </block>
+</view>

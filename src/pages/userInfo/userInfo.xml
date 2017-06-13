@@ -1,8 +1,9 @@
+<!--个人资料展示页面-->
 <import src="../template/template"></import>
 <!--视屏-->
 <view class="video-area">
-  <video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>
-  <view wx:if="{{show}}" class="video-cover-wrap">
+  <!--<video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>-->
+  <view class="video-cover-wrap">
     <image class="video-cover" src="{{videoCover}}"></image>
     <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
   </view>
@@ -10,9 +11,9 @@
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image class="user-avatar-url {{playStatus ? 'no-show':''}}" src="{{userInfo.avatarUrl}}"></image>
+  <image class="user-avatar-url" src="{{userInfo.avatarUrl}}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nan':'icon-nv' }}">{{userInfo.nickName}}</view>
+  <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
     <text class="user-detail" wx:for="{{ userDetail }}" wx:key="unique">{{item}}</text>
@@ -24,7 +25,7 @@
   <block wx:for-item="inv" wx:for="{{ invite }}" wx:key="unique">
     <view class="inv-wrap">
       <view class="inv-text">{{ inv.time }} {{ inv.address }}发布一个邀请</view>
-      <view class="slider iconfont icon-xin">应邀</view>
+      <view class="slider invited"><text>应邀</text></view>
     </view>
   </block>
 </view>
@@ -46,7 +47,55 @@
   </block>
 </view>
 <!--显示更多-->
-<view class="show-more" bindtap="showMore">
+<view wx:if="{{ showMoreBtn }}" class="show-more" bindtap="showMore">
   <view class="xsgd">显示更多</view>
   <view class="xsgd-d"></view>
+</view>
+<!--Ta的深度资料-->
+<view wx:if="{{ showTaDeep }}" class="moreInfo">
+  <view class="moreInfo-title iconfont icon-shenduziliao">Ta的深度资料</view>
+  <!--资料显示-->
+  <view class="moreInfo-wrap">
+    <!--公司-->
+    <view class="text-wrap" >
+      <view class="name-l">公司:</view>
+      <!--picker-->
+      <view class="name-r company gender">
+        <input disabled="true" value="{{ userInfos.company }}"/>
+      </view>
+    </view>
+    <!--车房状况-->
+    <view class="text-wrap">
+      <view class="name-l">车房状况:</view>
+      <!--picker-->
+      <view class="name-r company gender">
+        <input disabled="true" value="{{ userInfos.house }}"/>
+      </view>
+    </view>
+    <!--运动-->
+    <view class="text-wrap">
+      <view class="name-l">最喜欢/最近做过的运动:</view>
+      <view class="name-r company gender">
+        <input disabled="true" value="{{ userInfos.sport }}" />
+      </view>
+    </view>
+    <!--电影-->
+    <view class="text-wrap">
+      <view class="name-l">最喜欢/最近看过的电影:</view>
+      <view class="name-r company gender">
+        <input disabled="true" value="{{ userInfos.movie }}"/>
+      </view>
+    </view>
+    <!--读书-->
+    <view class="text-wrap">
+      <view class="name-l">最喜欢/最近看过的书:</view>
+      <view class="name-r company gender">
+        <input disabled="true" value="{{ userInfos.book }}" />
+      </view>
+    </view>
+  </view>
+</view>
+<!--视频弹窗形式-->
+<view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
+  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
 </view>

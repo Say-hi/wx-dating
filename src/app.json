@@ -3,14 +3,19 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/newuser/newuser",
+    "pages/stranger/stranger",
     "pages/index2/index2",
-    "pages/WeChat/WeChat",
-    "pages/user/user",
     "pages/userInfo/userInfo",
-    "pages/demo/demo",
-    "pages/index/index",
-    "pages/photo/photo"
+    "pages/newuser/newuser",
+    "pages/user/user",
+    "pages/message/message",
+    "pages/inviteEvaluate/inviteEvaluate",
+    "pages/setMeal/setMeal",
+    "pages/photo/photo",
+    "pages/taRecordDetail/taRecordDetail",
+    "pages/invitedConfirm/invitedConfirm",
+    "pages/taRecord/taRecord",
+    "pages/follow/follow"
     // Dont remove this comment
   ],
   // Window configuration
@@ -52,7 +57,7 @@
       },
       {
         "text": "关注",
-        "pagePath": "pages/userInfo/userInfo",
+        "pagePath": "pages/photo/photo",
         "iconPath": "images/follow.png",
         "selectedIconPath": "images/follow_hl.png"
       },

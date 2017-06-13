@@ -1,31 +1,33 @@
+<!--无月份切换的滑动日历-->
 <view class="calendar-root">
-  <!--日历顶部导航-->
-  <view class="calendar-navbar">
-    <!--约会日图标-->
-    <image src="../../images/follow_hl.png"></image>
-    <!--当前日期信息-->
-    <view class="current-day-info">
-      <view class="current-day-info-top">
-        <!--<view class="cur-month-left" bindtap="goNextMonthAnimate"></view>-->
-        <view class="cur-Month" catchtap="goToday">
-          {{ dateArr[i].dateData.curMonth }}月
-        </view>
-        <!--<view class="cur-month-right" bindtap="goLastMonthAnimate"></view>-->
-      </view>
-      <view class="current-week" >
-        {{ dateArr[i].dateData.month }},<text class="current-week-year">{{ dateArr[i].dateData.curYear }}</text>
-      </view>
-    </view>
-  </view>
-  <!--日历头部-->
-  <view class="calendar-head">
-    <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
-  </view>
-  <!--日历主体-->
-  <scroll-view bindscroll="scroll" scroll-y style="height: 290px;">
+  <!--logo-->
+    <!--<image class='logo' src='../../images/follow_hl.png'></image>-->
+  <scroll-view class="calendar-out-wrap" bindscroll="scroll" scroll-y style="height: 840rpx;">
     <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique" wx:for-index="i">
+        <!--top-->
+        <view class="calendar-navbar">
+            <!--约会日图标-->
+            <image src="../../images/follow_hl.png"></image>
+            <!--当前日期信息-->
+            <view class="current-day-info">
+                <view class="current-day-info-top">
+                    <!--<view class="cur-month-left" bindtap="goNextMonthAnimate"></view>-->
+                    <view class="cur-Month" catchtap="goToday">
+                        {{ dateArr[i].dateData.curMonth }}月
+                    </view>
+                    <!--<view class="cur-month-right" bindtap="goLastMonthAnimate"></view>-->
+                </view>
+                <view class="current-week" >
+                    {{ dateArr[i].dateData.month }},<text class="current-week-year">{{ dateArr[i].dateData.curYear }}</text>
+                </view>
+            </view>
+        </view>
+        <!--week-->
+        <view class="calendar-head">
+            <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
+        </view>
         <!--日历主体-->
-        <view class="calendar-body-wrap">
+        <view class="calendar-body-wrap out{{ i }}">
           <!--当月数据-->
           <view class="calendar-body">
             <view  wx:if="{{ !(!out.dateData.arrIsShow[35] && row == 5) }}" class="{{ !out.dateData.arrIsShow[35] ? 'calendar-body-rows-height' : '' }}   calendar-body-rows" wx:for="012345" wx:for-index="row" wx:key="*this">
@@ -60,7 +62,7 @@
     </block>
   </scroll-view>
   <!--遮罩层-->
-  <view wx:if="{{ show }}" class="mask"></view>
+  <!--<view class="masks"></view>-->
   <!--底部标题-->
   <view class="schedule"></view>
   <view class="show-bottom">
@@ -70,4 +72,24 @@
       </view>
     </view>
   </view>
+</view>
+<!--关注好友邀请信息弹窗-->
+<view catchtap="delfriend" wx:if="{{friendshow}}" class="friend-mask">
+    <view class="friend-trends">
+        <view class="friend-title">好友动态</view>
+        <block wx:for="{{userList}}">
+            <!--todo 组件化-->
+            <view class="wrap">
+                <image src="{{ item.src }}"></image>
+                <view class="name-wrap">
+                    <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
+                    <view>{{ item.title }}</view>
+                    <view>时间:{{ item.time }}费用: {{item.money}}元/位</view>
+                    <view>地点:{{ item.address }}</view>
+                </view>
+                <view wx:if="{{ !choose }}" class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>
+            </view>
+        </block>
+        <view class="enter">直接进入</view>
+    </view>
 </view>

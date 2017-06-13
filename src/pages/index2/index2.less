@@ -1,9 +1,24 @@
+//logo
+@image: 140rpx;
+.logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: @image;
+  width: @image;
+  border-radius: 50%;
+  transform: translate(100rpx, 50rpx);
+  background: #FCC0A4;
+  z-index: 999;
+}
 //日历相关样式
+.out3 {
+  //margin-bottom: 150rpx;
+}
 .calendar-navbar {
   //display: flex;
   //justify-content: space-around;
   position: relative;
-  @image: 140rpx;
   image {
     position: absolute;
     top: 50%;
@@ -13,6 +28,7 @@
     border-radius: 50%;
     transform: translate(100rpx, -50%);
     background: #FCC0A4;
+    //visibility: hidden;
   }
   .current-day-info {
     position: absolute;
@@ -52,12 +68,13 @@
     }
   }
 }
-// 遮罩层
-.mask {
+// 日历虚化遮罩层
+.masks {
   position: absolute;
   width: 100%;
   height: 150rpx;
-  background: linear-gradient(rgba(255,255,255,0),#fff);
+  background: linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.5),#fff);
+  //background-color: #f00;
   transform: translateY(-100%);
 }
 // 底部样式
@@ -69,6 +86,8 @@
 }
 .show-bottom {
   position: relative;
+  //bottom: 100rpx;
+  //left: 0;
   @height: 80rpx;
   .show-bottom-wrap {
     position: absolute;
@@ -76,7 +95,7 @@
     height: @height;
     border: 1rpx solid #FCC0A4;
     padding: 8rpx;
-    top: 50rpx;
+    top: 10rpx;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -85,6 +104,86 @@
       font-size: 44rpx;
       background-color: #FCC0A4;
       color: #fff;
+    }
+  }
+}
+//好友动态弹窗
+.friend-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.7);
+  .friend-trends {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 626rpx;
+    width: 100%;
+    background-color: #fff;
+    .friend-title {
+      text-align: center;
+      font-size: 30rpx;
+      font-weight: 700;
+      color: #2b2f41;
+      line-height: 60rpx;
+    }
+    .wrap {
+      display: flex;
+      align-items: center;
+      padding: 20rpx 0rpx;
+      padding-left: 24rpx;
+      padding-right: 50rpx;
+      border-top: 1rpx solid #ccc;
+      //background-color: #f00;
+      image {
+        width: 140rpx;
+        height: 140rpx;
+        border-radius: 50%;
+      }
+      .name-wrap {
+        margin-left: 40rpx;
+        flex: 1;
+        view {
+          font-size: 26rpx;
+          color: #999;
+        }
+        .iconfont {
+          font-size: 36rpx;
+          color: #333;
+          font-weight: 700;
+        }
+        .iconfont::after {
+          margin-left: 8rpx;
+          color: #999;
+          font-size: 26rpx;
+        }
+      }
+      .edit {
+        //flex: ;
+        font-size: 28rpx;
+        box-sizing: border-box;
+        color: #ffc4a6;
+        width: 120rpx;
+        line-height: 48rpx;
+        border: 2rpx solid #ffc4a6;
+        border-radius: 10rpx;
+        text-align: center;
+      }
+    }
+    .wrap:nth-last-child(1) {
+      border-bottom: 1rpx solid #ccc;
+    }
+    .enter {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      line-height: 98rpx;
+      background-color: #2b2f41;
+      color: #ffc4a6;
+      text-align: center;
     }
   }
 }

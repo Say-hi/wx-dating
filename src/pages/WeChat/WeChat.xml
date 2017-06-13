@@ -1,3 +1,4 @@
+<!--测试内容-->
 <view class="map">
   <input bindinput="getSuggestion" placholder="输入搜索内容"/>
   <view class="show-search">

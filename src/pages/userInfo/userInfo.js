@@ -12,25 +12,34 @@ Page({
     videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
     videoCover: '../../images/video_cover.jpg',
     videoPlay: '../../images/play.png',
-    videoControls: false,
+    videoControls: true,
     autoplay: false,
     show: true,
     playStatus: false,
     objectFit: 'Fill',
     // 用户信息
     userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
+    showMoreBtn: false,
+    showTaDeep: false,
+    userInfos: {
+      company: '广东银燕传奇广告有限公司',
+      house: '有房有车',
+      sport: '慢跑',
+      movie: '七星报喜',
+      book: '解忧杂货铺'
+    },
     // 按钮文字
     btnText: '+关注',
     disabled: false,
     // invite
     invite: [
       {
-        time: '2017-06-01',
+        time: '2017.06.01',
         address: '体育西路',
         id: 'inv-123'
       },
       {
-        time: '2017-06-01',
+        time: '2017.06.01',
         address: '体育西路',
         id: 'inv-123'
       }
@@ -56,14 +65,14 @@ Page({
         name: '李四2',
         gender: 2,
         text: '李四222'
-      },
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-        name: '李四3',
-        gender: 1,
-        text: '李四333'
       }
     ]
+  },
+  // 去除视屏区域
+  videodel () {
+    this.setData({
+      show: true
+    })
   },
   // 显示更多
   showMore () {
@@ -154,5 +163,13 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+    wx.stopPullDownRefresh()
+    this.playVideo()
+  },
+  onReachBottom () {
+    if (this.data.showTaDeep) return
+    this.setData({
+      showTaDeep: true
+    })
   }
 })

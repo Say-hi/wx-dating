@@ -13,9 +13,40 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ]
+    ],
+    height: '500rpx',
+    width: '750rpx',
+    mode: 'aspectFill'
   },
-
+  // 触摸开始
+  touchStart (e) {
+    this.setData({
+      startY: e.changedTouches[0].clientY
+    })
+  },
+  touchMove (e) {
+    let moveY = e.changedTouches[0].clientY
+    let height = parseInt(this.data.height)
+    let width = parseInt(this.data.width)
+    // console.log(moveY - parseInt(this.data.startY))
+    if ((moveY - parseInt(this.data.startY)) < 0) return
+    height += (moveY - parseInt(this.data.startY)) / 30
+    width += (moveY - parseInt(this.data.startY)) / 60
+    // console.log(height)
+    height = height + 'rpx'
+    width = width + 'rpx'
+    // console.log(height)
+    this.setData({
+      height: height,
+      width: width
+    })
+  },
+  touchEnd () {
+    this.setData({
+      height: '500rpx',
+      width: '750rpx'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

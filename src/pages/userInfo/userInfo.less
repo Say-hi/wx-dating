@@ -4,7 +4,6 @@
   width: 100%;
   height: 480rpx; // 视屏区域高度
   position: relative;
-  z-index: 998;
   .user-video {
     width: 100%;
     height: 100%;
@@ -15,14 +14,13 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 999;
     .video-cover {
       width: 100%;
       height: 100%;
     }
     .video-play {
-      width: 150rpx;
-      height: 100rpx;
+      width: 152rpx;
+      height: 152rpx;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -43,12 +41,7 @@
     width: @length;
     height: @length;
     border-radius: 50%;
-    z-index: 1000;
     border: 6rpx solid #FCC0A4;
-  }
-  .no-show {
-    z-index: 10;
-    //visibility: hidden;
   }
   .user-nick-name {
     padding-top: 110rpx;
@@ -95,52 +88,71 @@
     .inv-text {
       font-size: 26rpx;
       width: 520rpx;
+      //background-color: #ff0;
+      text-overflow: ellipsis;
       color: #555;
+    }
+    .slider {
+      position: relative;
+      width: 140rpx;
+      //background-color: #ff0;
     }
     .slider::after {
       content: '';
       position: absolute;
       top: 50%;
       left: 0;
-      height: 60%;
-      transform: translate(-30rpx, -50%);
+      height: 100%;
+      transform: translate(0, -50%);
       width: 2rpx;
       background-color: #eee;
     }
-    .icon-xin {
-      position: relative;
-      margin-left: 30rpx;
-      color: #FCC0A4;
+    .invited text{
+      width: 80rpx;
+      line-height: 42rpx;
+      border-radius: 5rpx;
+      display: block;
+      font-size: 26rpx;
+      text-align: center;
+      transform: translate(50rpx,0);
+      border: 2rpx solid #ffc4a6;
+      color: #ffc4a6;
     }
-    .icon-xin::before {
-      display: inline-block;
-      transform: translateX(-10rpx);
-    }
+    //.icon-xin {
+    //  position: relative;
+    //  margin-left: 30rpx;
+    //  color: #FCC0A4;
+    //}
+    //.icon-xin::before {
+    //  display: inline-block;
+    //  transform: translateX(-10rpx);
+    //}
   }
 }
 // 评价
 .estimate {
-  border-bottom: 20rpx solid #EEE;
+  border-bottom: 10rpx solid #EEE;
   .es-title {
     border-bottom: 1rpx solid #EEE;
-    line-height: 60rpx;
+    line-height: 90rpx;
     font-size: 26rpx;
     padding: 0 10rpx;
     color: #999;
     position: relative;
-    padding-left: 52rpx;
+    padding-left: 80rpx;
   }
   .icon-pingjia::before {
     font-size: 60rpx;
     position: absolute;
     top: 50%;
-    transform: translate(-50rpx,-50%);
+    transform: translate(-70rpx,-50%);
   }
   .es-wrap {
     margin: 20rpx;
     display: flex;
     border-bottom: 1rpx solid #eee;
     padding-bottom: 20rpx;
+    align-items: center;
     @length: 100rpx;
     image {
       width: @length;
@@ -195,4 +207,34 @@
      background-color: #fff;
      width: 80%;
    }
+}
+//深度资料
+.moreInfo {
+  .moreInfo-title {
+    line-height: 87rpx;
+    font-size: 32rpx;
+    color: #666;
+    padding-left: 85rpx;
+    position: relative;
+    border-bottom: 1rpx solid #ccc;
+    //border-top: 10rpx solid #eee;
+  }
+  .icon-shenduziliao::before {
+    font-size: 50rpx;
+    position: absolute;
+    top: 0;
+    left: 20rpx;
+  }
+  .moreInfo-wrap {
+    padding: 0 24rpx;
+  }
+  .text-wrap {
+    border-bottom-color: #ccc;
+  }
+  .text-wrap:nth-last-child(1) {
+    margin-bottom: 40rpx;
+  }
+  .input {
+    color: #333;
+  }
 }

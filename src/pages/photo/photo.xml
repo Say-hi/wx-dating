@@ -1,6 +1,9 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<view class="photo">
-  <block wx:for="{{ userPhotos }}" wx:for-item="up" wx:key="unique">
-    <image src="{{ up }}"></image>
-  </block>
+<!--点击查看相册-->
+<!--<view class="photo">-->
+  <!--<block wx:for="{{ userPhotos }}" wx:for-item="up" wx:key="unique">-->
+    <!--<image src="{{ up }}"></image>-->
+  <!--</block>-->
+<!--</view>-->
+<view bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd" class="photo">
+  <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{ userPhotos[0] }}"></image>
 </view>

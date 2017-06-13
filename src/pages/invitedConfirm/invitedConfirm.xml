@@ -1,0 +1,54 @@
+<!--应邀确认-->
+<view class="invited">
+  <view class="title">{{title}}</view>
+  <!--时间-->
+  <view class="text-wrap">
+    <view class="name-l">时间:</view>
+    <view class="name-r">{{ time }}</view>
+  </view>
+  <!--地址-->
+  <view class="text-wrap">
+    <view class="name-l">地址:</view>
+    <view class="name-r">{{ address }}</view>
+  </view>
+  <!--约会对象-->
+  <view class="text-wrap">
+    <view class="name-l">约会对象:</view>
+    <view class="name-r">{{ people }}</view>
+  </view>
+  <!--费用-->
+  <view class="text-wrap">
+    <view class="name-l">费用:</view>
+    <view class="name-r redcolor">￥{{ price }}</view>
+  </view>
+  <!--手机-->
+  <view class="text-wrap lxnumber">
+    <view class="name-l">联系手机:</view>
+    <view class="name-r company gender">
+      <input type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
+    </view>
+  </view>
+  <!--意向。。。-->
+  <view class="bottom-text">
+    <view>
+      *意向应邀是指在缴纳意向保证金100元的前提下，可以选择最多5个约会对象进行应邀，最快回复的意向对象为最终约会对象，其余意向邀约自动作废，并以此位准支付费用。
+    </view>
+    <view>
+      *在约会开始前一天24点前，仍未约会成功，费用将全额退回至个人余额账户。
+    </view>
+  </view>
+  <!--confirm-->
+  <view class="invitedconfirm">意向应邀</view>
+  <!--意向金弹窗-->
+  <view wx:if="{{ show }}" class="mask">
+    <view class="mask-wrap">
+      <view class="ts">提示</view>
+      <veiw class="ts-two">
+        您尚未支付意向金
+      </veiw>
+      <view catchtap="delMask" class="mask-confirm">
+        立即支付
+      </view>
+    </view>
+  </view>
+</view>
