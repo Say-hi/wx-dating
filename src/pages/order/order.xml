@@ -1,0 +1,114 @@
+<!--订单页面-->
+<view class="invited">
+  <view class="title">{{title}}</view>
+  <!--日期-->
+  <view class="text-wrap">
+    <view class="name-l">日期:</view>
+    <view class="name-r">{{ days }}</view>
+  </view>
+  <!--时间-->
+  <view class="text-wrap" data-type="time" catchtap="chooseIndustry">
+    <view class="name-l">时间:</view>
+    <view class="name-r age gender">
+      <view class="age-text arrow">
+        <view>{{industryOne[one]}}<text>:{{industryTwo[two]}}</text></view>
+        <view wx:if="{{industryShow}}" catchtap="noMask" class="mask">
+          <picker-view class="mask-picker" indicator-style="height: 50px;"  value="{{value}}" bindchange="bindChange">
+            <picker-view-column>
+              <view wx:for="{{industryOne}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{industryTwo}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--地址-->
+  <view class="text-wrap">
+    <view class="name-l">地址:</view>
+    <view class="name-r">{{ address }}</view>
+  </view>
+  <!--费用-->
+  <view class="text-wrap">
+    <view class="name-l">费用:</view>
+    <view class="name-r redcolor">￥{{ price }}</view>
+  </view>
+  <!--手机-->
+  <view class="text-wrap lxnumber">
+    <view class="name-l">联系手机:</view>
+    <view class="name-r company gender">
+      <input confirm-type="done" maxlength="11" type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
+    </view>
+  </view>
+  <!--约会对象-->
+  <view class="text-wrap" data-type="choosepeople" catchtap="chooseIndustry">
+    <view class="name-l">约会对象:</view>
+    <view class="name-r arrow choosepeople">
+      {{ people }}
+      <view wx:if="{{ datingpeopleShow }}" catchtap="noMask" class="mask">
+        <view class="mask-bottom-wrap">
+          <view catchtap="cp" data-type="noself">寻约会对象</view>
+          <view class="qwe" catchtap="cp" data-type="self">自带约会对象</view>
+          <view>取消</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--付款类型-->
+  <view class="text-wrap" data-type="pay" catchtap="chooseIndustry">
+    <view class="name-l">付款类型:</view>
+    <view class="name-r arrow choosepeople">
+      {{ pay }}
+      <view wx:if="{{ payShow }}" catchtap="noMask" class="mask">
+        <view class="mask-bottom-wrap paymask">
+          <view catchtap="cp" data-type="my">我付清</view>
+          <view catchtap="cp" data-type="both">各付各</view>
+          <view catchtap="cp" data-type="other">Ta付清</view>
+          <view>取消</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--tips...-->
+  <view class="bottom-text">
+    <view>
+      *在约会开始前一天24点前，仍未约会成功，费用将全额退回至个人余额账户。约会对象仅为一人。
+    </view>
+  </view>
+  <!--confirm-->
+  <view catchtap="goPay" class="invitedconfirm">{{ payText }}</view>
+  <!--意向金弹窗-->
+  <view wx:if="{{ moneyshow }}" class="mask">
+    <view class="mask-wrap">
+      <view class="ts">提示</view>
+      <veiw class="ts-two">
+        您尚未支付意向金
+      </veiw>
+      <view data-type="yxpay" catchtap="delMask" class="mask-confirm">
+        立即支付
+      </view>
+    </view>
+  </view>
+  <!--禁止发起邀约弹窗-->
+  <view wx:if="{{ cancelshow }}" class="cancelMask">
+    <view class="cancelMask-wrap">
+      <view class="ts cts">提示</view>
+      <veiw class="ts-two ts-twos">
+        您取消赴约超过三次，禁止发起约会！请前往应邀完成一次约会解除
+      </veiw>
+      <view data-type="cancel" catchtap="delMask" class="mask-confirm">
+        确认
+      </view>
+    </view>
+  </view>
+</view>
+<!--发起成功-->
+<view wx:if="{{ datingSuccess }}" class="success-mask">
+  <image class="success-img" src="../../images/dating-success.png"></image>
+  <view class="success-text">发起邀约成功，请等待通知</view>
+  <view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>
+  <image class="erweima" src="../../images/erweima.png"></image>
+  <view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>
+</view>

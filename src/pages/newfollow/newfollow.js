@@ -7,22 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'follow',
-    message: true,
+    title: 'newfollow',
     people: [
       {
         img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '崔大炮',
         gender: 2,
         follow: 0,
-        number: 12,
         id: 'YH123'
       },
       {
         img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '崔大炮2',
         gender: 1,
-        number: 1,
         follow: 0,
         id: 'YH143'
       },
@@ -44,14 +41,6 @@ Page({
     this.setData({
       people: peopleArr
     })
-  },
-  // 跳转到消息页面
-  goNewfollow () {
-    if (this.data.message) {
-      wx.navigateTo({
-        url: '../newfollow/newfollow'
-      })
-    }
   },
   /**
    * 生命周期函数--监听页面加载

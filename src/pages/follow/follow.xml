@@ -1,4 +1,19 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<view class="container">
-  <text class="title">{{ title }}</text>
+<view class="wrap">
+  <!--搜索-->
+  <view class="search">
+    <image catchtap="goNewfollow" class="ring {{ message ? 'has-message' : '' }}" src="../../images/follow-ring.png"></image>
+    <span class="iconfont icon-sousuo"></span>
+    <input class="search-input" confirm-type="search" placeholder-class="search-input-p" type="text" placeholder="点击进行搜索"/>
+  </view>
+  <!--内容排列-->
+  <view class="people">
+    <block wx:for="{{people}}" wx:key="unique" wx:for-item="item">
+      <view class="p-wrap">
+        <image class="p-img" src="{{ item.img }}"></image>
+        <view wx:if="{{ item.number }}" class="p-number">{{ item.number }}</view>
+        <view class="p-name iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.name}}</view>
+        <view data-id="{{ item.id }}" data-index="{{ index }}" catchtap="follow" class="p-follow-btn {{ item.follow ? 'p-follow iconfont icon-huxiangguanzhu' : 'p-nofollow' }}">{{ item.follow ? '互相关注' : '提醒关注' }}</view>
+      </view>
+    </block>
+  </view>
 </view>

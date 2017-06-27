@@ -33,6 +33,6 @@
 <!--底部-->
 <view class="bottom">
   <view catchtap="forOtherPeople">替Ta发起</view>
-  <view>发起</view>
+  <view catchtap="forMine">发起</view>
   <view>应邀</view>
 </view>

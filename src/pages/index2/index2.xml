@@ -2,12 +2,12 @@
 <view class="calendar-root">
   <!--logo-->
     <!--<image class='logo' src='../../images/follow_hl.png'></image>-->
-  <scroll-view class="calendar-out-wrap" bindscroll="scroll" scroll-y style="height: 840rpx;">
+  <scroll-view class="calendar-out-wrap" bindscroll="scroll" scroll-y style="height: 100%;">
     <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique" wx:for-index="i">
         <!--top-->
         <view class="calendar-navbar">
             <!--约会日图标-->
-            <image src="../../images/follow_hl.png"></image>
+            <image src="../../images/logo.png"></image>
             <!--当前日期信息-->
             <view class="current-day-info">
                 <view class="current-day-info-top">
@@ -41,7 +41,7 @@
                       <!--{{dateData.arrInfoEx[row * 7 + col].solarFestival}}-->
                     </view>
                     <!--农历-->
-                    <view class="calendar-body-dayex">
+                    <view class="calendar-body-dayex {{ out.dateData.arrInfoEx[row * 7 + col].solarFestival ? 'solarFestival' : '' }}">
                       {{out.dateData.arrInfoEx[row * 7 + col].solarFestival || out.dateData.arrInfoExShow[row * 7 + col]}}
                       <!--{{}}-->
                     </view>
@@ -64,32 +64,38 @@
   <!--遮罩层-->
   <!--<view class="masks"></view>-->
   <!--底部标题-->
-  <view class="schedule"></view>
-  <view class="show-bottom">
-    <view class="show-bottom-wrap">
-      <view class="show">
-        {{ showText }}
+  <view class="bottom-wrap">
+      <view class="schedule"></view>
+      <view class="show-bottom">
+          <navigator hover-class="none" url="../plans/plans" class="show-bottom-wrap">
+              <view class="show">
+                  {{ showText }}
+              </view>
+          </navigator>
       </view>
-    </view>
   </view>
 </view>
 <!--关注好友邀请信息弹窗-->
 <view catchtap="delfriend" wx:if="{{friendshow}}" class="friend-mask">
     <view class="friend-trends">
         <view class="friend-title">好友动态</view>
-        <block wx:for="{{userList}}">
-            <!--todo 组件化-->
-            <view class="wrap">
-                <image src="{{ item.src }}"></image>
-                <view class="name-wrap">
-                    <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
-                    <view>{{ item.title }}</view>
-                    <view>时间:{{ item.time }}费用: {{item.money}}元/位</view>
-                    <view>地点:{{ item.address }}</view>
-                </view>
-                <view wx:if="{{ !choose }}" class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>
-            </view>
-        </block>
-        <view class="enter">直接进入</view>
+        <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
+            <block wx:for="{{userList}}" wx:for-item="outitem">
+                <!--todo 组件化-->
+                <swiper-item>
+                    <view class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
+                        <image src="{{ item.src }}"></image>
+                        <view class="name-wrap">
+                            <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
+                            <view class="title">{{ item.title }}</view>
+                            <view>时间:{{ item.time }} 费用: {{item.money}}元/位</view>
+                            <view>地点:{{ item.address }}</view>
+                        </view>
+                        <view class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <navigator hover-class="none" url="../plans/plans" class="enter">直接进入</navigator>
     </view>
 </view>

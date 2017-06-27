@@ -29,18 +29,23 @@
     </scroll-view>
   </view>
   <!--video-->
-  <view class="video-warp">
-    <view class="video-warp-area">
-      <view class="video-volum">
-        <slider value="{{ volumValue }}"></slider>
-      </view>
-      <video enable-full-screen="{{ videoFull }}"  controls="{{controls}}" autoplay="{{ autoplay }}" objectFit="fill" class="video-show" src="{{videoSrc}}"></video>
-      <view class="video-control">
-        <slider value="{{ controlValue }}"></slider>
-      </view>
-      <view catchtap="fullscreen">click full screen</view>
-    </view>
-  </view>
+  <!--<view class="video-warp">-->
+    <!--<view class="video-warp-area">-->
+      <!--<view class="video-volum">-->
+        <!--<slider value="{{ volumValue }}"></slider>-->
+      <!--</view>-->
+      <!--<video enable-full-screen="{{ videoFull }}"  controls="{{controls}}" autoplay="{{ autoplay }}" objectFit="fill" class="video-show" src="{{videoSrc}}"></video>-->
+      <!--<view class="video-control">-->
+        <!--<slider value="{{ controlValue }}"></slider>-->
+      <!--</view>-->
+      <!--<view catchtap="fullscreen">click full screen</view>-->
+    <!--</view>-->
+  <!--</view>-->
+  <scroll-view class="sv" scroll-x="true" style="height: 396rpx; width: 220rpx"  >
+    <block wx:for="{{ citydetail }}" wx:for-item="area">
+      <view catchtap="choosearea" class="city-two"  data-area="{{index}}">{{ area }}</view>
+    </block>
+  </scroll-view>
 </view>
 
 

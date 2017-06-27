@@ -1,9 +1,9 @@
 <!--点击查看相册-->
-<!--<view class="photo">-->
-  <!--<block wx:for="{{ userPhotos }}" wx:for-item="up" wx:key="unique">-->
-    <!--<image src="{{ up }}"></image>-->
-  <!--</block>-->
-<!--</view>-->
-<view bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd" class="photo">
-  <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{ userPhotos[0] }}"></image>
+<view class="photo">
+  <block wx:for="{{ userPhotos }}" wx:key="unique">
+    <view data-index="{{ index }}" catchtap="showImg" class="photo-wrap">
+      <image class="imgs" src="{{ item.img }}"></image>
+      <image wx:if="{{ item.kind == 'other' }}" class="other-up" src="../../images/other-up.png"></image>
+    </view>
+  </block>
 </view>

@@ -38,7 +38,8 @@ Page({
       },
       {
         title: '问卷调查',
-        ico: 'icon-wenjuan'
+        ico: 'icon-wenjuan',
+        url: '../message/message'
       },
       {
         title: 'FAQ',

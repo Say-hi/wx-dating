@@ -9,43 +9,41 @@ Page({
   data: {
     title: 'photo',
     userPhotos: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
-    height: '500rpx',
-    width: '750rpx',
-    mode: 'aspectFill'
+      {
+        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        kind: 'self'
+      },
+      {
+        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        kind: 'other'
+      },
+      {
+        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        kind: 'self'
+      },
+      {
+        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        kind: 'other'
+      },
+      {
+        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        kind: 'self'
+      }
+    ]
   },
-  // 触摸开始
-  touchStart (e) {
-    this.setData({
-      startY: e.changedTouches[0].clientY
-    })
-  },
-  touchMove (e) {
-    let moveY = e.changedTouches[0].clientY
-    let height = parseInt(this.data.height)
-    let width = parseInt(this.data.width)
-    // console.log(moveY - parseInt(this.data.startY))
-    if ((moveY - parseInt(this.data.startY)) < 0) return
-    height += (moveY - parseInt(this.data.startY)) / 30
-    width += (moveY - parseInt(this.data.startY)) / 60
-    // console.log(height)
-    height = height + 'rpx'
-    width = width + 'rpx'
-    // console.log(height)
-    this.setData({
-      height: height,
-      width: width
-    })
-  },
-  touchEnd () {
-    this.setData({
-      height: '500rpx',
-      width: '750rpx'
-    })
+  // 显示图片
+  showImg (e) {
+    let index = e.currentTarget.dataset.index
+    let imgArr = this.data.userPhotos
+    let newImgArr = []
+    for (let i in imgArr) {
+      newImgArr.push(imgArr[i].img)
+    }
+    let obj = {
+      current: newImgArr[index],
+      urls: newImgArr
+    }
+    wx.previewImage(obj)
   },
   /**
    * 生命周期函数--监听页面加载

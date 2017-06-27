@@ -1,0 +1,15 @@
+<view class="wrap">
+  <!--内容排列-->
+  <view class="people">
+    <block wx:for="{{people}}" wx:key="unique" wx:for-item="item">
+      <view catchtap="goUserZY" data-id="{{ item.id }}" class="p-wrap">
+        <image class="p-img" src="{{ item.img }}"></image>
+        <view>
+          <view class="p-name iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.name}}</view>
+          <view class="p-introduce">hi,我是{{ item.name }},快来关注我吧</view>
+        </view>
+        <view data-id="{{ item.id }}" data-index="{{ index }}" catchtap="follow" class="p-follow-btn {{ item.follow ? 'p-follow' : 'p-nofollow' }}">{{ item.follow ? '取消忽略' : '忽略此人' }}</view>
+      </view>
+    </block>
+  </view>
+</view>

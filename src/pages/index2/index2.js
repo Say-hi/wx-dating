@@ -51,30 +51,78 @@ Page({
     duration: 1000,
     i: 0,
     show: true,
-    friendshow: true,
+    friendshow: false,
     userList: [
-      {
-        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '好友一号',
-        nickName: 'Jack Jhon',
-        gender: 1,
-        id: 123,
-        money: 123,
-        address: '珠江新城',
-        time: '18:30',
-        title: 'Kiss Bottle 全新手工制甜品餐'
-      },
-      {
-        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '好友二号',
-        nickName: 'Jack Jhon',
-        gender: 2,
-        id: 234,
-        money: 123,
-        address: '珠江新城',
-        time: '18:30',
-        title: 'Kiss Bottle 全新手工制甜品餐'
-      }
+      [
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友一号',
+          nickName: 'Jack Jhon',
+          gender: 1,
+          id: 123,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        },
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友二号',
+          nickName: 'Jack Jhon',
+          gender: 2,
+          id: 234,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        },
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友三号',
+          nickName: 'Jack Jhon',
+          gender: 2,
+          id: 234,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        }
+      ],
+      [
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友一号',
+          nickName: 'Jack Jhon',
+          gender: 1,
+          id: 123,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        },
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友二号',
+          nickName: 'Jack Jhon',
+          gender: 2,
+          id: 234,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        },
+        {
+          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: '好友三号',
+          nickName: 'Jack Jhon',
+          gender: 2,
+          id: 234,
+          money: 123,
+          address: '珠江新城',
+          time: '18:30',
+          title: 'Kiss Bottle 全新手工制甜品餐'
+        }
+      ]
     ]
   },
   delfriend () {
@@ -193,6 +241,15 @@ Page({
       friendshow: true,
       detailData: detailDate
     })
+    this.setTime()
+  },
+  // 缓存设置日期
+  setTime () {
+    let m = MONTH_ENGLISH[this.data.detailData.curMonth - 1]
+    // console.log(m)
+    let d = this.data.detailData.curDay
+    // console.log(d)
+    wx.setStorageSync('time', {m:m,d:d})
   },
   /**
    * 生命周期函数--监听页面加载
@@ -236,6 +293,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.setTime()
     // console.log(' ---------- onShow ----------')
   },
   /**

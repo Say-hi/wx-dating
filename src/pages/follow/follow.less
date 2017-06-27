@@ -1,3 +1,115 @@
-.title {
-  font-size: 40rpx;
+//搜索
+.search {
+  height: 98rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+  padding: 9rpx 24rpx 19rpx 18rpx;
+  box-sizing: border-box;
+  position: relative;
+  .ring {
+    width: 50rpx;
+    height: 50rpx;
+    position: relative;
+  }
+  .has-message::before {
+    position: absolute;
+    top: 6rpx;
+    right: 8rpx;
+    content: '';
+    display: inline-block;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 50%;
+    background-color: #f00;
+  }
+  .icon-sousuo {
+    position: absolute;
+    left: 270rpx;
+    top: 50%;
+    transform: rotateY(180deg) translateY(-60%);
+  }
+  .icon-sousuo::before {
+    color: #999;
+  }
+  .search-input {
+    margin-left: 17rpx;
+    border: 1rpx solid #ccc;
+    border-radius: 50rpx;
+    flex: 1;
+    text-align: center;
+    //font-size: 28rpx;
+  }
+  .search-input-p {
+    color: #999;
+    font-size: 28rpx;
+    font-weight: 700;
+  }
+}
+//内容排列
+.people {
+  padding: 0 24rpx;
+  .p-wrap {
+    position: relative;
+    @width: 140rpx;
+    height: 180rpx;
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #ccc;
+    .p-img {
+      height: @width;
+      width: @width;
+      border-radius: 50%;
+      margin-right: 70rpx;
+    }
+    .p-number {
+      position: absolute;
+      top: 20rpx;
+      left: 110rpx;
+      width: 32rpx;
+      height: 32rpx;
+      border-radius: 50%;
+      font-size: 28rpx;
+      color: #fff;
+      background-color: #f66;
+      line-height: 32rpx;
+      text-align: center;
+    }
+    .p-name {
+      font-size: 36rpx;
+      color: #333;
+      font-weight: 700;
+      position: relative;
+    }
+    .p-name::after {
+      position: absolute;
+      top: 50%;
+      font-size: 24rpx;
+      color: #999;
+      margin-left: 8rpx;
+      transform: translateY(-50%);
+    }
+    .p-follow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 50rpx;
+      font-size: 28rpx;
+      border: 1rpx solid #ffc4a6;
+      border-radius: 10rpx;
+      padding: 10rpx 15rpx;
+      color: #ffc4a6;
+    }
+    .p-follow {
+      border-color: #ccc;
+      color: #ccc;
+    }
+    .icon-huxiangguanzhu::before {
+      position: absolute;
+      color: #ccc;
+      left: 0;
+      transform: translateX(-150%);
+    }
+  }
 }

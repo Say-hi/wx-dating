@@ -1,0 +1,114 @@
+.choosepeople {
+  padding-right: 20rpx;
+  //background-color: #f00;
+}
+.choosepeople::after {
+  right: 0;
+  height: 16rpx;
+  width: 16rpx;
+}
+.mask-bottom-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  view {
+    line-height: 114rpx;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 20rpx;
+    font-size: 40rpx;
+    color: #000;
+  }
+  view:nth-child(1) {
+    border-bottom-left-radius: 0rpx;
+    border-bottom-right-radius: 0rpx;
+    border-bottom: 1rpx solid #d7d7d7;
+  }
+  .qwe {
+    margin-bottom: 16rpx;
+    border-top-left-radius: 0rpx;
+    border-top-right-radius: 0rpx;
+  }
+  view:nth-last-child(1) {
+    color: #157efb;
+    margin-bottom: 20rpx;
+  }
+}
+.paymask {
+  view:nth-child(2) {
+    border-radius: 0rpx;
+    border-bottom: 1rpx solid #d7d7d7;
+  }
+  view:nth-child(3) {
+    margin-bottom: 16rpx;
+    border-top-left-radius: 0rpx;
+    border-top-right-radius: 0rpx;
+  }
+}
+.success-mask {
+  border-top: 2rpx solid #f00;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  .success-img {
+    width: 400rpx;
+    height: 323rpx;
+    position: absolute;
+    top: 60rpx;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .success-text {
+    position: absolute;
+    top: 380rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 2rpx solid #ffc4a6;
+    color: #f96;
+    width: 80%;
+    font-size: 36rpx;
+    font-weight: 700;
+    text-align: center;
+    line-height: 60rpx;
+  }
+  .success-tips {
+    position: absolute;
+    top: 480rpx;
+    left: 50%;
+    width: 62%;
+    font-size: 30rpx;
+    color: #000;
+    transform: translateX(-50%);
+    text-align: center;
+    font-weight: 700;
+    line-height: 40rpx;
+    text {
+      color: #ffc4a6;
+    }
+  }
+  .erweima {
+    position: absolute;
+    top: 640rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320rpx;
+    height: 320rpx;
+  }
+  .erweima-text {
+    position: absolute;
+    bottom: 200rpx;
+    font-size: 24rpx;
+    color: #ccc;
+    width: 100%;
+    text-align: center;
+  }
+}

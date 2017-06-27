@@ -3,19 +3,23 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/stranger/stranger",
-    "pages/index2/index2",
-    "pages/userInfo/userInfo",
-    "pages/newuser/newuser",
-    "pages/user/user",
-    "pages/message/message",
-    "pages/inviteEvaluate/inviteEvaluate",
-    "pages/setMeal/setMeal",
-    "pages/photo/photo",
-    "pages/taRecordDetail/taRecordDetail",
-    "pages/invitedConfirm/invitedConfirm",
-    "pages/taRecord/taRecord",
-    "pages/follow/follow"
+    "pages/follow/follow", // 关注
+    "pages/index2/index2",// 首页
+    "pages/order/order", // 填写订单
+    "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
+    "pages/setMeal/setMeal", // 套餐详情
+    "pages/inviteEvaluate/inviteEvaluate", // 评价好友（好友邀请评价）
+    "pages/message/message", // 用户消息通知列表
+    "pages/user/user", // 用户个人中心
+    "pages/newuser/newuser", // 用户首次完善个人资料
+    "pages/userInfo/userInfo", // 个人资料
+    "pages/stranger/stranger",//  陌生人提醒关注(废弃)
+    "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
+    "pages/plans/plans",// 约会计划-套餐列表
+    "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
+    "pages/photo/photo", // 相册
+    "pages/newfollow/newfollow", // 陌生人提醒关注,
+    "pages/paysuccess/paysuccess" // 支付成功
     // Dont remove this comment
   ],
   // Window configuration
@@ -57,7 +61,7 @@
       },
       {
         "text": "关注",
-        "pagePath": "pages/photo/photo",
+        "pagePath": "pages/follow/follow",
         "iconPath": "images/follow.png",
         "selectedIconPath": "images/follow_hl.png"
       },

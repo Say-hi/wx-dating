@@ -36,6 +36,7 @@ Page({
       startY: e.changedTouches[0].clientY
     })
   },
+  // 触摸移动
   touchMove (e) {
     let moveY = e.changedTouches[0].clientY
     let height = parseInt(this.data.height)
@@ -53,15 +54,23 @@ Page({
       width: width
     })
   },
+  // 触摸结束
   touchEnd () {
     this.setData({
       height: '500rpx',
       width: '750rpx'
     })
   },
+  // 替ta发起跳转
   forOtherPeople () {
     wx.redirectTo({
       url: '../taRecordDetail/taRecordDetail?type=forOther'
+    })
+  },
+  // 发起邀约
+  forMine () {
+    wx.redirectTo({
+      url: '../order/order?id="套餐id"'
     })
   },
   /**

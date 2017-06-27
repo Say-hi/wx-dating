@@ -16,7 +16,7 @@
     <view class="order iconfont icon-dingdan">订单</view>
     <!--昵称-->
     <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName || '请登录'}}</view>
-    <view class="message iconfont icon-xiaoxi">消息</view>
+    <navigator hover-class="none" url="../message/message" class="message iconfont icon-xiaoxi">消息</navigator>
   </view>
   <!--相册-->
   <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
