@@ -13,7 +13,7 @@
   <!--头像-->
   <image catchtap="getUserInfo" class="user-avatar-url" src="{{userInfo.avatarUrl || '../../images/home.png'}}"></image>
   <view class="user-nick-name-wrap">
-    <view class="order iconfont icon-dingdan">订单</view>
+    <navigator hover-class="none" url="../userOrder/userOrder" class="order iconfont icon-dingdan">订单</navigator>
     <!--昵称-->
     <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName || '请登录'}}</view>
     <navigator hover-class="none" url="../message/message" class="message iconfont icon-xiaoxi">消息</navigator>

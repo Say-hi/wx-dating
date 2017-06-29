@@ -7,43 +7,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'photo',
-    userPhotos: [
+    title: 'checkInvited',
+    chooseTab: true,
+    userArr: [
       {
         img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        kind: 'self'
+        name: '崔大炮',
+        gender: 1,
+        marry: 1,
+        job: '互联网行业',
+        id: 41323
       },
       {
         img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        kind: 'other'
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        kind: 'self'
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        kind: 'other'
-      },
-      {
-        img: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-        kind: 'self'
+        name: '崔大炮',
+        gender: 2,
+        marry: 1,
+        job: '互联网行业',
+        id: 41323
       }
     ]
   },
-  // 显示图片
-  showImg (e) {
-    let index = e.currentTarget.dataset.index
-    let imgArr = this.data.userPhotos
-    let newImgArr = []
-    for (let i in imgArr) {
-      newImgArr.push(imgArr[i].img)
+  // 选择应邀者
+  chooseUser (e) {
+    let chooseIndex = e.currentTarget.dataset.index
+    this.setData({
+      chooseIndex: chooseIndex,
+      chooseShow: true
+    })
+  },
+  // 按钮点击判断
+  btnClick (e) {
+    let type = e.currentTarget.dataset.type
+    if (type === 'cancel') {
+      this.setData({
+        chooseShow: false
+      })
+    } else if (type === 'confirm') {
+      // todo 应邀者确定
+      this.setData({
+        chooseTab: false
+      })
+    } else if (type === 'confirm-two') {
+      this.setData({
+        chooseTab: true,
+        chooseShow: false
+      })
     }
-    let obj = {
-      current: newImgArr[index],
-      urls: newImgArr
-    }
-    wx.previewImage(obj)
   },
   /**
    * 生命周期函数--监听页面加载

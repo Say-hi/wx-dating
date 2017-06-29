@@ -1,0 +1,22 @@
+<view class="wrap">
+  <!--订单编号-->
+  <view class="top">
+    <text class="number">订单编号:<text>{{ order.number }}</text></text>
+    <text class="status">{{ order.status == 2 ? '订单关闭' : '已确认' }}</text>
+  </view>
+  <!--订单信息-->
+  <view class="restaurant arrow">
+    <image src="{{ order.restaurantImg }}"></image>
+    <text>{{ order.restaurantText }}</text>
+  </view>
+  <!--约会对象-->
+  <view class="people arrow">
+    <image src="{{ order.userImg }}"></image>
+    <text class="iconfont {{ order.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.userName }}</text>
+  </view>
+  <!--惩罚金-->
+  <view class="punishment arrow">
+    <text>惩罚金</text>
+    <text>￥10</text>
+  </view>
+</view>

@@ -3,8 +3,12 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/follow/follow", // 关注
+    "pages/orderDatial/orderDatial", // 订单详情
     "pages/index2/index2",// 首页
+    "pages/userOrder/userOrder", // 用户订单信息
+    "pages/checkInvited/checkInvited", // 选择确认应邀的人
+    "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
+    "pages/follow/follow", // 关注
     "pages/order/order", // 填写订单
     "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
     "pages/setMeal/setMeal", // 套餐详情
@@ -16,10 +20,8 @@
     "pages/stranger/stranger",//  陌生人提醒关注(废弃)
     "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
     "pages/plans/plans",// 约会计划-套餐列表
-    "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/photo/photo", // 相册
-    "pages/newfollow/newfollow", // 陌生人提醒关注,
-    "pages/paysuccess/paysuccess" // 支付成功
+    "pages/newfollow/newfollow" // 陌生人提醒关注
     // Dont remove this comment
   ],
   // Window configuration

@@ -1,0 +1,80 @@
+.wrap {
+  padding: 0 24rpx;
+  border-top: 1rpx solid #ccc;
+  .arrow {
+    right: 0;
+  }
+  //订单编号
+  .top {
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #ccc;
+    height: 68rpx;
+    .number {
+      color: #333;
+      font-size: 26rpx;
+      font-weight: 700;
+      flex: 1;
+    }
+    .status {
+      font-size: 28rpx;
+      color: #ccc;
+    }
+  }
+  // 点单信息
+  .restaurant {
+    display: flex;
+    align-items: center;
+    height: 159rpx;
+    @width: 128rpx;
+    border-bottom: 1rpx solid #ccc;
+    image {
+      width: @width;
+      height: @width;
+      margin-right: 21rpx;
+    }
+    text {
+      font-size: 28rpx;
+      color: #333;
+    }
+  }
+  //约会对象信息
+  .people {
+    height: 87rpx;
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #ccc;
+    @height: 68rpx;
+    image {
+      height: @height;
+      width: @height;
+      border-radius: 50%;
+      margin-right: 9rpx;
+    }
+    text {
+      font-size: 28rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    text:after {
+      margin-left: 9rpx;
+      color: #999;
+      font-size: 26rpx;
+    }
+  }
+  // 惩罚
+  .punishment {
+    display: flex;
+    align-items: center;
+    height: 87rpx;
+    border-bottom: 1rpx solid #ccc;
+    text {
+      color: #333;
+      font-size: 30rpx;
+      font-weight: 700;
+    }
+    text:nth-child(2) {
+      color: #f66;
+    }
+  }
+}
