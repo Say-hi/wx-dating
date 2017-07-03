@@ -43,9 +43,9 @@
   <view wx:if="{{ show }}" class="mask">
     <view class="mask-wrap">
       <view class="ts">提示</view>
-      <veiw class="ts-two">
+      <view class="ts-two">
         您尚未支付意向金
-      </veiw>
+      </view>
       <view catchtap="delMask" class="mask-confirm">
         立即支付
       </view>

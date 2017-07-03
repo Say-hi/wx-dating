@@ -11,9 +11,9 @@
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image class="user-avatar-url" src="{{userInfo.avatarUrl}}"></image>
+  <image class="user-avatar-url" src="{{ userInfo.avatarUrl }}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
+  <view class="user-nick-name iconfont {{ userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
     <text class="user-detail" wx:for="{{ userDetail }}" wx:key="unique">{{item}}</text>
@@ -30,7 +30,7 @@
   </block>
 </view>
 <!--相册-->
-<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
+<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>
 <!--评价-->
 <view class="estimate">
   <view class="es-title iconfont icon-pingjia">
@@ -40,15 +40,15 @@
     <view class="es-wrap">
       <image src="{{ es.src }}"></image>
       <view class="es-es">
-        <view class="es-name iconfont {{ es.gender == 1 ? 'icon-nan' : 'icon-nv' }}">{{ es.name }}</view>
+        <view class="es-name iconfont {{ es.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ es.name }}</view>
         <view class="es-text">{{ es.text }}</view>
       </view>
     </view>
   </block>
 </view>
 <!--显示更多-->
-<view wx:if="{{ showMoreBtn }}" class="show-more" bindtap="showMore">
-  <view class="xsgd">显示更多</view>
+<view wx:if="{{ showMoreBtn }}" class="show-more">
+  <view class="xsgd">向上滑动显示更多</view>
   <view class="xsgd-d"></view>
 </view>
 <!--Ta的深度资料-->

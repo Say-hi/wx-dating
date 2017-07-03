@@ -96,7 +96,7 @@
     <view class="name-l">公司:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" type="number" placeholder='请输入Ta工作的公司'/>
+      <input placeholder-class="placeholdercss" type="text" placeholder='请输入Ta工作的公司'/>
     </view>
   </view>
   <!--车房状况-->

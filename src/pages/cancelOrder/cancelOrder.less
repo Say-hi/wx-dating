@@ -1,0 +1,180 @@
+.top-title {
+  border-top: 1rpx solid #ccc;
+  line-height: 88rpx;
+  background-color: #ebedf4;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+  font-weight: 700;
+}
+//订单信息
+.order-info {
+  padding: 0 24rpx;
+  border-bottom: 10rpx solid #eee;
+  .o-i-top {
+    display: flex;
+    align-items: center;
+    height: 68rpx;
+    border-bottom: 1rpx solid #ccc;
+    text {
+      font-size: 26rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    .o-i-number {
+      flex: 1;
+      text {
+        font-size: 28rpx;
+      }
+    }
+    .o-i-status {
+      color: #ffc4a6;
+    }
+  }
+  .o-i-center {
+    display: flex;
+    align-items: center;
+    padding: 15rpx 0;
+    border-bottom: 1rpx solid #ccc;
+    image {
+      width: 168rpx;
+      height: 168rpx;
+      margin-right: 18rpx;
+    }
+    .o-i-c-center {
+      .o-i-c-title {
+        font-size: 28rpx;
+        color: #333;
+        transform: translateY(-14rpx);
+      }
+      .o-i-c-time, .o-i-c-address {
+        color: #999;
+        font-size: 26rpx;
+        line-height: 40rpx;
+      }
+    }
+    .o-i-c-money {
+      flex: 1;
+      text-align: right;
+      color: #f66;
+      font-size: 28rpx;
+    }
+  }
+}
+//约会对象
+.dating-people {
+  height: 87rpx;
+  display: flex;
+  align-items: center;
+  //border-bottom: 1rpx solid #ccc;
+  image {
+    width: 68rpx;
+    height: 68rpx;
+    border-radius: 50%;
+    margin-right: 9rpx;
+  }
+  .p-name {
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 700;
+  }
+  .p-name::after {
+    font-size: 26rpx;
+    color: #999;
+    font-weight: 500;
+    margin-left: 9rpx;
+  }
+}
+.dating-people::after {
+  right: 0;
+  color: #d1d1d1;
+  width: 16rpx;
+  height: 16rpx;
+}
+//惩罚
+.punishment {
+  padding: 0 24rpx;
+  .punishment-money {
+    border-bottom: 1rpx solid #ccc;
+    height: 88rpx;
+    display: flex;
+    align-items: center;
+    text {
+      font-size: 30rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    text:nth-child(2) {
+      flex: 1;
+      text-align: right;
+      color: #f66;
+    }
+  }
+  .cancel-reason {
+    view {
+      text-align: center;
+      font-size: 32rpx;
+      color: #333;
+      font-weight: 700;
+      line-height: 70rpx;
+    }
+    .c-p-reason {
+      font-size: 30rpx;
+      font-weight: 500;
+      line-height: 40rpx;
+      text-align: left;
+      margin-bottom: 38rpx;
+    }
+    textarea {
+      width: 100%;
+      font-size: 30rpx;
+      height: 264rpx;
+      border-bottom: 1rpx solid #ccc;
+    }
+  }
+  checkbox {
+    color: #999;
+    font-size: 26rpx;
+  }
+  .wx-checkbox-input {
+    width: 28rpx !important;
+    height: 28rpx !important;
+    border-color: #ffc4a6 !important;
+    background-color: #ffc4a6 !important;
+  }
+}
+//提交按钮
+.confrim-btn {
+  margin-top: 30rpx;
+  text-align: center;
+  margin-bottom: 24rpx;
+  text {
+    display: inline-block;
+    width: 260rpx;
+    line-height: 78rpx;
+    border-radius: 78rpx;
+    color: #ffc4a6;
+    background-color: #2b2f41;
+  }
+}
+//提醒
+.tips {
+  border-top: 4rpx dashed #ededed;
+  padding-top: 27rpx;
+  color: #999;
+  font-size: 26rpx;
+  line-height: 40rpx;
+}
+//弹窗
+.mask {
+ .ts {
+   font-size: 36rpx;
+   color: #000;
+   line-height: 90rpx;
+ }
+  .ts-two, .ts-three {
+    color: #999;
+    line-height: 40rpx;
+    font-size: 30rpx;
+  }
+}

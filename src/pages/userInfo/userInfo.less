@@ -46,6 +46,15 @@
   .user-nick-name {
     padding-top: 110rpx;
     text-align: center;
+    font-size: 36rpx;
+    color: #333;
+    font-weight: 700;
+  }
+  .user-nick-name::after {
+    font-weight: 500;
+    color: #999;
+    margin-left: 10rpx;
+    font-size: 24rpx;
   }
   .user-info-detail {
     padding: 20rpx 100rpx;
@@ -53,7 +62,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    font-size: 24rpx;
+    color: #666;
+    font-size: 30rpx;
     .user-detail::after {
       content: '|';
       color: #eee;
@@ -71,7 +81,7 @@
     font-size: 24rpx;
   }
   .follow-btn::after {
-    border-color: #FCC0A4;
+    border-color: #ccc;
   }
 }
 // 个人邀请信息
@@ -90,7 +100,10 @@
       width: 520rpx;
       //background-color: #ff0;
       text-overflow: ellipsis;
-      color: #555;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #666;
+      font-weight: 700;
     }
     .slider {
       position: relative;
@@ -102,7 +115,7 @@
       position: absolute;
       top: 50%;
       left: 0;
-      height: 100%;
+      height: 70%;
       transform: translate(0, -50%);
       width: 2rpx;
       background-color: #eee;
@@ -133,7 +146,7 @@
 .estimate {
   border-bottom: 10rpx solid #EEE;
   .es-title {
-    border-bottom: 1rpx solid #EEE;
+    border-bottom: 1rpx solid #ccc;
     line-height: 90rpx;
     font-size: 26rpx;
     padding: 0 10rpx;
@@ -150,7 +163,7 @@
   .es-wrap {
     margin: 20rpx;
     display: flex;
-    border-bottom: 1rpx solid #eee;
+    border-bottom: 1rpx solid #ccc;
     padding-bottom: 20rpx;
     align-items: center;
     @length: 100rpx;
@@ -164,7 +177,24 @@
       margin-left: 10rpx;
       font-size: 26rpx;
       line-height: 40rpx;
+      .es-name::after  {
+        margin-left: 11rpx;
+        font-size: 24rpx;
+      }
+      .icon-nanxing::after {
+        color: #b6e9ff;
+      }
+      .icon-nvxing::after {
+        color: #ffc4a6;
+      }
+      .es-text {
+        color: #666;
+        font-size: 28rpx;
+      }
     }
+  }
+  .es-wrap:nth-last-child(1) {
+    border: none;
   }
 }
 //显示更多
@@ -179,16 +209,18 @@
     top: 20rpx;
     line-height: 80rpx;
     transform: translate(-50%, 0);
-    background-color: #fff;
+    background: linear-gradient(#fcfcfc, #fff);
     width: 90%;
-    box-shadow: 2rpx 2rpx 5rpx #999;
+    //box-shadow: 2rpx 2rpx 5rpx #fff;
     z-index: 99;
+    font-size: 28rpx;
+    color: #ffc4a6;
   }
   .xsgd-d {
     z-index: 88;
   }
   .xsgd-d::after, .xsgd-d::before {
-    box-shadow: 2rpx 2rpx 5rpx #999;
+    //box-shadow: 2rpx 2rpx 5rpx #fff;
     content: '';
     left: 50%;
     transform: translateX(-50%);
@@ -197,14 +229,14 @@
   }
   .xsgd-d::after {
     top: 70rpx;
-    background-color: #fff;
+    background: linear-gradient(#fcfcfc, #fff);
     width: 90%;
     z-index: 22;
   }
   .xsgd-d::before {
      z-index: 10;
      top: 100rpx;
-     background-color: #fff;
+     background: linear-gradient(#fcfcfc, #fff);
      width: 80%;
    }
 }

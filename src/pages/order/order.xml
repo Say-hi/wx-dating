@@ -103,6 +103,19 @@
       </view>
     </view>
   </view>
+  <!--第一次使用完善个人资料弹窗-->
+  <view wx:if="{{ datashow }}" class="usermask">
+    <view class="usermask-wrap">
+      <view class="user-top">
+        <image src="../../images/nodata.png"></image>
+      </view>
+      <view class="u-text">第一次使用</view>
+      <view class="u-text">请先完善个人资料</view>
+      <view class="u-confirm-btn">
+        <text catchtap="gofinishuserdata">确认</text>
+      </view>
+    </view>
+  </view>
 </view>
 <!--发起成功-->
 <view wx:if="{{ datingSuccess }}" class="success-mask">

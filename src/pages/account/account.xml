@@ -1,0 +1,15 @@
+<view class="wrap">
+  <image src="../../images/account-bg.png"></image>
+  <view class="up-floor">
+    <navigator url="../accountDetail/accountDetail" catchtap="goDetail" class="detail">详情</navigator>
+    <view class="center">
+      <view class="money">{{ money }}</view>
+      <view class="money-text">账户余额(元)</view>
+    </view>
+    <view class="bottom">
+      <view class="recharge">充值</view>
+      <view class="sincerity">{{ sincerityMoney ? '诚意保证金￥' + sincerityMoney : '尚未缴纳诚意保证金' }}</view>
+      <view class="sincerity-pay">{{ sincerityMoney ? '退款':'马上支付' }}</view>
+    </view>
+  </view>
+</view>

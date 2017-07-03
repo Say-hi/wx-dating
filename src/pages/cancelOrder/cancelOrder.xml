@@ -1,0 +1,86 @@
+<view class="wrap">
+  <view class="top-title">
+    {{ order.type == 1 ? '您的约会对象因故取消了与您的邀约，请确认' : '' }}
+  </view>
+  <!--订单信息-->
+  <view class="order-info">
+    <!--编号-->
+    <view class="o-i-top">
+      <text class="o-i-number">订单编号:<text>{{ order.number }}</text></text>
+      <text class="o-i-status">已确认</text>
+    </view>
+    <!--套餐-->
+    <view class="o-i-center">
+      <image class="o-i-c-img" src="{{ order.img }}"></image>
+      <view class="o-i-c-center">
+        <view class="o-i-c-title">
+          {{ order.title }}
+        </view>
+        <view class="o-i-c-time">
+          时间: {{ order.time }}
+        </view>
+        <view class="o-i-c-address">
+          地点: {{ order.address }}
+        </view>
+      </view>
+      <view class="o-i-c-money">
+        ￥{{ order.money }}
+      </view>
+    </view>
+    <!--约会对象-->
+    <navigator url="../userInfo/userInfo?userId={{ order.pId }}"  class="dating-people arrow">
+      <image class="p-img" src="{{ order.pImg }}"></image>
+      <view class="p-name iconfont {{ order.pGender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.pName }}</view>
+    </navigator>
+  </view>
+  <!--惩罚-->
+  <view class="punishment">
+    <view wx:if="{{ order.zd }}" class="punishment-money">
+      <text>惩罚金</text>
+      <text>￥10</text>
+    </view>
+    <!--主动取消理由-->
+    <view wx:if="{{ order.zd }}" class="cancel-reason">
+      <view>取消理由</view>
+      <textarea wx:if="{{ !show }}" placeholder="请写下取消此次约会的理由"></textarea>
+    </view>
+    <!--被动理由-->
+    <view wx:else class="cancel-reason">
+      <view>Ta的理由</view>
+      <view class="c-p-reason">{{ order.pReason }}</view>
+      <textarea wx:if="{{ !show }}" placeholder="您可以在这里写下想对TA说的话后确认，也可以直接确认"></textarea>
+    </view>
+    <checkbox-group wx:if="{{ order.zd }}" bindchange="checkboxChange">
+      <label class="checkbox" wx:for="{{ items }}">
+        <checkbox color="#fff" value="{{ item.name }}" checked="{{ item.checked }}">
+          {{ item.value }}
+        </checkbox>
+      </label>
+    </checkbox-group>
+    <!--提交按钮-->
+    <view class="confrim-btn">
+      <text catchtap="confirmBtn">提交</text>
+    </view>
+    <!--提醒-->
+    <view wx:if="{{ order.zd }}" class="tips">
+      <view>*用户连续三次主动取消赴约后，适用以下制约措施。</view>
+      <view>1.发起方面:发起和替TA发起邀约功能被禁用，只能应邀;应邀后成功赴约一次，便可解除发起禁令。</view>
+      <view>2.应邀方面:之后每次应邀，如果爽约将扣除意向保证金十元，扣完为止;重新充值保证金(100元)后，爽约记录清零。</view>
+    </view>
+  </view>
+</view>
+<!--弹窗-->
+<view wx:if="{{ show }}" class="mask">
+  <view class="mask-wrap">
+    <view class="ts">订单关闭</view>
+    <view class="ts-two">
+      约会取消，后台经审核确认后
+    </view>
+    <view class="ts-three">
+      将在10个工作日内退款至支付者账户
+    </view>
+    <view catchtap="delMask" class="mask-confirm">
+      确认
+    </view>
+  </view>
+</view>

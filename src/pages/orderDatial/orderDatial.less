@@ -1,8 +1,11 @@
 .wrap {
   padding: 0 24rpx;
   border-top: 1rpx solid #ccc;
-  .arrow {
-    right: 0;
+  .arrow::after {
+    width: 16rpx;
+    height: 16rpx;
+    right: 0rpx;
+    color: #ccc;
   }
   //订单编号
   .top {
@@ -20,6 +23,9 @@
       font-size: 28rpx;
       color: #ccc;
     }
+    .confirm {
+      color: #ffc4a6;
+    } 
   }
   // 点单信息
   .restaurant {
@@ -62,6 +68,25 @@
       font-size: 26rpx;
     }
   }
+  // 兑换码
+  .conversion {
+    display: flex;
+    align-items: center;
+    height: 67rpx;
+    text {
+      color: #ffc4a6;
+      font-size: 26rpx;
+    }
+    text:nth-child(1) {
+      flex: 1;
+    }
+    text:nth-child(2) {
+      color: #2b2f41;
+      padding: 6rpx 12rpx;
+      border: 1rpx solid #2b2f41;
+      border-radius: 20rpx;
+    }
+  }
   // 惩罚
   .punishment {
     display: flex;
@@ -73,8 +98,50 @@
       font-size: 30rpx;
       font-weight: 700;
     }
+    text:nth-child(1) {
+      flex: 1;
+    }
     text:nth-child(2) {
       color: #f66;
     }
+  }
+  //取消理由
+  .cancel-reson, .cancel-respond {
+    padding-bottom: 20rpx;
+    border-bottom: 1rpx solid #ccc;
+    view:nth-child(1) {
+      font-size: 30rpx;
+      font-weight: 700;
+      line-height: 60rpx;
+    }
+    view:nth-child(2) {
+      font-size: 26rpx;
+      color: #999;
+    }
+  }
+  .cancel-respond {
+   border-bottom: none;
+  }
+}
+// 约会信息
+.dating-info {
+  border-top: 10rpx solid #eee;
+  padding: 0rpx 24rpx 20rpx 24rpx;
+  > view {
+    display: flex;
+    align-items: center;
+    height: 87rpx;
+    border-bottom: 1rpx solid #ccc;
+    text {
+      font-size: 30rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    text:nth-child(1) {
+      flex: 1;
+    }
+  }
+  .d-i-money {
+    color: #f66;
   }
 }

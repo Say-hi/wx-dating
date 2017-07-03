@@ -77,13 +77,18 @@ Page({
     let orderId = e.currentTarget.dataset.id
     let tabCurrent = this.data.tabCurrent
     // console.log(orderId)
-    if (status === 0 && tabCurrent === 1) {
+    // console.log(status)
+    // console.log(tabCurrent)
+    if (status === 0 && tabCurrent === 0) {
       // todo 查看应邀
       wx.navigateTo({
         url: '../checkInvited/checkInvited?orderId=' + orderId
       })
     } else if (status === 1 && tabCurrent !== 2) {
       // todo 取消赴约
+      wx.navigateTo({
+        url: '../cancelOrder/cancelOrder?orderId=' + orderId
+      })
     } else if (status === 0 && tabCurrent === 2) {
       // todo 提醒功能
     }

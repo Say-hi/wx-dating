@@ -8,6 +8,7 @@ Page({
    */
   data: {
     title: 'userInfo',
+    logins: true,
     // 视屏
     videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
     videoCover: '../../images/video_cover.jpg',
@@ -19,7 +20,7 @@ Page({
     objectFit: 'Fill',
     // 用户信息
     userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
-    showMoreBtn: false,
+    showMoreBtn: true,
     showTaDeep: false,
     userInfos: {
       company: '广东银燕传奇广告有限公司',
@@ -40,7 +41,7 @@ Page({
       },
       {
         time: '2017.06.01',
-        address: '体育西路',
+        address: '体育西路asdfasdfsadfsadf',
         id: 'inv-123'
       }
     ],
@@ -57,14 +58,14 @@ Page({
       {
         src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
         name: '李四',
-        gender: 2,
+        gender: 1,
         text: '我是李四'
       },
       {
         src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
         name: '李四2',
         gender: 2,
-        text: '李四222'
+        text: '李四22as拉萨；空间的发生；了地方见撒旦；浪费撒旦2'
       }
     ]
   },
@@ -161,15 +162,19 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
+  // 下拉操作
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
     wx.stopPullDownRefresh()
     this.playVideo()
   },
+  // 上拉触底操作
   onReachBottom () {
+    // todo 判断是否关注了
     if (this.data.showTaDeep) return
     this.setData({
-      showTaDeep: true
+      showTaDeep: true,
+      showMoreBtn: false
     })
   }
 })

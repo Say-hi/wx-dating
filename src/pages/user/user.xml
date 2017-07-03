@@ -2,24 +2,32 @@
 <import src="../template/template"></import>
 <!--视屏-->
 <!--<template is="video" data=""></template>-->
-<view class="video-area">
-  <view wx:if="{{show}}" class="video-cover-wrap">
-    <image class="video-cover" src="{{videoCover}}"></image>
+<!--有视屏-->
+<view wx:if="{{ logins && hasvideo }}" class="video-area">
+  <view wx:if="{{ show }}" class="video-cover-wrap">
+    <image class="video-cover" src="{{ videoCover }}"></image>
     <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
+    <view catchtap="editVideo" class="video-edit">编辑</view>
   </view>
+</view>
+<!--无视频-->
+<view wx:else class="video-area novideo">
+  <!--<view>-->
+    <image src="{{ logins ?  hasvideo ? '' : '../../images/login-video.png' : '../../images/login-bg.png' }}"></image>
+  <!--</view>-->
 </view>
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image catchtap="getUserInfo" class="user-avatar-url" src="{{userInfo.avatarUrl || '../../images/home.png'}}"></image>
+  <image catchtap="getUserInfo" class="user-avatar-url {{ logins ? '' : 'user-avatar-url-no' }}" src="{{userInfo.avatarUrl || '../../images/login-img.png'}}"></image>
   <view class="user-nick-name-wrap">
-    <navigator hover-class="none" url="../userOrder/userOrder" class="order iconfont icon-dingdan">订单</navigator>
+    <navigator hover-class="none" url="{{ logins ? '../userOrder/userOrder' : '' }}" class="order iconfont icon-dingdan">订单</navigator>
     <!--昵称-->
-    <view class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName || '请登录'}}</view>
-    <navigator hover-class="none" url="../message/message" class="message iconfont icon-xiaoxi">消息</navigator>
+    <view wx:if="{{ logins }}" class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
+    <navigator hover-class="none" url="{{ logins ? '../message/message' : '' }}" class="message iconfont icon-xiaoxi {{ hasmessage ? 'has' : '' }}">消息</navigator>
   </view>
   <!--相册-->
-  <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types }}"></template>
+  <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>
   <!--<view>123</view>-->
   <!--用户操作-->
   <view class="operation">

@@ -1,8 +1,8 @@
 <!--相册-->
 <template name="photo">
-    <navigator open-type="{{ open_type }}" url="../photo/photo" class="photo">
+    <navigator open-type="{{ open_type }}" url="{{ login ? '../photo/photo' : '' }}" class="photo">
         <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
-        <view class="photo-show">
+        <view class="photo-show" wx:if="{{ login }}">
             <block wx:for="{{ userPhoto }}" wx:for-item="photo" wx:key="unique">
                 <image src="{{ photo }}"></image>
             </block>

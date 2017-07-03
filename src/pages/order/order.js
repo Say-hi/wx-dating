@@ -14,12 +14,23 @@ Page({
     people: '寻约会对象',
     pay: '我付清',
     price: '168',
+    // 意向金弹窗
     moneyshow: false,
+    // 禁止发起弹窗
     cancelshow: false,
+    // 发起成功弹窗
     datingSuccess: false,
+    // 个人资料完善弹窗
+    datashow: false,
     one: 0,
     two: 0,
     payText: '立即支付'
+  },
+  // 完善个人资料
+  gofinishuserdata () {
+    wx.redirectTo({
+
+    })
   },
   // 选择约会对象
   cp (e) {

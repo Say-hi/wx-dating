@@ -1,0 +1,15 @@
+<view class="wrap">
+  <view class="kefu-img">
+    <button class="kefu-btn" open-type="contact">
+      <image src="../../images/kefu.png"></image>
+    </button>
+    <view>点击客服头像与在线客服沟通</view>
+    <view>或在下方留言</view>
+  </view>
+  <!--反馈-->
+  <textarea class="fktext" placeholder="请写下对约会日的感受，我们将不断进步，为您做的更好~"></textarea>
+  <view class="lx"><text>联系方式:　</text><input placeholder="邮箱、QQ、手机皆可"/></view>
+  <view class="send-btn">
+    <text>发送</text>
+  </view>
+</view>

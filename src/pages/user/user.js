@@ -9,6 +9,9 @@ Page({
   data: {
     title: 'user',
     // 视屏
+    logins: false,
+    hasvideo: true,
+    hasmessage: true, // 有消息状态
     videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
     videoCover: '../../images/video_cover.jpg',
     videoPlay: '../../images/play.png',
@@ -46,10 +49,16 @@ Page({
         ico: 'icon-FAQ'
       },
       {
-        title: '反馈',
+        title: '反馈与客服',
         ico: 'icon-fankui'
       }
     ]
+  },
+  // 编辑相册封面
+  editVideo () {
+    // todo
+    // 视频遮盖图修改
+    console.log(1)
   },
   videodel () {
     this.setData({
@@ -65,9 +74,11 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success (data) {
-              console.log(data)
+              // console.log(data)
+              wx.setStorageSync('userInfo', data.userInfo)
               that.setData({
-                userInfo: data.userInfo
+                userInfo: data.userInfo,
+                logins: true
               })
             }
           })
@@ -97,9 +108,16 @@ Page({
   onLoad () {
     // TODO: onLoad
     // app.login()
-    this.setData({
-      userInfo: wx.getStorageSync('userInfo')
-    })
+    if (wx.getStorageSync('userInfo')) {
+      this.setData({
+        userInfo: wx.getStorageSync('userInfo'),
+        logins: true
+      })
+    } else {
+      this.setData({
+        logins: false
+      })
+    }
   },
 
   /**

@@ -3,20 +3,28 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/orderDatial/orderDatial", // 订单详情
+    "pages/recharge/recharge", // 充值
+    "pages/accountDetail/accountDetail", // 账户消费详情
+    "pages/account/account", // 用户账户
+    "pages/survey/survey", // 问卷调查
+    "pages/mySurvey/mySurvey", // 我的问卷
+    "pages/userInfo/userInfo", // 个人资料
+    "pages/faq/faq", // faq问答页面
+    "pages/inviteEvaluate/inviteEvaluate", // 评价好友（好友邀请评价）
+    "pages/user/user", // 用户个人中心
+    "pages/kefu/kefu", // 客服与反馈
     "pages/index2/index2",// 首页
+    "pages/order/order", // 填写订单
+    "pages/cancelOrder/cancelOrder", // 取消赴约
+    "pages/orderDatial/orderDatial", // 订单详情
     "pages/userOrder/userOrder", // 用户订单信息
     "pages/checkInvited/checkInvited", // 选择确认应邀的人
     "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/follow/follow", // 关注
-    "pages/order/order", // 填写订单
     "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
     "pages/setMeal/setMeal", // 套餐详情
-    "pages/inviteEvaluate/inviteEvaluate", // 评价好友（好友邀请评价）
     "pages/message/message", // 用户消息通知列表
-    "pages/user/user", // 用户个人中心
     "pages/newuser/newuser", // 用户首次完善个人资料
-    "pages/userInfo/userInfo", // 个人资料
     "pages/stranger/stranger",//  陌生人提醒关注(废弃)
     "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
     "pages/plans/plans",// 约会计划-套餐列表

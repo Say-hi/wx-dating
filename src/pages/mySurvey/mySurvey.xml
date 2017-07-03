@@ -1,0 +1,23 @@
+<!--我的问卷调查-->
+<view class="wrap">
+  <view class="top">
+    <text class="{{ topCur == index ? 'cur' : '' }}" catchtap="chooseTop" data-index="{{ index }}" wx:for="{{ topArr }}">{{ item }}</text>
+  </view>
+  <block wx:for="{{ orderArr }}">
+    <view class="content">
+      <view wx:if="{{ item.status != 0 }}" class="c-title">
+        订单编号: <text>{{ item.number }}</text>
+      </view>
+      <view wx:if="{{ item.status != 0 }}" class="c-center">
+        <image src="{{ item.img }}"></image>
+        <view class="c-c-center">
+          <view class="c-c-title">{{ item.title }}</view>
+          <view class="c-c-text">时间: {{ item.time }}</view>
+          <view class="c-c-text">地点: {{ item.address }}</view>
+        </view>
+        <view class="c-money">￥{{ item.money }}</view>
+      </view>
+      <view class="gocheck-btn"><text class="btn-text">{{ item.status != 0 ? '' : '匿名问卷' }}</text><text class="btn-text-btn" data-id="{{ item.number }}" data-status="{{ item.status }}" catchtap="goDetail">{{ item.status != 2 ?  '查看问卷详情' : '我要参与问卷调查' }}</text></view>
+    </view>
+  </block>
+</view>

@@ -2,7 +2,7 @@
   <!--订单编号-->
   <view class="top">
     <text class="number">订单编号:<text>{{ order.number }}</text></text>
-    <text class="status">{{ order.status == 2 ? '订单关闭' : '已确认' }}</text>
+    <text class="status {{ order.status == 2 ? '' : 'confirm' }}">{{ order.status == 2 ? '订单关闭' : '已确认' }}</text>
   </view>
   <!--订单信息-->
   <view class="restaurant arrow">
@@ -14,9 +14,33 @@
     <image src="{{ order.userImg }}"></image>
     <text class="iconfont {{ order.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.userName }}</text>
   </view>
-  <!--惩罚金-->
-  <view class="punishment arrow">
-    <text>惩罚金</text>
-    <text>￥10</text>
+  <!--兑换码-->
+  <view wx:if="{{ order.conversion }}" class="conversion">
+    <text>兑换码: {{ order.conversion }}</text>
+    <text class="cancel-btn">取消赴约</text>
   </view>
+  <!--惩罚金-->
+  <view wx:if="{{ order.money }}" class="punishment">
+    <text>惩罚金</text>
+    <text>￥{{ order.money }}</text>
+  </view>
+  <!--我的取消理由-->
+  <view wx:if="{{ order.reason }}" class="cancel-reson">
+    <view>取消理由:</view>
+    <view>{{ order.reason }}</view>
+  </view>
+  <!--取消回应-->
+  <view wx:if="{{ order.respond }}" class="cancel-respond">
+    <view>Ta的回应:</view>
+    <view>{{ order.respond }}</view>
+  </view>
+</view>
+ <!--约会信息-->
+<view class="dating-info">
+  <block wx:for="{{ datingInfo }}">
+    <view>
+      <text>{{ item.title }}:</text>
+      <text class="{{ item.title == '费用' ? 'd-i-money' : ''}}">{{ item.text }}</text>
+    </view>
+  </block>
 </view>
