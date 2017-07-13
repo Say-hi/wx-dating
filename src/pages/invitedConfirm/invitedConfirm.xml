@@ -1,46 +1,47 @@
+<import src="../template/template"></import>
 <!--应邀确认-->
 <view class="invited">
   <view class="title">{{title}}</view>
   <!--时间-->
   <view class="text-wrap">
     <view class="name-l">时间:</view>
-    <view class="name-r">{{ time }}</view>
+    <view class="name-r">{{ orderInfo.time }}</view>
   </view>
   <!--地址-->
   <view class="text-wrap">
     <view class="name-l">地址:</view>
-    <view class="name-r">{{ address }}</view>
+    <view class="name-r">{{ orderInfo.address }}</view>
   </view>
   <!--约会对象-->
   <view class="text-wrap">
     <view class="name-l">约会对象:</view>
-    <view class="name-r">{{ people }}</view>
+    <view class="name-r">{{ orderInfo.user_nicename }}</view>
   </view>
   <!--费用-->
   <view class="text-wrap">
     <view class="name-l">费用:</view>
-    <view class="name-r redcolor">￥{{ price }}</view>
+    <view class="name-r redcolor">￥{{ orderInfo.money }}</view>
   </view>
   <!--手机-->
   <view class="text-wrap lxnumber">
     <view class="name-l">联系手机:</view>
     <view class="name-r company gender">
-      <input type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
+      <input bindinput="phoneNumberIn" type="number" maxlength="11" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
     </view>
   </view>
   <!--意向。。。-->
   <view class="bottom-text">
     <view>
-      *意向应邀是指在缴纳意向保证金100元的前提下，可以选择最多5个约会对象进行应邀，最快回复的意向对象为最终约会对象，其余意向邀约自动作废，并以此位准支付费用。
+      *意向应邀是指在缴纳意向保证金100元的前提下，可以选择最多5个约会对象进行应邀，最快回复的意向对象为最终约会对象，其余意向邀约自动作废，并以此为准支付费用。
     </view>
     <view>
       *在约会开始前一天24点前，仍未约会成功，费用将全额退回至个人余额账户。
     </view>
   </view>
   <!--confirm-->
-  <view class="invitedconfirm">意向应邀</view>
+  <view catchtap="confirmInvited" class="invitedconfirm">意向应邀</view>
   <!--意向金弹窗-->
-  <view wx:if="{{ show }}" class="mask">
+  <view wx:if="{{ orderInfo.bao_money > 0 ? false : true }}" class="mask">
     <view class="mask-wrap">
       <view class="ts">提示</view>
       <view class="ts-two">
@@ -51,4 +52,6 @@
       </view>
     </view>
   </view>
+  <!--个人资料完善弹窗-->
+  <template is="finishUserData" data="{{ datashow: orderInfo.is_perfect_data == '1' ? false : true }}"></template>
 </view>

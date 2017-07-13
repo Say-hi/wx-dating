@@ -1,6 +1,7 @@
 // 获取全局应用程序实例对象
 /*eslint-disable*/
 const app = getApp()
+const useUrl = require('../../utils/service')
 // const plugin = require('../../utils/plugin')
 const ccFile = require('../../utils/calendar-converter')
 // const common = require('../../utils/common')
@@ -52,78 +53,7 @@ Page({
     i: 0,
     show: true,
     friendshow: false,
-    userList: [
-      [
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友一号',
-          nickName: 'Jack Jhon',
-          gender: 1,
-          id: 123,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        },
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友二号',
-          nickName: 'Jack Jhon',
-          gender: 2,
-          id: 234,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        },
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友三号',
-          nickName: 'Jack Jhon',
-          gender: 2,
-          id: 234,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        }
-      ],
-      [
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友一号',
-          nickName: 'Jack Jhon',
-          gender: 1,
-          id: 123,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        },
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友二号',
-          nickName: 'Jack Jhon',
-          gender: 2,
-          id: 234,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        },
-        {
-          src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: '好友三号',
-          nickName: 'Jack Jhon',
-          gender: 2,
-          id: 234,
-          money: 123,
-          address: '珠江新城',
-          time: '18:30',
-          title: 'Kiss Bottle 全新手工制甜品餐'
-        }
-      ]
-    ]
+    userList: []
   },
   delfriend () {
     this.setData({
@@ -242,14 +172,58 @@ Page({
       detailData: detailDate
     })
     this.setTime()
+    // 请求关注好友的数据
+    // let obj = {
+    //   url: useUrl.getSubscribeUserYaoyue,
+    //   data: {
+    //     session_key: wx.getStorageSync('session_key'),
+    //     // time: currentMonth[d].sYear + '-' + (currentMonth[d].sMonth < 10 ?  "0" + currentMonth[d].sMonth : currentMonth[d].sMonth)  + '-' + (currentMonth[d].sDay < 10 ?  "0" + currentMonth[d].sDay : currentMonth[d].sDay),
+    //     time: '2017-07-07',
+    //     page: page
+    //   },
+    //   success (res) {
+    //     console.log(res)
+    //   }
+    // }
+    // app.wxrequest(obj)
+    this.setData({
+      userList: []
+    })
+    this.getfriend(1, currentMonth[d].sYear + '-' + (currentMonth[d].sMonth < 10 ?  "0" + currentMonth[d].sMonth : currentMonth[d].sMonth)  + '-' + (currentMonth[d].sDay < 10 ?  "0" + currentMonth[d].sDay : currentMonth[d].sDay))
+
+  },
+  //获取对应日期的好友发起的套餐
+  getfriend (page, time) {
+    let that = this
+    let obj = {
+      url: useUrl.getSubscribeUserYaoyue,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        time: time,
+        page: page
+      },
+      success (res) {
+        if (res.data.data.length > 0) {
+          that.data.userList.push(res.data.data)
+          that.getfriend(++page, time)
+        } else {
+          that.setData({
+            userList: that.data.userList
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
   },
   // 缓存设置日期
   setTime () {
+    let y = this.data.detailData.curYear
     let m = MONTH_ENGLISH[this.data.detailData.curMonth - 1]
+    let m_n = this.data.detailData.curMonth
     // console.log(m)
     let d = this.data.detailData.curDay
     // console.log(d)
-    wx.setStorageSync('time', {m:m,d:d})
+    wx.setStorageSync('time', {y:y, m:m, m_n:m_n, d:d})
   },
   /**
    * 生命周期函数--监听页面加载
@@ -268,7 +242,7 @@ Page({
     // 初始化本月和后三个月的数据
     let dateArr =[]
     for (let i = 0; i <= 3; i++) {
-      if( i!==0 ) curDay = 1
+      if( i !== 0 ) curDay = 1
       dateArr.push(this.initCurDate(curYear, curMonth, curDay))
       if (curMonth === 11) {
         curMonth = 0

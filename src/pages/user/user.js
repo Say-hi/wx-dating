@@ -35,14 +35,14 @@ Page({
         url: '../taRecord/taRecord'
       },
       {
-        title: '账户余额',
+        title: '卷包余额',
         ico: 'icon-yue',
-        url: '../newuser/newuser'
+        url: '../account/account'
       },
       {
         title: '问卷调查',
         ico: 'icon-wenjuan',
-        url: '../message/message'
+        url: '../mySurvey/mySurvey'
       },
       {
         title: 'FAQ',
@@ -50,7 +50,8 @@ Page({
       },
       {
         title: '反馈与客服',
-        ico: 'icon-fankui'
+        ico: 'icon-fankui',
+        url: '../kefu/kefu'
       }
     ]
   },

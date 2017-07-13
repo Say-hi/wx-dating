@@ -36,13 +36,19 @@
   <view class="plans-content-wrap {{ status || statustwo ? 'setheight': ''}}">
     <block wx:for="{{ content }}">
       <navigator hover-class="none" url="../setMeal/setMeal?id={{ item.id }}" class="plans-content">
-        <image src="{{ item.src }}"></image>
-        <view class="p-c-title">{{ item.title }}</view>
+        <image src="{{ item.image }}"></image>
+        <view class="p-c-title">{{ item.name }}</view>
         <view class="p-c-bottom">
-          <view class="p-c-b-left">{{ item.address }}</view>
-          <view class="p-c-b-right">{{ item.price }}元/位</view>
+          <view class="p-c-b-left">{{ item.city }}·{{ item.district }}</view>
+          <view class="p-c-b-right">{{ item.money }}元/位</view>
         </view>
       </navigator>
     </block>
+    <view class="nolist" wx:if="{{ content.length <= 0 && city != '定位中' }}">
+      亲爱的小主，该地区暂时无法提供服务哦，请更换区域再次尝试~~
+    </view>
+    <view class="nolist" wx:if="{{ content.length <=0 && city == '定位中' }}">
+      亲爱的小主，正在定位您当前的位置中，请稍作等待~~
+    </view>
   </view>
 </view>

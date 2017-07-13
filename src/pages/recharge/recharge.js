@@ -8,11 +8,18 @@ Page({
    */
   data: {
     title: 'recharge',
-    curTab: true
+    curTab: true,
+    chargeFail: false,
+    maskshow: true
+  },
+  delMask () {
+    this.setData({
+      maskshow: false
+    })
   },
   chooseTab (e) {
     let that = this
-    if (e.currentTarget.dataset.type == 'wx') {
+    if (e.currentTarget.dataset.type === 'wx') {
       that.setData({
         curTab: true
       })

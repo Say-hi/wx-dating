@@ -1,33 +1,36 @@
 <!--套餐详情-->
 <import src="../../wxParse/wxParse"></import>
 <swiper style="height: {{ height }};" indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#ffc4a6" circular="{{ circular }}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for="{{imgUrls}}">
+  <block wx:for="{{orderInfo.photo_list}}">
+  <!--<block wx:for="{{ imgUrls }}">-->
     <swiper-item bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd">
       <!--<image  src="{{item}}" class="slide-image" width="355" height="150"/>-->
-      <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{item}}" class="slide-image" width="355" height="150"/>
+      <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{ item }}" class="slide-image" />
     </swiper-item>
+    <!--<image catchtap="getSrc" data-src="{{ src }}" src="{{ src }}"></image>-->
   </block>
 </swiper>
 <!--中间内容区域-->
 <view class="center">
   <!--套餐标题-->
-  <view class="title">{{ title }}</view>
-  <view class="title-bottom"><text class="address">{{ address }}</text><text class="price">￥{{price}}/位</text></view>
+  <view class="title">{{ orderInfo.name }}</view>
+  <view class="title-bottom"><text class="address">{{ orderInfo.city }}·{{ orderInfo.district }}</text><text class="price">￥{{orderInfo.money}}/位</text></view>
   <!--商店信息介绍-->
   <view class="shopInfo">
-    <template is="WxParse" data=""></template>
+    <!--todo html解析模板-->
+    <template is="wxParse" data="{{ wxParseData:shopInfo.nodes }}"></template>
   </view>
   <view class="shop-title">{{ shopTitle }}</view>
   <view class="shop-time iconfont icon-riqi">{{ shopTime }}</view>
-  <view class="shop-address arrow iconfont icon-dizhi">{{ shopAddress }}</view>
+  <view catchtap="showMap" class="shop-address arrow iconfont icon-dizhi">{{ orderInfo.address }}</view>
   <!--菜单-->
   <view class="menu">菜单</view>
   <view class="menu-content">
-    <template is="WxParse" data=""></template>
+    <template is="wxParse" data="{{ wxParseData:menu.nodes }}"></template>
   </view>
   <view class="tips">温馨提示:</view>
   <view class="tips-content">
-    <template is="WxParse" data=""></template>
+    <template is="wxParse" data="{{ wxParseData:reminder.nodes }}"></template>
   </view>
 </view>
 <!--底部-->

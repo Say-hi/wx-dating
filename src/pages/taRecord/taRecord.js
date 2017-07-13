@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -9,22 +9,23 @@ Page({
   data: {
     title: 'taRecord',
     choose: false,
-    userList: [
-      {
-        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '好友一号',
-        nickName: 'Jack Jhon',
-        gender: 1,
-        id: 123
+    userList: []
+  },
+  getRecordData () {
+    let that = this
+    let rd = {
+      url: useUrl.getTaArchives,
+      data: {
+        session_key: wx.getStorageSync('session_key')
       },
-      {
-        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '好友二号',
-        nickName: 'Jack Jhon',
-        gender: 2,
-        id: 234
+      success (res) {
+        console.log(res)
+        that.setData({
+          userList: res.data.data
+        })
       }
-    ]
+    }
+    app.wxrequest(rd)
   },
   // 选择替Ta发起的对象
   backChoose (e) {
@@ -64,6 +65,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.getRecordData()
     // TODO: onShow
   },
 

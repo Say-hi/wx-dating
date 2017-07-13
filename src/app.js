@@ -1164,6 +1164,44 @@ App({
     }
     /*eslint-enable*/
   },
+  // 发起微信支付
+  wxpay (obj) {
+    let objs = {
+      timeStamp: obj.timeStamp,
+      nonceStr: obj.nonceStr,
+      package: obj.package,
+      signType: obj.signType || 'MD5',
+      paySign: obj.paySign,
+      success: obj.success || function (res) {
+        console.log('未传入success回调函数', res)
+      },
+      fail: obj.fail || function (err) {
+        console.log('未传入fail回调函数,err:', err.errMsg)
+      },
+      complete: obj.complete || function () {}
+    }
+    wx.requestPayment(objs)
+  },
+  // 上传媒体文件
+  wxUpload (obj) {
+    let s = {
+      url: obj.url,
+      filePath: obj.filePath,
+      name: obj.name || 'file',
+      header: {
+        'content-type' : 'multipart/form-data'
+      },
+      formData: obj.formData,
+      success: obj.success || function (res) {
+        console.log('未传入成功回调函数', res)
+      },
+      fail: obj.fail || function (res) {
+        console.log('为传入失败回调函数', res)
+      },
+      complete: obj.complete || function () {}
+    }
+    wx.uploadFile(s)
+  },
   // 请求数据
   wxrequest (obj) {
     wx.request({
@@ -1205,7 +1243,9 @@ App({
                 encryptedData: encryptedData
               },
               success (session) {
-                console.log(session)
+                let session_key = 'akljgaajgoehageajnafe'
+                wx.setStorageSync('session_key', session_key)
+                // console.log(session)
               }
             }
             that.wxrequest(objs)

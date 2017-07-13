@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -12,6 +12,7 @@ Page({
       '我收到的问卷',
       '我发出的问卷'
     ],
+    page: 1,
     topCur: 0,
     orderArr: [
       {
@@ -43,7 +44,11 @@ Page({
     let status = e.currentTarget.dataset.status
     if (status === 2) {
       wx.navigateTo({
-        url: '../survey/survey?orderId=' + e.currentTarget.dataset.id
+        url: '../survey/survey?orderId=' + e.currentTarget.dataset.id + '&write=true'
+      })
+    } else {
+      wx.navigateTo({
+        url: '../survey/survey?orderId=' + e.currentTarget.dataset.id + '&write=false'
       })
     }
   },
@@ -53,11 +58,27 @@ Page({
       topCur: e.currentTarget.dataset.index
     })
   },
+  // 获取我收到的问卷
+  getMyReceive (page) {
+    // let that = this
+    let obj = {
+      url: useUrl.myReceiveQuestionnaires,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        page: page
+      },
+      success (res) {
+        console.log(res)
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
     // TODO: onLoad
+    this.getMyReceive(1)
   },
 
   /**

@@ -1,30 +1,33 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    title: 'Mr.Rocky 双人火焰牛排餐',
-    days: '2017.05.20(周日)',
-    time: '18:00',
-    address: '珠江新城华夏路6号',
+    // title: 'Mr.Rocky 双人火焰牛排餐',
+    // days: '2017.05.20(周日)',
+    time: '00:00',
+    // address: '珠江新城华夏路6号',
     people: '寻约会对象',
     pay: '我付清',
-    price: '168',
+    payType: 1,
+    mobile: 0,
+    // price: '168',
     // 意向金弹窗
-    moneyshow: false,
+    // moneyshow: false,
     // 禁止发起弹窗
-    cancelshow: false,
+    // cancelshow: false,
     // 发起成功弹窗
     datingSuccess: false,
     // 个人资料完善弹窗
-    datashow: false,
+    // datashow: false,
     one: 0,
     two: 0,
     payText: '立即支付'
+    // value:[18, 0]
   },
   // 完善个人资料
   gofinishuserdata () {
@@ -32,6 +35,22 @@ Page({
 
     })
   },
+  getMyDay (date) {
+    var week = ''
+    var dates = new Date(date)
+    if (dates.getDay() === 0) week = '周日'
+    if (dates.getDay() === 1) week = '周一'
+    if (dates.getDay() === 2) week = '周二'
+    if (dates.getDay() === 3) week = '周三'
+    if (dates.getDay() === 4) week = '周四'
+    if (dates.getDay() === 5) week = '周五'
+    if (dates.getDay() === 6) week = '周六'
+    this.setData({
+      days: date.replace(/-/g, '.') + '(' + week + ')',
+      day: date
+    })
+  },
+// var w1 = getMyDay(new Date("2015-7-12"));
   // 选择约会对象
   cp (e) {
     let p = e.currentTarget.dataset.type
@@ -45,15 +64,23 @@ Page({
       })
     } else if (p === 'my') {
       this.setData({
-        pay: '我付清'
+        pay: '我付清',
+        payType: 1
       })
     } else if (p === 'both') {
       this.setData({
-        pay: '各付各'
+        pay: '各付各',
+        payType: 2
       })
     } else if (p === 'other') {
       this.setData({
-        pay: 'Ta付清'
+        pay: 'Ta付清',
+        payType: 3
+      })
+    } else if (p === 'forTa') {
+      this.setData({
+        pay: '替Ta付清',
+        payType: 0
       })
     }
     this.noMask()
@@ -89,22 +116,48 @@ Page({
       payShow: false
     })
   },
-  // 行业选择
+  // 时间选择
   bindChange (e) {
+    // console.log(e)
+    let time = (e.detail.value[0] < 10 ? '0' + e.detail.value[0] : e.detail.value[0]) + ':' + (e.detail.value[1] < 10 ? '0' + e.detail.value[1] : e.detail.value[1])
     this.setData({
       one: e.detail.value[0],
       two: e.detail.value[1],
+      time: time,
       value: e.detail.value
     })
   },
   // 去除遮罩层
   delMask (e) {
+    let that = this
     let type = e.currentTarget.dataset.type
-    console.log(type)
+    // console.log(type)
     if (type === 'yxpay') {
-      this.setData({
-        moneyshow: false
-      })
+      // todo 支付意向金
+      let obj = {
+        url: useUrl.payByBond,
+        data: {
+          session_key: wx.getStorageSync('session_key')
+        },
+        success (res) {
+          console.log(res)
+          // todo
+          // let obj1 = {
+          //   success (res) {
+          //     console.log(res)
+          //     that.setData({
+          //       moneyshow: false
+          //     })
+          //   }
+          // }
+          // app.wxpay(obj1)
+          // todo del ----------
+          that.setData({
+            moneyshow: false
+          })
+        }
+      }
+      app.wxrequest(obj)
     } else {
       this.setData({
         cancelshow: false
@@ -121,16 +174,101 @@ Page({
         mask: true
       })
     }
-    console.log('开始支付流程')
+    if (this.data.mobile.length !== 11) {
+      return wx.showToast({
+        image: '../../images/jiong.png',
+        mask: true,
+        title: '请填写完整的手机号码'
+      })
+    }
+    this.sendOrderData()
+    // console.log('开始支付流程')
+    // this.setData({
+    //   datingSuccess: true
+    // })
+  },
+  // 发起邀约生成订单信息
+  sendOrderData () {
+    let that = this
+    let obj = {
+      url: useUrl.postFaqiYaoyue,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: that.data.id,
+        date: that.data.day,
+        time: that.data.time,
+        mobile: that.data.mobile,
+        is_zhidai: (that.data.people === '寻约会对象') ? '1' : '2',
+        pay_type: that.data.payType
+      },
+      success (res) {
+        if (res.data.message === '手机号码不正确') {
+          return wx.showToast({
+            title: '请填写正确的手机号码',
+            mask: true
+          })
+        }
+        // console.log(res)
+        if (res.data.message === 'Success') {
+          // todo 发起微信支付流程
+          // let obj = {}
+          // app.wxpay(obj)
+          // wx.showToast({
+          //   title: ''
+          // })
+          // wx.navigateBack({
+          //   delta: 2
+          // })
+          that.setData({
+            datingSuccess: true
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
+  },
+  // 手机号码输入
+  mobileInput (e) {
     this.setData({
-      datingSuccess: true
+      mobile: e.detail.value
     })
+  },
+  // 用户资料检查
+  checkUser () {
+    let that = this
+    let obj = {
+      url: useUrl.isPerfectData,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        console.log(res.data.data.is_perfect_data)
+        console.log(res.data.data.isShiyue)
+        console.log(res.data.data.isHasBaomoney)
+        if (res.data.data.is_perfect_data.toString() === '0') {
+          return that.setData({
+            datashow: true
+          })
+        } else if (res.data.data.isShiyue.toString() === '1') {
+          return that.setData({
+            cancelshow: true
+          })
+        } else if (res.data.data.isHasBaomoney.toString() === '0') {
+          return that.setData({
+            moneyshow: true
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
     // TODO: onLoad
+    this.checkUser()
+    // 时间选择项生成
     let industryOne = []
     let industryTwo = []
     for (let i = 0; i < 60; i++) {
@@ -147,8 +285,18 @@ Page({
     }
     this.setData({
       industryTwo: industryTwo,
-      industryOne: industryOne
+      industryOne: industryOne,
+      price: params.price,
+      address: params.address,
+      title: params.title,
+      id: params.id
     })
+    // 日期生成
+    // this.setData({
+    //   // time:
+    // })
+    let time = wx.getStorageSync('time')
+    this.getMyDay(time.y + '-' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '-' + (time.d < 10 ? '0' + time.d : time.d))
   },
 
   /**

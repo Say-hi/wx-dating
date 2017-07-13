@@ -12,7 +12,10 @@
   <!--昵称-->
   <view class="text-wrap">
     <view class="name-l">名称:</view>
-    <input placeholder-class="placeholdercss" class="name-r" placeholder='输入Ta的名称'/>
+    <!--<input placeholder-class="placeholdercss" class="name-r" placeholder='输入Ta的名称'/>-->
+    <view class="name-r company gender">
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="name" type="text" value="{{ name }}" placeholder='输入Ta的名称'/>
+    </view>
   </view>
   <!--性别-->
   <view class="text-wrap">
@@ -64,7 +67,7 @@
     <view class="name-l">身高:</view>
     <!--picker-->
     <view class="name-r height gender">
-      <input placeholder-class="placeholdercss" type="number" placeholder='请输入Ta的身高'/><text class="cm">cm</text>
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="height" value="{{ userHeight }}" type="number" placeholder='请输入Ta的身高'/><text class="cm">cm</text>
     </view>
   </view>
   <!--行业-->
@@ -96,7 +99,7 @@
     <view class="name-l">公司:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" type="text" placeholder='请输入Ta工作的公司'/>
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="company" value="{{ compny }}" type="text" placeholder='请输入Ta工作的公司'/>
     </view>
   </view>
   <!--车房状况-->
@@ -117,29 +120,29 @@
   <view class="text-wrap">
     <view class="name-l">最喜欢/最近做过的运动:</view>
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesSports }}" data-type="sport"  placeholder='点击输入'/>
     </view>
   </view>
   <!--电影-->
   <view class="text-wrap">
     <view class="name-l">最喜欢/最近看过的电影:</view>
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesMovies }}" data-type="movie" placeholder='点击输入'/>
     </view>
   </view>
   <!--读书-->
   <view class="text-wrap">
     <view class="name-l">最喜欢/最近看过的书:</view>
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesBooks }}" data-type="book" placeholder='点击输入'/>
     </view>
   </view>
   <view class="basic-data topborder">对Ta的评价</view>
-  <textarea class="toTa" placeholder="请写下您对Ta的评价~"></textarea>
+  <textarea class="toTa" bindinput="inputValue" value="{{ comment }}" data-type="evaluate" placeholder="请写下您对Ta的评价~"></textarea>
 </view>
 <!--确认-->
-<view wx:if="{{ !forOther }}" catchtap="taConfirm" class="confirms">确认</view>
-<view wx:if="{{ forOther }}" class="confirm">
+<view wx:if="{{ !forOther }}" catchtap="updateTaArchives" class="confirms">确认</view>
+<view wx:else class="confirm">
   <view catchtap="chooseTa" class="c-one">从档案中选择</view>
   <view class="c-two">下一步</view>
 </view>

@@ -1,23 +1,32 @@
 <view class="wrap">
   <view class="wx">
-    <view data-type="wx" catchtap="chooseTab">
-      <text class="circle {{ curTab ? 'cur' : '' }}"></text>
-      <text class="kind-text">微信支付</text>
-    </view>
-    <view>
-      <text>充值金额</text>
-      <input type="number" placeholder="请输入充值金额"/>￥
-    </view>
-    <view data-type="lp" catchtap="chooseTab" class="lipin">
-      <text class="circle {{ !curTab ? 'cur' : '' }}"></text>
-      <text class="kind-text">礼品卷充值</text>
-    </view>
+    <!--<view data-type="wx" catchtap="chooseTab">-->
+      <!--<text class="circle {{ curTab ? 'cur' : '' }}"></text>-->
+      <!--<text class="kind-text">微信支付</text>-->
+    <!--</view>-->
+    <!--<view>-->
+      <!--<text>充值金额</text>-->
+      <!--<input type="number" placeholder="请输入充值金额"/>￥-->
+    <!--</view>-->
+    <!--<view data-type="lp" catchtap="chooseTab" class="lipin">-->
+      <!--<text class="circle {{ !curTab ? 'cur' : '' }}"></text>-->
+      <!--<text class="kind-text">礼品卷充值</text>-->
+    <!--</view>-->
     <view>
       <text>充值码:</text>
-      <input type="number" placeholder="请输入礼品卷充值码"/>
+      <input type="text" placeholder="请输入礼品卷充值码"/>
     </view>
   </view>
+  <!--充值失败-->
+  <view wx:if="{{ chargeFail }}" class="recharge-status">*无效的充值码</view>
   <view class="btn">
-    <text>充值</text>
+    <text>兑换</text>
+  </view>
+</view>
+<view wx:if="{{ maskshow }}" class="mask">
+  <view class="mask-wrap">
+    <image class="mask-img" src="../../images/choose-confirm.png"></image>
+    <text class="mask-c-center">礼品卷充值成功!</text>
+    <view class="mask-btn"><text catchtap="delMask">确认</text></view>
   </view>
 </view>

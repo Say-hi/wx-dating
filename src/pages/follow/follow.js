@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -40,7 +40,12 @@ Page({
     // let id = e.currentTarget.dataset.id
     let index = e.currentTarget.dataset.index
     let peopleArr = this.data.people
-    peopleArr[index].follow = !peopleArr[index].follow
+    if (peopleArr[index].is_subscribe === '1') {
+      peopleArr[index].is_subscribe = '0'
+    } else {
+      peopleArr[index].is_subscribe = '1'
+    }
+    // peopleArr[index].is_subscribe = !peopleArr[index].is_subscribe
     this.setData({
       people: peopleArr
     })
@@ -53,11 +58,29 @@ Page({
       })
     }
   },
+  // 获取用户关注的用户的列表
+  getFollowUser () {
+    let that = this
+    let obj = {
+      url: useUrl.getUserSubscribe,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        console.log(res)
+        that.setData({
+          people: res.data.data
+        })
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
     // TODO: onLoad
+    this.getFollowUser()
   },
 
   /**

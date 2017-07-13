@@ -1,5 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
+const useUrl = require('../../utils/service')
 const citys = require('../../utils/citys')
 const QQMapWX = require('../../utils/qmapsdk')
 const qqmapsdkkey = '2D3BZ-2I7WU-F22VV-43SMX-W6Z5K-PDFYQ'
@@ -18,25 +19,12 @@ Page({
     area: '定位中',
     selectBy: '筛选',
     selectdata: 2,
-    content: [
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-        title: 'Kiss Bottle 全新手工制品天平阿斯顿发的发生的发生的发生的发生地方不能',
-        address: '广州·天河区',
-        price: 168,
-        id: 23
-      },
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-        title: 'Kiss Bottle 全新手工制品天平阿斯顿发的发生的发生的发生的发生地方不能',
-        address: '广州·天河区',
-        price: 168,
-        id: 45
-      }
-    ]
+    page: 1,
+    content: []
   },
   // 选择排序方式
   selectchoose (e) {
+    let that = this
     let q = e.currentTarget.dataset.choose
     // console.log(q)
     if (q === '0') {
@@ -50,8 +38,11 @@ Page({
     }
     this.setData({
       selectdata: q,
-      statustwo: false
+      page: 1,
+      statustwo: false,
+      content: []
     })
+    this.engagementLists(q, that.data.page)
   },
   // 排序页面展示
   select () {
@@ -76,15 +67,23 @@ Page({
             city: '不在服务范围内',
             ifarrow: true,
             setAdd: false,
+            // lat: res.result.location.lat,
+            // lng: res.result.location.lng,
             area: ''
           })
         }
-        citys[city].unshift('附近')
+        if (citys[city][0] !== '附近') {
+          citys[city].unshift('附近')
+        }
         that.setData({
           setAdd: false,
           city: city,
+          cityall: res.result.ad_info.city,
+          lat: res.result.location.lat,
+          lng: res.result.location.lng,
           area: '附近'
         })
+        that.engagementLists(2, that.data.page)
       },
       fail (res) {
         console.log(res)
@@ -149,11 +148,14 @@ Page({
   },
   // 选择区域
   choosearea (e) {
+    let that = this
     this.setData({
       cityslist: [],
       citydetail: [],
       status: false,
-      current: null
+      current: null,
+      page: 1,
+      content: []
     })
     let area = e.currentTarget.dataset.area
     // console.log(area)
@@ -163,12 +165,80 @@ Page({
       ifarrow: false,
       area: area
     })
+    this.engagementLists(that.data.selectdata, that.data.page)
   },
   // 选择时间
   chooseTime () {
     wx.switchTab({
       url: '../index2/index2'
     })
+  },
+  // 获取约会套餐列表
+  engagementLists (type, page) {
+    let that = this
+    let time = that.data.year + '-' + (that.data.month_n < 10 ? '0' + that.data.month_n : that.data.month_n) + '-' + (that.data.day < 10 ? '0' + that.data.day : that.data.day)
+    let obj = {}
+    if (that.data.area === '附近') {
+      obj = {
+        url: useUrl.engagementLists,
+        data: {
+          session_key: wx.getStorageSync('session_key'),
+          type: type || 2,
+          time: time,
+          // district: that.data.area,
+          lng: that.data.lng,
+          lat: that.data.lat,
+          page: page
+        },
+        success (res) {
+          // console.log(res)
+          if (res.data.data.length <= 0) {
+            return wx.showToast({
+              title: '暂时没有更多内容啦',
+              image: '../../images/jiong.png',
+              duration: 2000,
+              mask: true
+            })
+          }
+          for (let i of res.data.data) {
+            that.data.content.push(i)
+          }
+          that.setData({
+            content: that.data.content
+          })
+        }
+      }
+    } else {
+      obj = {
+        url: useUrl.engagementLists,
+        data: {
+          session_key: wx.getStorageSync('session_key'),
+          type: type || 2,
+          time: time,
+          district: that.data.area,
+          // lng: that.data.lng,
+          // lat: that.data.lat,
+          page: page
+        },
+        success (res) {
+          // console.log(res)
+          if (res.data.data.length <= 0) {
+            return wx.showToast({
+              title: '没有更多内容啦',
+              image: '../../images/jiong.png',
+              mask: true
+            })
+          }
+          for (let i of res.data.data) {
+            that.data.content.push(i)
+          }
+          that.setData({
+            content: that.data.content
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -178,6 +248,14 @@ Page({
       key: qqmapsdkkey
     })
 
+    this.reverseGeocoder()
+    let time = wx.getStorageSync('time')
+    this.setData({
+      year: time.y,
+      month: time.m,
+      month_n: time.m_n,
+      day: time.d
+    })
     // TODO: onLoad
   },
 
@@ -187,12 +265,6 @@ Page({
   onReady () {
     // TODO: onReady
     // let that = this
-    this.reverseGeocoder()
-    let time = wx.getStorageSync('time')
-    this.setData({
-      month: time.m,
-      day: time.d
-    })
   },
 
   /**
@@ -221,5 +293,9 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  // 页面触底事件
+  onReachBottom () {
+    this.engagementLists(this.data.selectdata, ++this.data.page)
   }
 })

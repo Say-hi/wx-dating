@@ -39,7 +39,7 @@
   <view class="text-wrap lxnumber">
     <view class="name-l">联系手机:</view>
     <view class="name-r company gender">
-      <input confirm-type="done" maxlength="11" type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
+      <input bindinput="mobileInput" confirm-type="done" maxlength="11" type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
     </view>
   </view>
   <!--约会对象-->
@@ -64,6 +64,7 @@
       <view wx:if="{{ payShow }}" catchtap="noMask" class="mask">
         <view class="mask-bottom-wrap paymask">
           <view catchtap="cp" data-type="my">我付清</view>
+          <!--<view catchtap="cp" data-type="my">我付清</view>-->
           <view catchtap="cp" data-type="both">各付各</view>
           <view catchtap="cp" data-type="other">Ta付清</view>
           <view>取消</view>
@@ -104,18 +105,20 @@
     </view>
   </view>
   <!--第一次使用完善个人资料弹窗-->
-  <view wx:if="{{ datashow }}" class="usermask">
-    <view class="usermask-wrap">
-      <view class="user-top">
-        <image src="../../images/nodata.png"></image>
-      </view>
-      <view class="u-text">第一次使用</view>
-      <view class="u-text">请先完善个人资料</view>
-      <view class="u-confirm-btn">
-        <text catchtap="gofinishuserdata">确认</text>
-      </view>
-    </view>
-  </view>
+  <import src="../template/template"></import>
+  <template is="finishUserData" data="{{ datashow: datashow }}"></template>
+  <!--<view wx:if="{{ datashow }}" class="usermask">-->
+    <!--<view class="usermask-wrap">-->
+      <!--<view class="user-top">-->
+        <!--<image src="../../images/nodata.png"></image>-->
+      <!--</view>-->
+      <!--<view class="u-text">第一次使用</view>-->
+      <!--<view class="u-text">请先完善个人资料</view>-->
+      <!--<view class="u-confirm-btn">-->
+        <!--<text catchtap="gofinishuserdata">确认</text>-->
+      <!--</view>-->
+    <!--</view>-->
+  <!--</view>-->
 </view>
 <!--发起成功-->
 <view wx:if="{{ datingSuccess }}" class="success-mask">

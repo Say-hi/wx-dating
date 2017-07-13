@@ -4,7 +4,6 @@
   width: 100%;
   height: 420rpx; // 视屏区域高度
   position: relative;
-  z-index: 998;
   .user-video {
     width: 100%;
     height: 100%;
@@ -15,7 +14,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 999;
     .video-cover {
       width: 100%;
       height: 100%;
@@ -48,6 +46,7 @@
 // 个人信息样式
 .user-info {
   position: relative;
+  z-index: 1000;
   .user-avatar-url{
     position: absolute;
     left: 50%;
@@ -56,7 +55,7 @@
     width: @length;
     height: @length;
     border-radius: 50%;
-    z-index: 1000;
+    z-index: 1001;
     background-color: #ffe5d7;
     border: 6rpx solid #ffe5d7;
   }

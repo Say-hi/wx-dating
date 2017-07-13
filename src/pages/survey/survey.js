@@ -32,10 +32,10 @@ Page({
         text: '无条件开放给对方看'
       }
     ],
-    impression: '幽默',
-    moment: '幽默',
-    possible: '80%',
-    doing: '再约',
+    // impression: '幽默',
+    // moment: '幽默',
+    // possible: '80%',
+    // doing: '再约',
     show: true,
     write: false,
     hide: true
@@ -59,7 +59,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
+    this.setData({
+      write: params.write
+    })
+    if (params.write === 'false') {
+      // todo getdata
+      this.setData({
+        impression: '幽默',
+        moment: '幽默',
+        possible: '80%',
+        doing: '再约'
+      })
+    }
     // TODO: onLoad
   },
 

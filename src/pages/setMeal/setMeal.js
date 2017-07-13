@@ -1,6 +1,7 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
+const WXParse = require('../../wxParse/wxParse')
 // 创建页面实例对象
 Page({
   /**
@@ -9,9 +10,9 @@ Page({
   data: {
     // 轮播
     imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      // 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      // 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      // 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
     indicatorDots: true,
     autoplay: true,
@@ -20,15 +21,25 @@ Page({
     duration: 1000,
     height: '500rpx',
     width: '750rpx',
-    mode: 'aspectFill',
+    mode: 'aspectFill'
     // 中间区域
-    title: 'Mr.Rocky双人火焰牛排餐',
-    address: '广州·天河区',
-    price: '168',
+    // title: 'Mr.Rocky双人火焰牛排餐',
+    // address: '广州·天河区',
+    // price: '168',
     // 商店相关
-    shopTitle: 'Mr.Rocky 洛奇先生餐吧',
-    shopTime: '2017.05.20',
-    shopAddress: '珠江新城华夏路6号'
+    // shopTitle: 'Mr.Rocky 洛奇先生餐吧',
+    // shopTime: '2017.05.20',
+    // shopAddress: '珠江新城华夏路6号'
+  },
+  // 查看地图
+  showMap () {
+    let that = this
+    wx.openLocation({
+      latitude: that.data.orderInfo.lat * 1,
+      longitude: that.data.orderInfo.lng * 1,
+      name: that.data.orderInfo.name,
+      address: that.data.orderInfo.address
+    })
   },
   // 触摸开始
   touchStart (e) {
@@ -69,14 +80,46 @@ Page({
   },
   // 发起邀约
   forMine () {
+    let that = this
     wx.redirectTo({
-      url: '../order/order?id="套餐id"'
+      url: '../order/order?id=' + that.data.id + '&address=' + that.data.orderInfo.address + '&price=' + that.data.orderInfo.money + '&title=' + that.data.orderInfo.name
     })
+  },
+  // 获取套餐详情
+  getMeal (id) {
+    let that = this
+    let obj = {
+      url: useUrl.engagementDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: id
+      },
+      success (res) {
+        // console.log(res)
+        let shopInfo = res.data.data.info
+        WXParse.wxParse('shopInfo', 'html', shopInfo, that, 5)
+        let menu = res.data.data.menu
+        WXParse.wxParse('menu', 'html', menu, that, 5)
+        let reminder = res.data.data.reminder
+        WXParse.wxParse('reminder', 'html', reminder, that, 5)
+        that.setData({
+          id: id,
+          orderInfo: res.data.data
+        })
+      }
+    }
+    app.wxrequest(obj)
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
+    this.getMeal(params.id)
+    let time = wx.getStorageSync('time')
+    time = time.y + '.' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '.' + (time.d < 10 ? '0' + time.d : time.d)
+    this.setData({
+      shopTime: time
+    })
     // TODO: onLoad
   },
 

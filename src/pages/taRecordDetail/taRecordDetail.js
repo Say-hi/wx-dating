@@ -1,5 +1,6 @@
 // 获取全局应用程序实例对象
 const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -43,10 +44,45 @@ Page({
     industryIndex: 0,
     value: [0, 0],
     // 车房状况
-    houseArr: ['请选择Ta的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
+    houseArr: ['请选择Ta的车房状况', '有房有车', '有房无车', '有车无房', '车房待购'],
     houseIndex: 0,
     industryShow: false,
     forOther: true
+  },
+  // 输入框内容
+  inputValue (e) {
+    let that = this
+    let type = e.currentTarget.dataset.type
+    let value = e.detail.value
+    if (type === 'name') {
+      that.setData({
+        name: value
+      })
+    } else if (type === 'height') {
+      that.setData({
+        userHeight: value
+      })
+    } else if (type === 'company') {
+      that.setData({
+        compny: value
+      })
+    } else if (type === 'sport') {
+      that.setData({
+        likesSports: value
+      })
+    } else if (type === 'movie') {
+      that.setData({
+        likesMovies: value
+      })
+    } else if (type === 'book') {
+      that.setData({
+        likesBooks: value
+      })
+    } else if (type === 'evaluate') {
+      that.setData({
+        comment: value
+      })
+    }
   },
   // 确认
   taConfirm () {
@@ -54,6 +90,7 @@ Page({
       url: '../newuser/newuser'
     })
   },
+  // 选择档案
   chooseTa () {
     wx.redirectTo({
       url: '../taRecord/taRecord?type=choose'
@@ -112,24 +149,55 @@ Page({
   upPhoto () {
     let that = this
     let obj = {
-      count: 9,
+      count: 1,
       success (res) {
+        wx.showLoading({
+          title: '图片上传中',
+          mask: true
+        })
         let photos = that.data.photos
         for (let i of res.tempFilePaths) {
-          photos.push(i)
+          // 添加到相册数组中
+          // photos.push(i)
+          // 上传图片
+          let upImg = {
+            url: useUrl.uploadPhotos,
+            filePath: i,
+            formData: {
+              session_key: wx.getStorageSync('session_key'),
+              file: i
+            },
+            success (res) {
+              // console.log(res)
+              // console.log('上传成功', res.data)
+              wx.hideLoading()
+              let jsonObj = JSON.parse(res.data).data.res_file
+              photos.push(jsonObj)
+              if (photos.length > 9) {
+                wx.showToast({
+                  title: '超过9张啦,已删除多余的照片',
+                  image: '../../images/jiong.png',
+                  duration: 2000,
+                  mask: true
+                })
+              }
+              photos = photos.slice(0, 9)
+              that.setData({
+                photos: photos
+              })
+              // console.log('obj', JSON.parse(res.data))
+            },
+            fail (res) {
+              console.log('上传错误', res)
+              wx.showToast({
+                title: '图片上传失败，请重新尝试',
+                mask: true,
+                duration: 1000
+              })
+            }
+          }
+          app.wxUpload(upImg)
         }
-        if (photos.length > 9) {
-          wx.showToast({
-            title: '超过9张啦,已删除多余的照片',
-            image: '../../images/jiong.png',
-            duration: 2000,
-            mask: true
-          })
-        }
-        photos = photos.slice(0, 9)
-        that.setData({
-          photos: photos
-        })
       },
       fail (err) {
         console.log(err)
@@ -172,6 +240,83 @@ Page({
       })
     }
   },
+  // 获取信息
+  getArchives (id) {
+    let that = this
+    let gc = {
+      url: useUrl.getTaArchivesDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: id
+      },
+      success (res) {
+        // console.log(res)
+        // console.log(res.data.data)
+        let job1 = res.data.data.job.split('-')
+        let v1 = that.data.industryOne.indexOf(job1[0])
+        let v2 = 0
+        if (v1 < 24) {
+          v2 = that.data.industryTwo[v1].indexOf(job1[1])
+        }
+        let vv = [v1, v2]
+        that.setData({
+          name: res.data.data.name,
+          genderCur: (res.data.data.sex * 1 - 1),
+          marryCur: res.data.data.ganqing,
+          ageIndex: that.data.ageArr.indexOf(res.data.data.age),
+          userHeight: res.data.data.user_height,
+          value: vv,
+          compny: res.data.data.compny,
+          houseIndex: res.data.data.cart_house,
+          likesSports: res.data.data.likes_sports,
+          likesMovies: res.data.data.likes_movies,
+          likesBooks: res.data.data.likes_books,
+          comment: res.data.data.comment,
+          photos: res.data.data.photos || [],
+          id: id
+        })
+      }
+    }
+    app.wxrequest(gc)
+  },
+  // 更新信息
+  updateTaArchives () {
+    let that = this
+    let upobj = {
+      url: useUrl.addUpdateTaArchives,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: that.data.id || '',
+        name: that.data.name,
+        sex: that.data.genderCur * 1 + 1,
+        ganqing: that.data.marryCur,
+        age: that.data.ageArr[that.data.ageIndex],
+        user_height: that.data.userHeight,
+        job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+        compny: that.data.compny,
+        cart_house: that.data.houseIndex,
+        likes_sports: that.data.likesSports,
+        likes_movies: that.data.likesMovies,
+        likes_books: that.data.likesBooks,
+        comment: that.data.comment,
+        photos: that.data.photos.join(',')
+      },
+      success (res) {
+        // console.log('保存信息成功', res)
+        wx.showToast({
+          title: '保存成功',
+          duration: 1000,
+          mask: true
+        })
+        setTimeout(function () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 1000)
+      }
+    }
+    app.wxrequest(upobj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -182,6 +327,9 @@ Page({
       forOther = true
     } else {
       forOther = false
+    }
+    if (e.id) {
+      this.getArchives(e.id)
     }
     app.data.ageArr.splice(0, 1, '请选择Ta的年龄区间')
     app.data.industryOne.splice(0, 1, '请选择Ta所在的行业')

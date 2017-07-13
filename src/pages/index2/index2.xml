@@ -79,23 +79,25 @@
 <view catchtap="delfriend" wx:if="{{friendshow}}" class="friend-mask">
     <view class="friend-trends">
         <view class="friend-title">好友动态</view>
-        <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
+        <swiper wx:if="{{ userList.length > 0 }}" indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
             <block wx:for="{{userList}}" wx:for-item="outitem">
                 <!--todo 组件化-->
                 <swiper-item>
-                    <view class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
-                        <image src="{{ item.src }}"></image>
+                    <navigator url="../invitedConfirm/invitedConfirm?orderId={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
+                        <image src="{{ item.image }}"></image>
                         <view class="name-wrap">
-                            <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
-                            <view class="title">{{ item.title }}</view>
-                            <view>时间:{{ item.time }} 费用: {{item.money}}元/位</view>
-                            <view>地点:{{ item.address }}</view>
+                            <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</view>
+                            <view class="title">{{ item.name }}</view>
+                            <view>时间:{{ item.order_time }} 费用: {{item.money}}元/位</view>
+                            <view>地点:{{ item.area }}</view>
                         </view>
-                        <view class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>
-                    </view>
+                        <view class="edit">应邀</view>
+                        <!--<view class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>-->
+                    </navigator>
                 </swiper-item>
             </block>
         </swiper>
+        <view class="f-t" wx:else>啊哦，这一天暂无小伙伴发起邀约哦~</view>
         <navigator hover-class="none" url="../plans/plans" class="enter">直接进入</navigator>
     </view>
 </view>
