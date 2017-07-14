@@ -1221,7 +1221,7 @@ App({
     })
   },
   // 用户登陆
-  wxlogin () {
+  wxlogin (loginSuccess) {
     let that = this
     // 无条件获取登陆code
     wx.login({
@@ -1246,6 +1246,9 @@ App({
                 let session_key = 'akljgaajgoehageajnafe'
                 wx.setStorageSync('session_key', session_key)
                 // console.log(session)
+                if (loginSuccess) {
+                  loginSuccess()
+                }
               }
             }
             that.wxrequest(objs)

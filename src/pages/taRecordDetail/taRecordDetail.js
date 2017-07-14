@@ -48,7 +48,54 @@ Page({
     houseArr: ['请选择Ta的车房状况', '有房有车', '有房无车', '有车无房', '车房待购'],
     houseIndex: 0,
     industryShow: false,
-    forOther: true
+    forOther: false,
+    parmas: {}
+  },
+  // 替他发起订单生成
+  goNextStep () {
+    let that = this
+    if (this.data.name.length === 0) {
+      return wx.showToast({
+        title: '亲，至少要填写Ta的名称哦~',
+        mask: true
+      })
+    }
+    wx.showModal({
+      title: '是否保存TA的资料',
+      showCancel: true,
+      concelText: '取消',
+      cncelColor: '#666666',
+      confirmText: '确认',
+      confirmColor: '#ffc4a6',
+      success (res) {
+        if (res.confirm) {
+          that.updateTaArchives()
+        } else if (res.cancel) {
+          let foi = {
+            session_key: wx.getStorageSync('session_key'),
+            id: that.data.id || '',
+            name: that.data.name,
+            sex: that.data.genderCur * 1 + 1,
+            ganqing: that.data.marryCur,
+            age: that.data.ageArr[that.data.ageIndex],
+            user_height: that.data.userHeight || '',
+            job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+            compny: that.data.compny || '',
+            cart_house: that.data.houseIndex,
+            likes_sports: that.data.likesSports || '',
+            likes_movies: that.data.likesMovies || '',
+            likes_books: that.data.likesBooks || '',
+            comment: that.data.comment || '',
+            photos: that.data.photos.join(',')
+          }
+          wx.setStorageSync('forOtherInfo', foi)
+          let s = wx.getStorageSync('orderInfo')
+          wx.navigateTo({
+            url: '../order/order?type=forOther&id=' + s.orderId + '&title=' + s.title + '&price=' + s.price + '&address=' + s.address
+          })
+        }
+      }
+    })
   },
   // 输入框内容
   inputValue (e) {
@@ -310,13 +357,22 @@ Page({
         comment: that.data.comment || '',
         photos: that.data.photos.join(',')
       },
-      success (res) {
+      success () {
         // console.log('保存信息成功', res)
         wx.showToast({
           title: '保存成功',
           duration: 1000,
           mask: true
         })
+        if (that.data.forOther) {
+          wx.setStorageSync('forOtherInfo', upobj)
+          return setTimeout(function () {
+            let s = wx.getStorageSync('orderInfo')
+            wx.navigateTo({
+              url: '../order/order?type=forOther&id=' + s.orderId + '&title=' + s.title + '&price=' + s.price + '&address=' + s.address
+            })
+          }, 1000)
+        }
         setTimeout(function () {
           wx.navigateBack({
             delta: 1

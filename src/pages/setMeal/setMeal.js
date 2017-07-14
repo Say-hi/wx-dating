@@ -74,6 +74,14 @@ Page({
   },
   // 替ta发起跳转
   forOtherPeople () {
+    let that = this
+    let orderInfo = {
+      orderId: that.data.id,
+      address: that.data.orderInfo.address,
+      price: that.data.orderInfo.money,
+      title: that.data.orderInfo.name
+    }
+    wx.setStorageSync('orderInfo', orderInfo)
     wx.redirectTo({
       url: '../taRecordDetail/taRecordDetail?type=forOther'
     })

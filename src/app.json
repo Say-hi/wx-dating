@@ -4,9 +4,10 @@
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
     "pages/index2/index2",// 首页
+    "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
+    "pages/order/order", // 填写订单
     "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
     "pages/plans/plans",// 约会计划-套餐列表
-    "pages/order/order", // 填写订单
     "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/orderDatial/orderDatial", // 订单详情
     "pages/account/account", // 用户账户
@@ -30,7 +31,7 @@
 //    "pages/stranger/stranger",//  陌生人提醒关注(废弃)
     "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
     "pages/photo/photo", // 相册
-    "pages/newfollow/newfollow" // 陌生人提醒关注
+    "pages/newfollow/newfollow" // 陌生人提醒关注,
     // Dont remove this comment
   ],
   // Window configuration
@@ -41,7 +42,7 @@
     "navigationBarBackgroundColor": "#ffffff",
     // 类型：String；默认值：white
     // 导航栏标题颜色，仅支持 black/white
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     // 类型：String；默认值：无
     // 导航栏标题文字内容
     "navigationBarTitleText": "约会日",

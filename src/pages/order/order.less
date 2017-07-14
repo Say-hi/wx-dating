@@ -42,11 +42,20 @@
   }
 }
 .paymask {
-  view:nth-child(2) {
+  //view:nth-child(2) {
+  //  border-radius: 0rpx;
+  //  border-bottom: 1rpx solid #d7d7d7;
+  //}
+  .noborder {
     border-radius: 0rpx;
     border-bottom: 1rpx solid #d7d7d7;
   }
-  view:nth-child(3) {
+  //view:nth-child(3) {
+  //  margin-bottom: 16rpx;
+  //  border-top-left-radius: 0rpx;
+  //  border-top-right-radius: 0rpx;
+  //}
+  .lastborder {
     margin-bottom: 16rpx;
     border-top-left-radius: 0rpx;
     border-top-right-radius: 0rpx;
@@ -114,4 +123,14 @@
     text-align: center;
   }
 }
-
+//转发弹窗
+.mask {
+  .mask-title {
+    font-size: 30rpx;
+    border-width: 700 !important;
+    padding-top: 90rpx !important;
+  }
+  .mask-confirm {
+    background-color: #fff;
+  }
+}

@@ -144,5 +144,11 @@
 <view wx:if="{{ !forOther }}" catchtap="updateTaArchives" class="confirms">确认</view>
 <view wx:else class="confirm">
   <view catchtap="chooseTa" class="c-one">从档案中选择</view>
-  <view class="c-two">下一步</view>
+  <view class="c-two" catchtap="goNextStep">下一步</view>
 </view>
+<!--保存资料弹窗-->
+<!--<view class="mask">-->
+  <!--<view class="wrap">-->
+      <!---->
+  <!--</view>-->
+<!--</view>-->
