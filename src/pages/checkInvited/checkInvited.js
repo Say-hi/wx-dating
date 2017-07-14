@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -38,6 +38,7 @@ Page({
   },
   // 按钮点击判断
   btnClick (e) {
+    let that = this
     let type = e.currentTarget.dataset.type
     if (type === 'cancel') {
       this.setData({
@@ -45,9 +46,31 @@ Page({
       })
     } else if (type === 'confirm') {
       // todo 应邀者确定
-      this.setData({
-        chooseTab: false
-      })
+      let sbj = {
+        url: useUrl.acceptApplyInvitation,
+        data: {
+          session_key: wx.getStorageSync('session_key'),
+          id: e.currentTarget.dataset.id
+        },
+        success (res) {
+          console.log(res)
+          // 选择成功
+          if (res.data.code === 200) {
+            that.setData({
+              chooseTab: false
+            })
+          } else {
+            // 失败操作
+            return wx.showToast({
+              title: '哎呀，服务器开小差了，请稍后再操作',
+              image: '../../images/jiong.png',
+              duration: 2000,
+              mask: true
+            })
+          }
+        }
+      }
+      app.wxrequest(sbj)
     } else if (type === 'confirm-two') {
       this.setData({
         chooseTab: true,
@@ -55,10 +78,28 @@ Page({
       })
     }
   },
+  getInviteUerList (id) {
+    let that = this
+    let obj = {
+      url: useUrl.lookApplyInvitation,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      },
+      success (res) {
+        that.setData({
+          userArr: res.data.data
+        })
+        console.log(res)
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (parmas) {
+    this.getInviteUerList(parmas.orderId)
     // TODO: onLoad
   },
 

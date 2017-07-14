@@ -2,10 +2,10 @@
 <view class="out-wrap">
   <block wx:for="{{ userArr }}" wx:key="unique">
     <view class="wrap">
-      <image class="user-img" src="{{ item.img }}"></image>
+      <image class="user-img" src="{{ item.avatar }}"></image>
       <view class="text">
-        <text class="name iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</text>
-        <text class="marry">{{ item.marry == 1 ? '单身' : '已婚' }}</text>
+        <text class="name iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</text>
+        <text class="marry">{{ item.ganqing == 1 ? '已婚' : '单身' }}</text>
         <view class="job">{{ item.job }}</view>
       </view>
       <view data-index="{{ index }}" class="choose" data-id="{{ item.id }}" catchtap="chooseUser">选择</view>
@@ -16,9 +16,9 @@
 <view wx:if="{{ chooseShow }}" class="choose-mask">
   <!--选择-->
   <view wx:if="{{ chooseTab }}" class="cm-wrap">
-    <image class="cm-img" src="{{ userArr[chooseIndex].img }}"></image>
-    <view class="cm-name iconfont {{ userArr[chooseIndex].gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ userArr[chooseIndex].name }}</view>
-    <view class="cm-m-j">{{ userArr[chooseIndex].marry == 1 ? '单身' : '已婚' }}|{{ userArr[chooseIndex].job }}</view>
+    <image class="cm-img" src="{{ userArr[chooseIndex].avatar }}"></image>
+    <view class="cm-name iconfont {{ userArr[chooseIndex].sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ userArr[chooseIndex].user_nicename }}</view>
+    <view class="cm-m-j">{{ userArr[chooseIndex].ganqing == 1 ? '已婚' : '单身' }}|{{ userArr[chooseIndex].job }}</view>
     <view class="cm-tips">是否选择当前应邀者？</view>
     <view class="cm-btn">
       <view catchtap="btnClick" data-type="cancel" class="btn cm-cancel">取消</view>

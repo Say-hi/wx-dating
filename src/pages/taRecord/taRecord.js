@@ -30,7 +30,7 @@ Page({
   // 选择替Ta发起的对象
   backChoose (e) {
     wx.redirectTo({
-      url: '../taRecordDetail/taRecordDetail?type=forOther&userId=' + e.currentTarget.dataset.id
+      url: '../taRecordDetail/taRecordDetail?type=forOther&id=' + e.currentTarget.dataset.id
     })
   },
   // 跳转到对应的资料编辑页面

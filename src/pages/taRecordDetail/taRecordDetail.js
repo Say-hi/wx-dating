@@ -9,6 +9,7 @@ Page({
   data: {
     title: 'newuser',
     photos: [],
+    name: '',
     // 性别
     genderCur: 0,
     genderChoose: [
@@ -282,6 +283,14 @@ Page({
   // 更新信息
   updateTaArchives () {
     let that = this
+    if (that.data.name.length <= 0) {
+      return wx.showToast({
+        title: '请填写名字',
+        image: '../../images/jiong.png',
+        duration: 1500,
+        mask: true
+      })
+    }
     let upobj = {
       url: useUrl.addUpdateTaArchives,
       data: {
@@ -291,14 +300,14 @@ Page({
         sex: that.data.genderCur * 1 + 1,
         ganqing: that.data.marryCur,
         age: that.data.ageArr[that.data.ageIndex],
-        user_height: that.data.userHeight,
+        user_height: that.data.userHeight || '',
         job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
-        compny: that.data.compny,
+        compny: that.data.compny || '',
         cart_house: that.data.houseIndex,
-        likes_sports: that.data.likesSports,
-        likes_movies: that.data.likesMovies,
-        likes_books: that.data.likesBooks,
-        comment: that.data.comment,
+        likes_sports: that.data.likesSports || '',
+        likes_movies: that.data.likesMovies || '',
+        likes_books: that.data.likesBooks || '',
+        comment: that.data.comment || '',
         photos: that.data.photos.join(',')
       },
       success (res) {

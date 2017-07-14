@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -8,6 +8,7 @@ Page({
    */
   data: {
     title: 'newfollow',
+    page: 1,
     people: [
       {
         img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
@@ -35,18 +36,68 @@ Page({
   // 关注
   follow (e) {
     // let id = e.currentTarget.dataset.id
+    let that = this
     let index = e.currentTarget.dataset.index
     let peopleArr = this.data.people
-    peopleArr[index].follow = !peopleArr[index].follow
-    this.setData({
-      people: peopleArr
-    })
+    let type = Math.abs(e.currentTarget.dataset.type * 1 - 1)
+    let fbj = {
+      url: useUrl.doIgnore,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: e.currentTarget.dataset.id,
+        type: type
+      },
+      success (res) {
+        console.log(res)
+        if (res.data.code === 400) {
+          return wx.showToast({
+            title: '哎呀，服务器出小差了，请稍后重试~',
+            mask: true
+          })
+        }
+        peopleArr[index]['is_ignore'] = type
+        that.setData({
+          people: peopleArr
+        })
+      }
+    }
+    app.wxrequest(fbj)
+    // if (peopleArr[index]['is_ignore'] === 1) {
+    //   peopleArr[index]['is_ignore'] = 0
+    // } else {
+    //   peopleArr[index]['is_ignore'] = 1
+    // }
+  },
+  // 获取陌生人提醒列表
+  getstranger (page) {
+    let that = this
+    let gsbj = {
+      url: useUrl.getStranger,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        page: page
+      },
+      success (res) {
+        if (!res.data.data.length === 0) {
+          return wx.showToast({
+            title: '亲，没有更多内容啦~',
+            mask: true
+          })
+        }
+        let s = that.data.people.concat(res.data.data)
+        that.setData({
+          people: s
+        })
+      }
+    }
+    app.wxrequest(gsbj)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
     // TODO: onLoad
+    this.getstranger(1)
   },
 
   /**
@@ -82,5 +133,8 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  onReachBottom () {
+    this.getstranger(++this.data.page)
   }
 })

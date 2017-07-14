@@ -12,5 +12,6 @@
       <view wx:else class="edit" catchtap="backChoose" data-id="{{item.id}}">选择Ta</view>
     </view>
   </block>
+  <navigator url="../taRecordDetail/taRecordDetail" class="no-record">创建一份Ta的档案</navigator>
   <view class="tips">创建好的档案将会在您替Ta人发起邀约后，自动和确认者进行关联</view>
 </view>

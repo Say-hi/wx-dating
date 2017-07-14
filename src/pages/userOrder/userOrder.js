@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -10,6 +10,7 @@ Page({
     title: 'userOrder',
     topTab: ['本人发起', '本人应邀', '替Ta发起'],
     tabCurrent: 0,
+    page: 1,
     orderMine: [
       {
         orderNumber: 12341234,
@@ -96,17 +97,53 @@ Page({
   // 顶部tab选择
   chooseTab (e) {
     this.setData({
-      tabCurrent: e.currentTarget.dataset.index
+      // orderMine: [],
+      tabCurrent: e.currentTarget.dataset.index,
+      page: 1
     })
+  },
+  // 获取信息列表
+  getInfo (type, page) {
+    let that = this
+    let obj = {
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        page: page
+      },
+      success (res) {
+        console.log(res.data.data)
+        if (res.data.data.length === 0) {
+          return wx.showToast({
+            title: '亲，没有更多内容啦~',
+            mask: true
+          })
+        }
+        let s = that.data.orderMine.concat(res.data.data)
+        that.setData({
+          orderMine: s
+        })
+        // console.log(res)
+      }
+    }
+    if (type === 0) {
+      obj['url'] = useUrl.myOrderListsByFaqi
+    } else if (type === 1) {
+      obj['url'] = useUrl.benrenYingyaoOrderLists
+    } else if (type === 2) {
+      obj['url'] = useUrl.titafaqiOrderList
+    }
+    app.wxrequest(obj)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    this.getInfo(0, 1)
     // TODO: onLoad
   },
 
   /**
+   *
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady () {
@@ -139,5 +176,9 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  // 触底加载数据
+  onReachBottom () {
+    this.getInfo(this.data.tabCurrent, ++this.data.page)
   }
 })
