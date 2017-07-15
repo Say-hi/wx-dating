@@ -467,7 +467,7 @@ Page({
     let that = this
     return {
       title: '有好友替您发起邀约，赶快确认吧',
-      path: '/page/otherConfirm/otherConfirm?orderTaId=' + that.data.order_ta_id,
+      path: '/pages/otherConfirm/otherConfirm?orderTaId=' + that.data.order_ta_id + '&days=' + that.data.days + '&title=' + that.data.title + '&address=' + that.data.address,
       // 转发成功响应
       success () {
         that.setData({

@@ -1,12 +1,14 @@
 /**
  * Created by Administrator on 2017/6/2.
  */
-let baseDomain = 'http://yuehui.lanzhangxiu.cn'
+let baseDomain = 'https://www.lanzhangxiu.cn'
 let serviceUrl = {
   // 登陆 post | code iv encryptedData
   login: baseDomain + '/api/user/login',
   // 更新用户信息 post | session_key ganqing age user_height job company residence cart_house likes_sports likes_movies likes_books
   updateUserInfo: baseDomain + '/api/user/updateUserInfo',
+  // 获取自己的资料
+  getUserInfoBySelf: baseDomain + '/api/user/getUserInfoBySelf',
   // 查看用户资料
   viewUserInformation: baseDomain + '/api/user/ViewUserInformation',
   // 用户关注列表
