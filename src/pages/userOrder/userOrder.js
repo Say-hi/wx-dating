@@ -11,70 +11,12 @@ Page({
     topTab: ['本人发起', '本人应邀', '替Ta发起'],
     tabCurrent: 0,
     page: 1,
-    orderMine: [
-      {
-        orderNumber: 12341234,
-        status: 0,
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        title: 'Kiss Bottle 全新手工制甜品餐',
-        time: '2017.05.20 18:30',
-        address: '珠江新城',
-        money: 158,
-        userImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        userName: '崔大炮',
-        userGender: 2,
-        userId: 1234123,
-        codeNumber: 1234123
-      },
-      {
-        orderNumber: 5674576452,
-        status: 1,
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        title: 'Kiss Bottle 全新手工制甜品餐',
-        time: '2017.05.20 18:30',
-        address: '珠江新城',
-        money: 158,
-        userImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        userName: '崔大炮',
-        userGender: 1,
-        userId: 1234123,
-        codeNumber: 1234123
-      },
-      {
-        orderNumber: 12341234,
-        status: 2,
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        title: 'Kiss Bottle 全新手工制甜品餐',
-        time: '2017.05.20 18:30',
-        address: '珠江新城',
-        money: 158,
-        userImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        userName: '崔大炮',
-        userGender: 2,
-        userId: 1234123,
-        codeNumber: 1234123
-      },
-      {
-        orderNumber: 12341234,
-        status: 3,
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        title: 'Kiss Bottle 全新手工制甜品餐',
-        time: '2017.05.20 18:30',
-        address: '珠江新城',
-        money: 158,
-        userImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        userName: '崔大炮',
-        userGender: 1,
-        userId: 1234123,
-        codeNumber: 1234123
-      }
-    ]
+    orderMine: []
   },
   // 取消赴约&&查看应邀
   cancelCheck (e) {
     // let index = e.currentTarget.dataset.index
-    let status = e.currentTarget.dataset.status
-    // console.log(status)
+    let status = e.currentTarget.dataset.status * 1
     let orderId = e.currentTarget.dataset.id
     let tabCurrent = this.data.tabCurrent
     // console.log(orderId)
@@ -97,10 +39,11 @@ Page({
   // 顶部tab选择
   chooseTab (e) {
     this.setData({
-      // orderMine: [],
+      orderMine: [],
       tabCurrent: e.currentTarget.dataset.index,
       page: 1
     })
+    this.getInfo(e.currentTarget.dataset.index, 1)
   },
   // 获取信息列表
   getInfo (type, page) {
@@ -111,16 +54,15 @@ Page({
         page: page
       },
       success (res) {
-        console.log(res.data.data)
+        // console.log(res.data.data)
         if (res.data.data.length === 0) {
           return wx.showToast({
             title: '亲，没有更多内容啦~',
             mask: true
           })
         }
-        let s = that.data.orderMine.concat(res.data.data)
         that.setData({
-          orderMine: s
+          orderMine: that.data.orderMine.concat(res.data.data)
         })
         // console.log(res)
       }

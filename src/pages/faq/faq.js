@@ -1,6 +1,7 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
+const WXParse = require('../../wxParse/wxParse')
 // 创建页面实例对象
 Page({
   /**
@@ -9,11 +10,25 @@ Page({
   data: {
     title: 'faq'
   },
-
+  getfaq () {
+    let that = this
+    let getObj = {
+      url: useUrl.getFaqLists,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        let answer = res.data.data[0].answer
+        WXParse.wxParse('answer', 'html', answer, that, 5)
+      }
+    }
+    app.wxrequest(getObj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    this.getfaq()
     // TODO: onLoad
   },
 

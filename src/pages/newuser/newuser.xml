@@ -12,7 +12,10 @@
   <!--昵称-->
   <view class="text-wrap">
     <view class="name-l">昵称:</view>
-    <input placeholder-class="placeholdercss" class="name-r" placeholder='输入您的昵称'/>
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" class="name-r" placeholder='输入您的昵称'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="name" type="text" value="{{ name }}" placeholder='输入您的昵称'/>
+    </view>
   </view>
   <!--性别-->
   <view class="text-wrap">
@@ -64,7 +67,8 @@
     <view class="name-l">身高:</view>
     <!--picker-->
     <view class="name-r height gender">
-      <input placeholder-class="placeholdercss" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>
+      <!--<input placeholder-class="placeholdercss" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="height" value="{{ userHeight }}" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>
     </view>
   </view>
   <!--行业-->
@@ -95,7 +99,8 @@
     <view class="name-l">公司:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='请输入您工作的公司'/>
+      <!--<input placeholder-class="placeholdercss" placeholder='请输入您工作的公司'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="company" value="{{ compny }}" type="text" placeholder='请输入您工作的公司'/>
     </view>
   </view>
   <!--车房状况-->
@@ -117,7 +122,8 @@
     <view class="name-l">最喜欢/最近做过的运动:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesSports }}" data-type="sport"  placeholder='点击输入'/>
     </view>
   </view>
   <!--电影-->
@@ -125,7 +131,8 @@
     <view class="name-l">最喜欢/最近看过的电影:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesMovies }}" data-type="movie" placeholder='点击输入'/>
     </view>
   </view>
   <!--读书-->
@@ -133,14 +140,15 @@
     <view class="name-l">最喜欢/最近看过的书:</view>
     <!--picker-->
     <view class="name-r company gender">
-      <input placeholder-class="placeholdercss" placeholder='点击输入'/>
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesBooks }}" data-type="book" placeholder='点击输入'/>
     </view>
   </view>
 </view>
 <!--确认-->
 <view class="confirm">
-  <view class="c-one">放弃</view>
-  <view class="c-two">确认</view>
+  <view class="c-one" catchtap="cancelConfirm">放弃</view>
+  <view class="c-two" catchtap="confirmUpdate">确认</view>
 </view>
 <!--mask弹窗-->
 <view wx:if="{{ show }}" class="mask">

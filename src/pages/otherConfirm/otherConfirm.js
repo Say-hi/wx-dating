@@ -49,6 +49,17 @@ Page({
       },
       success (res) {
         // console.log(res)
+        if (res.data.message === '已经确认过了') {
+          wx.showToast({
+            title: '本订单已经确认过了，如不是您确认的请联系您的好友',
+            mask: true
+          })
+          return setTimeout(function () {
+            wx.reLaunch({
+              url: '../index2/index2'
+            })
+          }, 1500)
+        }
         let photos = []
         if (res.data.data.photos.length !== 0) {
           photos = res.data.data.photos.split(',')
@@ -71,6 +82,7 @@ Page({
           value: vv,
           houseIndex: res.data.data.cart_house
         })
+        that.checkUser()
       }
     }
     app.wxrequest(ocbj)
@@ -382,6 +394,182 @@ Page({
     }
     app.wxrequest(gfiObj)
   },
+  // 取消确认
+  orderCancel () {
+    let that = this
+    let cancelOjb = {
+      url: useUrl.titaFaqiByreject,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_ta_id: that.data.orderInfo.order_ta_id
+      },
+      success (res) {
+        wx.showToast({
+          title: '取消成功',
+          mask: true
+        })
+        setTimeout(function () {
+          wx.reLaunch({
+            url: '../index2/index2'
+          })
+        }, 1000)
+      }
+
+    }
+    app.wxrequest(cancelOjb)
+  },
+  // 订单确认
+  orderConfirm () {
+    if (this.data.photos.length > 9) {
+      return wx.showToast({
+        title: '亲,相册最大为9张，请删除多余的图片',
+        mask: true
+      })
+    }
+    let that = this
+    let oi = this.data.orderInfo
+    // todo  1 exchange 0
+    if (this.data.is_perfect_data === '1') {
+      wx.showModal({
+        title: '非已有用户无保存资料',
+        content: '是否保存该资料为个人资料？',
+        showCancel: true,
+        cancelText: '不保存',
+        cancelColor: '#2b2f41',
+        confirmText: '保存',
+        confirmColor: '#ffc4a6',
+        success (res) {
+          if (res.confirm) {
+            let userObj = {
+              url: useUrl.updateUserInfo,
+              data: {
+                session_key: wx.getStorageSync('session_key'),
+                name: oi.name,
+                sex: that.data.genderCur,
+                ganqing: that.data.marryCur,
+                age: that.data.ageArr[that.data.ageIndex],
+                user_height: oi.user_height,
+                job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+                compny: oi.compny,
+                cart_house: that.data.houseIndex,
+                likes_books: oi.likes_books,
+                likes_movies: oi.likes_movies,
+                likes_sports: oi.likes_sports,
+                photos: that.data.photos.join(',')
+              },
+              success (res) {
+                if (res.data.message === '保存成功') {
+                  wx.showToast({
+                    title: '保存成功'
+                  })
+                }
+              }
+            }
+            app.wxrequest(userObj)
+          }
+        }
+      })
+    }
+    let confirmobj = {
+      url: useUrl.titaFaqiByComfire,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_ta_id: oi.order_ta_id,
+        name: oi.name,
+        sex: that.data.genderCur,
+        ganqing: that.data.marryCur,
+        age: that.data.ageArr[that.data.ageIndex],
+        user_height: oi.user_height,
+        job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+        compny: oi.compny,
+        cart_house: that.data.houseIndex,
+        likes_books: oi.likes_books,
+        likes_movies: oi.likes_movies,
+        likes_sports: oi.likes_sports,
+        photos: that.data.photos.join(',')
+      },
+      success (res) {
+        console.log(res)
+        if (res.data.data.order_id) {
+          that.setData({
+            datingSuccess: true
+          })
+        }
+      }
+    }
+    app.wxrequest(confirmobj)
+  },
+  // 用户资料检查
+  checkUser () {
+    let that = this
+    let obj = {
+      url: useUrl.isPerfectData,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        // console.log(res.data.data.is_perfect_data)
+        // console.log(res.data.data.isShiyue)
+        // console.log(res.data.data.isHasBaomoney)
+        if (res.data.data.isShiyue.toString() === '1') {
+          that.setData({
+            cancelshow: true
+          })
+        } else if (res.data.data.isHasBaomoney.toString() === '0') {
+          that.setData({
+            moneyshow: true
+          })
+        }
+        that.setData({
+          is_perfect_data: res.data.data.is_perfect_data
+        })
+        wx.hideLoading()
+      }
+    }
+    app.wxrequest(obj)
+  },
+  // 去除遮罩层
+  delMask (e) {
+    let that = this
+    let type = e.currentTarget.dataset.type
+    // console.log(type)
+    if (type === 'yxpay') {
+      // todo 支付意向金
+      let obj = {
+        url: useUrl.payByBond,
+        data: {
+          session_key: wx.getStorageSync('session_key')
+        },
+        success (res) {
+          console.log('保证金支付', res)
+          let yxObj = {
+            timeStamp: res.timeStamp,
+            nonceStr: res.nonceStr,
+            package: res.package,
+            paySign: res.paySign,
+            success (res) {
+              // 支付成功
+              that.setData({
+                moneyshow: false
+              })
+            },
+            fail (res) {
+              // 支付失败
+              that.setData({
+                moneyshow: false
+              })
+            }
+          }
+          app.wxpay(yxObj)
+        }
+      }
+      app.wxrequest(obj)
+    } else {
+      this.setData({
+        cancelshow: false
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -390,24 +578,28 @@ Page({
     app.data.ageArr.splice(0, 1, '请选择Ta的年龄区间')
     app.data.industryOne.splice(0, 1, '请选择Ta所在的行业')
     app.data.industryTwo.splice(0, 1, ['请选择Ta所在的行业'])
-    this.setData({
-      title: params.title,
-      days: params.days,
-      address: params.address,
-      ageArr: app.data.ageArr,
-      industryOne: app.data.industryOne,
-      industryTwo: app.data.industryTwo
-    })
     // this.setData({
-    //   title: 'Mr.Rocky 双人火焰牛排餐',
-    //   address: '天河区车陂大街汇德商业大厦1号楼506',
-    //   days: '2017.05.06(周日)',
+    //   title: params.title,
+    //   days: params.days,
+    //   address: params.address,
     //   ageArr: app.data.ageArr,
     //   industryOne: app.data.industryOne,
     //   industryTwo: app.data.industryTwo
     // })
-    app.wxlogin(that.getOrderInfo, params.orderTaId)
-    // app.wxlogin(that.getOrderInfo, 44)
+    // app.wxlogin(that.getOrderInfo, params.orderTaId)
+    this.setData({
+      title: 'Mr.Rocky 双人火焰牛排餐',
+      address: '天河区车陂大街汇德商业大厦1号楼506',
+      days: '2017.05.06(周日)',
+      ageArr: app.data.ageArr,
+      industryOne: app.data.industryOne,
+      industryTwo: app.data.industryTwo
+    })
+    wx.showLoading({
+      title: '亲，接受数据中',
+      mask: true
+    })
+    app.wxlogin(that.getOrderInfo, 53)
     // TODO: onLoad
   },
   /**

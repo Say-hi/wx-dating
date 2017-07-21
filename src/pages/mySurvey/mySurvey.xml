@@ -5,19 +5,19 @@
   </view>
   <block wx:for="{{ orderArr }}">
     <view class="content">
-      <view wx:if="{{ item.status != 0 }}" class="c-title">
-        订单编号: <text>{{ item.number }}</text>
+      <view wx:if="{{ item.type != 0 }}" class="c-title">
+        订单编号: <text>{{ item.order_sn }}</text>
       </view>
-      <view wx:if="{{ item.status != 0 }}" class="c-center">
-        <image src="{{ item.img }}"></image>
+      <view wx:if="{{ item.type != 0 }}" class="c-center">
+        <image src="{{ item.image }}"></image>
         <view class="c-c-center">
-          <view class="c-c-title">{{ item.title }}</view>
-          <view class="c-c-text">时间: {{ item.time }}</view>
-          <view class="c-c-text">地点: {{ item.address }}</view>
+          <view class="c-c-title">{{ item.name || item.package_name }}</view>
+          <view class="c-c-text">时间: {{ item.order_date }}{{ item.order_time }}</view>
+          <view class="c-c-text">地点: {{ item.area }}</view>
         </view>
         <view class="c-money">￥{{ item.money }}</view>
       </view>
-      <view class="gocheck-btn"><text class="btn-text">{{ item.status != 0 ? '' : '匿名问卷' }}</text><text class="btn-text-btn" data-id="{{ item.number }}" data-status="{{ item.status }}" catchtap="goDetail">{{ item.status != 2 ?  '查看问卷详情' : '我要参与问卷调查' }}</text></view>
+      <view class="gocheck-btn"><text class="btn-text">{{ item.type == 0 ? '匿名问卷' : '' }}</text><text class="btn-text-btn" data-type="{{ item.type || 10 }}" data-orderid="{{ item.order_id }}" data-id="{{ item.id || item.questionnaires_id }}" data-status="{{ item.questionnaires_id }}" catchtap="goDetail">{{ item.questionnaires_id == 0 ?  '我要参与问卷调查' : '查看问卷详情' }}</text></view>
     </view>
   </block>
 </view>

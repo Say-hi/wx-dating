@@ -1164,6 +1164,41 @@ App({
     }
     /*eslint-enable*/
   },
+  // 输入框内容
+  inputValue (e, _that) {
+    let that = _that
+    let type = e.currentTarget.dataset.type
+    let value = e.detail.value
+    if (type === 'name') {
+      that.setData({
+        name: value
+      })
+    } else if (type === 'height') {
+      that.setData({
+        userHeight: value
+      })
+    } else if (type === 'company') {
+      that.setData({
+        compny: value
+      })
+    } else if (type === 'sport') {
+      that.setData({
+        likesSports: value
+      })
+    } else if (type === 'movie') {
+      that.setData({
+        likesMovies: value
+      })
+    } else if (type === 'book') {
+      that.setData({
+        likesBooks: value
+      })
+    } else if (type === 'evaluate') {
+      that.setData({
+        comment: value
+      })
+    }
+  },
   // 发起微信支付
   wxpay (obj) {
     let objs = {

@@ -200,6 +200,7 @@ Page({
       }
     }
     wx.authorize(obj)
+    this.getCityList()
   },
 
   /**

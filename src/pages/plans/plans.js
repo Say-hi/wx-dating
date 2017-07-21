@@ -113,7 +113,7 @@ Page({
     for (let i in citys) {
       cityslist.push(i)
     }
-    let index = this.data.city === '上海' ? '0' : this.data.city === '广州' ? '1' : this.data.city === '深圳' ? '2' : '3'
+    let index = this.data.city === '佛山' ? '0' : this.data.city === '广州' ? '1' : this.data.city === '深圳' ? '2' : '3'
     // console.log(index);
     let cl = cityslist[index]
     console.log(cl)
@@ -130,10 +130,10 @@ Page({
     let flag
     console.log(e)
     if (!e) {
-      if (this.data.city === '上海' || this.data.city === '广州' || this.data.city === '深圳' || this.data.city === '北京') {
+      if (this.data.city === '佛山' || this.data.city === '广州' || this.data.city === '深圳' || this.data.city === '北京') {
         flag = this.data.city
       } else {
-        flag = '上海'
+        flag = '佛山'
       }
     } else {
       flag = e.currentTarget.dataset.city

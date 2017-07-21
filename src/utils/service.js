@@ -11,8 +11,16 @@ let serviceUrl = {
   getUserInfoBySelf: baseDomain + '/api/user/getUserInfoBySelf',
   // 查看用户资料
   viewUserInformation: baseDomain + '/api/user/ViewUserInformation',
+  // 用户个人中心
+  getUserinfo: baseDomain + '/api/user/getUserinfo',
+  // 我的相册列表
+  myPhotos: baseDomain + '/api/user/myPhotos',
   // 用户关注列表
   getUserSubscribe: baseDomain + '/api/subscribe/getUsersSubscribe',
+  // 更新相册列表
+  updatePhotos: baseDomain + '/api/user/updatePhotos',
+  // 查看其他用户资料
+  ViewUserInformation: baseDomain + '/api/user/ViewUserInformation',
   // 陌生人列表
   getStranger: baseDomain + '/api/subscribe/getStranger',
   // 提醒关注
@@ -71,6 +79,14 @@ let serviceUrl = {
   chongZhiLipingjuan: baseDomain + '/api/pay/chongZhiLipingjuan',
   // 我收到的问卷
   myReceiveQuestionnaires: baseDomain + '/api/questionnaire/myReceiveQuestionnaires',
+  // 我发出的问卷调查
+  myFachuQuestionnaires: baseDomain + '/api/questionnaire/myFachuQuestionnaires',
+  // 获取问卷详情
+  questionnairesDetail: baseDomain + '/api/questionnaire/questionnairesDetail',
+  // 填写问卷调查
+  editeQuestionnaires: baseDomain + '/api/questionnaire/editeQuestionnaires',
+  // 提交问卷
+  postQuestionnaires: baseDomain + '/api/questionnaire/postQuestionnaires',
   // 检查用户资料
   isPerfectData: baseDomain + '/api/engagement/isPerfectData',
   // 保存替他发起档案
@@ -82,6 +98,8 @@ let serviceUrl = {
   // 添加反馈消息
   addFeedback: baseDomain + '/api/article/addFeedback',
   // 获取FAQ的列表信息
-  getFaqLists: baseDomain + '/api/article/getFaqLists'
+  getFaqLists: baseDomain + '/api/article/getFaqLists',
+  // 查看更多他人的相册
+  otherUserPhotos: baseDomain + '/api/user/otherUserPhotos'
 }
 module.exports = serviceUrl

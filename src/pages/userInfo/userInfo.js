@@ -1,5 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
+const useUrl = require('../../utils/service')
 
 // 创建页面实例对象
 Page({
@@ -20,6 +21,7 @@ Page({
     objectFit: 'Fill',
     // 用户信息
     userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
+    houseArr: ['暂无信息', '有房有车', '有房无车', '有车无房', '车房代购'],
     showMoreBtn: true,
     showTaDeep: false,
     userInfos: {
@@ -68,6 +70,25 @@ Page({
         text: '李四22as拉萨；空间的发生；了地方见撒旦；浪费撒旦2'
       }
     ]
+  },
+  // 获取用户的详细资料
+  getUserDetail (id) {
+    let that = this
+    let getObj = {
+      url: useUrl.ViewUserInformation,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        view_user_id: id
+      },
+      success (res) {
+        res.data.data.job = res.data.data.job.split('-')[1]
+        // res.data.data.shenduziliao = false
+        that.setData({
+          user: res.data.data
+        })
+      }
+    }
+    app.wxrequest(getObj)
   },
   // 去除视屏区域
   videodel () {
@@ -119,17 +140,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
-    // TODO: onLoad
-    let that = this
-    wx.getUserInfo({
-      success (res) {
-        // console.log(res)
-        that.setData({
-          userInfo: res.userInfo
-        })
-      }
-    })
+  onLoad (params) {
+    this.getUserDetail(params.userId)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -171,7 +183,11 @@ Page({
   // 上拉触底操作
   onReachBottom () {
     // todo 判断是否关注了
-    if (this.data.showTaDeep) return
+    if (!this.data.user.shenduziliao) {
+      return wx.showToast({
+        title: '您需要关注用户方可查看深度资料'
+      })
+    }
     this.setData({
       showTaDeep: true,
       showMoreBtn: false

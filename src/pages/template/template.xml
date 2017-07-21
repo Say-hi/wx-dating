@@ -30,7 +30,7 @@
             <view class="u-text">第一次使用</view>
             <view class="u-text">请先完善个人资料</view>
             <view class="u-confirm-btn">
-                <navigator open-type="redirect" url="../newuser/newuser">确认</navigator>
+                <navigator open-type="navigate" url="../newuser/newuser">确认</navigator>
             </view>
         </view>
     </view>

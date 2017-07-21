@@ -4,47 +4,60 @@
 <view class="video-area">
   <!--<video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>-->
   <view class="video-cover-wrap">
-    <image class="video-cover" src="{{videoCover}}"></image>
-    <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
+    <image class="video-cover" src="{{ user.video_cover || '../../images/video_cover.jpg' }}"></image>
+    <image catchtap="playVideo" class="video-play" src="{{ videoPlay }}"></image>
   </view>
 </view>
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image class="user-avatar-url" src="{{ userInfo.avatarUrl }}"></image>
+  <image class="user-avatar-url" src="{{ user.avatar }}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{ userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
+  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.sex }}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
-    <text class="user-detail" wx:for="{{ userDetail }}" wx:key="unique">{{item}}</text>
+    <text class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</text>
+    <text class="user-detail">{{ user.age }}</text>
+    <text class="user-detail">{{ user.user_height }}cm</text>
+    <text class="user-detail">{{ user.job }}</text>
   </view>
-  <button disabled="{{disabled}}" data-id="{{ user.id }}" catchtap="follow" class="follow-btn">{{ btnText }}</button>
+  <button disabled="{{user.isSubscribe == '1'}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ btnText }}</button>
 </view>
 <!--个人邀请信息-->
 <view class="invite">
-  <block wx:for-item="inv" wx:for="{{ invite }}" wx:key="unique">
+  <block wx:for-item="inv" wx:for="{{ user.engagements }}" wx:key="unique">
     <view class="inv-wrap">
-      <view class="inv-text">{{ inv.time }} {{ inv.address }}发布一个邀请</view>
+      <view class="inv-text">{{ inv.order_date }} {{ inv.area }}发布一个邀请</view>
       <view class="slider invited"><text>应邀</text></view>
     </view>
   </block>
 </view>
 <!--相册-->
-<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>
+<navigator open-type="navigate" url="../photo/photo?id={{ user.user_id }}&type=other" class="photo">
+<view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
+<view class="photo-show" wx:if="true">
+  <block wx:for="{{ user.ta_photos }}" wx:for-item="photo" wx:key="unique">
+    <image src="{{ photo.photo_url }}"></image>
+  </block>
+  <view class="camera" wx:if="{{ user.ta_photos.length == 0 }}">Ta暂时没有上传图片哦</view>
+</view>
+</navigator>
+<!--<template is="photo" data="{{ userPhoto: user.ta_photos, open_type: open_types, login: logins }}"></template>-->
 <!--评价-->
 <view class="estimate">
   <view class="es-title iconfont icon-pingjia">
     Ta收到的评价
   </view>
-  <block wx:for="{{estimate}}" wx:for-item="es" wx:key="unique">
+  <block wx:for="{{user.comment_list}}" wx:for-item="es" wx:key="unique">
     <view class="es-wrap">
-      <image src="{{ es.src }}"></image>
+      <image src="{{ es.avatar }}"></image>
       <view class="es-es">
-        <view class="es-name iconfont {{ es.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ es.name }}</view>
-        <view class="es-text">{{ es.text }}</view>
+        <view class="es-name iconfont {{ es.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ es.user_nicename }}</view>
+        <view class="es-text">{{ es.content }}</view>
       </view>
     </view>
   </block>
+  <view wx:if="{{ user.comment_list.length == 0 }}" style="padding: 20rpx">Ta暂时还没有收到评价</view>
 </view>
 <!--显示更多-->
 <view wx:if="{{ showMoreBtn }}" class="show-more">
@@ -61,7 +74,7 @@
       <view class="name-l">公司:</view>
       <!--picker-->
       <view class="name-r company gender">
-        <input disabled="true" value="{{ userInfos.company }}"/>
+        <input disabled="true" value="{{ user.compny }}"/>
       </view>
     </view>
     <!--车房状况-->
@@ -69,33 +82,33 @@
       <view class="name-l">车房状况:</view>
       <!--picker-->
       <view class="name-r company gender">
-        <input disabled="true" value="{{ userInfos.house }}"/>
+        <input disabled="true" value="{{ houseArr[user.cart_house] }}"/>
       </view>
     </view>
     <!--运动-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近做过的运动:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ userInfos.sport }}" />
+        <input disabled="true" value="{{ user.likes_sports }}" />
       </view>
     </view>
     <!--电影-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近看过的电影:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ userInfos.movie }}"/>
+        <input disabled="true" value="{{ user.likes_movies }}"/>
       </view>
     </view>
     <!--读书-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近看过的书:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ userInfos.book }}" />
+        <input disabled="true" value="{{ user.likes_books }}" />
       </view>
     </view>
   </view>
 </view>
 <!--视频弹窗形式-->
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
-  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
+  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{user.video_url}}"></video>
 </view>

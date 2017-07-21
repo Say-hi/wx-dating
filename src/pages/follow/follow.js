@@ -43,6 +43,13 @@ Page({
   },
   // 弹窗
   follows (e) {
+    if (e.currentTarget.dataset.follow * 1 === 1) {
+      return wx.showToast({
+        title: '您和Ta已互相关注啦',
+        mask: true,
+        duration: 1000
+      })
+    }
     this.setData({
       mask: true,
       id: e.currentTarget.dataset.id
@@ -73,18 +80,6 @@ Page({
       }
     }
     app.wxrequest(fbj)
-    // let id = e.currentTarget.dataset.id
-    // let index = e.currentTarget.dataset.index
-    // let peopleArr = this.data.people
-    // if (peopleArr[index].is_subscribe === '1') {
-    //   peopleArr[index].is_subscribe = '0'
-    // } else {
-    //   peopleArr[index].is_subscribe = '1'
-    // }
-    // // peopleArr[index].is_subscribe = !peopleArr[index].is_subscribe
-    // this.setData({
-    //   people: peopleArr
-    // })
   },
   // 跳转到消息页面
   goNewfollow () {

@@ -9,24 +9,7 @@ Page({
   data: {
     title: 'checkInvited',
     chooseTab: true,
-    userArr: [
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '崔大炮',
-        gender: 1,
-        marry: 1,
-        job: '互联网行业',
-        id: 41323
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '崔大炮',
-        gender: 2,
-        marry: 1,
-        job: '互联网行业',
-        id: 41323
-      }
-    ]
+    userArr: []
   },
   // 选择应邀者
   chooseUser (e) {
@@ -45,7 +28,6 @@ Page({
         chooseShow: false
       })
     } else if (type === 'confirm') {
-      // todo 应邀者确定
       let sbj = {
         url: useUrl.acceptApplyInvitation,
         data: {
@@ -53,16 +35,15 @@ Page({
           id: e.currentTarget.dataset.id
         },
         success (res) {
-          console.log(res)
           // 选择成功
           if (res.data.code === 200) {
             that.setData({
               chooseTab: false
             })
-          } else {
+          } else if (res.data.code === 400) {
             // 失败操作
             return wx.showToast({
-              title: '哎呀，服务器开小差了，请稍后再操作',
+              title: '您已确认应邀者了~~',
               image: '../../images/jiong.png',
               duration: 2000,
               mask: true
@@ -90,7 +71,6 @@ Page({
         that.setData({
           userArr: res.data.data
         })
-        console.log(res)
       }
     }
     app.wxrequest(obj)

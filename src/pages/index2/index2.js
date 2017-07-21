@@ -5,11 +5,14 @@ const useUrl = require('../../utils/service')
 // const plugin = require('../../utils/plugin')
 const ccFile = require('../../utils/calendar-converter')
 // const common = require('../../utils/common')
-const curDate = new Date()
+let curDate = new Date()
 let calendarConverter = new ccFile.CalendarConverter()
-let curYear = curDate.getFullYear()
-let curMonth = curDate.getMonth()
-let curDay = curDate.getDate()
+// let curYear = curDate.getFullYear()
+// console.log('curYear1', curYear)
+// let curMonth = curDate.getMonth()
+// console.log('curMonth1', curMonth)
+// let curDay = curDate.getDate()
+// console.log('curDay1', curDay)
 
 //月份天数表
 var DAY_OF_MONTH = [
@@ -172,20 +175,6 @@ Page({
       detailData: detailDate
     })
     this.setTime()
-    // 请求关注好友的数据
-    // let obj = {
-    //   url: useUrl.getSubscribeUserYaoyue,
-    //   data: {
-    //     session_key: wx.getStorageSync('session_key'),
-    //     // time: currentMonth[d].sYear + '-' + (currentMonth[d].sMonth < 10 ?  "0" + currentMonth[d].sMonth : currentMonth[d].sMonth)  + '-' + (currentMonth[d].sDay < 10 ?  "0" + currentMonth[d].sDay : currentMonth[d].sDay),
-    //     time: '2017-07-07',
-    //     page: page
-    //   },
-    //   success (res) {
-    //     console.log(res)
-    //   }
-    // }
-    // app.wxrequest(obj)
     this.setData({
       userList: []
     })
@@ -229,12 +218,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    let curYear = curDate.getFullYear()
+// console.log('curYear1', curYear)
+    let curMonth = curDate.getMonth()
+// console.log('curMonth1', curMonth)
+    let curDay = curDate.getDate()
     // 设置当前日期和判断基准日期
     let detailDate = {
       curYear: curYear,
       curMonth: curMonth === 11 ? 1 : curMonth + 1,
       curDay: curDay
     }
+    // console.log('cruDate', curDate)
+    // console.log('curYear2', curYear)
+    // console.log('curMonth2', curMonth)
+    // console.log('curDay2', curDay)
     detailDate.date = this.topDate(curYear, (curMonth + 1), curDay)
     this.setData({
       detailData: detailDate

@@ -1,46 +1,49 @@
 <!--问卷调查-->
 <view class="survey">
-    <view wx:if="{{ !hide }}" class="top-title">约会对象</view>
+    <view class="top-title">约会对象</view>
     <!--约会对象信息-->
-    <view wx:if="{{ !hide }}" class="p-info">
+    <view class="p-info">
         <view class="p-i-top"></view>
         <!--用户信息-->
         <view class="user-wrap">
             <view class="user-info">
                 <!--头像-->
-                <image class="user-avatar-url" src="{{ userInfo.avatarUrl }}"></image>
+                <image class="user-avatar-url" src="{{ userInfo.avatar }}"></image>
                 <!--昵称-->
-                <view class="user-nick-name iconfont {{ userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
+                <view class="user-nick-name iconfont {{ userInfo.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.user_nicename}}</view>
                 <!--身高相关信息-->
                 <view class="user-info-detail">
-                    <text class="user-detail" wx:for="{{ userDetail }}" wx:key="unique">{{item}}</text>
+                    <text class="user-detail">{{userInfo.ganqing == 1 ? '非单身' : '单身'}}</text>
+                    <text class="user-detail">{{userInfo.age}}</text>
+                    <text class="user-detail">{{userInfo.user_height}}cm</text>
+                    <text class="user-detail">{{userInfo.job}}</text>
                 </view>
             </view>
         </view>
     </view>
     <!--约会感觉-->
     <view class="sentiment">
-        <view class="s-title">{{ write == 'true' ? '请写下你对此次约会的感想' : 'Ta对此次约会的感想' }}</view>
+        <view class="s-title">请写下你对此次约会的感想</view>
         <view class="s-impression">
-            <view>{{ write == 'true' ? '1、对TA的第一印象如何？' : '1、TA对你的第一印象如何' }}</view>
-            <input value="{{ impression }}" data-type="impression" placeholder="　请写下..."/>
+            <view>1、对TA的第一印象如何？</view>
+            <input value="{{ question_one }}" bindinput="InputValue" data-type="impression" placeholder="　请写下..."/>
         </view>
         <view class="s-moment">
-            <view>{{ write == 'true' ? '2、TA最打动你的一瞬间是什么？' : '2、你最打动TA的一瞬间是什么？' }}</view>
+            <view>2、TA最打动你的一瞬间是什么？</view>
             <view>(可以是一句话、一个小动作、一件事等关于TA的细节)</view>
-            <input value="{{ moment }}" data-type="moment" placeholder="　请写下..."/>
+            <input value="{{ question_two }}" bindinput="InputValue" data-type="moment" placeholder="　请写下..."/>
         </view>
         <view class="s-possible">
-            <view>{{ write == 'true' ? '3、这次见面后，你觉得有多大可能与TA开始一段恋情？' : '3、这次见面后，TA觉得有多大可能与你开始一段恋情？' }}</view>
+            <view>3、这次见面后，你觉得有多大可能与TA开始一段恋情？</view>
             <view>(以百分比回答)</view>
-            <input value="{{ possible }}" data-type="possible" placeholder="　请写下..."/>
+            <input value="{{ question_three }}" bindinput="InputValue" data-type="possible" placeholder="　请写下..."/>
         </view>
         <view class="s-doing">
-            <view>{{ write == 'true' ? '4、这次见面后，你最希望TA做什么？' : '4、这次见面后，TA最希望你做什么？' }}</view>
+            <view>4、这次见面后，你最希望TA做什么？</view>
             <!--<view>(以百分比回答)</view>-->
-            <input value="{{ doing }}"  data-type="doing" placeholder="　请写下..."/>
+            <input value="{{ question_four }}" bindinput="InputValue"  data-type="doing" placeholder="　请写下..."/>
         </view>
-        <view wx:if="{{ write == 'true' }}" class="s-show">
+        <view class="s-show">
             <view>5、这份问卷愿意让TA看到吗？</view>
             <block wx:for="{{ chooseArr }}">
                 <view data-index="{{ index }}" class="choose-wrap" catchtap="chooseArr">
@@ -53,20 +56,4 @@
     </view>
 </view>
 <!--按钮-->
-<view wx:if="{{ write == 'true' }}" class="confirm-btn">提交问卷</view>
-<!--弹窗-->
-<view wx:if="{{ show }}" class="mask">
-    <view class="mask-wrap">
-        <view class="ts">交换问卷</view>
-        <view class="ts-two">
-            对方选择的是交换方式，需要填写
-        </view>
-        <view class="ts-three">
-            问卷调查才能查看对方问卷
-        </view>
-        <view class="mask-confirm">
-            <text class="mask-cancel-btn" catchtap="goback">放弃</text>
-            <text class="mask-confirm-btn" catchtap="delMask">去填写</text>
-        </view>
-    </view>
-</view>
+<view wx:if="{{ hide }}" catchtap="sendMessage" class="confirm-btn">提交问卷</view>

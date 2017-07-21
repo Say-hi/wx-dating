@@ -109,7 +109,7 @@
       <veiw class="ts-two ts-twos">
         您取消赴约超过三次，禁止发起约会！请前往应邀完成一次约会解除
       </veiw>
-      <view data-type="cancel" catchtap="delMask" class="mask-confirm">
+      <view data-type="cccc" catchtap="delMask" class="mask-confirm">
         确认
       </view>
     </view>

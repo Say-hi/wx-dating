@@ -79,7 +79,8 @@ Page({
             ganqing: that.data.marryCur,
             age: that.data.ageArr[that.data.ageIndex],
             user_height: that.data.userHeight || '',
-            job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+            // job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+            job: that.data.industryOne[that.data.value[0]] + '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]],
             compny: that.data.compny || '',
             cart_house: that.data.houseIndex,
             likes_sports: that.data.likesSports || '',
@@ -100,37 +101,7 @@ Page({
   // 输入框内容
   inputValue (e) {
     let that = this
-    let type = e.currentTarget.dataset.type
-    let value = e.detail.value
-    if (type === 'name') {
-      that.setData({
-        name: value
-      })
-    } else if (type === 'height') {
-      that.setData({
-        userHeight: value
-      })
-    } else if (type === 'company') {
-      that.setData({
-        compny: value
-      })
-    } else if (type === 'sport') {
-      that.setData({
-        likesSports: value
-      })
-    } else if (type === 'movie') {
-      that.setData({
-        likesMovies: value
-      })
-    } else if (type === 'book') {
-      that.setData({
-        likesBooks: value
-      })
-    } else if (type === 'evaluate') {
-      that.setData({
-        comment: value
-      })
-    }
+    app.inputValue(e, that)
   },
   // 确认
   taConfirm () {

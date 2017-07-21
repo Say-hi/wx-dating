@@ -11,7 +11,7 @@
   </view>
 </view>
 <!--无视频-->
-<view wx:else class="video-area novideo">
+<view wx:else class="video-area novideo" catchtap="upVideo">
   <!--<view>-->
     <image src="{{ logins ?  hasvideo ? '' : '../../images/login-video.png' : '../../images/login-bg.png' }}"></image>
   <!--</view>-->
@@ -27,7 +27,19 @@
     <navigator hover-class="none" url="{{ logins ? '../message/message' : '' }}" class="message iconfont icon-xiaoxi {{ hasmessage ? 'has' : '' }}">消息</navigator>
   </view>
   <!--相册-->
-  <template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>
+  <!--<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>-->
+  <navigator open-type="navigate" url="{{ logins ? '../photo/photo' : '' }}" class="photo">
+    <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
+    <view class="photo-show" wx:if="{{ logins }}">
+      <block wx:for="{{ userPhotos }}" wx:for-item="photo" wx:key="unique">
+        <view class="photo-wrap">
+          <image src="{{ photo.photo_url }}"></image>
+          <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
+        </view>
+      </block>
+      <view class="camera" wx:if="{{ userPhoto.length <= 3 }}"><image src="../../images/camera.png"></image></view>
+    </view>
+  </navigator>
   <!--<view>123</view>-->
   <!--用户操作-->
   <view class="operation">

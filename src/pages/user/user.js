@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -9,11 +9,9 @@ Page({
   data: {
     title: 'user',
     // 视屏
-    logins: false,
-    hasvideo: true,
     hasmessage: true, // 有消息状态
-    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
-    videoCover: '../../images/video_cover.jpg',
+    videoSrc: '',
+    videoCover: '',
     videoPlay: '../../images/play.png',
     videoControls: true,
     autoplay: false,
@@ -21,11 +19,7 @@ Page({
     playStatus: false,
     objectFit: 'fill',
     // 相册
-    userPhotos: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg'
-    ],
+    userPhotos: [],
     open_types: 'navigate',
     // 用户操作
     opertaion: [
@@ -46,7 +40,8 @@ Page({
       },
       {
         title: 'FAQ',
-        ico: 'icon-FAQ'
+        ico: 'icon-FAQ',
+        url: '../faq/faq'
       },
       {
         title: '反馈与客服',
@@ -54,6 +49,47 @@ Page({
         url: '../kefu/kefu'
       }
     ]
+  },
+  // 获取个人信息
+  getMyInfo () {
+    let that = this
+    let getMO = {
+      url: useUrl.getUserinfo,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        // console.log(res)
+        let hasvideo = false
+        // console.log(res)
+        // console.log(res.data.data.video_url)
+        if (res.data.data.video_url.length > 0) {
+          hasvideo = true
+        }
+        that.setData({
+          hasvideo: hasvideo,
+          userPhotos: res.data.data.photos,
+          videoSrc: res.data.data.video_url,
+          videoCover: res.data.data.video_cover || '../../images/video_cover.jpg'
+        })
+      }
+    }
+    app.wxrequest(getMO)
+  },
+  // 上传视频
+  upVideo () {
+    let videoObj = {
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'front',
+      success (res) {
+        // todo 视频相关
+        // 视频文件路径
+        // console.log(res.tempFilePath)
+        // console.log(res)
+      }
+    }
+    wx.chooseVideo(videoObj)
   },
   // 编辑相册封面
   editVideo () {
@@ -119,6 +155,7 @@ Page({
         logins: false
       })
     }
+    this.getMyInfo()
   },
 
   /**

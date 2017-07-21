@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -9,11 +9,10 @@ Page({
   data: {
     title: 'survey',
     userInfo: {
-      avatarUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      nickName: '兔子',
-      gender: 1
+      // avatarUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      // nickName: '兔子',
+      // gender: 1
     },
-    userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
     curChoose: 2,
     chooseArr: [
       {
@@ -32,11 +31,6 @@ Page({
         text: '无条件开放给对方看'
       }
     ],
-    // impression: '幽默',
-    // moment: '幽默',
-    // possible: '80%',
-    // doing: '再约',
-    show: true,
     write: false,
     hide: true
   },
@@ -56,23 +50,124 @@ Page({
       curChoose: e.currentTarget.dataset.index
     })
   },
+  // 获取问卷详情
+  getQuestionDetail (id) {
+    let that = this
+    let queObj = {
+      url: useUrl.questionnairesDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: id
+      },
+      success (res) {
+        // console.log(res)
+        let s = res.data.data.questionnaires_info
+        that.setData({
+          question_one: s.question_one,
+          question_two: s.question_two,
+          question_three: s.question_three,
+          question_four: s.question_four,
+          curChoose: s.type
+        })
+        if (!res.data.data.user_info) return
+        res.data.data.user_info.job = res.data.data.user_info.job.split('-')[1]
+        that.setData({
+          userInfo: res.data.data.user_info
+        })
+      }
+    }
+    app.wxrequest(queObj)
+  },
+  // 获取约会对象信息
+  getduixiang (orderid) {
+    let that = this
+    let ssobj = {
+      url: useUrl.editeQuestionnaires,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: orderid
+      },
+      success (res) {
+        // console.log(res)
+        res.data.data.job = res.data.data.job.split('-')[1]
+        that.setData({
+          userInfo: res.data.data
+        })
+      }
+    }
+    app.wxrequest(ssobj)
+  },
+  // 写入内容
+  InputValue (e) {
+    let value = e.detail.value
+    let type = e.currentTarget.dataset.type
+    if (type === 'impression') {
+      this.setData({
+        question_one: value
+      })
+    } else if (type === 'moment') {
+      this.setData({
+        question_two: value
+      })
+    } else if (type === 'possible') {
+      this.setData({
+        question_three: value
+      })
+    } else if (type === 'doing') {
+      this.setData({
+        question_four: value
+      })
+    }
+  },
+  // 提交信息
+  sendMessage () {
+    let that = this
+    let sendObj = {
+      url: useUrl.postQuestionnaires,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        user_id: that.data.userInfo.user_id,
+        order_id: that.data.userInfo.order_id,
+        question_one: that.data.question_one,
+        question_two: that.data.question_two,
+        question_three: that.data.question_three,
+        question_four: that.data.question_four,
+        type: that.data.curChoose
+      },
+      success (res) {
+        // console.log(res)
+        if (res.data.data === '提交成功') {
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          console.log('提交错误', res)
+          wx.showToast({
+            title: '啊哦，服务器开小差了，请稍后再试'
+          })
+        }
+      }
+    }
+    app.wxrequest(sendObj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    this.setData({
-      write: params.write
-    })
-    if (params.write === 'false') {
-      // todo getdata
+    // let that = this
+    // 填写问卷
+    if (params.id * 1 === 0) {
       this.setData({
-        impression: '幽默',
-        moment: '幽默',
-        possible: '80%',
-        doing: '再约'
+        write: true
+      })
+    } else {
+      // 查看自己填写的问卷
+      this.getQuestionDetail(params.id)
+      this.setData({
+        hide: false
       })
     }
-    // TODO: onLoad
+    this.getduixiang(params.orderId)
   },
 
   /**

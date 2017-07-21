@@ -127,11 +127,11 @@ Page({
     app.wxpay(payObj)
   },
   // 完善个人资料
-  gofinishuserdata () {
-    // wx.redirectTo({
-    //
-    // })
-  },
+  // gofinishuserdata () {
+  //   // wx.redirectTo({
+  //   //
+  //   // })
+  // },
   getMyDay (date) {
     var week = ''
     var dates = new Date(date)
@@ -252,6 +252,7 @@ Page({
   delMask (e) {
     let that = this
     let type = e.currentTarget.dataset.type
+    console.log(type)
     // console.log(type)
     if (type === 'yxpay') {
       // todo 支付意向金
@@ -275,12 +276,23 @@ Page({
             },
             fail (res) {
               // 支付失败
+              // todo 删除
+              that.setData({
+                moneyshow: false
+              })
             }
           }
           app.wxpay(yxObj)
         }
       }
       app.wxrequest(obj)
+    } else if (type === 'cccc') {
+      wx.switchTab({
+        url: '../index2/index2'
+      })
+      this.setData({
+        cancelshow: false
+      })
     } else {
       this.setData({
         cancelshow: false
@@ -344,6 +356,10 @@ Page({
             }
           }
           app.wxrequest(orderPayobj)
+        } else {
+          that.setData({
+            datingSuccess: true
+          })
         }
       }
     }
@@ -364,19 +380,21 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        // console.log(res.data.data.is_perfect_data)
-        // console.log(res.data.data.isShiyue)
-        // console.log(res.data.data.isHasBaomoney)
         if (res.data.data.is_perfect_data.toString() === '0') {
-          return that.setData({
+          // 完整数据 1
+          that.setData({
             datashow: true
           })
-        } else if (res.data.data.isShiyue.toString() === '1') {
-          return that.setData({
+        }
+        if (res.data.data.isShiyue.toString() === '1') {
+          // 失约超过次数 1超
+          that.setData({
             cancelshow: true
           })
-        } else if (res.data.data.isHasBaomoney.toString() === '0') {
-          return that.setData({
+        }
+        if (res.data.data.isHasBaomoney.toString() === '0') {
+          // 无保证金 0
+          that.setData({
             moneyshow: true
           })
         }
@@ -394,8 +412,6 @@ Page({
         pay: '替Ta付清',
         payType: 0
       })
-    } else {
-      this.checkUser()
     }
     // 时间选择项生成
     let industryOne = []
@@ -441,6 +457,7 @@ Page({
    */
   onShow () {
     // TODO: onShow
+    this.checkUser()
   },
 
   /**
