@@ -27,10 +27,10 @@ Page({
       wx.navigateTo({
         url: '../checkInvited/checkInvited?orderId=' + orderId
       })
-    } else if (status === 1 && tabCurrent !== 2) {
+    } else if ((status === 1 || status === 4) && tabCurrent !== 2) {
       // todo 取消赴约
       wx.navigateTo({
-        url: '../cancelOrder/cancelOrder?orderId=' + orderId
+        url: '../cancelOrder/cancelOrder?id=' + orderId + '&status=' + status
       })
     } else if (status === 0 && tabCurrent === 2) {
       // todo 提醒功能

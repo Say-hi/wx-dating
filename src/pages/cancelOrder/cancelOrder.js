@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -8,21 +8,23 @@ Page({
    */
   data: {
     title: 'cancelOrder',
-    order: {
-      number: 1232416,
-      type: 0, // 0 自己发起的 1 别人发起的
-      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      title: 'Kiss Bottle 全新手工制甜品餐',
-      time: '2017.05.20 18:30',
-      address: '珠江新城',
-      money: 158,
-      pImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      pName: '凸角',
-      pGender: 1,
-      pReason: '萨克的覅双方都刷卡地方萨克的浪费和萨阿斯顿飞哈斯的空间费',
-      pId: 12312321,
-      zd: false
-    },
+    value: '',
+    shiYue: false,
+    // order: {
+    //   number: 1232416,
+    //   type: 0, // 0 自己发起的 1 别人发起的
+    //   img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+    //   title: 'Kiss Bottle 全新手工制甜品餐',
+    //   time: '2017.05.20 18:30',
+    //   address: '珠江新城',
+    //   money: 158,
+    //   pImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+    //   pName: '凸角',
+    //   pGender: 1,
+    //   pReason: '萨克的覅双方都刷卡地方萨克的浪费和萨阿斯顿飞哈斯的空间费',
+    //   pId: 12312321,
+    //   zd: false
+    // },
     items: [
       {
         name: '1',
@@ -40,9 +42,16 @@ Page({
     })
   },
   confirmBtn () {
-    // todo 信息上传
+    let that = this
+    if (this.data.status === 1) {
+      that.cancelOrder()
+    } else if (this.data.status === 4) {
+      that.replyOrder()
+    }
+  },
+  inputValue (e) {
     this.setData({
-      show: true
+      value: e.detail.value
     })
   },
   // 关闭弹窗
@@ -54,11 +63,139 @@ Page({
       url: '../index2/index2'
     })
   },
+  // 获取用户资料
+  getUserInfo () {
+    let that = this
+    let userObj = {
+      url: useUrl.isPerfectData,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.data.isShiyue * 1 === 1) {
+          that.setData({
+            shiYue: true
+          })
+        }
+      }
+    }
+    app.wxrequest(userObj)
+  },
+  // 获取订单信息
+  getOrderInfo (id) {
+    let that = this
+    let orderObj = {
+      url: useUrl.cancelOrderDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      },
+      success (res) {
+        that.setData({
+          order: res.data.data,
+          order_id: id
+        })
+        if (res.data.data.is_zudong * 1 === 1) {
+          that.setData({
+            zd: true
+          })
+        }
+      }
+    }
+    app.wxrequest(orderObj)
+  },
+  // 回复取消订单
+  replyOrder () {
+    let that = this
+    if (this.data.value.length === 0) {
+      return wx.showToast({
+        title: '您还没有填写回复理由呢',
+        mask: true
+      })
+    }
+    let replyObj = {
+      url: useUrl.huifuOrderCancel,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: that.data.order_id,
+        content: that.data.value
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '回复成功',
+            mask: true
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(replyObj)
+  },
+  // 取消订单
+  cancelOrder () {
+    if (this.data.value.length === 0) {
+      return wx.showToast({
+        title: '您还没有填写理由呢~~',
+        mask: true
+      })
+    }
+    let that = this
+    let cancelObj = {
+      url: useUrl.cancelOrder,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: that.data.order_id,
+        cancel_liyou: that.data.value
+      },
+      success (res) {
+        console.log(res)
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '订单取消中,请耐心等待审核',
+            mask: true
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(cancelObj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
     // TODO: onLoad
+    if (params.status * 1 === 1) {
+      this.setData({
+        zd: true
+      })
+    } else if (params.status * 1 === 4) {
+      this.setData({
+        zd: false
+      })
+    }
+    this.setData({
+      status: params.status * 1
+    })
+    this.getOrderInfo(params.id)
+    this.getUserInfo()
   },
 
   /**

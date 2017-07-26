@@ -70,7 +70,7 @@ Page({
           hasvideo: hasvideo,
           userPhotos: res.data.data.photos,
           videoSrc: res.data.data.video_url,
-          videoCover: res.data.data.video_cover || '../../images/video_cover.jpg'
+          videoCover: res.data.data.video_image || '../../images/video_cover.jpg'
         })
       }
     }
@@ -78,24 +78,102 @@ Page({
   },
   // 上传视频
   upVideo () {
+    let that = this
     let videoObj = {
       sourceType: ['album', 'camera'],
       maxDuration: 60,
       camera: 'front',
       success (res) {
-        // todo 视频相关
-        // 视频文件路径
-        // console.log(res.tempFilePath)
-        // console.log(res)
+        wx.showLoading({
+          title: '视频上传中',
+          mask: true
+        })
+        let i = res.tempFilePath
+        let upVideo = {
+          url: useUrl.updateVideoUrl,
+          filePath: i,
+          formData: {
+            session_key: wx.getStorageSync('session_key'),
+            file: i
+          },
+          success (res) {
+            wx.hideLoading()
+            console.log(res)
+            let jsonObj = JSON.parse(res.data).data.res_file
+            that.setData({
+              videoSrc: jsonObj,
+              hasvideo: true
+            })
+          },
+          fail (res) {
+            console.log('上传错误', res)
+            wx.showToast({
+              title: '视频上传失败，请重新尝试',
+              mask: true,
+              duration: 1000
+            })
+          }
+        }
+        app.wxUpload(upVideo)
       }
     }
     wx.chooseVideo(videoObj)
   },
   // 编辑相册封面
   editVideo () {
-    // todo
-    // 视频遮盖图修改
-    console.log(1)
+    let that = this
+    let obj = {
+      count: 1,
+      success (res) {
+        wx.showLoading({
+          title: '图片上传中',
+          mask: true
+        })
+        let i = res.tempFilePaths[0]
+        let upImg = {
+          url: useUrl.uploadPhotos,
+          filePath: i,
+          formData: {
+            session_key: wx.getStorageSync('session_key'),
+            file: i
+          },
+          success (res) {
+            wx.hideLoading()
+            let jsonObj = JSON.parse(res.data).data.res_file
+            let coverObj = {
+              url: useUrl.updateVideoImage,
+              data: {
+                session_key: wx.getStorageSync('session_key'),
+                video_image: jsonObj
+              },
+              success (res) {
+                console.log(res)
+                that.setData({
+                  videoCover: jsonObj
+                })
+                wx.showToast({
+                  title: res.data.message
+                })
+              }
+            }
+            app.wxrequest(coverObj)
+          },
+          fail (res) {
+            console.log('上传错误', res)
+            wx.showToast({
+              title: '图片上传失败，请重新尝试',
+              mask: true,
+              duration: 1000
+            })
+          }
+        }
+        app.wxUpload(upImg)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    }
+    wx.chooseImage(obj)
   },
   videodel () {
     this.setData({

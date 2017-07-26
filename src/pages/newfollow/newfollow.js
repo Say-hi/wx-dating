@@ -9,29 +9,7 @@ Page({
   data: {
     title: 'newfollow',
     page: 1,
-    people: [
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '崔大炮',
-        gender: 2,
-        follow: 0,
-        id: 'YH123'
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '崔大炮2',
-        gender: 1,
-        follow: 0,
-        id: 'YH143'
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '崔大炮3',
-        gender: 1,
-        follow: 1,
-        id: 'YH124'
-      }
-    ]
+    people: []
   },
   // 关注
   follow (e) {

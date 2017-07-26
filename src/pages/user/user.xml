@@ -6,8 +6,8 @@
 <view wx:if="{{ logins && hasvideo }}" class="video-area">
   <view wx:if="{{ show }}" class="video-cover-wrap">
     <image class="video-cover" src="{{ videoCover }}"></image>
-    <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
-    <view catchtap="editVideo" class="video-edit">编辑</view>
+    <image catchtap="playVideo" class="video-play" src="{{ videoPlay }}"></image>
+    <view catchtap="editVideo" class="video-edit">编辑封面图片</view>
   </view>
 </view>
 <!--无视频-->

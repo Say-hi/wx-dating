@@ -177,6 +177,12 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+    this.setData({
+      people: [],
+      page: 1
+    })
+    this.getFollowUser(1)
+    this.getstranger()
   },
   onReachBottom () {
     this.getFollowUser(++this.data.page)

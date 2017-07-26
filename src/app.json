@@ -5,19 +5,19 @@
   "pages": [
     "pages/user/user", // 用户个人中心
     "pages/index2/index2",// 首页
+    "pages/userOrder/userOrder", // 用户订单信息
+    "pages/account/account", // 用户账户
+    "pages/accountDetail/accountDetail", // 账户消费详情
+    "pages/orderDatial/orderDatial", // 订单详情
     "pages/faq/faq", // faq问答页面
     "pages/mySurvey/mySurvey", // 我的问卷
     "pages/newuser/newuser", // 用户首次完善个人资料
-    "pages/userOrder/userOrder", // 用户订单信息
     "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
     "pages/order/order", // 填写订单
     "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
     "pages/plans/plans",// 约会计划-套餐列表
     "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
-    "pages/orderDatial/orderDatial", // 订单详情
-    "pages/account/account", // 用户账户
     "pages/recharge/recharge", // 充值
-    "pages/accountDetail/accountDetail", // 账户消费详情
     "pages/survey/survey", // 我的问卷调查
     "pages/showsurvey/showsurvey", // 我收到的问卷
     "pages/userInfo/userInfo", // 个人资料

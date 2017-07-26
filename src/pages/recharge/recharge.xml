@@ -14,15 +14,16 @@
     <!--</view>-->
     <view>
       <text>充值码:</text>
-      <input type="text" placeholder="请输入礼品卷充值码"/>
+      <input bindinput="inputValue" type="text" placeholder="请输入礼品卷充值码"/>
     </view>
   </view>
   <!--充值失败-->
   <view wx:if="{{ chargeFail }}" class="recharge-status">*无效的充值码</view>
-  <view class="btn">
+  <view catchtap="codeMoney" class="btn">
     <text>兑换</text>
   </view>
 </view>
+<!--充值成功弹窗-->
 <view wx:if="{{ maskshow }}" class="mask">
   <view class="mask-wrap">
     <image class="mask-img" src="../../images/choose-confirm.png"></image>

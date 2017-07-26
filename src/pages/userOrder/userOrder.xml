@@ -6,11 +6,11 @@
   <!--我的订单-->
   <view class="wrap order-a">
     <block wx:for="{{ orderMine }}" wx:key="unique">
-      <view class="{{ (item.order_status == 3 || item.order_status == 4 || item.order_status == 5) ? 'close' : '' }}">
+      <view class="{{ (item.order_status == 3 || item.order_status == 5) ? 'close' : '' }}">
         <!--顶部-->
         <view class="order-top">
           <view class="order-number">订单编号:<text>{{ item.order_sn }}</text></view>
-          <view class="order-status {{ (item.order_status == 3 || item.order_status == 4 || item.order_status == 5) ? 'order-close' : '' }}">{{ item.order_status == 0 ? tabCurrent != 2 ? '发布中' : '未确认' : item.order_status == 1 ? '已确认' : (item.order_status == 3 || item.order_status == 4 || item.order_status == 5) ? '订单关闭' : item.order_status == 2 ? '已完成' : '' }}</view>
+          <view class="order-status {{ (item.order_status == 3 || item.order_status == 5) ? 'order-close' : '' }}">{{ item.order_status == 0 ? tabCurrent != 2 ? '发布中' : '未确认' : item.order_status == 1 ? '已确认' : item.order_status == 4 ? '订单取消中' : (item.order_status == 3 || item.order_status == 5) ? '订单关闭' : item.order_status == 2 ? '已完成' : '' }}</view>
         </view>
         <!--中心-->
         <view class="order-center">
@@ -23,17 +23,17 @@
           <view class="o-c-money">￥{{ item.money }}</view>
         </view>
         <!--底部约会对象-->
-        <view class="order-bottom-one" wx:if="{{ (item.order_status == 1 || item.order_status == 2 || item.order_status == 0 && tabCurrent == 0) || tabCurrent == 1 || tabCurrent == 2 }}">
+        <view class="order-bottom-one" wx:if="{{ (item.order_status == 1 || item.order_status == 4 || item.order_status == 2 || item.order_status == 0 && tabCurrent == 0) || tabCurrent == 1 || tabCurrent == 2 }}">
           <!--todo 跳转到对象的个人主页-->
-          <navigator wx:if="{{ (item.order_status == 1 || item.order_status == 2 || tabCurrent == 1) || (tabCurrent == 2 && item.order_status != 3) }}"  url="../userInfo/userInfo?userId={{ item.yingyao.user_id }}" open-type="navigate" class="user arrow {{ (item.order_status == 3 || item.order_status == 4 || item.order_status == 5) && tabCurrent == 1 || item.order_status != 0 && tabCurrent == 2  ? 'noline': '' }}">
+          <navigator wx:if="{{ (item.order_status == 1 || item.order_status == 4  || item.order_status == 2 || tabCurrent == 1) || (tabCurrent == 2 && item.order_status != 3) }}"  url="../userInfo/userInfo?userId={{ item.yingyao.user_id }}" open-type="navigate" class="user arrow {{ (item.order_status == 3 || item.order_status == 5) && tabCurrent == 1 || item.order_status != 0 && tabCurrent == 2  ? 'noline': '' }}">
             <image class="userImg" src="{{ item.yingyao.avatar }}"></image>
             <text class="username iconfont {{ item.yingyao.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.yingyao.user_name }}</text>
           </navigator>
-          <view class="o-b-o-number" wx:if="{{ (item.order_status == 0 || item.order_status == 1 && tabCurrent != 2 || item.order_status == 2 && tabCurrent != 2) || (item.order_status == 0 && tabCurrent == 2) }}">
+          <view class="o-b-o-number" wx:if="{{ (item.order_status == 0 || (item.order_status == 1 || item.order_status == 4) && tabCurrent != 2 || item.order_status == 2 && tabCurrent != 2) || (item.order_status == 0 && tabCurrent == 2) }}">
             <view class="codeNumber">
-              <view class="{{ item.order_status == 2 ? 'codeUse' : '' }}" wx:if="{{ item.order_status == 1 && tabCurrent != 2 || item.order_status == 2 }}">兑换码: <text>{{ item.redeem_code }}</text></view>
+              <view class="{{ item.order_status == 2 ? 'codeUse' : '' }}" wx:if="{{ (item.order_status == 1 || item.order_status == 4) && tabCurrent != 2 || item.order_status == 2 }}">兑换码: <text>{{ item.redeem_code }}</text></view>
             </view>
-            <view data-id="{{ item.order_id }}" data-status="{{ item.order_status }}" data-index="index" catchtap="cancelCheck" wx:if="{{ item.order_status == 1 && tabCurrent != 2 || item.order_status == 0 }}" class="cancel">{{ item.order_status == 1 && tabCurrent != 2 ? '取消赴约' : item.order_status == 0 && tabCurrent == 0 ? '查看应邀者' : item.order_status == 0 && tabCurrent == 1 ? '立即支付' : item.order_status == 0 && tabCurrent == 2 ? '提箱Ta确认' : '' }}</view>
+            <view data-id="{{ item.order_id }}" data-status="{{ item.order_status }}" data-index="index" catchtap="cancelCheck" wx:if="{{ (item.order_status == 1 || item.order_status == 4) && tabCurrent != 2 || item.order_status == 0 }}" class="cancel">{{ (item.order_status == 1 || item.order_status == 4) && tabCurrent != 2 ? '取消赴约' : item.order_status == 0 && tabCurrent == 0 ? '查看应邀者' : item.order_status == 0 && tabCurrent == 1 ? '立即支付' : item.order_status == 0 && tabCurrent == 2 ? '提箱Ta确认' : '' }}</view>
           </view>
         </view>
       </view>

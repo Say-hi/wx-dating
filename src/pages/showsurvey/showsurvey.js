@@ -15,7 +15,7 @@ Page({
     hide: true
   },
   delMask () {
-    let that =this
+    let that = this
     this.setData({
       show: false
     })

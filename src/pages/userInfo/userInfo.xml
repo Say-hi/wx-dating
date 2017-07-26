@@ -13,7 +13,7 @@
   <!--头像-->
   <image class="user-avatar-url" src="{{ user.avatar }}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.sex }}</view>
+  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.user_nicename }}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
     <text class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</text>
@@ -28,7 +28,7 @@
   <block wx:for-item="inv" wx:for="{{ user.engagements }}" wx:key="unique">
     <view class="inv-wrap">
       <view class="inv-text">{{ inv.order_date }} {{ inv.area }}发布一个邀请</view>
-      <view class="slider invited"><text>应邀</text></view>
+      <navigator url="../invitedConfirm/invitedConfirm?orderId={{ inv.order_id }}&title={{ inv.name }}" class="slider invited"><text>应邀</text></navigator>
     </view>
   </block>
 </view>

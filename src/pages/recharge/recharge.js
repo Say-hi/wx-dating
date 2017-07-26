@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -9,26 +9,61 @@ Page({
   data: {
     title: 'recharge',
     curTab: true,
-    chargeFail: false,
-    maskshow: true
+    chargeFail: false
+  },
+  // 获取输入的礼品卷码
+  inputValue (e) {
+    this.setData({
+      code: e.detail.value
+    })
   },
   delMask () {
     this.setData({
       maskshow: false
     })
   },
-  chooseTab (e) {
+  // 礼品卷充值
+  codeMoney () {
     let that = this
-    if (e.currentTarget.dataset.type === 'wx') {
-      that.setData({
-        curTab: true
-      })
-    } else {
-      that.setData({
-        curTab: false
-      })
+    let codeObj = {
+      url: useUrl.chongZhiLipingjuan,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        code: that.data.code
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          that.setData({
+            maskshow: true,
+            chargeFail: false
+          })
+          return
+        } else {
+          that.setData({
+            chargeFail: true,
+            maskshow: false
+          })
+          return wx.showToast({
+            title: res.data.message,
+            mask: true
+          })
+        }
+      }
     }
+    app.wxrequest(codeObj)
   },
+  // chooseTab (e) {
+  //   let that = this
+  //   if (e.currentTarget.dataset.type === 'wx') {
+  //     that.setData({
+  //       curTab: true
+  //     })
+  //   } else {
+  //     that.setData({
+  //       curTab: false
+  //     })
+  //   }
+  // },
   /**
    * 生命周期函数--监听页面加载
    */

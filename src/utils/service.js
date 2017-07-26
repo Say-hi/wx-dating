@@ -66,7 +66,7 @@ let serviceUrl = {
   // 选择应邀者
   acceptApplyInvitation: baseDomain + '/api/order/acceptApplyInvitation',
   // 交易流水
-  payLogsDetail: baseDomain + '/api/pay/payLogsDetail',
+  // payLogsDetail: baseDomain + '/api/pay/payLogsDetail',
   // 充值余额
   payByAccount: baseDomain + '/api/pay/payByAccount',
   // 充值意向保证金
@@ -76,7 +76,7 @@ let serviceUrl = {
   // 替TA发起订单支付
   payByOrderTa: baseDomain + '/api/pay/payByOrderTa',
   // 礼品卷充值
-  chongZhiLipingjuan: baseDomain + '/api/pay/chongZhiLipingjuan',
+  // chongZhiLipingjuan: baseDomain + '/api/pay/chongZhiLipingjuan',
   // 我收到的问卷
   myReceiveQuestionnaires: baseDomain + '/api/questionnaire/myReceiveQuestionnaires',
   // 我发出的问卷调查
@@ -100,6 +100,22 @@ let serviceUrl = {
   // 获取FAQ的列表信息
   getFaqLists: baseDomain + '/api/article/getFaqLists',
   // 查看更多他人的相册
-  otherUserPhotos: baseDomain + '/api/user/otherUserPhotos'
+  otherUserPhotos: baseDomain + '/api/user/otherUserPhotos',
+  // 获取用户金额情况
+  payIndex: baseDomain + '/api/pay/payIndex',
+  // 用户资金流水记录
+  payLogsDetail: baseDomain + '/api/pay/payLogsDetail',
+  // 礼品卷充值
+  chongZhiLipingjuan: baseDomain + '/api/pay/chongZhiLipingjuan',
+  // 取消订单详情
+  cancelOrderDetail: baseDomain + '/api/order/cancelOrderDetail',
+  // 取消订单
+  cancelOrder: baseDomain + '/api/order/cancelOrder',
+  // 回复取消订单
+  huifuOrderCancel: baseDomain + '/api/order/huifuOrderCancel',
+  // 用户上传视屏
+  updateVideoUrl: baseDomain + '/api/user/updateVideoUrl',
+  // 上传视频封面图片
+  updateVideoImage: baseDomain + '/api/user/updateVideoImage'
 }
 module.exports = serviceUrl

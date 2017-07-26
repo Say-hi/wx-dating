@@ -8,8 +8,8 @@
     </view>
     <view class="bottom">
       <navigator url='../recharge/recharge' class="recharge">兑换</navigator>
-      <view class="sincerity">{{ sincerityMoney ? '诚意保证金￥' + sincerityMoney : '尚未缴纳诚意保证金' }}</view>
-      <view class="sincerity-pay">{{ sincerityMoney ? '退款':'马上支付' }}</view>
+      <view class="sincerity">{{ sincerityMoney != 0 ? '诚意保证金￥' + sincerityMoney : '尚未缴纳诚意保证金' }}</view>
+      <view class="sincerity-pay" catchtap="chargeBao">{{ sincerityMoney ? '退款':'马上支付' }}</view>
     </view>
   </view>
 </view>

@@ -11,6 +11,7 @@
       <view data-index="{{ index }}" class="choose" data-id="{{ item.id }}" catchtap="chooseUser">选择</view>
     </view>
   </block>
+  <view style="text-align: center; padding: 30rpx;" wx:if="{{ userArr.length == 0 }}">暂无应邀者</view>
 </view>
 <!--选择应邀者-->
 <view wx:if="{{ chooseShow }}" class="choose-mask">
