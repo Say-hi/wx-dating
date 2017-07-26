@@ -31,6 +31,13 @@ Page({
     // shopTime: '2017.05.20',
     // shopAddress: '珠江新城华夏路6号'
   },
+  // 应邀
+  yingyao () {
+    let that = this
+    wx.navigateTo({
+      url: '../duixianglist/duixianglist?id=' + that.data.id
+    })
+  },
   // 查看地图
   showMap () {
     let that = this

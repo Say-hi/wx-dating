@@ -5,7 +5,7 @@
       <view catchtap="goUserZY" data-id="{{ item.id }}" class="p-wrap">
         <image class="p-img" src="{{ item.avatar }}"></image>
         <view>
-          <view class="p-name iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.name}}</view>
+          <view class="p-name iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.user_nicename}}</view>
           <view class="p-introduce">{{ item.content }}</view>
         </view>
         <view data-type='{{ item.is_ignore }}' data-id="{{ item.id }}" data-index="{{ index }}" catchtap="follow" class="p-follow-btn {{ item.follow ? 'p-follow' : 'p-nofollow' }}">{{ item.is_ignore == 1 ? '取消忽略' : '忽略此人' }}</view>

@@ -3,7 +3,7 @@
   <view class="search">
     <image catchtap="goNewfollow" class="ring {{ message ? 'has-message' : '' }}" src="../../images/follow-ring.png"></image>
     <span class="iconfont icon-sousuo"></span>
-    <input class="search-input" confirm-type="search" placeholder-class="search-input-p" type="text" placeholder="点击进行搜索"/>
+    <input bindconfirm="searchValue" class="search-input" confirm-type="search" placeholder-class="search-input-p" type="text" placeholder="点击进行搜索"/>
   </view>
   <!--内容排列-->
   <view class="people">

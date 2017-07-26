@@ -251,7 +251,7 @@
   <view class="friendComment">
     <image src="{{ orderInfo.comment.avatar }}"></image>
     <view class="fc-wrap">
-      <view class="friendName iconfont {{ orderInfo.comment.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ orderInfo.comment.user_nicename }}</view>
+      <view class="friendName iconfont {{ orderInfo.comment.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ orderInfo.comment.user_nicename || orderInfo.comment.name }}</view>
       <view class="comment">
         {{ orderInfo.comment.content }}
       </view>

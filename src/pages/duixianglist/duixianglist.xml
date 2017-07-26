@@ -1,0 +1,27 @@
+<!--套餐应邀列表-->
+<view class="wrap">
+  <view class="top">
+    <view class="top-left">{{ time }}</view>
+    <view class="top-right iconfont icon-paixu">排序</view>
+  </view>
+  <view class="aaa">
+    <block wx:for="{{ listArr }}" wx:key="unique">
+      <view class="dx">
+        <image src="{{ item.avatar }}"></image>
+        <view class="dx-center">
+          <view class="name"><text class="gender iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.user_nicename}}</text><text class="job">{{ item.job }}</text></view>
+          <view class="time">时间:{{ item.order_time }}</view>
+        </view>
+        <view class="dx-right">
+          <view data-id="{{ item.order_id }}" class="yingyao">应邀</view>
+          <view class="money">{{ item.money }}元/位</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="mm">
+  <view catchtap="rank" class="{{ curIndex == index ? 'cur' : '' }}" wx:for="{{ rankArr }}" wx:for-index="index">
+    {{ item.text }}
+  </view>
+</view>

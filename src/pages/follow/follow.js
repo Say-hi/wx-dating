@@ -9,31 +9,36 @@ Page({
   data: {
     title: 'follow',
     page: 1,
-    people: [
-      // {
-      //   img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      //   name: '崔大炮',
-      //   gender: 2,
-      //   follow: 0,
-      //   number: 12,
-      //   id: 'YH123'
-      // },
-      // {
-      //   img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      //   name: '崔大炮2',
-      //   gender: 1,
-      //   number: 1,
-      //   follow: 0,
-      //   id: 'YH143'
-      // },
-      // {
-      //   img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      //   name: '崔大炮3',
-      //   gender: 1,
-      //   follow: 1,
-      //   id: 'YH124'
-      // }
-    ]
+    people: []
+  },
+  // 用户确认搜索
+  searchValue (e) {
+    // this.getFollowUser(1, e.detail.value, '没有搜索到相关用户')
+    let that = this
+    let obj = {
+      url: useUrl.getUserSubscribe,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        page: 1,
+        user_name: e.detail.value
+      },
+      success (res) {
+        // console.log(res)
+        if (res.data.data.length === 0) {
+          return wx.showToast({
+            title: '亲，没有搜索到相关用户',
+            image: '../../images/jiong.png',
+            duration: 1000,
+            mask: true
+          })
+        }
+        let s = that.data.people.reverse().concat(res.data.data).reverse()
+        that.setData({
+          people: s
+        })
+      }
+    }
+    app.wxrequest(obj)
   },
   // 文本输入
   inputtext (e) {
@@ -90,7 +95,7 @@ Page({
     }
   },
   // 获取用户关注的用户的列表
-  getFollowUser (page, search) {
+  getFollowUser (page, search, text) {
     let that = this
     let obj = {
       url: useUrl.getUserSubscribe,
@@ -101,9 +106,9 @@ Page({
       },
       success (res) {
         // console.log(res)
-        if (!res.data.data) {
+        if (res.data.data.length === 0) {
           return wx.showToast({
-            title: '亲，没有更多的内容啦',
+            title: text || '亲，没有更多的内容啦',
             image: '../../images/jiong.png',
             duration: 1000,
             mask: true

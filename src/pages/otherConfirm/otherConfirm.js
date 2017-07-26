@@ -382,12 +382,15 @@ Page({
         orderInfo.likes_sports = mine.likes_sports
         orderInfo.likes_movies = mine.likes_movies
         orderInfo.likes_books = mine.likes_books
+        // console.log(mine.photos)
         that.setData({
           orderInfo: orderInfo,
-          genderCur: mine.sex,
+          genderCur: mine.sex - 1,
           marrCur: mine.ganqing,
           ageIndex: that.data.ageArr.indexOf(mine.age),
-          value: vvv
+          value: vvv,
+          houseIndex: mine.cart_house * 1 + 1,
+          photos: that.data.photos.concat(mine.photos)
         })
         // console.log(res)
       }
@@ -429,7 +432,7 @@ Page({
     let that = this
     let oi = this.data.orderInfo
     // todo  1 exchange 0
-    if (this.data.is_perfect_data === '1') {
+    if (this.data.is_perfect_data === '0') {
       wx.showModal({
         title: '非已有用户无保存资料',
         content: '是否保存该资料为个人资料？',
@@ -470,7 +473,8 @@ Page({
         }
       })
     }
-    let confirmobj = {
+    // 订单确认
+    let confirmObj = {
       url: useUrl.titaFaqiByComfire,
       data: {
         session_key: wx.getStorageSync('session_key'),
@@ -480,7 +484,7 @@ Page({
         ganqing: that.data.marryCur,
         age: that.data.ageArr[that.data.ageIndex],
         user_height: oi.user_height,
-        job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+        job: that.data.industryOne[that.data.value[0]] + '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]],
         compny: oi.compny,
         cart_house: that.data.houseIndex,
         likes_books: oi.likes_books,
@@ -489,15 +493,20 @@ Page({
         photos: that.data.photos.join(',')
       },
       success (res) {
-        console.log(res)
         if (res.data.data.order_id) {
           that.setData({
             datingSuccess: true
           })
+        } else {
+          console.log(res)
+          wx.showToast({
+            title: res.data.message,
+            mask: true
+          })
         }
       }
     }
-    app.wxrequest(confirmobj)
+    app.wxrequest(confirmObj)
   },
   // 用户资料检查
   checkUser () {
@@ -578,29 +587,28 @@ Page({
     app.data.ageArr.splice(0, 1, '请选择Ta的年龄区间')
     app.data.industryOne.splice(0, 1, '请选择Ta所在的行业')
     app.data.industryTwo.splice(0, 1, ['请选择Ta所在的行业'])
-    // this.setData({
-    //   title: params.title,
-    //   days: params.days,
-    //   address: params.address,
-    //   ageArr: app.data.ageArr,
-    //   industryOne: app.data.industryOne,
-    //   industryTwo: app.data.industryTwo
-    // })
-    // app.wxlogin(that.getOrderInfo, params.orderTaId)
-    this.setData({
-      title: 'Mr.Rocky 双人火焰牛排餐',
-      address: '天河区车陂大街汇德商业大厦1号楼506',
-      days: '2017.05.06(周日)',
-      ageArr: app.data.ageArr,
-      industryOne: app.data.industryOne,
-      industryTwo: app.data.industryTwo
-    })
     wx.showLoading({
       title: '亲，接受数据中',
       mask: true
     })
-    app.wxlogin(that.getOrderInfo, 53)
-    // TODO: onLoad
+    this.setData({
+      title: params.title,
+      days: params.days,
+      address: params.address,
+      ageArr: app.data.ageArr,
+      industryOne: app.data.industryOne,
+      industryTwo: app.data.industryTwo
+    })
+    app.wxlogin(that.getOrderInfo, params.orderTaId)
+    // this.setData({
+    //   title: 'Mr.Rocky 双人火焰牛排餐',
+    //   address: '天河区车陂大街汇德商业大厦1号楼506',
+    //   days: '2017.05.06(周日)',
+    //   ageArr: app.data.ageArr,
+    //   industryOne: app.data.industryOne,
+    //   industryTwo: app.data.industryTwo
+    // })
+    // app.wxlogin(that.getOrderInfo, 55)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
