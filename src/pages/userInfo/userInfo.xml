@@ -13,7 +13,7 @@
   <!--头像-->
   <image class="user-avatar-url" src="{{ user.avatar }}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.user_nicename }}</view>
+  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.name || user.user_nicename }}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
     <text class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</text>
@@ -21,14 +21,14 @@
     <text class="user-detail">{{ user.user_height }}cm</text>
     <text class="user-detail">{{ user.job }}</text>
   </view>
-  <button disabled="{{user.isSubscribe == '1'}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ btnText }}</button>
+  <button disabled="{{user.isSubscribe}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ user.isSubscribe ? '已关注' : btnText }}</button>
 </view>
 <!--个人邀请信息-->
 <view class="invite">
   <block wx:for-item="inv" wx:for="{{ user.engagements }}" wx:key="unique">
     <view class="inv-wrap">
       <view class="inv-text">{{ inv.order_date }} {{ inv.area }}发布一个邀请</view>
-      <navigator url="../invitedConfirm/invitedConfirm?orderId={{ inv.order_id }}&title={{ inv.name }}" class="slider invited"><text>应邀</text></navigator>
+      <navigator hover-class="none" url="../invitedConfirm/invitedConfirm?orderId={{ inv.order_id }}&title={{ inv.name }}" class="slider invited"><text>应邀</text></navigator>
     </view>
   </block>
 </view>
@@ -39,7 +39,7 @@
   <block wx:for="{{ user.ta_photos }}" wx:for-item="photo" wx:key="unique">
     <image src="{{ photo.photo_url }}"></image>
   </block>
-  <view class="camera" wx:if="{{ user.ta_photos.length == 0 }}">Ta暂时没有上传图片哦</view>
+  <view class="camera" style="font-size: 26rpx;" wx:if="{{ user.ta_photos.length == 0 }}">Ta暂时没有上传图片哦</view>
 </view>
 </navigator>
 <!--<template is="photo" data="{{ userPhoto: user.ta_photos, open_type: open_types, login: logins }}"></template>-->
@@ -74,7 +74,7 @@
       <view class="name-l">公司:</view>
       <!--picker-->
       <view class="name-r company gender">
-        <input disabled="true" value="{{ user.compny }}"/>
+        <input disabled="true" value="{{ user.compny || '尚未填写' }}"/>
       </view>
     </view>
     <!--车房状况-->
@@ -82,33 +82,33 @@
       <view class="name-l">车房状况:</view>
       <!--picker-->
       <view class="name-r company gender">
-        <input disabled="true" value="{{ houseArr[user.cart_house] }}"/>
+        <input disabled="true" value="{{ houseArr[user.cart_house] || '尚未填写' }}"/>
       </view>
     </view>
     <!--运动-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近做过的运动:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ user.likes_sports }}" />
+        <input disabled="true" value="{{ user.likes_sports || '尚未填写' }}" />
       </view>
     </view>
     <!--电影-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近看过的电影:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ user.likes_movies }}"/>
+        <input disabled="true" value="{{ user.likes_movies || '尚未填写' }}"/>
       </view>
     </view>
     <!--读书-->
     <view class="text-wrap">
       <view class="name-l">最喜欢/最近看过的书:</view>
       <view class="name-r company gender">
-        <input disabled="true" value="{{ user.likes_books }}" />
+        <input disabled="true" value="{{ user.likes_books || '尚未填写' }}" />
       </view>
     </view>
   </view>
 </view>
 <!--视频弹窗形式-->
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
-  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{user.video_url}}"></video>
+  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
 </view>

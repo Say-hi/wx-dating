@@ -1287,6 +1287,12 @@ App({
               }
             }
             that.wxrequest(objs)
+          },
+          fail (res) {
+            console.log(res)
+            wx.showToast({
+              title: '您未授权小程序,请在个人中心登陆'
+            })
           }
         }
         that.getUserInfo(obj)

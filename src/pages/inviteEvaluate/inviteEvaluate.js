@@ -1,34 +1,86 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    title: 'inviteEvaluate',
-    friendInfo: {
-      src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      name: 'Kiss Baby',
-      gender: 1,
-      detail: ['单身', '20-28岁', '188cm', '广告行业']
-    }
+    title: 'inviteEvaluate'
   },
   textInput (e) {
     this.setData({
       textValue: e.detail.value.toString()
     })
   },
+  // 发送信息
   send () {
-    console.log(this.data.textValue)
-    // todo 发送消息
+    if (!wx.getStorageSync('session_key')) {
+      return wx.showToast({
+        title: '您为授权小程序,无法发送评论，请删除小程序后,再打开链接并授权'
+      })
+    }
+    if (this.data.textValue.length === 0) {
+      return wx.showToast({
+        title: '请填写评论内容'
+      })
+    }
+    let that = this
+    let obj = {
+      url: useUrl.postApplyUserComment,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        comment_user_id: that.data.id,
+        comment_content: that.data.textValue
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '评价成功',
+            mask: true
+          })
+          setTimeout(function () {
+            wx.reLaunch({
+              url: '/pages/index2/index2'
+            })
+          }, 1000)
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
+  },
+  // 获取评价用户信息
+  getInfo (id) {
+    let that = this
+    let getObj = {
+      url: useUrl.applyUserComment,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        comment_user_id: id
+      },
+      success (res) {
+        res.data.data.job = res.data.data.job.split('-')[1]
+        that.setData({
+          user: res.data.data
+        })
+      }
+    }
+    app.wxrequest(getObj)
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
-    // TODO: onLoad
+  onLoad (params) {
+    let that = this
+    this.setData({
+      id: params.id
+    })
+    app.wxlogin(that.getInfo, params.id)
   },
 
   /**

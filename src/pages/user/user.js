@@ -24,6 +24,11 @@ Page({
     // 用户操作
     opertaion: [
       {
+        title: '我的资料',
+        ico: 'icon-dangan',
+        url: '../userziliao/userziliao'
+      },
+      {
         title: 'TA的档案',
         ico: 'icon-dangan',
         url: '../taRecord/taRecord'
@@ -195,6 +200,7 @@ Page({
                 userInfo: data.userInfo,
                 logins: true
               })
+              app.wxlogin(that.getMyInfo)
             }
           })
         }

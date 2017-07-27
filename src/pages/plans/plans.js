@@ -87,6 +87,25 @@ Page({
       },
       fail (res) {
         console.log(res)
+        wx.showToast({
+          title: '请允许获取您的位置信息'
+        })
+        setTimeout(function () {
+          let settingObj = {
+            success (res) {
+              // console.log(res)
+              if (!scope.userLocation) {
+                wx.showToast({
+
+                })
+              }
+            },
+            fail (res) {
+              console.log(res)
+            }
+          }
+          wx.openSetting(settingObj)
+        }, 1000)
       }
     }
     qqmapsdk.reverseGeocoder(obj)
@@ -247,7 +266,6 @@ Page({
     qqmapsdk = new QQMapWX({
       key: qqmapsdkkey
     })
-
     this.reverseGeocoder()
     let time = wx.getStorageSync('time')
     this.setData({

@@ -20,56 +20,21 @@ Page({
     playStatus: false,
     objectFit: 'Fill',
     // 用户信息
-    userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
+    // userDetail: ['单身', '20-28岁', '188cm', '广告行业'],
     houseArr: ['暂无信息', '有房有车', '有房无车', '有车无房', '车房代购'],
     showMoreBtn: true,
     showTaDeep: false,
-    userInfos: {
-      company: '广东银燕传奇广告有限公司',
-      house: '有房有车',
-      sport: '慢跑',
-      movie: '七星报喜',
-      book: '解忧杂货铺'
-    },
+    userInfos: {},
     // 按钮文字
     btnText: '+关注',
     disabled: false,
     // invite
-    invite: [
-      {
-        time: '2017.06.01',
-        address: '体育西路',
-        id: 'inv-123'
-      },
-      {
-        time: '2017.06.01',
-        address: '体育西路asdfasdfsadfsadf',
-        id: 'inv-123'
-      }
-    ],
+    invite: [],
     // 相册
-    userPhotos: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    userPhotos: [],
     open_types: 'navigate',
     // 评价
-    estimate: [
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-        name: '李四',
-        gender: 1,
-        text: '我是李四'
-      },
-      {
-        src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-        name: '李四2',
-        gender: 2,
-        text: '李四22as拉萨；空间的发生；了地方见撒旦；浪费撒旦2'
-      }
-    ]
+    estimate: []
   },
   // 获取用户的详细资料
   getUserDetail (id) {
@@ -114,12 +79,35 @@ Page({
     })
   },
   // 关注
-  follow (e) {
-    console.log(e)
-    this.setData({
-      btnText: '已关注',
-      disabled: true
-    })
+  follow () {
+    // console.log(e)
+    let that = this
+    let obj = {
+      url: useUrl.subscribeByUser,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        user_id: that.data.user.user_id
+      },
+      success (res) {
+        // console.log(res)
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '关注成功'
+          })
+          that.data.user.isSubscribe = true
+          that.setData({
+            btnText: '已关注',
+            disabled: true,
+            user: that.data.user
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
   },
   // 播放视屏
   playVideo () {
@@ -183,7 +171,7 @@ Page({
   // 上拉触底操作
   onReachBottom () {
     // todo 判断是否关注了
-    if (!this.data.user.shenduziliao) {
+    if (!this.data.user.isSubscribe) {
       return wx.showToast({
         title: '您需要关注用户方可查看深度资料'
       })

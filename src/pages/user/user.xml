@@ -28,7 +28,7 @@
   </view>
   <!--相册-->
   <!--<template is="photo" data="{{ userPhoto: userPhotos, open_type: open_types, login: logins }}"></template>-->
-  <navigator open-type="navigate" url="{{ logins ? '../photo/photo' : '' }}" class="photo">
+  <navigator hover-class="none" open-type="navigate" url="{{ logins ? '../photo/photo' : '' }}" class="photo">
     <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
     <view class="photo-show" wx:if="{{ logins }}">
       <block wx:for="{{ userPhotos }}" wx:for-item="photo" wx:key="unique">
@@ -37,7 +37,7 @@
           <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
         </view>
       </block>
-      <view class="camera" wx:if="{{ userPhoto.length <= 3 }}"><image src="../../images/camera.png"></image></view>
+      <view class="camera" wx:if="{{ userPhotos.length <= 3 }}"><image src="../../images/camera.png"></image></view>
     </view>
   </navigator>
   <!--<view>123</view>-->
@@ -50,5 +50,5 @@
 </view>
 <!--视频弹窗形式-->
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
-  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
+  <video  bindended="playFinish"  autoplay="{{ autoplay }}" controls="{{ videoControls }}" class="user-video-two" src="{{ videoSrc }}"></video>
 </view>

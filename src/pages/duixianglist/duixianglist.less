@@ -84,7 +84,33 @@
   }
 }
 .mm {
-  .cur {
-    color: #ffc4a6;
+  position: fixed;
+  top: 88rpx;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  border-top: 1rpx solid #ccc;
+  .mm-left {
+    float: right;
+    background-color: #fff;
+    view {
+      text-align: right;
+      line-height: 80rpx;
+      padding-right: 40rpx;
+      border-bottom: 1rpx solid #ccc;
+    }
+    .cur {
+      width: 300rpx;
+      color: #ffc4a6;
+    }
+    .cur::before {
+      content: '√';
+      color: #ffc4a6;
+      height: 100%;
+    }
   }
+}
+.pink {
+  color: #ffc4a6 !important;
 }

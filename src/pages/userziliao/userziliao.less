@@ -1,0 +1,67 @@
+// 评价
+.estimate {
+  border-top: 12rpx solid #eee;
+  .es-title {
+    border-bottom: 3rpx solid #2b2f41;
+    line-height: 88rpx;
+    font-size: 32rpx;
+    text-align: center;
+    color: #333;
+  }
+  .es-wrap {
+    margin: 20rpx;
+    display: flex;
+    border-bottom: 1rpx solid #ccc;
+    padding-bottom: 20rpx;
+    align-items: center;
+    @length: 100rpx;
+    image {
+      width: @length;
+      height: @length;
+      border-radius: 50%;
+    }
+    .es-es {
+      flex: 1;
+      margin-left: 10rpx;
+      font-size: 26rpx;
+      line-height: 40rpx;
+      .es-name::after  {
+        margin-left: 11rpx;
+        font-size: 24rpx;
+      }
+      .icon-nanxing::after {
+        color: #b6e9ff;
+      }
+      .icon-nvxing::after {
+        color: #ffc4a6;
+      }
+      .es-text {
+        color: #666;
+        font-size: 28rpx;
+      }
+    }
+  }
+  .es-wrap:nth-last-child(1) {
+    border: none;
+  }
+  .invitedBtn {
+    color: #ffc4a6;
+    font-size: 28rpx;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1rpx solid #ccc;
+    border-radius: 0;
+  }
+  .invitedBtn::after {
+    border: none;
+  }
+}
+.confirm {
+  .save {
+    width: 100%;
+    background-color: #2b2f41;
+    color: #ffc4a6;
+    font-size: 32rpx;
+    font-weight: 700;
+  }
+}

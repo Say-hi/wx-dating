@@ -35,7 +35,7 @@ Page({
   yingyao () {
     let that = this
     wx.navigateTo({
-      url: '../duixianglist/duixianglist?id=' + that.data.id
+      url: '../duixianglist/duixianglist?id=' + that.data.id + '&title=' + that.data.orderInfo.name
     })
   },
   // 查看地图

@@ -11,12 +11,18 @@ let serviceUrl = {
   getUserInfoBySelf: baseDomain + '/api/user/getUserInfoBySelf',
   // 查看用户资料
   viewUserInformation: baseDomain + '/api/user/ViewUserInformation',
+  // 提交评价
+  postApplyUserComment: baseDomain + '/api/user/postApplyUserComment',
+  // 邀请好友评价我的评价页面
+  applyUserComment: baseDomain + '/api/user/applyUserComment',
   // 用户个人中心
   getUserinfo: baseDomain + '/api/user/getUserinfo',
   // 我的相册列表
   myPhotos: baseDomain + '/api/user/myPhotos',
   // 用户关注列表
   getUserSubscribe: baseDomain + '/api/subscribe/getUsersSubscribe',
+  // 关注用户
+  subscribeByUser: baseDomain + '/api/subscribe/subscribeByUser',
   // 更新相册列表
   updatePhotos: baseDomain + '/api/user/updatePhotos',
   // 查看其他用户资料

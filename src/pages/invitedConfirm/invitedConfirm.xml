@@ -1,7 +1,7 @@
 <import src="../template/template"></import>
 <!--应邀确认-->
 <view class="invited">
-  <view class="title">{{title}}</view>
+  <view class="title">{{ orderInfo.package_name }}</view>
   <!--时间-->
   <view class="text-wrap">
     <view class="name-l">时间:</view>

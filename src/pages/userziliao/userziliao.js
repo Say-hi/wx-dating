@@ -59,21 +59,38 @@ Page({
   confirmUpdate () {
     this.upDateMyInfo()
   },
-  // 取消更新
-  cancelConfirm () {
-    wx.navigateBack({
-      delta: 1
-    })
-  },
   // 首先获取自己的资料
   getMyInfo () {
+    let that = this
     let getobj = {
       url: useUrl.getUserInfoBySelf,
       data: {
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        console.log(res)
+        let i = res.data.data
+        let job1 = i.job.split('-')
+        let v1 = that.data.industryOne.indexOf(job1[0])
+        let v2 = 0
+        if (v1 < 24) {
+          v2 = that.data.industryTwo[v1].indexOf(job1[1])
+        }
+        let vv = [v1, v2]
+        that.setData({
+          name: i.name,
+          genderCur: i.sex * 1 - 1,
+          marryCur: i.ganqing,
+          ageIndex: that.data.ageArr.indexOf(i.age),
+          userHeight: i.user_height,
+          value: vv,
+          compny: i.compny,
+          houseIndex: i.cart_house * 1 + 1,
+          likesSports: i.likes_sports,
+          likesMovies: i.likes_movies,
+          likesBooks: i.likes_books,
+          comment_list: i.comment_lists,
+          id: i.user_id
+        })
       }
     }
     app.wxrequest(getobj)
@@ -141,22 +158,6 @@ Page({
       }
     }
     app.wxrequest(upobj)
-    this.upPhotoInfo()
-  },
-  // 更新相册列表
-  upPhotoInfo () {
-    let that = this
-    let photoObj = {
-      url: useUrl.updatePhotos,
-      data: {
-        session_key: wx.getStorageSync('session_key'),
-        photos: that.data.photos.join(',')
-      },
-      success (res) {
-        console.log(res)
-      }
-    }
-    app.wxrequest(photoObj)
   },
   // 输入框内容
   inputValue (e) {
@@ -212,86 +213,6 @@ Page({
       })
     }
   },
-  // 用户上传图片
-  upPhoto () {
-    let that = this
-    let obj = {
-      count: 1,
-      success (res) {
-        wx.showLoading({
-          title: '图片上传中',
-          mask: true
-        })
-        let photos = that.data.photos
-        for (let i of res.tempFilePaths) {
-          // 添加到相册数组中
-          // photos.push(i)
-          // 上传图片
-          let upImg = {
-            url: useUrl.uploadPhotos,
-            filePath: i,
-            formData: {
-              session_key: wx.getStorageSync('session_key'),
-              file: i
-            },
-            success (res) {
-              // console.log(res)
-              // console.log('上传成功', res.data)
-              wx.hideLoading()
-              let jsonObj = JSON.parse(res.data).data.res_file
-              photos.push(jsonObj)
-              if (photos.length > 9) {
-                wx.showToast({
-                  title: '超过9张啦,已删除多余的照片',
-                  image: '../../images/jiong.png',
-                  duration: 2000,
-                  mask: true
-                })
-              }
-              photos = photos.slice(0, 9)
-              that.setData({
-                photos: photos
-              })
-              // console.log('obj', JSON.parse(res.data))
-            },
-            fail (res) {
-              console.log('上传错误', res)
-              wx.showToast({
-                title: '图片上传失败，请重新尝试',
-                mask: true,
-                duration: 1000
-              })
-            }
-          }
-          app.wxUpload(upImg)
-        }
-      },
-      fail (err) {
-        console.log(err)
-      }
-    }
-    wx.chooseImage(obj)
-  },
-  // 用户预览图片
-  preview (e) {
-    let that = this
-    let index = e.currentTarget.dataset.index
-    let obj = {
-      current: that.data.photos[index],
-      urls: that.data.photos
-    }
-    wx.previewImage(obj)
-  },
-  // 删除图片
-  delphoto (e) {
-    let that = this
-    let index = e.currentTarget.dataset.index
-    let photos = that.data.photos
-    photos.splice(index, 1)
-    that.setData({
-      photos: photos
-    })
-  },
   // 单项选择
   chooseChange (e) {
     let type = e.currentTarget.dataset.type
@@ -320,7 +241,7 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    // this.getMyInfo()
+    this.getMyInfo()
   },
 
   /**
@@ -356,5 +277,16 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  onShareAppMessage () {
+    return {
+      title: '邀请好友进行评价',
+      path: '/pages/inviteEvaluate/inviteEvaluate?id=' + this.data.id,
+      success () {
+        wx.showToast({
+          title: '转发成功'
+        })
+      }
+    }
   }
 })

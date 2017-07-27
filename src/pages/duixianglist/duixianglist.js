@@ -22,7 +22,27 @@ Page({
         text: '约会时间先后',
         desc: 'time_asc'
       }
-    ]
+    ],
+    show: false
+  },
+  yingyoa (e) {
+    let that = this
+    wx.navigateTo({
+      url: '../invitedConfirm/invitedConfirm?id=' + e.currentTarget.dataset.id + '&title=' + that.data.title
+    })
+  },
+  showrank () {
+    this.setData({
+      show: true
+    })
+  },
+  // 选择排序
+  rank (e) {
+    this.setData({
+      curIndex: e.currentTarget.dataset.index,
+      show: false
+    })
+    this.getList(this.data.id, this.data.rankArr[e.currentTarget.dataset.index]['desc'])
   },
   // 获取列表对象
   getList (id, sort) {
@@ -60,13 +80,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    // TODO: onLoad
-    // this.getList(params.id)
+    this.setData({
+      id: params.id || 6,
+      title: params.title || '重庆鸡公煲'
+    })
+    this.getList(params.id || 6)
     let t = wx.getStorageSync('time')
     this.setData({
       time: t.d + 'th,' + t.m
     })
-    this.getList(6)
+    // this.getList(6)
   },
 
   /**

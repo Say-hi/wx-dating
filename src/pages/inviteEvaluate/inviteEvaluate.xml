@@ -7,12 +7,15 @@
     <!--用户信息-->
     <view class="user-info">
       <!--头像-->
-      <image class="user-avatar-url" src="{{friendInfo.src}}"></image>
+      <image class="user-avatar-url" src="{{user.avatar}}"></image>
       <!--昵称-->
-      <view class="user-nick-name iconfont {{friendInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{friendInfo.name}}</view>
+      <view class="user-nick-name iconfont {{user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{user.user_nicename}}</view>
       <!--身高相关信息-->
       <view class="user-info-detail">
-        <text class="user-detail" wx:for="{{ friendInfo.detail }}" wx:key="unique">{{item}}</text>
+        <text class="user-detail">{{user.ganqing == 0 ? '单身' : '非单身'}}</text>
+        <text class="user-detail">{{user.age}}</text>
+        <text class="user-detail">{{user.user_height}}cm</text>
+        <text class="user-detail">{{user.job}}</text>
       </view>
     </view>
     <view class="textarea-out">
