@@ -94,10 +94,18 @@ Page({
           let settingObj = {
             success (res) {
               // console.log(res)
-              if (!scope.userLocation) {
+              // 授权失败
+              if (!res.authSetting['scope.userLocation']) {
                 wx.showToast({
-
+                  title: '请允许获取您的地理位置信息',
+                  mask: true
                 })
+                setTimeout(function () {
+                  return that.reverseGeocoder()
+                }, 1000)
+              } else {
+                // 授权成功
+                return that.reverseGeocoder()
               }
             },
             fail (res) {

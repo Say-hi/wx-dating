@@ -136,6 +136,7 @@ Page({
             message: true
           })
         }
+        wx.stopPullDownRefresh()
       }
     }
     app.wxrequest(gsbj)

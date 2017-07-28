@@ -84,7 +84,7 @@ Page({
           userHeight: i.user_height,
           value: vv,
           compny: i.compny,
-          houseIndex: i.cart_house * 1 + 1,
+          houseIndex: i.cart_house,
           likesSports: i.likes_sports,
           likesMovies: i.likes_movies,
           likesBooks: i.likes_books,
