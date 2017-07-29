@@ -1,6 +1,6 @@
 <view class="wrap">
   <view class="wrap-top">
-    <text>您的好友{{ orderInfo.comment.user_nicename }}替你发起了以下邀约，请确认</text>
+    <text>您的好友{{ orderInfo.comment.user_nicename || orderInfo.comment.name }}替你发起了以下邀约，请确认</text>
     <text wx:if="{{ orderInfo.pay_status == 1 }}">(<text style="color: #f00;">*</text>已经帮您付清了费用)</text>
   </view>
 </view>

@@ -25,7 +25,7 @@ Page({
     opertaion: [
       {
         title: '我的资料',
-        ico: 'icon-dangan',
+        ico: 'icon-ziliao',
         url: '../userziliao/userziliao'
       },
       {
