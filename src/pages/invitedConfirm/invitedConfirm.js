@@ -108,6 +108,7 @@ Page({
         that.setData({
           orderInfo: res.data.data
         })
+        console.log(res.data.data)
       }
     }
     app.wxrequest(obj)

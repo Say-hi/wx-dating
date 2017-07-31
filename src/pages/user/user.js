@@ -64,10 +64,7 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        // console.log(res)
         let hasvideo = false
-        // console.log(res)
-        // console.log(res.data.data.video_url)
         if (res.data.data.video_url.length > 0) {
           hasvideo = true
         }
@@ -103,7 +100,7 @@ Page({
           },
           success (res) {
             wx.hideLoading()
-            console.log(res)
+            // console.log(res)
             let jsonObj = JSON.parse(res.data).data.res_file
             that.setData({
               videoSrc: jsonObj,
@@ -152,7 +149,7 @@ Page({
                 video_image: jsonObj
               },
               success (res) {
-                console.log(res)
+                // console.log(res)
                 that.setData({
                   videoCover: jsonObj
                 })
@@ -164,7 +161,7 @@ Page({
             app.wxrequest(coverObj)
           },
           fail (res) {
-            console.log('上传错误', res)
+            // console.log('上传错误', res)
             wx.showToast({
               title: '图片上传失败，请重新尝试',
               mask: true,

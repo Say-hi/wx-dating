@@ -33,7 +33,7 @@
     <view class="photo-show" wx:if="{{ logins }}">
       <block wx:for="{{ userPhotos }}" wx:for-item="photo" wx:key="unique">
         <view class="photo-wrap">
-          <image src="{{ photo.photo_url }}"></image>
+          <image mode="aspectFill" src="{{ photo.photo_url }}"></image>
           <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
         </view>
       </block>

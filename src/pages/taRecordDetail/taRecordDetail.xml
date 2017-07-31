@@ -3,7 +3,7 @@
   <!--上传图片区域-->
   <view class="up-photo">
     <view class="photo-wrap" wx:for="{{ photos }}">
-      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item }}"></image>
+      <image mode="aspectFill" catchtap="preview" data-index="{{ index }}" class="img" src="{{ item }}"></image>
       <view catchtap="delphoto" data-index="{{index}}" class="del">×</view>
     </view>
     <image wx:if="{{photos.length < 9}}" catchtap="upPhoto" class="img" src="../../images/userUpPhoto.png"></image>

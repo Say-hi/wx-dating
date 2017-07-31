@@ -127,11 +127,6 @@ Page({
     app.wxpay(payObj)
   },
   // 完善个人资料
-  // gofinishuserdata () {
-  //   // wx.redirectTo({
-  //   //
-  //   // })
-  // },
   getMyDay (date) {
     var week = ''
     var dates = new Date(date)
@@ -313,6 +308,7 @@ Page({
   // 发起邀约生成订单信息
   sendOrderData () {
     let that = this
+    console.log(wx.getStorageSync('session_key'))
     let obj = {
       url: useUrl.postFaqiYaoyue,
       data: {

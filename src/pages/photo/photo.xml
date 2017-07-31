@@ -2,7 +2,7 @@
 <view class="photo">
   <block wx:for="{{ userPhotos }}" wx:key="unique">
     <view data-index="{{ index }}" catchtap="showImg" class="photo-wrap">
-      <image class="imgs" src="{{ item.photo_url }}"></image>
+      <image mode="aspectFill" class="imgs" src="{{ item.photo_url }}"></image>
       <image wx:if="{{ item.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
       <view wx:if="{{ !id }}" catchtap="delphoto" data-index="{{ index }}" class="del">×</view>
     </view>

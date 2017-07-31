@@ -34,6 +34,7 @@ Page({
           })
         }
         peopleArr[index]['is_ignore'] = type
+        console.log('peopleInfo', peopleArr)
         that.setData({
           people: peopleArr
         })

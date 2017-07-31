@@ -37,7 +37,7 @@
 <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
 <view class="photo-show" wx:if="true">
   <block wx:for="{{ user.ta_photos }}" wx:for-item="photo" wx:key="unique">
-    <image src="{{ photo.photo_url }}"></image>
+    <image mode="aspectFit" src="{{ photo.photo_url }}"></image>
   </block>
   <view class="camera" style="font-size: 26rpx;" wx:if="{{ user.ta_photos.length == 0 }}">Ta暂时没有上传图片哦</view>
 </view>

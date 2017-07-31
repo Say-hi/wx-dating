@@ -1258,54 +1258,138 @@ App({
   // 用户登陆
   wxlogin (loginSuccess, params) {
     let that = this
-    // 无条件获取登陆code
-    wx.login({
-      success (res) {
-        // console.log(res)
-        let code = res.code
-        // 获取用户信息
-        let obj = {
-          success (data) {
-            wx.setStorageSync('userInfo', data.userInfo)
-            let iv = data.iv
-            let encryptedData = data.encryptedData
-            // 获取session_key
-            let objs = {
-              url: useUrl.login,
-              data: {
-                code: code,
-                iv: iv,
-                encryptedData: encryptedData
-              },
-              success (session) {
-                let session_key = 'akljgaajgoehageajnafe'
-                wx.setStorageSync('session_key', session_key)
-                // console.log(session)
-                if (loginSuccess) {
-                  loginSuccess(params)
+    if (wx.getStorageSync('session_key')) {
+      let checkObj = {
+        url: useUrl.getUserinfo,
+        data: {
+          session_key: wx.getStorageSync('session_key')
+        },
+        success (res) {
+          // session失效
+          if (res.data.code === 400 && res.data.message === 'session_key 失效！') {
+            console.log('session_key失效')
+            // 无条件获取登陆code
+            wx.login({
+              success (res) {
+                // console.log(res)
+                let code = res.code
+                // 获取用户信息
+                let obj = {
+                  success (data) {
+                    wx.setStorageSync('userInfo', data.userInfo)
+                    let iv = data.iv
+                    let encryptedData = data.encryptedData
+                    // 获取session_key
+                    let objs = {
+                      url: useUrl.login,
+                      data: {
+                        code: code,
+                        iv: iv,
+                        encryptedData: encryptedData
+                      },
+                      success (res) {
+                        // let session_key = 'akljgaajgoehageajnafe'
+                        // console.log(res)
+                        wx.setStorageSync('session_key', res.data.data.session_key)
+                        // console.log(session)
+                        if (loginSuccess) {
+                          loginSuccess(params)
+                        }
+                      }
+                    }
+                    that.wxrequest(objs)
+                  },
+                  fail (res) {
+                    console.log(res)
+                    wx.showToast({
+                      title: '您未授权小程序,请在个人中心登陆'
+                    })
+                  }
                 }
+                that.getUserInfo(obj)
+              },
+              fail (err) {
+                console.log('loginError' + err)
               }
-            }
-            that.wxrequest(objs)
-          },
-          fail (res) {
-            console.log(res)
-            wx.showToast({
-              title: '您未授权小程序,请在个人中心登陆'
             })
+          } else {
+            console.log('session_key有效')
           }
         }
-        that.getUserInfo(obj)
-      },
-      fail (err) {
-        console.log('loginError' + err)
       }
-    })
+      that.wxrequest(checkObj)
+    } else {
+      // 无条件获取登陆code
+      wx.login({
+        success (res) {
+          // console.log(res)
+          let code = res.code
+          // 获取用户信息
+          let obj = {
+            success (data) {
+              wx.setStorageSync('userInfo', data.userInfo)
+              let iv = data.iv
+              let encryptedData = data.encryptedData
+              // 获取session_key
+              let objs = {
+                url: useUrl.login,
+                data: {
+                  code: code,
+                  iv: iv,
+                  encryptedData: encryptedData
+                },
+                success (res) {
+                  // let session_key = 'akljgaajgoehageajnafe'
+                  // console.log(res)
+                  wx.setStorageSync('session_key', res.data.data.session_key)
+                  // console.log(session)
+                  if (loginSuccess) {
+                    loginSuccess(params)
+                  }
+                }
+              }
+              that.wxrequest(objs)
+            },
+            fail (res) {
+              console.log(res)
+              wx.showToast({
+                title: '您未授权小程序,请在个人中心登陆'
+              })
+            }
+          }
+          that.getUserInfo(obj)
+        },
+        fail (err) {
+          console.log('loginError' + err)
+        }
+      })
+    }
   },
+  // 获取自己的信息判断session是否有效
+  // getMySelf () {
+  //   let that = this
+  //   let checkObj = {
+  //     url: useUrl.getUserinfo,
+  //     data: {
+  //       session_key: wx.getStorageSync('session_key')
+  //     },
+  //     success (res) {
+  //       // session失效
+  //       if (res.data.code === 400 && res.data.message === 'session_key 失效！') {
+  //         console.log('session_key失效')
+  //
+  //       } else {
+  //         return
+  //       }
+  //     }
+  //   }
+  //   that.wxrequest(checkObj)
+  // },
   // 获取用户信息
   getUserInfo (obj) {
     wx.getUserInfo({
       withCredentials: obj.withCredentials || true,
+      lang: obj.lang || 'zh_CN',
       success: obj.success || function (res) {
         console.log(res)
       },

@@ -47,11 +47,15 @@ Page({
   // 获取列表对象
   getList (id, sort) {
     let that = this
+    let time = wx.getStorageSync('time')
+    let date = time.y + '-' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '-' + (time.d < 10 ? '0' + time.d : time.d)
+    // console.log(date)
     let listObj = {
       url: useUrl.engagementObjictList,
       data: {
         session_key: wx.getStorageSync('session_key'),
         id: id,
+        date: date,
         sort: sort || 'money_asc'
       },
       success (res) {

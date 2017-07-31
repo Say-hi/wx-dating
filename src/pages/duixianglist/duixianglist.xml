@@ -18,12 +18,13 @@
         </view>
       </navigator>
     </block>
+    <view wx:if="{{ listArr.length == 0 || !lisArr }}" style="color: #ccc; text-align: center; font-size: 30rpx; margin-top: 20rpx;">当日暂无可应邀订单</view>
   </view>
 </view>
 <view class="mm" wx:if="{{ show }}">
   <view class='mm-left'>
       <view data-index="{{ index }}" catchtap="rank" class="{{ curIndex == index ? 'cur' : '' }}" wx:for="{{ rankArr }}" wx:for-index="index">
-          {{ item.text }}
+          <text class="iconfont icon-duihao" wx:if="{{ curIndex == index }}"></text>{{ item.text }}
       </view>
   </view>
 </view>

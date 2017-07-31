@@ -4,8 +4,9 @@
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
     "pages/index2/index2",// 首页
-    "pages/userziliao/userziliao", // 用户的个人资料
+    "pages/newfollow/newfollow", // 陌生人提醒关注,
     "pages/duixianglist/duixianglist", // 套餐列表
+    "pages/userziliao/userziliao", // 用户的个人资料
     "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/faq/faq", // faq问答页面
     "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
@@ -33,8 +34,8 @@
     "pages/message/message", // 用户消息通知列表
 //    "pages/stranger/stranger",//  陌生人提醒关注(废弃)
     "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
-    "pages/photo/photo", // 相册
-    "pages/newfollow/newfollow" // 陌生人提醒关注,,,
+    "pages/photo/photo" // 相册
+
     // Dont remove this comment
   ],
   // Window configuration

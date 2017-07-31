@@ -12,4 +12,5 @@
       </view>
     </view>
   </block>
+  <view style="text-align: center; margin-top: 20rpx; color: #ccc; font-weight: 700;" wx:if="{{ info.length == 0 || !info }}">暂无交易记录</view>
 </view>
