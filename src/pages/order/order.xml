@@ -135,7 +135,7 @@
   <image class="success-img" src="../../images/dating-success.png"></image>
   <view class="success-text">发起邀约成功，请等待通知</view>
   <view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>
-  <image class="erweima" src="../../images/erweima.png"></image>
+  <image class="erweima" src="../../images/erweima.jpg"></image>
   <view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>
 </view>
 <!--转发确认弹窗-->

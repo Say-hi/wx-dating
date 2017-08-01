@@ -1,38 +1,38 @@
 <view class="wrap">
   <!--订单编号-->
   <view class="top">
-    <text class="number">订单编号:<text>{{ order.number }}</text></text>
-    <text class="status {{ order.status == 2 ? '' : 'confirm' }}">{{ order.status == 2 ? '订单关闭' : '已确认' }}</text>
+    <text class="number">订单编号:<text>{{ info.order_sn }}</text></text>
+    <text class="status {{ info.status == 2 ? '' : 'confirm' }}">{{ orderArr[info.order_status] }}</text>
   </view>
   <!--订单信息-->
-  <view class="restaurant arrow">
-    <image src="{{ order.restaurantImg }}"></image>
-    <text>{{ order.restaurantText }}</text>
-  </view>
+  <navigator url="../setMeal/setMeal?id={{ info.package_id }}" class="restaurant arrow">
+    <image src="{{ info.image }}"></image>
+    <text>{{ info.package_name }}</text>
+  </navigator>
   <!--约会对象-->
-  <view class="people arrow">
-    <image src="{{ order.userImg }}"></image>
-    <text class="iconfont {{ order.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.userName }}</text>
-  </view>
+  <navigator url="../userInfo/userInfo?userId={{ info.duixiang.user_id }}" class="people arrow">
+    <image src="{{ info.duixiang.avatar }}"></image>
+    <text class="iconfont {{ info.duixiang.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ info.duixiang.user_nicename }}</text>
+  </navigator>
   <!--兑换码-->
-  <view wx:if="{{ order.conversion }}" class="conversion">
-    <text>兑换码: {{ order.conversion }}</text>
-    <text class="cancel-btn">取消赴约</text>
+  <view wx:if="{{ info.redeem_code }}" class="conversion">
+    <text>兑换码: {{ info.redeem_code }}</text>
+    <navigator url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>
   </view>
   <!--惩罚金-->
-  <view wx:if="{{ order.money }}" class="punishment">
+  <view wx:if="{{ money }}" class="punishment">
     <text>惩罚金</text>
-    <text>￥{{ order.money }}</text>
+    <text>￥10</text>
   </view>
   <!--我的取消理由-->
-  <view wx:if="{{ order.reason }}" class="cancel-reson">
+  <view wx:if="{{ info.cancel }}" class="cancel-reson">
     <view>取消理由:</view>
-    <view>{{ order.reason }}</view>
+    <view>{{ info.duixiang.user_id == info.cancel.cancel_user_id ? info.cancel.content_huiying : info.cancel.cancel_liyou }}</view>
   </view>
   <!--取消回应-->
-  <view wx:if="{{ order.respond }}" class="cancel-respond">
+  <view wx:if="{{ info.cancel }}" class="cancel-respond">
     <view>Ta的回应:</view>
-    <view>{{ order.respond }}</view>
+    <view>{{ order.duixiang.user_id == info.cancel.cancel_user_id ? info.cancel.cancel_liyou : info.cancel.content_huiying }}</view>
   </view>
 </view>
  <!--约会信息-->

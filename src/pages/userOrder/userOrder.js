@@ -34,7 +34,48 @@ Page({
       })
     } else if (status === 0 && tabCurrent === 2) {
       // todo 提醒功能
+    } else if (status === 0 && tabCurrent === 1) {
+      // todo 微信支付
+      // console.log(1)
+      this.payMoney(orderId)
     }
+  },
+  // 支付操作
+  payMoney (id) {
+    // let that = this
+    let payObj = {
+      url: useUrl.payByOrder,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      },
+      success (res) {
+        console.log(res)
+        if (res.data.code !== 200) {
+          return wx.showToast({
+            title: res.data.message,
+            image: '../../images/jiong.png'
+          })
+        } else {
+          // todo 微信支付流程
+          if (res.data.data.length !== 0) {
+            // app.wxpay(res.data.data)
+          } else {
+            // 余额支付成功
+            wx.showToast({
+              title: '支付成功，订单已确认',
+              mask: true
+            })
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
+          }
+        }
+      }
+    }
+    app.wxrequest(payObj)
   },
   // 顶部tab选择
   chooseTab (e) {

@@ -122,6 +122,8 @@ let serviceUrl = {
   // 用户上传视屏
   updateVideoUrl: baseDomain + '/api/user/updateVideoUrl',
   // 上传视频封面图片
-  updateVideoImage: baseDomain + '/api/user/updateVideoImage'
+  updateVideoImage: baseDomain + '/api/user/updateVideoImage',
+  // 系统消息
+  messageList: baseDomain + '/api/user/messageList'
 }
 module.exports = serviceUrl

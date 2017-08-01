@@ -1,62 +1,115 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    title: 'orderDatial',
-    order: {
-      number: 123123,
-      status: 1,
-      restaurantImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      restaurantText: 'Mr.Rock 双人火焰牛排餐',
-      userImg: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      userName: '崔大炮',
-      gender: 1,
-      // money: 10,
-      // reason: '奥斯卡地方哈萨克老地方哈快速的合法快速将地方哈快速的减肥哈萨克的减肥哈斯的考虑返回萨多浪费撒大黄蜂',
-      // respond: '上拉阿隆索的减肥啦；思考的风景拉萨的；风景撒旦；浪费就撒地方叫阿斯顿飞',
-      conversion: 12341234
-    },
+    title: '订单详情',
+    orderArr: ['支付未完成', '已确认', '已消费', '订单过期', '取消订单中', '订单关闭'],
+    type: ['寻约会对象', '自带约会对象'],
+    payType: ['替TA付清', '发起人付清', '各付各', '应邀者付清'],
     datingInfo: [
       {
         title: '时间',
-        text: '2017.05.20(周日)18:00'
+        text: '暂无数据'
       },
       {
         title: '地址',
-        text: '珠江新城华夏路16号'
+        text: '暂无数据'
       },
       {
         title: '约会对象',
-        text: '兔脚'
+        text: '暂无数据'
       },
       {
         title: '费用',
-        text: '￥168'
+        text: '暂无数据'
       },
       {
         title: '联系手机',
-        text: '18855953482'
+        text: '暂无数据'
       },
       {
         title: '约会类型',
-        text: '寻约会对象'
+        text: '暂无数据'
       },
       {
         title: '付款类型',
-        text: '我付清'
+        text: '暂无数据'
       }
     ]
   },
-
+  // 获取订单信息
+  getOrderInfo (id) {
+    let that = this
+    let obj = {
+      url: useUrl.orderDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      },
+      success (res) {
+        // console.log(res)
+        let s = res.data.data
+        let datingInfo = that.data.datingInfo
+        datingInfo[0].text = s.order_date + '(' + s.order_week + ')' + s.order_time
+        datingInfo[1].text = s.address
+        datingInfo[2].text = s.duixiang.user_nicename || '暂无数据'
+        datingInfo[3].text = '￥' + s.money
+        datingInfo[4].text = s.mobile
+        datingInfo[5].text = that.data.type[s.is_zhidai * 1]
+        datingInfo[6].text = that.data.payType[s.pay_type * 1]
+        that.setData({
+          info: s,
+          datingInfo: datingInfo
+        })
+      }
+    }
+    app.wxrequest(obj)
+  },
+  getUserInfo () {
+    let that = this
+    let ss = {
+      url: useUrl.isPerfectData,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        that.setData({
+          money: res.data.data.isShiyue * 1
+        })
+      }
+    }
+    app.wxrequest(ss)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
+    // console.log(!params.id)
+    if (params.id === 'null') {
+      console.log(1)
+      wx.showToast({
+        title: '无法查看尚未确认订单',
+        duration: 1000,
+        mask: true
+      })
+      return setTimeout(function () {
+        wx.navigateBack({
+          delta: 1
+        })
+      })
+    } else {
+      this.setData({
+        id: params.id,
+        status: params.status
+      })
+      this.getOrderInfo(params.id)
+      this.getUserInfo()
+    }
     // TODO: onLoad
   },
 

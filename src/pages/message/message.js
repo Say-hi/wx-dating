@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -8,26 +8,36 @@ Page({
    */
   data: {
     title: 'message',
-    message: [
-      {
-        content: 'asdf',
-        time: '2016.03.25'
-      },
-      {
-        content: 'asdf',
-        time: '2017.03.25'
-      },
-      {
-        content: 'asdf',
-        time: '2016.05.25'
-      }
-    ]
+    page: 1,
+    message: []
   },
-
+  getMessage (page) {
+    let that = this
+    let obj = {
+      url: useUrl.messageList,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        page: page
+      },
+      success (res) {
+        // console.log(res)
+        if (res.data.data.length === 0) {
+          return wx.showToast({
+            title: '没有更多内容啦'
+          })
+        }
+        that.setData({
+          message: that.data.message.concat(res.data.data)
+        })
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    this.getMessage(1)
     // TODO: onLoad
   },
 
@@ -64,5 +74,8 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  onReachBottom () {
+    this.getMessage(++this.data.page)
   }
 })

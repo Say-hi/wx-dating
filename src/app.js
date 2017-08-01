@@ -1314,6 +1314,9 @@ App({
             })
           } else {
             console.log('session_key有效')
+            if (loginSuccess) {
+              loginSuccess(params)
+            }
           }
         }
       }

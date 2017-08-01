@@ -9,11 +9,11 @@
       <view class="{{ (item.order_status == 3 || item.order_status == 5) ? 'close' : '' }}">
         <!--顶部-->
         <view class="order-top">
-          <view class="order-number">订单编号:<text>{{ item.order_sn }}</text></view>
-          <view class="order-status {{ (item.order_status == 3 || item.order_status == 5) ? 'order-close' : '' }}">{{ item.order_status == 0 ? tabCurrent != 2 ? '发布中' : '未确认' : item.order_status == 1 ? '已确认' : item.order_status == 4 ? '订单取消中' : (item.order_status == 3 || item.order_status == 5) ? '订单关闭' : item.order_status == 2 ? '已完成' : '' }}</view>
+          <view class="order-number">订单编号:<text>{{ item.order_sn || '暂无单号' }}</text></view>
+          <view class="order-status {{ (item.order_status == 3 || item.order_status == 5) ? 'order-close' : '' }}">{{ item.order_status == 0 ? tabCurrent != 2 ? '发布中' : '未确认' : item.order_status == 1 && tabCurrent != 2 ? '已确认' : item.order_status == 1 && tabCurrent == 2 ? '待确认' : item.order_status == 4 ? '订单取消中' : (item.order_status == 3 || item.order_status == 5) ? '订单关闭' : item.order_status == 2 ? '已完成' : '' }}</view>
         </view>
         <!--中心-->
-        <view class="order-center">
+        <navigator url="../orderDatial/orderDatial?id={{ item.order_id }}&status={{ item.order_status }}" class="order-center">
           <image class="order-img" src="{{ item.image }}"></image>
           <view class="o-c-center">
             <view class="o-c-c-title">{{ item.name }}</view>
@@ -21,9 +21,9 @@
             <view class="o-c-c-address">地点: <text>{{ item.address }}</text></view>
           </view>
           <view class="o-c-money">￥{{ item.money }}</view>
-        </view>
+        </navigator>
         <!--底部约会对象-->
-        <view class="order-bottom-one" wx:if="{{ (item.order_status == 1 || item.order_status == 4 || item.order_status == 2 || item.order_status == 0 && tabCurrent == 0) || tabCurrent == 1 || tabCurrent == 2 }}">
+        <view class="order-bottom-one" wx:if="{{ ((item.order_status == 1 && tabCurrent != 2)|| item.order_status == 4 || item.order_status == 2 || item.order_status == 0 && tabCurrent == 0) || tabCurrent == 1 || (tabCurrent == 2 && item.order_status != 1) }}">
           <!--todo 跳转到对象的个人主页-->
           <navigator wx:if="{{ (item.order_status == 1 || item.order_status == 4  || item.order_status == 2 || tabCurrent == 1) || (tabCurrent == 2 && item.order_status != 3) }}"  url="../userInfo/userInfo?userId={{ item.yingyao.user_id }}" open-type="navigate" class="user arrow {{ (item.order_status == 3 || item.order_status == 5) && tabCurrent == 1 || item.order_status != 0 && tabCurrent == 2  ? 'noline': '' }}">
             <image class="userImg" src="{{ item.yingyao.avatar }}"></image>

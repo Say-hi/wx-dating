@@ -9,7 +9,7 @@ Page({
   data: {
     title: 'user',
     // 视屏
-    hasmessage: true, // 有消息状态
+    hasmessage: false, // 有消息状态
     videoSrc: '',
     videoCover: '',
     videoPlay: '../../images/play.png',
@@ -220,6 +220,27 @@ Page({
       playStatus: false
     })
   },
+  getMessage () {
+    let that = this
+    let obj = {
+      url: useUrl.messageList,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.data.length !== 0 ) {
+          that.setData({
+            hasmessage: true
+          })
+        } else {
+          that.setData({
+            hasmessage: false
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -236,13 +257,13 @@ Page({
         logins: false
       })
     }
-    this.getMyInfo()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady () {
+    this.getMessage()
     // TODO: onReady
   },
 
@@ -250,6 +271,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.getMyInfo()
     // TODO: onShow
   },
 

@@ -57,6 +57,11 @@ Page({
         chooseTab: true,
         chooseShow: false
       })
+      setTimeout(function () {
+        wx.navigateBack({
+          delta: 2
+        })
+      })
     }
   },
   getInviteUerList (id) {

@@ -340,10 +340,11 @@ Page({
               order_id: res.data.data.order_id
             },
             success (res) {
-              console.log(res)
+              console.log('order success', res)
               // 需要支付的发起付款
               if (res.data.data.length !== 0) {
                 // todo 微信支付流程
+                that.moneyPay(res.data.data, 'self')
                 return
               }
               that.setData({
@@ -380,6 +381,10 @@ Page({
           // 完整数据 1
           that.setData({
             datashow: true
+          })
+        } else if (res.data.data.is_perfect_data.toString() === '1') {
+          that.setData({
+            datashow: false
           })
         }
         if (res.data.data.isShiyue.toString() === '1') {
@@ -434,9 +439,6 @@ Page({
       type: params.type || ''
     })
     // 日期生成
-    // this.setData({
-    //   // time:
-    // })
     let time = wx.getStorageSync('time')
     this.getMyDay(time.y + '-' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '-' + (time.d < 10 ? '0' + time.d : time.d))
   },

@@ -4,6 +4,8 @@
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
     "pages/index2/index2",// 首页
+    "pages/message/message", // 用户消息通知列表
+    "pages/userOrder/userOrder", // 用户订单信息
     "pages/newfollow/newfollow", // 陌生人提醒关注,
     "pages/duixianglist/duixianglist", // 套餐列表
     "pages/userziliao/userziliao", // 用户的个人资料
@@ -12,7 +14,6 @@
     "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
     "pages/follow/follow", // 关注
     "pages/user/user", // 用户个人中心
-    "pages/userOrder/userOrder", // 用户订单信息
     "pages/account/account", // 用户账户
     "pages/accountDetail/accountDetail", // 账户消费详情
     "pages/orderDatial/orderDatial", // 订单详情
@@ -29,10 +30,7 @@
     "pages/kefu/kefu", // 客服与反馈
     "pages/cancelOrder/cancelOrder", // 取消赴约
     "pages/checkInvited/checkInvited", // 选择确认应邀的人
-//    "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/setMeal/setMeal", // 套餐详情
-    "pages/message/message", // 用户消息通知列表
-//    "pages/stranger/stranger",//  陌生人提醒关注(废弃)
     "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
     "pages/photo/photo" // 相册
 

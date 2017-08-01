@@ -4,7 +4,7 @@
 <view class="video-area">
   <!--<video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>-->
   <view class="video-cover-wrap">
-    <image class="video-cover" src="{{ user.video_cover || '../../images/video_cover.jpg' }}"></image>
+    <image mode="aspectFill" class="video-cover" src="{{ user.video_image || '../../images/video_cover.jpg' }}"></image>
     <image catchtap="playVideo" class="video-play" src="{{ videoPlay }}"></image>
   </view>
 </view>
@@ -27,7 +27,7 @@
 <view class="invite">
   <block wx:for-item="inv" wx:for="{{ user.engagements }}" wx:key="unique">
     <view class="inv-wrap">
-      <view class="inv-text">{{ inv.order_date }} {{ inv.area }}发布一个邀请</view>
+      <view class="inv-text">{{ inv.order_date }}在{{ inv.area }}发布一个邀请</view>
       <navigator hover-class="none" url="../invitedConfirm/invitedConfirm?orderId={{ inv.order_id }}&title={{ inv.name }}" class="slider invited"><text>应邀</text></navigator>
     </view>
   </block>
@@ -110,5 +110,5 @@
 </view>
 <!--视频弹窗形式-->
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
-  <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
+  <video bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{user.video_url || videoSrc}}"></video>
 </view>

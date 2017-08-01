@@ -64,21 +64,26 @@ Page({
       success (res) {
         // console.log(res)
         console.log(res.data.message)
-        if (res.data.message === '申请邀约成功') {
+        if (res.data.message === '申请邀约成功' || res.data.code === 200) {
           wx.showToast({
             title: res.data.message,
             icon: 'success',
-            duration: 2000,
-            mask: true,
-            success () {
-              let obj = {
-                url: '../index2/index2'
-              }
-              setTimeout(function () {
-                wx.navigateTo(obj)
-              }, 2000)
-            }
+            duration: 1500,
+            mask: true
+            // success () {
+            //   let obj = {
+            //     url: '../index2/index2'
+            //   }
+            //   setTimeout(function () {
+            //     wx.navigateTo(obj)
+            //   }, 2000)
+            // }
           })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
         } else {
           wx.showToast({
             title: res.data.message,

@@ -12,7 +12,7 @@
         </view>
       </view>
       <view class="time">
-        {{ item.time }}
+        {{ item.add_time }}
       </view>
     </view>
   </blcok>
