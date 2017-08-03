@@ -228,7 +228,7 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        if (res.data.data.length !== 0 ) {
+        if (res.data.data.length !== 0) {
           that.setData({
             hasmessage: true
           })
