@@ -415,7 +415,7 @@
   align-items: center;
   height: 50rpx;
   background: #fff;
-  font-size: 20rpx;
+  font-size: 22rpx;
 }
 .calendar-head view{
   text-align: center;
@@ -430,15 +430,18 @@
 .calendar-body-rows{
   display: flex;
   align-items: center;
-  height: 90rpx;
+  height: 68rpx;
   //box-sizing: border-box;
   padding: 0 4rpx 8rpx;
+  margin-bottom: 30rpx;
 }
 .calendar-body-cols{
   display: flex;
   flex: 1;
+  margin: 0 14rpx;
   align-items: center;
   height: 100%;
+  //margin-bottom: 20rpx;
   //box-sizing: border-box;
   //padding: 0 4rpx;
 }
@@ -451,7 +454,7 @@
   //border-radius: 20rpx;
 }
 .week {
-  color: #000;
+  color: #666;
 }
 .curToday {
   //box-sizing: border-box;
@@ -467,23 +470,27 @@
   border: 1rpx solid transparent;
   background-color: #FCC0A4 !important;
   color: #fff !important;
+  .week {
+    color: #fff !important;
+  }
   //font-weight: 500 !important;
 }
 .week .not-cur {
-  color: rgba(255, 0, 0, 0.33);
+  color: #666;
 }
 .calendar-body-day{
   position: absolute;
   left: 50%;
+  font-weight: 700;
   transform: translateX(-50%);
-  top: 8rpx;
+  top: 0rpx;
   text-align: center;
 }
 .calendar-body-dayex{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 50rpx;
+  top: 45rpx;
   width: 100%;
   text-align: center;
   overflow: hidden;
@@ -495,12 +502,12 @@
   color: #14cccc;
 }
 .calendar-body-rows-height {
-  height: 110rpx;
+  height: 68rpx;
   .calendar-body-day {
-    top: 16rpx;
+    top: -2rpx;
   }
   .calendar-body-dayex {
-    top: 58rpx;
+    top: 40rpx;
   }
 }
 .calendar-body-workturn{
@@ -555,7 +562,11 @@
 .tx-img {
   width: 24rpx;
   height: 24rpx;
-  transform: translate(5rpx, -4rpx);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  //transform: translate(5rpx, -4rpx);
 }
 .view-hover{
   background:#eee;
@@ -577,6 +588,10 @@
   //padding: 0 40rpx;
   margin: 0 40rpx;
   box-sizing: border-box;
+}
+.calendar-head {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
 }
 //动画效果
 .animated {

@@ -15,6 +15,7 @@
         <view data-id="{{ item.subscribe_user_id }}" data-index="{{ index }}" data-follow="{{ item.is_subscribe }}" catchtap="follows" class="p-follow-btn {{ item.is_subscribe == 1 ? 'p-follow iconfont icon-huxiangguanzhu' : 'p-nofollow' }}">{{ item.is_subscribe == 1 ? '互相关注' : '提醒关注' }}</view>
       </navigator>
     </block>
+    <view style="color: #999; font-size: 26rpx; text-align: center; margin-top: 20rpx;" wx:if="{{ people.length == 0 }}">您还有关注的好友，快去应邀关注好友吧</view>
   </view>
 </view>
 <!--填写关注内容弹窗-->

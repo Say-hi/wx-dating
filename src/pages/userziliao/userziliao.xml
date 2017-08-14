@@ -77,7 +77,7 @@
   </view>
   <view class="basic-data">
     <view class="basic-one">深度资料</view>
-    <view class="basic-second">约会成功后对方可见</view>
+    <view class="basic-second">非约会成功对象不可见</view>
   </view>
   <!--公司-->
   <view class="text-wrap">
@@ -139,7 +139,7 @@
         </view>
       </view>
     </block>
-    <view wx:if="{{ comment_list.length == 0 }}" style="padding: 20rpx">暂时还没有收到评价</view>
+    <view wx:if="{{ comment_list.length == 0 }}" style="padding: 20rpx;font-size: 24rpx;">暂时没有收到好友评价</view>
     <button class="invitedBtn" open-type="share">邀请好友评价</button>
   </view>
 </view>

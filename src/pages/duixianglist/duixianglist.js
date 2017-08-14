@@ -25,6 +25,11 @@ Page({
     ],
     show: false
   },
+  cancel () {
+    this.setData({
+      show: false
+    })
+  },
   yingyoa (e) {
     let that = this
     wx.navigateTo({

@@ -3,11 +3,12 @@
     <button class="kefu-btn" open-type="contact">
       <image src="../../images/kefu.png"></image>
     </button>
+    <view style="line-height: 60rpx; color: #2b2f41; font-weight: 700; font-size: 30rpx;">在线客服</view>
     <view>点击客服头像与在线客服沟通</view>
     <view>或在下方留言</view>
   </view>
   <!--反馈-->
-  <textarea data-type='content' bindinput='inputMessage' class="fktext" placeholder="请写下对约会日的感受，我们将不断进步，为您做的更好~"></textarea>
+  <textarea data-type='content' bindinput='inputMessage' class="fktext" placeholder="请写下对  约会日  的感受，我们将不断进步，为您做的更好~"></textarea>
   <view class="lx"><text>联系方式:　</text><input data-type='contact' bindinput='inputMessage' placeholder="邮箱、QQ、手机皆可"/></view>
   <view class="send-btn">
     <text catchtap="sendMessage">发送</text>

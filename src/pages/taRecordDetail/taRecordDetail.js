@@ -69,8 +69,10 @@ Page({
       confirmColor: '#ffc4a6',
       success (res) {
         if (res.confirm) {
+          console.log(1)
           that.updateTaArchives()
         } else if (res.cancel) {
+          console.log(2)
           let foi = {
             session_key: wx.getStorageSync('session_key'),
             id: that.data.id || '',
@@ -91,7 +93,7 @@ Page({
           }
           wx.setStorageSync('forOtherInfo', foi)
           let s = wx.getStorageSync('orderInfo')
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../order/order?type=forOther&id=' + s.orderId + '&title=' + s.title + '&price=' + s.price + '&address=' + s.address
           })
         }
@@ -339,7 +341,7 @@ Page({
           wx.setStorageSync('forOtherInfo', upobj)
           return setTimeout(function () {
             let s = wx.getStorageSync('orderInfo')
-            wx.navigateTo({
+            wx.redirectTo({
               url: '../order/order?type=forOther&id=' + s.orderId + '&title=' + s.title + '&price=' + s.price + '&address=' + s.address
             })
           }, 1000)
@@ -361,6 +363,9 @@ Page({
     let forOther
     if (e.type === 'forOther') {
       forOther = true
+      wx.setNavigationBarTitle({
+        title: '替Ta发起'
+      })
     } else {
       forOther = false
     }

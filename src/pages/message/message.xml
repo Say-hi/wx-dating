@@ -16,4 +16,5 @@
       </view>
     </view>
   </blcok>
+  <view style="color: #999; margin-top: 20rpx; text-align: center; font-size: 26rpx;" wx:if="{{ message.length === 0 }}">没有更多消息了</view>
 </view>

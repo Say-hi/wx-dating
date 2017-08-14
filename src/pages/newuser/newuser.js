@@ -52,17 +52,20 @@ Page({
     // 车房状况
     houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
     houseIndex: 0,
-    show: true,
+    show: false,
     industryShow: false
   },
   // 确认更新
   confirmUpdate () {
+    // this.setData({
+    //   show: true
+    // })
     this.upDateMyInfo()
   },
   // 取消更新
   cancelConfirm () {
     wx.navigateBack({
-      delta: 1
+      delta: 2
     })
   },
   // 首先获取自己的资料
@@ -109,6 +112,9 @@ Page({
     } else if (that.data.likesBooks.length <= 0) {
       return that.error('至少填写一本书')
     }
+    this.setData({
+      show: true
+    })
     let upobj = {
       url: useUrl.updateUserInfo,
       data: {

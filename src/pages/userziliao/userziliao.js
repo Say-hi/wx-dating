@@ -233,6 +233,9 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
+    this.setData({
+      name: wx.getStorageSync('userInfo').nickName
+    })
     app.data.ageArr.splice(0, 1, '请选择您的年龄区间')
     app.data.industryOne.splice(0, 1, '请选择您所在的行业')
     app.data.industryTwo.splice(0, 1, ['请选择您所在的行业'])

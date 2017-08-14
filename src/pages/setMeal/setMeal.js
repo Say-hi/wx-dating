@@ -49,36 +49,36 @@ Page({
     })
   },
   // 触摸开始
-  touchStart (e) {
-    this.setData({
-      startY: e.changedTouches[0].clientY
-    })
-  },
-  // 触摸移动
-  touchMove (e) {
-    let moveY = e.changedTouches[0].clientY
-    let height = parseInt(this.data.height)
-    let width = parseInt(this.data.width)
-    // console.log(moveY - parseInt(this.data.startY))
-    if ((moveY - parseInt(this.data.startY)) < 0) return
-    height += (moveY - parseInt(this.data.startY)) / 30
-    width += (moveY - parseInt(this.data.startY)) / 60
-    // console.log(height)
-    height = height + 'rpx'
-    width = width + 'rpx'
-    // console.log(height)
-    this.setData({
-      height: height,
-      width: width
-    })
-  },
-  // 触摸结束
-  touchEnd () {
-    this.setData({
-      height: '500rpx',
-      width: '750rpx'
-    })
-  },
+  // touchStart (e) {
+  //   this.setData({
+  //     startY: e.changedTouches[0].clientY
+  //   })
+  // },
+  // // 触摸移动
+  // touchMove (e) {
+  //   let moveY = e.changedTouches[0].clientY
+  //   let height = parseInt(this.data.height)
+  //   let width = parseInt(this.data.width)
+  //   // console.log(moveY - parseInt(this.data.startY))
+  //   if ((moveY - parseInt(this.data.startY)) < 0) return
+  //   height += (moveY - parseInt(this.data.startY)) / 30
+  //   width += (moveY - parseInt(this.data.startY)) / 60
+  //   // console.log(height)
+  //   height = height + 'rpx'
+  //   width = width + 'rpx'
+  //   // console.log(height)
+  //   this.setData({
+  //     height: height,
+  //     width: width
+  //   })
+  // },
+  // // 触摸结束
+  // touchEnd () {
+  //   this.setData({
+  //     height: '500rpx',
+  //     width: '750rpx'
+  //   })
+  // },
   // 替ta发起跳转
   forOtherPeople () {
     let that = this
@@ -89,14 +89,14 @@ Page({
       title: that.data.orderInfo.name
     }
     wx.setStorageSync('orderInfo', orderInfo)
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../taRecordDetail/taRecordDetail?type=forOther'
     })
   },
   // 发起邀约
   forMine () {
     let that = this
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../order/order?id=' + that.data.id + '&address=' + that.data.orderInfo.address + '&price=' + that.data.orderInfo.money + '&title=' + that.data.orderInfo.name
     })
   },

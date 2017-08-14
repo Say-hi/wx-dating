@@ -454,7 +454,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    // console.log(params)
     // TODO: onShow
+    if (this.data.pay === '替Ta付清') return
     this.checkUser()
   },
 

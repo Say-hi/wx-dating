@@ -106,14 +106,25 @@ Page({
       url: useUrl.confirmedByInvitation,
       data: {
         session_key: wx.getStorageSync('session_key'),
-        order_id: params.orderId
+        order_id: params.id
       },
       success (res) {
+        if (res.data.code === 400) {
+          wx.showToast({
+            title: '哎呀，您来晚了，该邀约已生效',
+            mask: true
+          })
+          return setTimeout(function () {
+            wx.navigateBack({
+              delta: 2
+            })
+          }, 1500)
+        }
         res.data.data.time = res.data.data.order_date.replace(/-/g, '.') + '(' + res.data.data.week + ')' + res.data.data.order_time
         that.setData({
           orderInfo: res.data.data
         })
-        console.log(res.data.data)
+        // console.log(res.data.data)
       }
     }
     app.wxrequest(obj)

@@ -23,7 +23,7 @@
   <view class="user-nick-name-wrap">
     <navigator hover-class="none" url="{{ logins ? '../userOrder/userOrder' : '' }}" class="order iconfont icon-dingdan">订单</navigator>
     <!--昵称-->
-    <view wx:if="{{ logins }}" class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
+    <view catchtap="getUserInfo" wx:if="{{ logins }}" class="user-nick-name iconfont {{userInfo.gender == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.nickName}}</view>
     <navigator hover-class="none" url="{{ logins ? '../message/message' : '' }}" class="message iconfont icon-xiaoxi {{ hasmessage ? 'has' : '' }}">消息</navigator>
   </view>
   <!--相册-->

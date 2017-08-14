@@ -19,6 +19,7 @@
       left: 50%;
       transform: translate(-50%, 0);
       height: 100%;
+      width: 100%;
     }
     .video-play {
       width: 128rpx;
@@ -68,7 +69,7 @@
   .user-nick-name-wrap {
     position: relative;
     //padding-bottom: 20rpx;
-    border-bottom: 10rpx solid #eee;
+    border-bottom: 2rpx solid #ccc;
     height: 180rpx;
     //background-color: #f00;
     .order, .message {
@@ -106,16 +107,21 @@
       padding-top: 120rpx;
       text-align: center;
     }
+    .user-nick-name::after {
+      margin-left: 7rpx;
+      font-size: 22rpx;
+      color: #999;
+    }
   }
   //用户操作
   .operation {
-    border-bottom: 30rpx solid #eee;
+    //border-bottom: 30rpx solid #eee;
     .op {
       font-size: 30rpx;
-      line-height: 80rpx;
+      line-height: 88rpx;
       //background-color: #f00;
       margin-left: 70rpx;
-      border-bottom: 1rpx solid #eee;
+      border-bottom: 1rpx solid #ccc;
       position: relative;
       color: #666;
     }
@@ -151,6 +157,7 @@
 }
 // 图片右下角图标
 .photo-show {
+  border-bottom: 2rpx solid #ccc !important;
   .photo-wrap {
     position: relative;
     .other-up {

@@ -255,8 +255,10 @@ Page({
   },
   // 手机号码输入
   mobileInput (e) {
+    let that = this
+    this.data.orderInfo.mobile = e.detail.value
     this.setData({
-      mobile: e.detail.value
+      orderInfo: that.data.orderInfo
     })
   },
   // 去到地图地址上
@@ -429,6 +431,13 @@ Page({
         mask: true
       })
     }
+    // console.log(this.data.orderInfo.mobile.length)
+    if ( !this.data.orderInfo.mobile || this.data.orderInfo.mobile.length != 11) {
+      return wx.showToast({
+        title: '亲,请输入正确的手机号码',
+        mask: true
+      })
+    }
     let that = this
     let oi = this.data.orderInfo
     // todo  1 exchange 0
@@ -480,6 +489,7 @@ Page({
         session_key: wx.getStorageSync('session_key'),
         order_ta_id: oi.order_ta_id,
         name: oi.name,
+        mobile: that.data.orderInfo.mobile,
         sex: that.data.genderCur,
         ganqing: that.data.marryCur,
         age: that.data.ageArr[that.data.ageIndex],
@@ -599,7 +609,9 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    app.wxlogin(that.getOrderInfo, params.orderTaId)
+    // app.wxlogin(that.getOrderInfo, params.orderTaId)
+    app.wxlogin(that.getOrderInfo, 80)
+    // app.wxlogin(that.getOrderInfo, 76)
     // this.setData({
     //   title: 'Mr.Rocky 双人火焰牛排餐',
     //   address: '天河区车陂大街汇德商业大厦1号楼506',

@@ -1,4 +1,17 @@
+page {
+  border-top: 1rpx solid #ccc;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .wrap {
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
   border-top: 1rpx solid #ccc;
   padding: 0 24rpx;
   .wx {
@@ -72,12 +85,14 @@
     }
   }
 }
+
 .recharge-status {
   font-size: 26rpx;
   color: #f66;
   text-align: right;
   margin-top: 10rpx;
 }
+
 .mask {
   .mask-wrap {
     height: 480rpx;

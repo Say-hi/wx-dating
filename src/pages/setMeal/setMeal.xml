@@ -1,9 +1,10 @@
 <!--套餐详情-->
 <import src="../../wxParse/wxParse"></import>
+
 <swiper style="height: {{ height }};" indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#ffc4a6" circular="{{ circular }}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{orderInfo.photo_list}}">
-  <!--<block wx:for="{{ imgUrls }}">-->
-    <swiper-item bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <!--<block wx:for="{{ imgUrls }}">-->
+    <swiper-item>
       <!--<image  src="{{item}}" class="slide-image" width="355" height="150"/>-->
       <image mode="{{ mode }}" style="width: {{ width }}; height: {{ height }};" src="{{ item }}" class="slide-image" />
     </swiper-item>
@@ -14,7 +15,7 @@
 <view class="center">
   <!--套餐标题-->
   <view class="title">{{ orderInfo.name }}</view>
-  <view class="title-bottom"><text class="address">{{ orderInfo.city }}·{{ orderInfo.district }}</text><text class="price">￥{{orderInfo.money}}/位</text></view>
+  <view class="title-bottom"><text class="address">{{ orderInfo.city }}·{{ orderInfo.district }}</text><text class="price">￥{{(orderInfo.money * 1)}}/位</text></view>
   <!--商店信息介绍-->
   <view class="shopInfo">
     <!--todo html解析模板-->
@@ -39,3 +40,4 @@
   <view catchtap="forMine">发起</view>
   <view catchtap="yingyao">应邀</view>
 </view>
+

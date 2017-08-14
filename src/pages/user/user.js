@@ -23,11 +23,11 @@ Page({
     open_types: 'navigate',
     // 用户操作
     opertaion: [
-      {
-        title: '我的资料',
-        ico: 'icon-ziliao',
-        url: '../userziliao/userziliao'
-      },
+      // {
+      //   title: '我的资料',
+      //   ico: 'icon-ziliao',
+      //   url: '../userziliao/userziliao'
+      // },
       {
         title: 'TA的档案',
         ico: 'icon-dangan',
@@ -184,7 +184,12 @@ Page({
   },
   // 重新拉起授权
   getUserInfo () {
-    if (this.data.userInfo) return
+    if (this.data.userInfo) {
+      wx.navigateTo({
+        url: '../userziliao/userziliao'
+      })
+      return
+    }
     let that = this
     wx.openSetting({
       success (res) {

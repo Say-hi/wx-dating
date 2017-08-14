@@ -18,7 +18,7 @@
                     <!--<view class="cur-month-right" bindtap="goLastMonthAnimate"></view>-->
                 </view>
                 <view class="current-week" >
-                    {{ dateArr[i].dateData.month }},<text class="current-week-year">{{ dateArr[i].dateData.curYear }}</text>
+                    {{ dateArr[i].dateData.month }}<text class="current-week-year">,{{ dateArr[i].dateData.curYear }}</text>
                 </view>
             </view>
         </view>
@@ -36,7 +36,7 @@
                   <!--<view  class="{{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }}">-->
                   <view>
                     <!--阳历-->
-                    <view class="calendar-body-day">
+                    <view class="calendar-body-day {{ (out.dateData.arrInfoEx[row * 7 + col]['week'] == '六' || out.dateData.arrInfoEx[row * 7 + col]['week'] == '日') ? 'week' : '' }}">
                       {{out.dateData.arrDays[row * 7 + col]}}
                       <!--{{dateData.arrInfoEx[row * 7 + col].solarFestival}}-->
                     </view>
@@ -76,10 +76,10 @@
   </view>
 </view>
 <!--关注好友邀请信息弹窗-->
-<view catchtap="delfriend" wx:if="{{friendshow}}" class="friend-mask">
+<view catchtap="delfriend" wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">
     <view class="friend-trends">
         <view class="friend-title">好友动态</view>
-        <swiper wx:if="{{ userList.length > 0 }}" indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
+        <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
             <block wx:for="{{userList}}" wx:for-item="outitem">
                 <!--todo 组件化-->
                 <swiper-item>
@@ -97,7 +97,7 @@
                 </swiper-item>
             </block>
         </swiper>
-        <view class="f-t" wx:else>啊哦，这一天暂无小伙伴发起邀约哦~</view>
+        <!--<view class="f-t" wx:else>啊哦，这一天暂无小伙伴发起邀约哦~</view>-->
         <navigator hover-class="none" url="../plans/plans" class="enter">直接进入</navigator>
     </view>
 </view>

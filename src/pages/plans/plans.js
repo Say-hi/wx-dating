@@ -173,6 +173,13 @@ Page({
       cityone: flag
     })
   },
+  // 背景遮罩层取消
+  cancel () {
+    this.setData({
+      status: false,
+      statustwo: false
+    })
+  },
   // 选择区域
   choosearea (e) {
     let that = this
@@ -243,8 +250,8 @@ Page({
           type: type || 2,
           time: time,
           district: that.data.area,
-          // lng: that.data.lng,
-          // lat: that.data.lat,
+          lng: that.data.lng,
+          lat: that.data.lat,
           page: page
         },
         success (res) {

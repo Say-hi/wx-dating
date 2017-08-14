@@ -179,7 +179,6 @@ Page({
       userList: []
     })
     this.getfriend(1, currentMonth[d].sYear + '-' + (currentMonth[d].sMonth < 10 ?  "0" + currentMonth[d].sMonth : currentMonth[d].sMonth)  + '-' + (currentMonth[d].sDay < 10 ?  "0" + currentMonth[d].sDay : currentMonth[d].sDay))
-
   },
   //获取对应日期的好友发起的套餐
   getfriend (page, time) {
@@ -196,6 +195,12 @@ Page({
           that.data.userList.push(res.data.data)
           that.getfriend(++page, time)
         } else {
+          if (page === 1) {
+            // console.log('123')
+            wx.navigateTo({
+              url: '../plans/plans'
+            })
+          }
           that.setData({
             userList: that.data.userList
           })
@@ -253,7 +258,7 @@ Page({
       dateArr: dateArr
     })
     // 用户登陆
-
+    app.wxlogin()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
