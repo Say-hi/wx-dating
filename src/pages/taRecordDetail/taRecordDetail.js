@@ -338,7 +338,25 @@ Page({
           mask: true
         })
         if (that.data.forOther) {
-          wx.setStorageSync('forOtherInfo', upobj)
+          let infos = {
+            url: useUrl.addUpdateTaArchives,
+            session_key: wx.getStorageSync('session_key'),
+            id: that.data.id || '',
+            name: that.data.name,
+            sex: that.data.genderCur * 1 + 1,
+            ganqing: that.data.marryCur,
+            age: that.data.ageArr[that.data.ageIndex],
+            user_height: that.data.userHeight || '',
+            job: that.data.industryOne[that.data.value[0]] + (that.data.value[1] < 24 ? '-' + that.data.industryTwo[that.data.value[0]][that.data.value[1]] : ''),
+            compny: that.data.compny || '',
+            cart_house: that.data.houseIndex,
+            likes_sports: that.data.likesSports || '',
+            likes_movies: that.data.likesMovies || '',
+            likes_books: that.data.likesBooks || '',
+            comment: that.data.comment || '',
+            photos: that.data.photos.join(',')
+          }
+          wx.setStorageSync('forOtherInfo', infos)
           return setTimeout(function () {
             let s = wx.getStorageSync('orderInfo')
             wx.redirectTo({

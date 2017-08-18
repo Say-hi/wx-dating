@@ -41,7 +41,7 @@
   <!--confirm-->
   <view catchtap="confirmInvited" class="invitedconfirm">意向应邀</view>
   <!--意向金弹窗-->
-  <view wx:if="{{ orderInfo.bao_money > 0 ? false : true }}" class="mask">
+  <view wx:if="{{ moneyshow }}" class="mask">
     <view class="mask-wrap">
       <view class="ts">提示</view>
       <view class="ts-two">
@@ -53,5 +53,5 @@
     </view>
   </view>
   <!--个人资料完善弹窗-->
-  <template is="finishUserData" data="{{ datashow: orderInfo.is_perfect_data == '1' ? false : true }}"></template>
+  <template is="finishUserData" data="{{ datashow: datashows }}"></template>
 </view>

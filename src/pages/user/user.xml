@@ -13,7 +13,7 @@
 <!--无视频-->
 <view wx:else class="video-area novideo" catchtap="upVideo">
   <!--<view>-->
-    <image src="{{ logins ?  hasvideo ? '' : '../../images/login-video.png' : '../../images/login-bg.png' }}"></image>
+    <image mode="aspectFill" src="{{ logins ?  hasvideo ? '' : '../../images/login-video.png' : '../../images/login-bg.png' }}"></image>
   <!--</view>-->
 </view>
 <!--用户信息-->

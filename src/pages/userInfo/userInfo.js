@@ -62,22 +62,22 @@ Page({
     })
   },
   // 显示更多
-  showMore () {
-    let name = '李四' + Math.floor(Math.random() * 10)
-    let obj = {
-      src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-      name: name,
-      gender: 1,
-      text: '李四444'
-    }
-    this.data.estimate.push(obj)
-    this.data.estimate.push(obj)
-    this.data.estimate.push(obj)
-    let newestimate = this.data.estimate
-    this.setData({
-      estimate: newestimate
-    })
-  },
+  // showMore () {
+  //   let name = '李四' + Math.floor(Math.random() * 10)
+  //   let obj = {
+  //     src: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+  //     name: name,
+  //     gender: 1,
+  //     text: '李四444'
+  //   }
+  //   this.data.estimate.push(obj)
+  //   this.data.estimate.push(obj)
+  //   this.data.estimate.push(obj)
+  //   let newestimate = this.data.estimate
+  //   this.setData({
+  //     estimate: newestimate
+  //   })
+  // },
   // 关注
   follow () {
     // console.log(e)
@@ -94,12 +94,13 @@ Page({
           wx.showToast({
             title: '关注成功'
           })
-          that.data.user.isSubscribe = true
-          that.setData({
-            btnText: '已关注',
-            disabled: true,
-            user: that.data.user
-          })
+          this.getUserDetail(that.data.id)
+          // that.data.user.isSubscribe = true
+          // that.setData({
+          //   btnText: '已关注',
+          //   disabled: true,
+          //   user: that.data.user
+          // })
         } else {
           wx.showToast({
             title: res.data.message
@@ -129,6 +130,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    this.setData({
+      id: params.userId
+    })
     this.getUserDetail(params.userId)
   },
   /**

@@ -197,9 +197,10 @@ Page({
         } else {
           if (page === 1) {
             // console.log('123')
-            wx.navigateTo({
-              url: '../plans/plans'
-            })
+            return
+            // wx.navigateTo({
+            //   url: '../plans/plans'
+            // })
           }
           that.setData({
             userList: that.data.userList

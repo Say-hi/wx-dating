@@ -6,7 +6,7 @@
   </view>
   <view class="aaa">
     <block wx:for="{{ listArr }}" wx:key="unique">
-      <navigator hover-class='none' url='../userInfo/userInfo?userId={{ item.user_id }}' class="dx">
+      <navigator open-type="redirect"  hover-class='none' url='../userInfo/userInfo?userId={{ item.user_id }}' class="dx">
         <image src="{{ item.avatar }}"></image>
         <view class="dx-center">
           <view class="name"><text class="gender iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.user_nicename}}</text><text class="job">{{ item.job }}</text></view>

@@ -9,7 +9,19 @@
     <view class="bottom">
       <navigator url='../recharge/recharge' class="recharge">兑换</navigator>
       <view class="sincerity">{{ sincerityMoney != 0 ? '诚意保证金￥' + sincerityMoney : '尚未缴纳诚意保证金' }}</view>
-      <view class="sincerity-pay" catchtap="chargeBao">{{ sincerityMoney ? '退款':'马上支付' }}</view>
+      <view class="sincerity-pay" catchtap="chargeBao">{{ sincerityMoney ? status == 1 ? '正在审核您的退款中!' : '退款' :'马上支付' }}</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{ mask }}" class="mask">
+  <view class="mask-in">
+    <view class="title">申请退款</view>
+    <view class="content">你正在申请保证金的退款，请确认</view>
+    <input bindinput="inputValue" placeholder="请输入您的微信号"/>
+    <view class="mask-btn">
+      <view catchtap="mOp" data-type="cancel">取消</view>
+      <view catchtap="mOp" data-type="confirm">确认</view>
     </view>
   </view>
 </view>

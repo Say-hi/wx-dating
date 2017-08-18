@@ -109,9 +109,7 @@ Page({
         if (res.data.data.length === 0) {
           return wx.showToast({
             title: text || '亲，没有更多的内容啦',
-            image: '../../images/jiong.png',
-            duration: 1000,
-            mask: true
+            image: '../../images/jiong.png'
           })
         }
         let s = that.data.people.concat(res.data.data)
@@ -146,8 +144,6 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
-    this.getFollowUser(1)
-    this.getstranger()
   },
 
   /**
@@ -162,6 +158,12 @@ Page({
    */
   onShow () {
     // TODO: onShow
+    this.setData({
+      page: 1,
+      people: []
+    })
+    this.getFollowUser(1)
+    this.getstranger()
   },
 
   /**

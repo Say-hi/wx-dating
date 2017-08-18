@@ -53,13 +53,25 @@ Page({
       },
       success (res) {
         // console.log(res)
+        if (res.data.code === 400) {
+          wx.showToast({
+            title: res.data.message,
+            mask: true
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1000)
+          return
+        }
         let s = res.data.data
         let datingInfo = that.data.datingInfo
         datingInfo[0].text = s.order_date + '(' + s.order_week + ')' + s.order_time
         datingInfo[1].text = s.address
         datingInfo[2].text = s.duixiang.user_nicename || '暂无数据'
         datingInfo[3].text = '￥' + s.money
-        datingInfo[4].text = s.mobile
+        datingInfo[4].text = s.mobile || '暂无数据'
         datingInfo[5].text = that.data.type[s.is_zhidai * 1]
         datingInfo[6].text = that.data.payType[s.pay_type * 1]
         that.setData({
@@ -85,13 +97,66 @@ Page({
     }
     app.wxrequest(ss)
   },
+  payorder () {
+    let that = this
+    let orderPayobj = {
+      url: useUrl.payByOrder,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: that.data.id
+      },
+      success (res) {
+        console.log('pay order', res)
+        // 需要支付的发起付款
+        if (res.data.data.length !== 0) {
+          // todo 微信支付流程
+          that.moneyPay(res.data.data)
+          return
+        } else {
+          wx.showToast({
+            title: '支付成功'
+          })
+          that.getOrderInfo(that.data.id)
+        }
+      }
+    }
+    app.wxrequest(orderPayobj)
+  },
+  moneyPay (e) {
+    // console.log(e)
+    // let that = this
+    // 支付参数
+    let payObj = {
+      timeStamp: e.timeStamp,
+      nonceStr: e.nonceStr,
+      package: e.package,
+      paySign: e.paySign,
+      success (res) {
+        // 支付成功响应
+        console.log('支付情况', res)
+        if (res.errMsg === 'requestPayment:ok') {
+          wx.showToast({
+            title: '支付成功'
+          })
+          that.getOrderInfo(that.data.id)
+        }
+      },
+      fail (res) {
+        wx.showToast({
+          title: '未完成支付'
+        })
+        console.log('支付失败', res)
+      }
+    }
+    app.wxpay(payObj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
     // console.log(!params.id)
     if (params.id === 'null') {
-      console.log(1)
+      // console.log(1)
       wx.showToast({
         title: '无法查看尚未确认订单',
         duration: 1000,

@@ -51,27 +51,36 @@ Page({
       },
       success (res) {
         console.log(res)
-        if (res.data.code !== 200) {
-          return wx.showToast({
-            title: res.data.message,
-            image: '../../images/jiong.png'
-          })
-        } else {
-          // todo 微信支付流程
-          if (res.data.data.length !== 0) {
-            // app.wxpay(res.data.data)
-          } else {
-            // 余额支付成功
-            wx.showToast({
-              title: '支付成功，订单已确认',
-              mask: true
-            })
-            setTimeout(function () {
-              wx.navigateBack({
-                delta: 1
-              })
-            }, 1000)
+        // todo 微信支付流程
+        if (res.data.data.length !== 0) {
+          // app.wxpay(res.data.data)
+          let e = res.data.data
+          let payObj = {
+            timeStamp: e.timeStamp,
+            nonceStr: e.nonceStr,
+            package: e.package,
+            paySign: e.paySign,
+            success (res) {
+              // 支付成功响应
+              console.log('支付情况', res)
+              if (res.errMsg === 'requestPayment:ok') {
+                wx.showToast({
+                  title: '支付成功，订单已确认'
+                  // mask: true
+                })
+              }
+            },
+            fail (res) {
+              console.log('支付失败', res)
+            }
           }
+          app.wxpay(payObj)
+        } else {
+          // 余额支付成功
+          wx.showToast({
+            title: '支付成功，订单已确认'
+            // mask: true
+          })
         }
       }
     }
@@ -98,8 +107,8 @@ Page({
         // console.log(res.data.data)
         if (res.data.data.length === 0) {
           return wx.showToast({
-            title: '亲，没有更多内容啦~',
-            mask: true
+            title: '亲，没有更多内容啦~'
+            // mask: true
           })
         }
         that.setData({

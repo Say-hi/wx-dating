@@ -7,12 +7,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // title: 'Mr.Rocky 双人火焰牛排餐',
-    // time: '2017.05.20(周日)18:00',
-    // address: '珠江新城华夏路6号',
-    // people: 'Alex',
-    // price: '168',
-    // show: true
+    datashows: false
+  },
+  // 用户资料检查
+  checkUser () {
+    let that = this
+    let obj = {
+      url: useUrl.isPerfectData,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.data.is_perfect_data.toString() === '0') {
+          // 完整数据 1
+          that.setData({
+            datashows: true
+          })
+        } else if (res.data.data.is_perfect_data.toString() === '1') {
+          that.setData({
+            datashows: false
+          })
+        }
+        if (res.data.data.isShiyue.toString() === '1') {
+          // 失约超过次数 1超
+          that.setData({
+            cancelshow: true
+          })
+        }
+        if (res.data.data.isHasBaomoney.toString() === '0') {
+          // 无保证金 0
+          that.setData({
+            moneyshow: true
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
   },
   // 获取用户输入的手机号码
   phoneNumberIn (e) {
@@ -30,23 +60,35 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        console.log(res)
-        // if (res.data.message === 'Success') {
-        if (res.data.message === '网络错误') {
+        // console.log(res)
           // todo 支付
-          // let pay = {
-          //   timeStamp:
-          //   nonceStr:
-          //   package:
-          //   signType:
-          //   paySign:
-          // }
-          // wx.requestPayment(pay)
-          that.data.orderInfo.bao_money = 1
-          that.setData({
-            orderInfo: that.data.orderInfo
-          })
+        let yxObj = {
+          timeStamp: res.data.data.timeStamp,
+          nonceStr: res.data.data.nonceStr,
+          package: res.data.data.package,
+          paySign: res.data.data.paySign,
+          success (res) {
+            // 支付成功
+            if (res.errMsg === 'requestPayment:ok') {
+              wx.showToast({
+                title: '保证金充值成功',
+                mask: true
+              })
+              that.setData({
+                moneyshow: false
+              })
+            }
+          },
+          fail (res) {
+            // 支付失败
+            console.log('支付失败', res)
+            wx.showToast({
+              title: '充值失败，请再次尝试',
+              mask: true
+            })
+          }
         }
+        app.wxpay(yxObj)
       }
     }
     app.wxrequest(obj)
@@ -101,6 +143,7 @@ Page({
    */
   onLoad (params) {
     let that = this
+    this.checkUser()
     // todo 获取套餐信息
     let obj = {
       url: useUrl.confirmedByInvitation,
@@ -130,7 +173,7 @@ Page({
     app.wxrequest(obj)
     this.setData({
       title: params.title,
-      orderId: params.orderId
+      orderId: params.id
     })
     // TODO: onLoad
   },

@@ -38,6 +38,56 @@ Page({
       }
     ]
   },
+  // 信息提交后判断是否需要支付
+  moneyPay (e, type) {
+    console.log(e)
+    let that = this
+    // 支付参数
+    let payObj = {
+      timeStamp: e.timeStamp,
+      nonceStr: e.nonceStr,
+      package: e.package,
+      paySign: e.paySign,
+      success (res) {
+        // 支付成功响应
+        console.log('支付情况', res)
+        if (res.errMsg === 'requestPayment:ok') {
+          if (type === 'forOther') {
+            that.setData({
+              sendMask: true
+            })
+          } else {
+            that.setData({
+              datingSuccess: true
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '尚未支付完成,请到订单中继续支付',
+            mask: true
+          })
+          setTimeout(function () {
+            wx.reLaunch({
+              url: '../index2/index2'
+            })
+          }, 1000)
+        }
+      },
+      fail (res) {
+        console.log('支付失败', res)
+        wx.showToast({
+          title: '尚未支付完成,请到订单中继续支付',
+          mask: true
+        })
+        setTimeout(function () {
+          wx.reLaunch({
+            url: '../index2/index2'
+          })
+        }, 1000)
+      }
+    }
+    app.wxpay(payObj)
+  },
   // 获取转发订单信息
   getOrderInfo (id) {
     let that = this
@@ -52,6 +102,16 @@ Page({
         if (res.data.message === '已经确认过了') {
           wx.showToast({
             title: '本订单已经确认过了，如不是您确认的请联系您的好友',
+            mask: true
+          })
+          return setTimeout(function () {
+            wx.reLaunch({
+              url: '../index2/index2'
+            })
+          }, 1500)
+        } else if (res.data.message === '您替TA发起,不能应邀') {
+          wx.showToast({
+            title: '不能确认自己发起的订单',
             mask: true
           })
           return setTimeout(function () {
@@ -75,6 +135,7 @@ Page({
           orderInfo: res.data.data,
           people: res.data.data.is_zhidai === '1' ? '寻约会对象' : '自带约会对象',
           pay: that.data.payArr[res.data.data.pay_type],
+          payType: res.data.data.pay_type,
           genderCur: res.data.data.sex * 1 - 1,
           photos: photos,
           marryCur: res.data.data.ganqing * 1,
@@ -385,13 +446,15 @@ Page({
         orderInfo.likes_movies = mine.likes_movies
         orderInfo.likes_books = mine.likes_books
         // console.log(mine.photos)
+        // console.log(mine.cart_house)
+        console.log(mine.photos)
         that.setData({
           orderInfo: orderInfo,
           genderCur: mine.sex - 1,
           marrCur: mine.ganqing,
           ageIndex: that.data.ageArr.indexOf(mine.age),
           value: vvv,
-          houseIndex: mine.cart_house * 1 + 1,
+          houseIndex: mine.cart_house * 1,
           photos: that.data.photos.concat(mine.photos)
         })
         // console.log(res)
@@ -432,7 +495,7 @@ Page({
       })
     }
     // console.log(this.data.orderInfo.mobile.length)
-    if ( !this.data.orderInfo.mobile || this.data.orderInfo.mobile.length != 11) {
+    if (!this.data.orderInfo.mobile || this.data.orderInfo.mobile.length !== 11) {
       return wx.showToast({
         title: '亲,请输入正确的手机号码',
         mask: true
@@ -503,10 +566,34 @@ Page({
         photos: that.data.photos.join(',')
       },
       success (res) {
+        console.log('替他发起页面订单支付', res)
         if (res.data.data.order_id) {
-          that.setData({
-            datingSuccess: true
-          })
+          if ((that.data.payType * 1) === 1 || (that.data.payType * 1) === 2) {
+            let orderPayobj = {
+              url: useUrl.payByOrder,
+              data: {
+                session_key: wx.getStorageSync('session_key'),
+                order_id: res.data.data.order_id
+              },
+              success (res) {
+                console.log('order success', res)
+                // 需要支付的发起付款
+                if (res.data.data.length !== 0) {
+                  // todo 微信支付流程
+                  that.moneyPay(res.data.data, 'self')
+                  return
+                }
+                that.setData({
+                  datingSuccess: true
+                })
+              }
+            }
+            app.wxrequest(orderPayobj)
+          } else {
+            that.setData({
+              datingSuccess: true
+            })
+          }
         } else {
           console.log(res)
           wx.showToast({
@@ -562,21 +649,21 @@ Page({
         success (res) {
           console.log('保证金支付', res)
           let yxObj = {
-            timeStamp: res.timeStamp,
-            nonceStr: res.nonceStr,
-            package: res.package,
-            paySign: res.paySign,
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
+            paySign: res.data.data.paySign,
             success (res) {
               // 支付成功
-              that.setData({
-                moneyshow: false
-              })
+              if (res.errMsg === 'requestPayment:ok') {
+                that.setData({
+                  moneyshow: false
+                })
+              }
             },
             fail (res) {
+              console.log('支付失败', res)
               // 支付失败
-              that.setData({
-                moneyshow: false
-              })
             }
           }
           app.wxpay(yxObj)
@@ -609,8 +696,10 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    // app.wxlogin(that.getOrderInfo, params.orderTaId)
-    app.wxlogin(that.getOrderInfo, 80)
+    // params['orderTaId'] = 104
+    app.wxlogin(that.getOrderInfo, params.orderTaId)
+    // app.wxlogin(that.getOrderInfo, 101)
+    // app.wxlogin(that.getOrderInfo, 80)
     // app.wxlogin(that.getOrderInfo, 76)
     // this.setData({
     //   title: 'Mr.Rocky 双人火焰牛排餐',

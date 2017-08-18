@@ -45,6 +45,7 @@ let serviceUrl = {
   titaFaqiByComfire: baseDomain + '/api/engagement/titaFaqiByComfire',
   // 替Ta发起确认页面
   comfireByTitaFaqi: baseDomain + '/api/engagement/comfireByTitaFaqi',
+  userBondBack: baseDomain + '/api/pay/userBondBack',
   // 替他发起-拒绝
   titaFaqiByreject: baseDomain + '/api/engagement/titaFaqiByreject',
   // 约会套餐列表

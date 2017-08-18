@@ -7,7 +7,7 @@
         <!--top-->
         <view class="calendar-navbar">
             <!--约会日图标-->
-            <image src="../../images/logo.png"></image>
+            <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABCUExURUxpcf/Epv/Epv/Epv/Epv/Epv/Epv3Dpf/Epv/Epv/EpisvQf/EptCjkEZCTlhPVnNhY6ODeoxzbzY3RrWQg+u2nBvcjnUAAAALdFJOUwCYOwpig8X4IeWypwO3ogAAA7BJREFUeNrtXNmSozAMjMEHxrIxR/7/VzfZncpkkoDEYKAftt+mapx0ZFmHLely2Yam0ka11nvniJzz3rbK6Kq5nIZGK3vj8hnOKt2cQKn1xMK3R1KrlIDSg5qqDpGTWcHpi5nZWWa1tvQrWF0jCWp/kTXK0SY41eCR2oNYbQqQ+kvMFNQx7akYvC61f5aKwhbZyVL797yTcKIqIzDtaBe4LRpWK9oNqsbawK0bWXnaFb5CUqttCqbpAKzmZegQGEhWK3kdxmoVrwNZreCl6VAI9b4iAuRVuaNpOYFdbTwdDs/6odrSCbCc31Z0ChTUIRSqfePOouWW1MvSabAg1l1s7c/bwsVttHQqLNgpXDyNtT+blq/R9H1W68/V91mtVwQAhSisD+KCENabuDCE9SYuQyAwWDbro+3SBAON4w1nPGNDQGjwFP6n0nskWv60NHoZFZaFf7X0HouWBzyH32eRs6XXMHa5j1u9pot97sZwlVrUlvmvKfxDN/yamotD9/UpE//frUi1hvDAmKf1zNyUx++PGITKxapWDs8Yc1xFKj5zuiELlYt10ym8oBOLzE3d6+IkdNec1XLhHamXEHN9+rDWySwXFz3E8AmJV90pfVwp0IF7FOGEB/FtK5c/P3Yz6wRH0Qk0vg9zGOZ/kRtmV/UinWf99PwXhDQnsJjmFwksxM1b63X2QfTT+6UlWXQUzSZaIb9vpGNWiEJBNqrpFr8kdNf4vJXXeOUWiGKbdiOtkNLNlQ9Df8OQ0/3P7bRaPunhvmYtJGbe8jHgWJjWKIoEQWmxLiqUhsSbotIiRFqESuu/bq2h5RFpwdoti0jL8q6a84np5stTHu64Z82sq04iV6020roHNk/HJrKBTRIFNmZbYLM+DJQENoYPmrvCQbOEluZTjFw4xZAEzRWfkA2FEzJJ5tPw6WtfOH3tJUaeT/anwsn+JDFb/NVILHw1EiX2QXJHWfQiSXpL2ayzp1uv3ZJM4/lLylz0klJgH7zoSrcveqUrOIgt8gU46HMB6OMK6lMU6MMd6DMn6qMw6BM6aMEBankGaDELaOkPaqEUaFkZahEeaMkiaoEnaDksavEwaKk1amE6ahk/aNMDaosIakMNaPsRarMWamsbaCMgatvkCWovbH49mJe4VRizgRm13Ru1OR51lADq4AXUMRWoQz1QR6CgDoxBHa8DO4wIdXQT7KAr1LFgsEPUUEfOwQ7ogx1nCDv8EXZUJu5gUdwxrA9qcENrv7ntM+L3D3KCNcKiUdQQAAAAAElFTkSuQmCC"></image>
             <!--当前日期信息-->
             <view class="current-day-info">
                 <view class="current-day-info-top">
@@ -83,7 +83,7 @@
             <block wx:for="{{userList}}" wx:for-item="outitem">
                 <!--todo 组件化-->
                 <swiper-item>
-                    <navigator url="../invitedConfirm/invitedConfirm?orderId={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
+                    <navigator url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
                         <image src="{{ item.image }}"></image>
                         <view class="name-wrap">
                             <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</view>

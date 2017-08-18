@@ -1239,6 +1239,9 @@ App({
   },
   // 请求数据
   wxrequest (obj) {
+    // wx.showLoading({
+    //   title: '加载数据中'
+    // })
     wx.request({
       url: obj.url || useUrl.serviceUrl.login,
       method: obj.method || 'POST',
@@ -1252,7 +1255,26 @@ App({
       fail: obj.fail || function (err) {
         console.log('未传入fail回调函数,err:' + err.errMsg)
       },
-      complete: obj.complete || function () {}
+      complete: obj.complete || function () {
+        // console.log(res)
+        // wx.hideLoading()
+        // if (res.data.code === 400 && res.data.message != 'session_key失效') {
+        //   if (res.data.message === 'session_key 不存在！') {
+        //     res.data.message = '请授权获取信息'
+        //   }
+        //   wx.showModal({
+        //     title: '系统消息',
+        //     content: res.data.message,
+        //     showCancel: false
+        //   })
+        // } else if (res.data.message === 'session_key 不存在！') {
+        //   wx.showModal({
+        //     title: '系统消息',
+        //     content: '请授权获取信息',
+        //     showCancel: false
+        //   })
+        // }
+      }
     })
   },
   // 用户登陆

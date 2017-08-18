@@ -10,7 +10,7 @@
     <text>{{ info.package_name }}</text>
   </navigator>
   <!--约会对象-->
-  <navigator url="../userInfo/userInfo?userId={{ info.duixiang.user_id }}" class="people arrow">
+  <navigator wx:if="{{ info.duixiang.length > 0 }}" url="../userInfo/userInfo?userId={{ info.duixiang.user_id }}" class="people arrow">
     <image src="{{ info.duixiang.avatar }}"></image>
     <text class="iconfont {{ info.duixiang.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ info.duixiang.user_nicename }}</text>
   </navigator>
@@ -44,3 +44,5 @@
     </view>
   </block>
 </view>
+
+<view class="payfinish" catchtap="payorder" wx:if="{{ orderArr[info.order_status] == '支付未完成' }}">继续支付订单</view>

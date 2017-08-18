@@ -15,7 +15,7 @@ Page({
     pay: '我付清',
     payType: 1,
     mobile: 0,
-    maskTitle: '信息以保存,转发给Ta确认',
+    maskTitle: '信息已保存,转发给Ta确认',
     // price: '168',
     // 意向金弹窗
     // moneyshow: false,
@@ -34,6 +34,7 @@ Page({
     let that = this
     // 替ta发起信息提交
     let foi = wx.getStorageSync('forOtherInfo')
+    console.log('foi', foi)
     let smbj = {
       url: useUrl.postTitaFaqi,
       data: {
@@ -59,7 +60,7 @@ Page({
         pay_type: that.data.payType
       },
       complete (res) {
-        console.log(res)
+        // console.log(res)
         // 订单响应成功
         if (res.data.data.order_ta_id) {
           that.setData({
@@ -86,6 +87,7 @@ Page({
               }
             }
             app.wxrequest(tiTAPay)
+            return
             // 发起支付
             // return that.moneyPay(res.data.data.order_ta_id, 'forOther')
           }
@@ -100,6 +102,7 @@ Page({
   },
   // 信息提交后判断是否需要支付
   moneyPay (e, type) {
+    console.log(e)
     let that = this
     // 支付参数
     let payObj = {
@@ -109,18 +112,37 @@ Page({
       paySign: e.paySign,
       success (res) {
         // 支付成功响应
-        console.log(res)
-        if (type === 'forOther') {
-          that.setData({
-            sendMask: true
-          })
+        console.log('支付情况', res)
+        if (res.errMsg === 'requestPayment:ok') {
+          if (type === 'forOther') {
+            that.setData({
+              sendMask: true
+            })
+          } else {
+            that.setData({
+              datingSuccess: true
+            })
+          }
         } else {
-          that.setData({
-            datingSuccess: true
+          wx.showToast({
+            title: '未完成支付'
           })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1000)
         }
       },
       fail (res) {
+        wx.showToast({
+          title: '未完成支付'
+        })
+        setTimeout(function () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 1000)
         console.log('支付失败', res)
       }
     }
@@ -259,22 +281,22 @@ Page({
         success (res) {
           console.log('保证金支付', res)
           let yxObj = {
-            timeStamp: res.timeStamp,
-            nonceStr: res.nonceStr,
-            package: res.package,
-            paySign: res.paySign,
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
+            paySign: res.data.data.paySign,
             success (res) {
               // 支付成功
-              that.setData({
-                moneyshow: false
-              })
+              // console.log(res)
+              // console.log(res.errMsg)
+              if (res.errMsg === 'requestPayment:ok') {
+                that.setData({
+                  moneyshow: false
+                })
+              }
             },
             fail (res) {
-              // 支付失败
-              // todo 删除
-              that.setData({
-                moneyshow: false
-              })
+              console.log('支付失败', res)
             }
           }
           app.wxpay(yxObj)
@@ -308,7 +330,7 @@ Page({
   // 发起邀约生成订单信息
   sendOrderData () {
     let that = this
-    console.log(wx.getStorageSync('session_key'))
+    // console.log(wx.getStorageSync('session_key'))
     let obj = {
       url: useUrl.postFaqiYaoyue,
       data: {
@@ -482,6 +504,9 @@ Page({
   // 页面内转发
   onShareAppMessage () {
     let that = this
+    this.setData({
+      sendMask: false
+    })
     return {
       title: '有好友替您发起邀约，赶快确认吧',
       path: '/pages/otherConfirm/otherConfirm?orderTaId=' + that.data.order_ta_id + '&days=' + that.data.days + '&title=' + that.data.title + '&address=' + that.data.address,
@@ -489,6 +514,11 @@ Page({
       success () {
         that.setData({
           datingSuccess: true
+        })
+      },
+      fail () {
+        that.setData({
+          sendMask: true
         })
       }
     }
