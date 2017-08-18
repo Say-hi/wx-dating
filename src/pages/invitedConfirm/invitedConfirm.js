@@ -153,13 +153,17 @@ Page({
       },
       success (res) {
         if (res.data.code === 400) {
+          let text = '哎呀，您来晚了，该邀约已生效'
+          if (res.data.message === '不能应邀自己发起的邀约') {
+            text = '不能应邀自己发起的邀约'
+          }
           wx.showToast({
-            title: '哎呀，您来晚了，该邀约已生效',
+            title: text,
             mask: true
           })
           return setTimeout(function () {
-            wx.navigateBack({
-              delta: 2
+            wx.reLaunch({
+              url: '../index2/index2'
             })
           }, 1500)
         }

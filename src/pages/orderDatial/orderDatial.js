@@ -113,9 +113,15 @@ Page({
           that.moneyPay(res.data.data)
           return
         } else {
+          if (res.data.message === '应邀者付清') {
+            return wx.showToast({
+              title: '需应邀者付清'
+            })
+          }
           wx.showToast({
             title: '支付成功'
           })
+
           that.getOrderInfo(that.data.id)
         }
       }
@@ -124,7 +130,7 @@ Page({
   },
   moneyPay (e) {
     // console.log(e)
-    // let that = this
+    let that = this
     // 支付参数
     let payObj = {
       timeStamp: e.timeStamp,
