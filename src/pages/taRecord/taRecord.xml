@@ -1,17 +1,27 @@
 <!--个人中心的ta的档案页面-->
 <view class="ta-record">
   <navigator url="../taRecordDetail/taRecordDetail" wx:if="{{ userList.length == 0 }}" class="no-record">创建一份Ta的档案</navigator>
-  <block wx:for="{{ userList }}">
-    <view class="wrap">
+  <block wx:if="{{ userList.length > 0 }}" wx:for="{{ userList }}">
+    <!--catchtap="{{ !choose ? gotodetail : backChoose }}"-->
+    <view wx:if="{{ !choose }}" catchtap="gotodetail" class="wrap" data-id="{{item.id}}">
       <image src="{{ item.avatar }}"></image>
       <view class="name-wrap">
         <view class="iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
         <view>昵称:{{ item.user_nicename }}</view>
       </view>
-      <view wx:if="{{ !choose }}" class="edit" catchtap="gotodetail" data-id="{{item.id}}">编辑资料</view>
-      <view wx:else class="edit" catchtap="backChoose" data-id="{{item.id}}">选择Ta</view>
+      <view class="edit" catchtap="gotodetail" data-id="{{item.id}}">编辑资料</view>
+      <!--<view class="edit" catchtap="backChoose" data-id="{{item.id}}">选择Ta</view>-->
+    </view>
+    <view wx:else class="wrap" catchtap="backChoose" data-id="{{item.id}}">
+      <image src="{{ item.avatar }}"></image>
+      <view class="name-wrap">
+        <view class="iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
+        <view>昵称:{{ item.user_nicename }}</view>
+      </view>
+      <!--<view wx:if="{{ !choose }}" class="edit" catchtap="gotodetail" data-id="{{item.id}}">编辑资料</view>-->
+      <view class="edit" catchtap="backChoose" data-id="{{item.id}}">选择Ta</view>
     </view>
   </block>
-  <navigator url="../taRecordDetail/taRecordDetail" class="no-record">创建一份Ta的档案</navigator>
-  <view class="tips">创建好的档案将会在您替Ta人发起邀约后，自动和确认者进行关联</view>
+  <!--<navigator url="../taRecordDetail/taRecordDetail" class="no-record">创建一份Ta的档案</navigator>-->
+  <!--<view class="tips">创建好的档案将会在您替Ta人发起邀约后，自动和确认者进行关联</view>-->
 </view>

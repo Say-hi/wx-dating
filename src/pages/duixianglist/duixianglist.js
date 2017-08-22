@@ -68,6 +68,7 @@ Page({
         if (res.data.data.length === 0) {
           return wx.showToast({
             title: '没有新的内容了',
+            duration: 1000,
             mask: true
           })
         }

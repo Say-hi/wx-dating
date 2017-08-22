@@ -69,7 +69,7 @@ Page({
       },
       success (res) {
         let i = res.data.data
-        let job1 = i.job.split('-')
+        let job1 = i.job.split('-') || '不限'
         let v1 = that.data.industryOne.indexOf(job1[0])
         let v2 = 0
         if (v1 < 24) {

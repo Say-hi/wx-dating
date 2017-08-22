@@ -4,14 +4,14 @@
   //padding: 0 20rpx;
   line-height: 88rpx;
   //background-color: #f00;
-  @image: 168rpx;
+  @image: 199rpx;
   .photo-top {
     border-bottom: 2rpx solid #ccc;
     padding-left: 70rpx;
   }
   .arrow::after {
-    width: 14rpx;
-    height: 14rpx;
+    width: 20rpx;
+    height: 20rpx;
     color: #ccc;
   }
   .photo-top::before {
@@ -21,14 +21,15 @@
     transform: translate(-70rpx,-50%);
   }
   .photo-show {
+    box-sizing: border-box;
     height: @image;
     //background-color: #f00;
     padding: 15rpx 20rpx;
     display: flex;
     border-bottom: 10rpx solid #eee;
     image {
-      height: @image;
-      width: @image;
+      height: 168rpx;
+      width: 168rpx;
       margin-right: 10rpx;
     }
     image:nth-child(4) {

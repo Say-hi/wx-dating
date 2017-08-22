@@ -20,7 +20,8 @@ Page({
     selectBy: '筛选',
     selectdata: 2,
     page: 1,
-    content: []
+    content: [],
+    showText: '您所在地区暂时无法提供服务，请点击左上角更换地区。'
   },
   // 选择排序方式
   selectchoose (e) {
@@ -67,9 +68,10 @@ Page({
             city: '不在服务范围内',
             ifarrow: true,
             setAdd: false,
-            // lat: res.result.location.lat,
-            // lng: res.result.location.lng,
-            area: ''
+            lat: res.result.location.lat,
+            lng: res.result.location.lng,
+            area: '',
+            show: true
           })
         }
         if (citys[city][0] !== '附近') {
@@ -227,10 +229,15 @@ Page({
         success (res) {
           // console.log(res)
           if (res.data.data.length <= 0) {
+            if (page === 1) {
+              that.setData({
+                show: true
+              })
+            }
             return wx.showToast({
               title: '暂时没有更多内容啦',
               image: '../../images/jiong.png',
-              duration: 2000,
+              duration: 1000,
               mask: true
             })
           }
@@ -238,6 +245,7 @@ Page({
             that.data.content.push(i)
           }
           that.setData({
+            show: false,
             content: that.data.content
           })
         }
@@ -257,9 +265,15 @@ Page({
         success (res) {
           // console.log(res)
           if (res.data.data.length <= 0) {
+            if (page === 1) {
+              that.setData({
+                show: true
+              })
+            }
             return wx.showToast({
               title: '没有更多内容啦',
               image: '../../images/jiong.png',
+              duration: 1000,
               mask: true
             })
           }
@@ -267,6 +281,7 @@ Page({
             that.data.content.push(i)
           }
           that.setData({
+            show: false,
             content: that.data.content
           })
         }

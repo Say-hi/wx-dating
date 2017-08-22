@@ -47,7 +47,7 @@ Page({
   data: {
     title: '约会日',
     userInfo: {},
-    showText: '进入约会',
+    showText: '今日约会',
     vertical: true,
     indicatorDots: false,
     autoplay: false,
@@ -160,10 +160,13 @@ Page({
   },
   // 选择日期
   selectDay (e) {
+    let type = e.currentTarget.dataset.type
+    if (type === 'nochoose') return
     let that = this
     let i = e.currentTarget.dataset.i
     let currentMonth = this.data.dateArr[i].dateData.arrInfoEx
     let d = e.currentTarget.dataset.dayIndex
+
     let detailDate = {
       curYear: currentMonth[d].sYear,
       curMonth: currentMonth[d].sMonth,
@@ -197,10 +200,9 @@ Page({
         } else {
           if (page === 1) {
             // console.log('123')
-            return
-            // wx.navigateTo({
-            //   url: '../plans/plans'
-            // })
+            return wx.navigateTo({
+              url: '../plans/plans'
+            })
           }
           that.setData({
             userList: that.data.userList

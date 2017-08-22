@@ -16,6 +16,8 @@ Page({
     payType: 1,
     mobile: 0,
     maskTitle: '信息已保存,转发给Ta确认',
+    timeArr: ['请选择时间段'],
+    timeIndex: 0,
     // price: '168',
     // 意向金弹窗
     // moneyshow: false,
@@ -32,6 +34,13 @@ Page({
   // 发给本人确认
   sendToConfirmPeople () {
     let that = this
+    if (that.data.timeIndex * 1 === 0) {
+      return wx.showToast({
+        image: '../../images/jiong.png',
+        mask: true,
+        title: '请选择约会时间'
+      })
+    }
     // 替ta发起信息提交
     let foi = wx.getStorageSync('forOtherInfo')
     console.log('foi', foi)
@@ -54,7 +63,7 @@ Page({
         photos: foi.photos,
         id: that.data.id,
         date: that.data.day,
-        time: that.data.time,
+        time: that.data.timeArr[that.data.timeIndex],
         mobile: that.data.mobile,
         is_zhidai: (that.data.people === '寻约会对象') ? '1' : '2',
         pay_type: that.data.payType
@@ -256,15 +265,15 @@ Page({
     })
   },
   // 时间选择
-  bindChange (e) {
-    let time = (e.detail.value[0] < 10 ? '0' + e.detail.value[0] : e.detail.value[0]) + ':' + (e.detail.value[1] < 10 ? '0' + e.detail.value[1] : e.detail.value[1])
-    this.setData({
-      one: e.detail.value[0],
-      two: e.detail.value[1],
-      time: time,
-      value: e.detail.value
-    })
-  },
+  // bindChange (e) {
+  //   let time = (e.detail.value[0] < 10 ? '0' + e.detail.value[0] : e.detail.value[0]) + ':' + (e.detail.value[1] < 10 ? '0' + e.detail.value[1] : e.detail.value[1])
+  //   this.setData({
+  //     one: e.detail.value[0],
+  //     two: e.detail.value[1],
+  //     time: time,
+  //     value: e.detail.value
+  //   })
+  // },
   // 去除遮罩层
   delMask (e) {
     let that = this
@@ -325,6 +334,18 @@ Page({
         title: '请填写完整的手机号码'
       })
     }
+    if (this.data.timeIndex * 1 === 0) {
+      return wx.showToast({
+        image: '../../images/jiong.png',
+        mask: true,
+        title: '请选择约会时间'
+      })
+    }
+    if (this.data.datashow && this.data.people !== '自带约会对象') {
+      return this.setData({
+        datashows: true
+      })
+    }
     this.sendOrderData()
   },
   // 发起邀约生成订单信息
@@ -337,7 +358,7 @@ Page({
         session_key: wx.getStorageSync('session_key'),
         id: that.data.id,
         date: that.data.day,
-        time: that.data.time,
+        time: that.data.timeArr[that.data.timeIndex],
         mobile: that.data.mobile,
         is_zhidai: (that.data.people === '寻约会对象') ? '1' : '2',
         pay_type: that.data.payType
@@ -400,13 +421,14 @@ Page({
       },
       success (res) {
         if (res.data.data.is_perfect_data.toString() === '0') {
-          // 完整数据 1
           that.setData({
             datashow: true
           })
         } else if (res.data.data.is_perfect_data.toString() === '1') {
+          // 完整数据 1
           that.setData({
-            datashow: false
+            datashow: false,
+            datashows: false
           })
         }
         if (res.data.data.isShiyue.toString() === '1') {
@@ -415,15 +437,40 @@ Page({
             cancelshow: true
           })
         }
-        if (res.data.data.isHasBaomoney.toString() === '0') {
-          // 无保证金 0
-          that.setData({
-            moneyshow: true
-          })
-        }
+        // if (res.data.data.isHasBaomoney.toString() === '0') {
+        //   // 无保证金 0
+        //   that.setData({
+        //     moneyshow: true
+        //   })
+        // }
       }
     }
     app.wxrequest(obj)
+  },
+  // 获取套餐时间列表
+  getOrderTime (id) {
+    let that = this
+    let sb = {
+      url: useUrl.packageDateTimeLists,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        id: id
+      },
+      success (res) {
+        that.setData({
+          timeArr: that.data.timeArr.concat(res.data.data)
+        })
+        // console.log(res.data.data)
+      }
+    }
+    app.wxrequest(sb)
+  },
+  // picker选择器
+  bindPickerChange (e) {
+    let value = e.detail.value
+    this.setData({
+      timeIndex: value
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -436,24 +483,25 @@ Page({
         payType: 0
       })
     }
+    this.getOrderTime(params.id)
     // 时间选择项生成
-    let industryOne = []
-    let industryTwo = []
-    for (let i = 0; i < 60; i++) {
-      if (i < 10) {
-        let s = '0' + i
-        industryOne.push(s)
-        industryTwo.push(s)
-      } else if (i < 24) {
-        industryOne.push(i)
-        industryTwo.push(i)
-      } else {
-        industryTwo.push(i)
-      }
-    }
+    // let industryOne = []
+    // let industryTwo = []
+    // for (let i = 0; i < 60; i++) {
+    //   if (i < 10) {
+    //     let s = '0' + i
+    //     industryOne.push(s)
+    //     industryTwo.push(s)
+    //   } else if (i < 24) {
+    //     industryOne.push(i)
+    //     industryTwo.push(i)
+    //   } else {
+    //     industryTwo.push(i)
+    //   }
+    // }
     this.setData({
-      industryTwo: industryTwo,
-      industryOne: industryOne,
+      // industryTwo: industryTwo,
+      // industryOne: industryOne,
       price: params.price || '',
       address: params.address || '',
       title: params.title || '',
@@ -508,12 +556,15 @@ Page({
       sendMask: false
     })
     return {
-      title: '有好友替您发起邀约，赶快确认吧',
+      title: '有好友替您发起以下邀约:',
       path: '/pages/otherConfirm/otherConfirm?orderTaId=' + that.data.order_ta_id + '&days=' + that.data.days + '&title=' + that.data.title + '&address=' + that.data.address,
       // 转发成功响应
       success () {
-        that.setData({
-          datingSuccess: true
+        // that.setData({
+        //   datingSuccess: true
+        // })
+        wx.navigateBack({
+          delta: 1
         })
       },
       fail () {

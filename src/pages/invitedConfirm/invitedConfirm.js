@@ -19,11 +19,11 @@ Page({
       },
       success (res) {
         if (res.data.data.is_perfect_data.toString() === '0') {
-          // 完整数据 1
           that.setData({
             datashows: true
           })
         } else if (res.data.data.is_perfect_data.toString() === '1') {
+          // 完整数据 1
           that.setData({
             datashows: false
           })
@@ -86,6 +86,11 @@ Page({
               title: '充值失败，请再次尝试',
               mask: true
             })
+            setTimeout(function () {
+              wx.reLaunch({
+                url: '../index2/index2'
+              })
+            }, 1000)
           }
         }
         app.wxpay(yxObj)
@@ -122,17 +127,22 @@ Page({
             // }
           })
           setTimeout(function () {
-            wx.navigateBack({
-              delta: 1
+            wx.reLaunch({
+              url: '../index2/index2'
             })
           }, 1500)
         } else {
           wx.showToast({
             title: res.data.message,
             image: '../../images/jiong.png',
-            duration: 2000,
+            duration: 1500,
             mask: true
           })
+          setTimeout(function () {
+            wx.reLaunch({
+              url: '../index2/index2'
+            })
+          }, 1500)
         }
       }
     }
@@ -143,7 +153,6 @@ Page({
    */
   onLoad (params) {
     let that = this
-    this.checkUser()
     // todo 获取套餐信息
     let obj = {
       url: useUrl.confirmedByInvitation,
@@ -156,6 +165,15 @@ Page({
           let text = '哎呀，您来晚了，该邀约已生效'
           if (res.data.message === '不能应邀自己发起的邀约') {
             text = '不能应邀自己发起的邀约'
+            wx.showToast({
+              title: text,
+              mask: true
+            })
+            return setTimeout(function () {
+              wx.reLaunch({
+                url: '../userOrder/userOrder'
+              })
+            }, 1500)
           }
           wx.showToast({
             title: text,
@@ -193,6 +211,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.checkUser()
     // TODO: onShow
   },
 

@@ -94,7 +94,7 @@ Page({
           wx.showToast({
             title: '关注成功'
           })
-          this.getUserDetail(that.data.id)
+          that.getUserDetail(that.data.id)
           // that.data.user.isSubscribe = true
           // that.setData({
           //   btnText: '已关注',

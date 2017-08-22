@@ -19,7 +19,7 @@
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->
-  <image catchtap="getUserInfo" class="user-avatar-url {{ logins ? '' : 'user-avatar-url-no' }}" src="{{userInfo.avatarUrl || '../../images/login-img.png'}}"></image>
+  <image catchtap="getUserInfo" class="user-avatar-url {{ logins ? '' : 'user-avatar-url-no' }}" src="{{ userInfo.avatarUrl }}"></image>
   <view class="user-nick-name-wrap">
     <navigator hover-class="none" url="{{ logins ? '../userOrder/userOrder' : '' }}" class="order iconfont icon-dingdan">订单</navigator>
     <!--昵称-->

@@ -8,13 +8,16 @@ Page({
    */
   data: {
     title: 'user',
+    userInfo: {
+      avatarUrl: '../../images/login-img.png'
+    },
     // 视屏
     hasmessage: false, // 有消息状态
     videoSrc: '',
     videoCover: '',
     videoPlay: '../../images/play.png',
     videoControls: true,
-    autoplay: false,
+    autoplay: true,
     show: true,
     playStatus: false,
     objectFit: 'fill',

@@ -69,18 +69,18 @@ Page({
     })
   },
   // 首先获取自己的资料
-  getMyInfo () {
-    let getobj = {
-      url: useUrl.getUserInfoBySelf,
-      data: {
-        session_key: wx.getStorageSync('session_key')
-      },
-      success (res) {
-        console.log(res)
-      }
-    }
-    app.wxrequest(getobj)
-  },
+  // getMyInfo () {
+  //   let getobj = {
+  //     url: useUrl.getUserInfoBySelf,
+  //     data: {
+  //       session_key: wx.getStorageSync('session_key')
+  //     },
+  //     success (res) {
+  //       console.log(res)
+  //     }
+  //   }
+  //   app.wxrequest(getobj)
+  // },
   // 返回错误信息
   error (text) {
     wx.showToast({
@@ -139,11 +139,11 @@ Page({
           duration: 1000,
           mask: true
         })
-        setTimeout(function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 1000)
+        // setTimeout(function () {
+        //   wx.navigateBack({
+        //     delta: 1
+        //   })
+        // }, 1000)
       }
     }
     app.wxrequest(upobj)
@@ -198,6 +198,9 @@ Page({
   delMask () {
     this.setData({
       show: false
+    })
+    wx.navigateBack({
+      delta: 1
     })
   },
   // picker选择器
@@ -324,7 +327,8 @@ Page({
     this.setData({
       ageArr: app.data.ageArr,
       industryOne: app.data.industryOne,
-      industryTwo: app.data.industryTwo
+      industryTwo: app.data.industryTwo,
+      name: wx.getStorageSync('userInfo').nickName || ''
     })
     // this.getMyInfo()
   },

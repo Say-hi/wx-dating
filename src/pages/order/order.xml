@@ -11,17 +11,22 @@
     <view class="name-l">时间:</view>
     <view class="name-r age gender">
       <view class="age-text arrow">
-        <view>{{industryOne[one]}}<text>:{{industryTwo[two]}}</text></view>
-        <view wx:if="{{industryShow}}" catchtap="noMask" class="mask">
-          <picker-view class="mask-picker" indicator-style="height: 50px;"  value="{{value}}" bindchange="bindChange">
-            <picker-view-column>
-              <view wx:for="{{industryOne}}" style="line-height: 50px">{{item}}</view>
-            </picker-view-column>
-            <picker-view-column>
-              <view wx:for="{{industryTwo}}" style="line-height: 50px">{{item}}</view>
-            </picker-view-column>
-          </picker-view>
-        </view>
+        <picker data-type="time" bindchange="bindPickerChange" value="{{timeIndex}}" range="{{timeArr}}">
+          <view class="picker">
+            {{timeArr[timeIndex]}}
+          </view>
+        </picker>
+        <!--<view>{{industryOne[one]}}<text>:{{industryTwo[two]}}</text></view>-->
+        <!--<view wx:if="{{industryShow}}" catchtap="noMask" class="mask">-->
+          <!--<picker-view class="mask-picker" indicator-style="height: 50px;"  value="{{value}}" bindchange="bindChange">-->
+            <!--<picker-view-column>-->
+              <!--<view wx:for="{{industryOne}}" style="line-height: 50px">{{item}}</view>-->
+            <!--</picker-view-column>-->
+            <!--<picker-view-column>-->
+              <!--<view wx:for="{{industryTwo}}" style="line-height: 50px">{{item}}</view>-->
+            <!--</picker-view-column>-->
+          <!--</picker-view>-->
+        <!--</view>-->
       </view>
     </view>
   </view>
@@ -87,7 +92,7 @@
     </view>
   </view>
   <!--confirm-->
-  <view wx:if="{{ type !== 'forOther' }}" catchtap="goPay" class="invitedconfirm">立即支付</view>
+  <view wx:if="{{ type !== 'forOther' }}" catchtap="goPay" class="invitedconfirm">立即发起</view>
   <view wx:else catchtap="sendToConfirmPeople" class="invitedconfirm">发给本人确认</view>
   <!--<button wx:if="{{ type == 'forOther' }}" open-type="share" catchtap="sendToConfirmPeople" class="invitedconfirm">发给本人确认</button>-->
   <!--意向金弹窗-->
@@ -116,7 +121,7 @@
   </view>
   <!--第一次使用完善个人资料弹窗-->
   <import src="../template/template"></import>
-  <template is="finishUserData" data="{{ datashow: datashow }}"></template>
+  <template is="finishUserData" data="{{ datashow: datashows }}"></template>
   <!--<view wx:if="{{ datashow }}" class="usermask">-->
     <!--<view class="usermask-wrap">-->
       <!--<view class="user-top">-->

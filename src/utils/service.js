@@ -2,7 +2,9 @@
  * Created by Administrator on 2017/6/2.
  */
 let baseDomain = 'https://www.lanzhangxiu.cn'
+// let baseDomain = 'http://yuehui.lanzhangxiu.cn'
 let serviceUrl = {
+  packageDateTimeLists: baseDomain + '/api/engagement/packageDateTimeLists',
   // 登陆 post | code iv encryptedData
   login: baseDomain + '/api/user/login',
   // 更新用户信息 post | session_key ganqing age user_height job company residence cart_house likes_sports likes_movies likes_books
@@ -11,7 +13,7 @@ let serviceUrl = {
   getUserInfoBySelf: baseDomain + '/api/user/getUserInfoBySelf',
   // 查看用户资料
   viewUserInformation: baseDomain + '/api/user/ViewUserInformation',
-  // 提交评价
+  // 提交评价s
   postApplyUserComment: baseDomain + '/api/user/postApplyUserComment',
   // 邀请好友评价我的评价页面
   applyUserComment: baseDomain + '/api/user/applyUserComment',
