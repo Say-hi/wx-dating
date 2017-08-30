@@ -44,9 +44,9 @@
         </view>
       </navigator>
     </block>
-    <view class="nolist" wx:if="{{ content.length <=0 && city == '定位中' }}">
-      亲爱的小主，正在定位您当前的位置中，请稍作等待~~
-    </view>
+    <!--<view class="nolist" wx:if="{{ content.length <=0 && city == '定位中' }}">-->
+      <!--亲爱的小主，正在定位您当前的位置中，请稍作等待~~-->
+    <!--</view>-->
   </view>
 </view>
 

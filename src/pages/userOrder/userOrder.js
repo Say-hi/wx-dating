@@ -129,7 +129,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad (params) {
+    if (params.type === 'ta') {
+      this.setData({
+        tabCurrent: 2
+      })
+      return this.getInfo(2, 1)
+    }
     this.getInfo(0, 1)
     // TODO: onLoad
   },

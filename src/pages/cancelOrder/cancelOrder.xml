@@ -1,6 +1,6 @@
 <view class="wrap">
   <view class="top-title">
-    {{ !zd ? '您的约会对象因故取消了与您的邀约，请确认' : '' }}
+    {{ !zd ? '您的约会对象因故取消了与您的邀约，请确认' : '如果是对方爽约，请让对方取消赴约' }}
   </view>
   <!--订单信息-->
   <view class="order-info">

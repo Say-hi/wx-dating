@@ -1,4 +1,5 @@
 //搜索
+
 .search {
   height: 98rpx;
   background-color: #fff;
@@ -76,20 +77,37 @@
       line-height: 32rpx;
       text-align: center;
     }
+    .p-name-w {
+      width: 250rpx;
+      overflow: hidden;
+      //background-color: #ff0;
+      display: flex;
+      align-items: center;
+    }
     .p-name {
       font-size: 36rpx;
       color: #333;
       font-weight: 700;
       position: relative;
+      max-width: 250rpx;
+      //overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      //background: #f00;
     }
-    .p-name::after {
-      position: absolute;
-      top: 50%;
+    .sasd::after {
       font-size: 24rpx;
       color: #999;
       margin-left: 8rpx;
-      transform: translateY(-50%);
     }
+    //.p-name::after {
+    //  position: absolute;
+    //  top: 50%;
+    //
+    //  transform: translateY(-50%);
+    //}
     .p-follow-btn {
       position: absolute;
       top: 50%;

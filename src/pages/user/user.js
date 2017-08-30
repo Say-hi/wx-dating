@@ -71,8 +71,13 @@ Page({
         if (res.data.data.video_url.length > 0) {
           hasvideo = true
         }
+        // let { userInfo } = that.data
+        // userInfo['avatarUrl'] = res.data.data.avatar
+        // userInfo['nickName'] = res.data.data.user_nicename
+        // userInfo['gender'] = res.data.data.sex
         that.setData({
           hasvideo: hasvideo,
+          // userInfo: that.data.userInfo,
           userPhotos: res.data.data.photos,
           videoSrc: res.data.data.video_url,
           videoCover: res.data.data.video_image || '../../images/video_cover.jpg'
@@ -254,11 +259,22 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
-    // app.login()
+    // app.wxlogin()
+    let that = this
     if (wx.getStorageSync('userInfo')) {
-      this.setData({
-        userInfo: wx.getStorageSync('userInfo'),
-        logins: true
+      wx.login({
+        success () {
+          wx.getUserInfo({
+            success (res) {
+              // console.log(res)
+              res.userInfo['check'] = true
+              that.setData({
+                userInfo: res.userInfo,
+                logins: true
+              })
+            }
+          })
+        }
       })
     } else {
       this.setData({

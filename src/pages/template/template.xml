@@ -39,3 +39,4 @@
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
     <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
 </view>
+

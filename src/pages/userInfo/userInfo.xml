@@ -16,10 +16,10 @@
   <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.name || user.user_nicename }}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
-    <text class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</text>
-    <text class="user-detail">{{ user.age }}</text>
-    <text class="user-detail">{{ user.user_height }}cm</text>
-    <text class="user-detail">{{ user.job }}</text>
+    <view class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</view>
+    <view class="user-detail">{{ user.age }}</view>
+    <view class="user-detail">{{ user.user_height }}cm</view>
+    <view class="user-detail">{{ user.job }}</view>
   </view>
   <button disabled="{{user.isSubscribe}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ user.isSubscribe ? '已关注' : btnText }}</button>
 </view>

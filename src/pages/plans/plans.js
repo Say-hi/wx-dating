@@ -79,7 +79,7 @@ Page({
         }
         that.setData({
           setAdd: false,
-          city: city,
+          city: city + '市',
           cityall: res.result.ad_info.city,
           lat: res.result.location.lat,
           lng: res.result.location.lng,
@@ -221,6 +221,7 @@ Page({
           session_key: wx.getStorageSync('session_key'),
           type: type || 2,
           time: time,
+          city: that.data.city,
           // district: that.data.area,
           lng: that.data.lng,
           lat: that.data.lat,
@@ -257,6 +258,7 @@ Page({
           session_key: wx.getStorageSync('session_key'),
           type: type || 2,
           time: time,
+          city: `${that.data.city}市`,
           district: that.data.area,
           lng: that.data.lng,
           lat: that.data.lat,

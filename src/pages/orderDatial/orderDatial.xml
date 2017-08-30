@@ -32,7 +32,7 @@
   <!--取消回应-->
   <view wx:if="{{ info.cancel }}" class="cancel-respond">
     <view>Ta的回应:</view>
-    <view>{{ order.duixiang.user_id == info.cancel.cancel_user_id ? info.cancel.cancel_liyou : info.cancel.content_huiying }}</view>
+    <view>{{ info.duixiang.user_id == info.cancel.cancel_user_id ? info.cancel.cancel_liyou : info.cancel.content_huiying }}</view>
   </view>
 </view>
  <!--约会信息-->

@@ -116,7 +116,7 @@ Page({
           })
           return setTimeout(function () {
             wx.reLaunch({
-              url: '../index2/index2'
+              url: '../userOrder/userOrder?type=ta'
             })
           }, 1500)
         }
@@ -622,9 +622,9 @@ Page({
             cancelshow: true
           })
         } else if (res.data.data.isHasBaomoney.toString() === '0') {
-          that.setData({
-            moneyshow: true
-          })
+          // that.setData({
+          //   moneyshow: true
+          // })
         }
         that.setData({
           is_perfect_data: res.data.data.is_perfect_data
