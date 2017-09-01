@@ -407,11 +407,11 @@ Page({
     let that = this
     wx.showModal({
       title: '智能修正',
-      content: '将会更新内容为您所填写的资料',
+      content: '更改为您所填写的个人资料',
       showCancel: true,
       cancelText: '不用了',
       cancelColor: '#2b2f41',
-      confirmText: '更新下',
+      confirmText: '更改',
       confirmColor: '#ffc4a6',
       success (res) {
         if (res.confirm) {
@@ -419,6 +419,26 @@ Page({
         }
       }
     })
+  },
+  // 订单生效后跳转
+  goShare () {
+    this.getMyInfo()
+  },
+  // 获取自己的资料
+  getMyInfo () {
+    // let that = this
+    let getobj = {
+      url: useUrl.getUserInfoBySelf,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        wx.redirectTo({
+          url: `../userInfo/userInfo?userId=${res.data.data.user_id}&type=self`
+        })
+      }
+    }
+    app.wxrequest(getobj)
   },
   // 智能修正
   getFixInfo () {

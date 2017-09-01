@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    datashows: false
+    datashows: false,
+    payYx: false
   },
   // 用户资料检查
   checkUser () {
@@ -100,6 +101,11 @@ Page({
   },
   // 意向应邀确认
   confirmInvited () {
+    if (this.data.moneyshow) {
+      return this.setData({
+        payYx: true
+      })
+    }
     let that = this
     let obj = {
       url: useUrl.addApplyByInvitation,
@@ -110,21 +116,13 @@ Page({
       },
       success (res) {
         // console.log(res)
-        console.log(res.data.message)
+        // console.log(res.data.message)
         if (res.data.message === '申请邀约成功' || res.data.code === 200) {
           wx.showToast({
             title: res.data.message,
             icon: 'success',
             duration: 1500,
             mask: true
-            // success () {
-            //   let obj = {
-            //     url: '../index2/index2'
-            //   }
-            //   setTimeout(function () {
-            //     wx.navigateTo(obj)
-            //   }, 2000)
-            // }
           })
           setTimeout(function () {
             wx.reLaunch({

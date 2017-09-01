@@ -48,6 +48,7 @@ Page({
       success (res) {
         res.data.data.job = res.data.data.job.split('-')[1]
         // res.data.data.shenduziliao = false
+        res.data.data['video_image'] = res.data.data.video_image ? res.data.data.video_image : '../../images/login-bg.png'
         that.setData({
           user: res.data.data
         })
@@ -131,9 +132,14 @@ Page({
    */
   onLoad (params) {
     this.setData({
-      id: params.userId
+      id: params.userId,
+      type: params.type || 's'
     })
-    this.getUserDetail(params.userId)
+    if (params.type === 'out') {
+      app.wxlogin(this.getUserDetail, params.userId)
+    } else {
+      this.getUserDetail(params.userId)
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -184,5 +190,19 @@ Page({
       showTaDeep: true,
       showMoreBtn: false
     })
+  },
+  onShareAppMessage () {
+    this.setData({
+      type: 's'
+    })
+    return {
+      title: '有人要一起分享吗？',
+      path: `pages/userInfo/userInfo?userId=${this.data.id}&type=out`,
+      success () {
+        wx.reLaunch({
+          url: '../index2/index2'
+        })
+      }
+    }
   }
 })

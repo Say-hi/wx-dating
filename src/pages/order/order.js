@@ -12,8 +12,8 @@ Page({
     time: '00:00',
     // address: '珠江新城华夏路6号',
     people: '寻约会对象',
-    pay: '我付清',
-    payType: 1,
+    pay: '各付各',
+    payType: 2,
     mobile: 0,
     maskTitle: '信息已保存,转发给Ta确认',
     timeArr: ['请选择时间段'],
@@ -136,22 +136,22 @@ Page({
           wx.showToast({
             title: '未完成支付'
           })
-          setTimeout(function () {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 1000)
+          // setTimeout(function () {
+          //   wx.navigateBack({
+          //     delta: 1
+          //   })
+          // }, 1000)
         }
       },
       fail (res) {
         wx.showToast({
           title: '未完成支付'
         })
-        setTimeout(function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 1000)
+        // setTimeout(function () {
+        //   wx.navigateBack({
+        //     delta: 1
+        //   })
+        // }, 1000)
         console.log('支付失败', res)
       }
     }
@@ -264,6 +264,26 @@ Page({
       payShow: false
     })
   },
+  // 获取自己的资料
+  getMyInfo () {
+    // let that = this
+    let getobj = {
+      url: useUrl.getUserInfoBySelf,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        wx.redirectTo({
+          url: `../userInfo/userInfo?userId=${res.data.data.user_id}&type=self`
+        })
+      }
+    }
+    app.wxrequest(getobj)
+  },
+  // 订单生效后跳转
+  goShare () {
+    this.getMyInfo()
+  },
   // 时间选择
   // bindChange (e) {
   //   let time = (e.detail.value[0] < 10 ? '0' + e.detail.value[0] : e.detail.value[0]) + ':' + (e.detail.value[1] < 10 ? '0' + e.detail.value[1] : e.detail.value[1])
@@ -313,7 +333,7 @@ Page({
       }
       app.wxrequest(obj)
     } else if (type === 'cccc') {
-      wx.switchTab({
+      wx.reLaunch({
         url: '../index2/index2'
       })
       this.setData({
@@ -364,9 +384,15 @@ Page({
         pay_type: that.data.payType
       },
       success (res) {
-        if (res.data.message === '手机号码不正确') {
+        // if (res.data.message === '手机号码不正确') {
+        //   return wx.showToast({
+        //     title: '请填写正确的手机号码',
+        //     mask: true
+        //   })
+        // } else if (res.data.message === '你在这个时间段内有其他邀约')
+        if (res.data.code === 400) {
           return wx.showToast({
-            title: '请填写正确的手机号码',
+            title: res.data.message,
             mask: true
           })
         }
@@ -479,8 +505,8 @@ Page({
     // TODO: onLoad
     if (params.type === 'forOther') {
       this.setData({
-        pay: '替Ta付清',
-        payType: 0
+        pay: '各付各',
+        payType: 2
       })
     }
     this.getOrderTime(params.id)

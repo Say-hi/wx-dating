@@ -4,6 +4,7 @@
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
     "pages/index2/index2",// 首页
+    "pages/newuser/newuser", // 用户首次完善个人资料
     "pages/user/user", // 用户个人中心
     "pages/account/account", // 用户账户
     "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
@@ -19,7 +20,6 @@
     "pages/accountDetail/accountDetail", // 账户消费详情
     "pages/orderDatial/orderDatial", // 订单详情
     "pages/mySurvey/mySurvey", // 我的问卷
-    "pages/newuser/newuser", // 用户首次完善个人资料
     "pages/order/order", // 填写订单
     "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
     "pages/plans/plans",// 约会计划-套餐列表

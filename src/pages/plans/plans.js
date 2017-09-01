@@ -238,7 +238,7 @@ Page({
             return wx.showToast({
               title: '暂时没有更多内容啦',
               image: '../../images/jiong.png',
-              duration: 1000,
+              duration: 700,
               mask: true
             })
           }

@@ -48,6 +48,11 @@ Page({
       address: that.data.orderInfo.address
     })
   },
+  gohome () {
+    wx.reLaunch({
+      url: '../index2/index2'
+    })
+  },
   // 触摸开始
   // touchStart (e) {
   //   this.setData({

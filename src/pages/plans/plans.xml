@@ -50,6 +50,6 @@
   </view>
 </view>
 
-<view class="nolist ssss" wx:if="{{ show }}">
-  <text>{{ showText }}</text>
-</view>
+<!--<view class="nolist ssss" wx:if="{{ show }}">-->
+  <!--<text>{{ showText }}</text>-->
+<!--</view>-->

@@ -41,7 +41,7 @@
   <!--confirm-->
   <view catchtap="confirmInvited" class="invitedconfirm">意向应邀</view>
   <!--意向金弹窗-->
-  <view wx:if="{{ moneyshow }}" class="mask">
+  <view wx:if="{{ (moneyshow && payYx) }}" class="mask">
     <view class="mask-wrap">
       <view class="ts">提示</view>
       <view class="ts-two">

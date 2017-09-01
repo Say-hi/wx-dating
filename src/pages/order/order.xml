@@ -136,12 +136,20 @@
   <!--</view>-->
 </view>
 <!--发起成功-->
-<view wx:if="{{ datingSuccess }}" class="success-mask">
-  <image class="success-img" src="../../images/dating-success.png"></image>
-  <view class="success-text">发起邀约成功，请等待通知</view>
-  <view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>
-  <image class="erweima" src="../../images/erweima.jpg"></image>
-  <view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>
+<view wx:if="{{ datingSuccess }}" class="mask">
+  <!--<image class="success-img" src="../../images/dating-success.png"></image>-->
+  <!--<view class="success-text">发起邀约成功，请等待通知</view>-->
+  <!--<view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>-->
+  <!--<image class="erweima" src="../../images/erweima.jpg"></image>-->
+  <!--<view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>-->
+  <view class="mask-wrap">
+    <view class="mask-title sc">
+      发起邀约成功，请搜索“约会日”关注公众号，否则不能及时接收动态通知
+    </view>
+    <view catchtap="goShare" class="mask-confirm">
+      确认
+    </view>
+  </view>
 </view>
 <!--转发确认弹窗-->
 <view wx:if="{{ sendMask }}" class="mask">

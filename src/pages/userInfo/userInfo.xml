@@ -1,10 +1,11 @@
 <!--个人资料展示页面-->
 <import src="../template/template"></import>
+<button wx:if="{{ type == 'self' }}" open-type="share" class="share">点击转发邀请微信好友</button>
 <!--视屏-->
 <view class="video-area">
   <!--<video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>-->
   <view class="video-cover-wrap">
-    <image mode="aspectFill" class="video-cover" src="{{ user.video_image || '../../images/login-bg.png' }}"></image>
+    <image mode="aspectFill" class="video-cover" src="{{ user.video_image }}"></image>
     <image catchtap="playVideo" class="video-play" src="{{ videoPlay }}"></image>
   </view>
 </view>
@@ -37,7 +38,10 @@
   <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
   <view class="photo-show" wx:if="true">
     <block wx:for="{{ user.ta_photos }}" wx:for-item="photo" wx:key="unique">
-      <image mode="aspectFit" src="{{ photo.photo_url }}"></image>
+      <view class="photo-wrap">
+        <image mode="aspectFit" src="{{ photo.photo_url }}"></image>
+        <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
+      </view>
     </block>
     <view class="camera" style="font-size: 26rpx;" wx:if="{{ user.ta_photos.length == 0 }}">Ta暂时没有上传图片哦</view>
   </view>
