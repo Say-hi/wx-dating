@@ -11,7 +11,7 @@ Page({
     title: 'userInfo',
     logins: true,
     // 视屏
-    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+    videoSrc: '',
     videoCover: '../../images/video_cover.jpg',
     videoPlay: '../../images/play.png',
     videoControls: true,
@@ -113,6 +113,11 @@ Page({
   },
   // 播放视屏
   playVideo () {
+    if (this.data.user.video_url.length <= 1) {
+      return wx.showToast({
+        title: '该用户未上传视频'
+      })
+    }
     this.setData({
       autoplay: true,
       show: false,
@@ -181,9 +186,9 @@ Page({
   // 上拉触底操作
   onReachBottom () {
     // todo 判断是否关注了
-    if (!this.data.user.isSubscribe) {
+    if (!this.data.user.shenduziliao) {
       return wx.showToast({
-        title: '您需要关注用户方可查看深度资料'
+        title: '约会成功才可查看对方深度资料'
       })
     }
     this.setData({

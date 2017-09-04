@@ -215,6 +215,9 @@ Page({
     let time = that.data.year + '-' + (that.data.month_n < 10 ? '0' + that.data.month_n : that.data.month_n) + '-' + (that.data.day < 10 ? '0' + that.data.day : that.data.day)
     let obj = {}
     if (that.data.area === '附近') {
+      if (that.data.city.length === 2) {
+        that.data.city += '市'
+      }
       obj = {
         url: useUrl.engagementLists,
         data: {
@@ -235,12 +238,14 @@ Page({
                 show: true
               })
             }
-            return wx.showToast({
-              title: '暂时没有更多内容啦',
-              image: '../../images/jiong.png',
-              duration: 700,
-              mask: true
-            })
+            // return
+            return
+            // wx.showToast({
+            //   title: '暂时没有更多内容啦',
+            //   image: '../../images/jiong.png',
+            //   duration: 700,
+            //   mask: true
+            // })
           }
           for (let i of res.data.data) {
             that.data.content.push(i)
@@ -272,12 +277,13 @@ Page({
                 show: true
               })
             }
-            return wx.showToast({
-              title: '没有更多内容啦',
-              image: '../../images/jiong.png',
-              duration: 1000,
-              mask: true
-            })
+            return
+            // wx.showToast({
+            //   title: '没有更多内容啦',
+            //   image: '../../images/jiong.png',
+            //   duration: 1000,
+            //   mask: true
+            // })
           }
           for (let i of res.data.data) {
             that.data.content.push(i)

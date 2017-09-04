@@ -72,7 +72,7 @@ Page({
         datingInfo[2].text = s.duixiang.user_nicename || '暂无数据'
         datingInfo[3].text = '￥' + s.money
         datingInfo[4].text = s.mobile || '暂无数据'
-        datingInfo[5].text = that.data.type[s.is_zhidai * 1]
+        datingInfo[5].text = that.data.type[s.is_zhidai * 1 - 1]
         datingInfo[6].text = that.data.payType[s.pay_type * 1]
         that.setData({
           info: s,
@@ -117,11 +117,11 @@ Page({
             return wx.showToast({
               title: '需应邀者付清'
             })
+          } else if (res.data.message === '该订单已经完成支付') {
+            return wx.showToast({
+              title: '该订单已完成支付'
+            })
           }
-          wx.showToast({
-            title: '支付成功'
-          })
-
           that.getOrderInfo(that.data.id)
         }
       }

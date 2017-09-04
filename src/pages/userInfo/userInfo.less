@@ -92,6 +92,9 @@
     border-color: #ccc;
   }
 }
+.user-s {
+  padding-bottom: 0;
+}
 // 个人邀请信息
 .invite {
   border-bottom: 10rpx solid #eee;
@@ -280,11 +283,15 @@
 }
 // 转发按钮
 .share {
-  position: fixed;
-  z-index: 10000;
-  top: 0;
-  left: 0;
-  line-height: 60rpx;
-  background-color: #ffc4a6;
+  width: 100%;
+  background-color: #fff;
+  //line-height: 0rpx;
+  margin-top: 30rpx;
+  border-top: 10rpx solid #eee;
+  color: #A6A6A6;
+  //border-bottom: 10rpx solid #eee;
   font-size: 30rpx;
+}
+.share::after {
+  border: none;
 }

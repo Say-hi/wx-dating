@@ -67,11 +67,11 @@
   <view class="bottom-wrap">
       <view class="schedule"></view>
       <view class="show-bottom">
-          <navigator hover-class="none" url="../plans/plans" class="show-bottom-wrap">
+          <view catchtap="goPlan" class="show-bottom-wrap">
               <view class="show">
-                  {{ showText }}
+                  今日约会
               </view>
-          </navigator>
+          </view>
       </view>
   </view>
 </view>

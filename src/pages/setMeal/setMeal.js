@@ -135,6 +135,12 @@ Page({
    */
   onLoad (params) {
     this.getMeal(params.id)
+    if (params.type === 'out') {
+      return this.setData({
+        type: 'out',
+        shopTime: params.time
+      })
+    }
     let time = wx.getStorageSync('time')
     time = time.y + '.' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '.' + (time.d < 10 ? '0' + time.d : time.d)
     this.setData({

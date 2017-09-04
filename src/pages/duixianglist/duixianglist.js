@@ -32,7 +32,7 @@ Page({
   },
   yingyoa (e) {
     let that = this
-    wx.reLaunch({
+    wx.redirectTo({
       url: '../invitedConfirm/invitedConfirm?id=' + e.currentTarget.dataset.id + '&title=' + that.data.title
     })
   },

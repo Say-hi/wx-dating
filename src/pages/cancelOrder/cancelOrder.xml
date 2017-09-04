@@ -28,7 +28,7 @@
       </view>
     </view>
     <!--约会对象-->
-    <navigator url="../userInfo/userInfo?userId={{ order.user_info.user_id }}"  class="dating-people arrow">
+    <navigator wx:if="{{ order.user_info }}" url="../userInfo/userInfo?userId={{ order.user_info.user_id }}"  class="dating-people arrow">
       <image class="p-img" src="{{ order.user_info.avatar }}"></image>
       <view class="p-name iconfont {{ order.user_info.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.user_info.name || order.user_info.user_nicename }}</view>
     </navigator>

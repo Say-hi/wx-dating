@@ -124,11 +124,14 @@ Page({
             duration: 1500,
             mask: true
           })
-          setTimeout(function () {
-            wx.reLaunch({
-              url: '../index2/index2'
-            })
-          }, 1500)
+          // setTimeout(function () {
+          //   wx.reLaunch({
+          //     url: '../index2/index2'
+          //   })
+          // }, 1500)
+          that.setData({
+            datingSuccess: true
+          })
         } else {
           wx.showToast({
             title: res.data.message,
@@ -168,7 +171,7 @@ Page({
               mask: true
             })
             return setTimeout(function () {
-              wx.reLaunch({
+              wx.redirectTo({
                 url: '../userOrder/userOrder'
               })
             }, 1500)

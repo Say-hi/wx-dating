@@ -14,11 +14,11 @@
         </view>
         <view class="dx-right">
           <view data-id="{{ item.order_id }}" class="yingyao" catchtap='yingyoa'>应邀</view>
-          <view class="money">{{ item.money }}元/位</view>
+          <view class="money">{{ item.money }}元</view>
         </view>
       </navigator>
     </block>
-    <view wx:if="{{ listArr.length == 0 || !lisArr }}" style="color: #ccc; text-align: center; font-size: 30rpx; margin-top: 20rpx;">当日暂无可应邀订单</view>
+    <!--<view wx:if="{{ listArr.length == 0 }}" style="color: #ccc; text-align: center; font-size: 30rpx; margin-top: 20rpx;">当日暂无可应邀订单</view>-->
   </view>
 </view>
 <view class="mm" catchtap="cancel" wx:if="{{ show }}">

@@ -32,10 +32,10 @@
   <!--意向。。。-->
   <view class="bottom-text">
     <view>
-      *意向应邀是指在缴纳意向保证金100元的前提下，可以选择最多5个约会对象进行应邀，最快回复的意向对象为最终约会对象，其余意向邀约自动作废，并以此为准支付费用。
+      *意向应邀是指在缴纳意向保证金100元的前提下，可以选择任意约会对象进行应邀，最快回复的意向对象为最终约会对象，其余意向邀约自动作废，并以此为准支付费用。
     </view>
     <view>
-      *在约会开始前一天24点前，仍未约会成功，费用将全额退回至个人余额账户。
+      *在约会开始前三小时，仍未约会成功，费用将全额退回至个人余额账户。
     </view>
   </view>
   <!--confirm-->
@@ -54,4 +54,20 @@
   </view>
   <!--个人资料完善弹窗-->
   <template is="finishUserData" data="{{ datashow: datashows }}"></template>
+</view>
+
+<view wx:if="{{ datingSuccess }}" class="success-mask">
+<image class="success-img" src="../../images/dating-success.png"></image>
+<view class="success-text">意向应邀成功，请等待通知</view>
+<view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>
+<image class="erweima" src="../../images/erweima.jpg"></image>
+<view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>
+<!--<view class="mask-wrap">-->
+  <!--<view class="mask-title sc">-->
+    <!--发起邀约成功，请搜索“约会日”关注公众号，否则不能及时接收动态通知-->
+  <!--</view>-->
+  <!--<view catchtap="goShare" class="mask-confirm">-->
+    <!--确认-->
+  <!--</view>-->
+<!--</view>-->
 </view>

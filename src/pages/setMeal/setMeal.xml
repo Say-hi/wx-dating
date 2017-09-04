@@ -35,7 +35,8 @@
   </view>
 </view>
 <!--底部-->
-<view class="bottom">
+<view class="bottom" wx:if="{{ type != 'out' }}">
+<!--<view class="bottom" >-->
   <view catchtap="forOtherPeople">替Ta发起</view>
   <view catchtap="forMine">发起</view>
   <view catchtap="yingyao">应邀</view>

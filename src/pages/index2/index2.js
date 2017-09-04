@@ -58,6 +58,21 @@ Page({
     friendshow: false,
     userList: []
   },
+  // 去到约会列表
+  goPlan () {
+    let date = this.data.detailData.date.split('年')
+    console.log(date)
+    let y = date[0]
+    let m = MONTH_ENGLISH[date[1].split('月')[0] - 1]
+    let m_n = date[1].split('月')[0]
+    // console.log(m)
+    let d = date[1].split('月')[1]
+    // console.log(d)
+    wx.setStorageSync('time', {y:y, m:m, m_n:m_n, d:d})
+    wx.navigateTo({
+      url: '../plans/plans'
+    })
+  },
   delfriend () {
     this.setData({
       friendshow: false

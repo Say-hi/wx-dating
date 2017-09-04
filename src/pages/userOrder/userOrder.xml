@@ -25,7 +25,7 @@
         <!--底部约会对象-->
         <view class="order-bottom-one" wx:if="{{ ((item.order_status == 1 && tabCurrent != 2)|| item.order_status == 4 || item.order_status == 2 || item.order_status == 0 && tabCurrent == 0) || tabCurrent == 1 || (tabCurrent == 2 && item.order_status != 1) }}">
           <!--todo 跳转到对象的个人主页-->
-          <navigator wx:if="{{ (item.order_status == 1 || item.order_status == 4  || item.order_status == 2 || tabCurrent == 1) || (tabCurrent == 2 && item.order_status != 3) }}"  url="../userInfo/userInfo?userId={{ item.yingyao.user_id }}" open-type="navigate" class="user arrow {{ (item.order_status == 3 || item.order_status == 5) && tabCurrent == 1 || item.order_status != 0 && tabCurrent == 2  ? 'noline': '' }}">
+          <navigator wx:if="{{ (item.yingyao.avatar.length > 0) && ((item.order_status == 1 || item.order_status == 4  || item.order_status == 2 || tabCurrent == 1) || (tabCurrent == 2 && item.order_status != 3)) }}"  url="../userInfo/userInfo?userId={{ item.yingyao.user_id }}" open-type="navigate" class="user arrow {{ (item.order_status == 3 || item.order_status == 5) && tabCurrent == 1 || item.order_status != 0 && tabCurrent == 2  ? 'noline': '' }}">
             <image class="userImg" src="{{ item.yingyao.avatar }}"></image>
             <text class="username iconfont {{ item.yingyao.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.yingyao.user_name }}</text>
           </navigator>

@@ -44,7 +44,7 @@ Page({
       },
       complete () {
         wx.showToast({
-          title: '以接收您的宝贵建议，感谢反馈',
+          title: '已接收您的宝贵建议，感谢反馈',
           duration: 1000,
           mask: true
         })

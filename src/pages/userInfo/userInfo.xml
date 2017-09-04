@@ -1,6 +1,6 @@
 <!--个人资料展示页面-->
 <import src="../template/template"></import>
-<button wx:if="{{ type == 'self' }}" open-type="share" class="share">点击转发邀请微信好友</button>
+
 <!--视屏-->
 <view class="video-area">
   <!--<video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>-->
@@ -10,7 +10,7 @@
   </view>
 </view>
 <!--用户信息-->
-<view class="user-info">
+<view class="user-info {{ type == 'self' ? 'user-s' : '' }}">
   <!--头像-->
   <image class="user-avatar-url" src="{{ user.avatar }}"></image>
   <!--昵称-->
@@ -23,12 +23,13 @@
     <view class="user-detail">{{ user.job }}</view>
   </view>
   <button disabled="{{user.isSubscribe}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ user.isSubscribe ? '已关注' : btnText }}</button>
+  <button wx:if="{{ type == 'self' }}" open-type="share" class="share">右上角转发邀请更多</button>
 </view>
 <!--个人邀请信息-->
 <view class="invite">
   <block wx:for-item="inv" wx:for="{{ user.engagements }}" wx:key="unique">
     <view class="inv-wrap">
-      <navigator open-type="redirect" url="../setMeal/setMeal?id={{ inv.package_id }}" class="inv-text">{{ inv.order_date }}在{{ inv.area }}发布一个邀请</navigator>
+      <navigator open-type="redirect" url="../setMeal/setMeal?id={{ inv.package_id }}&type=out&time={{ inv.order_date }}" class="inv-text">{{ inv.order_date }}在{{ inv.area }}发布一个邀请</navigator>
       <navigator open-type="redirect" hover-class="none" url="../invitedConfirm/invitedConfirm?id={{ inv.order_id }}&title={{ inv.name }}" class="slider invited"><text>应邀</text></navigator>
     </view>
   </block>
@@ -64,10 +65,10 @@
   <view wx:if="{{ user.comment_list.length == 0 }}" style="padding: 20rpx">Ta暂时还没有收到评价</view>
 </view>
 <!--显示更多-->
-<view wx:if="{{ showMoreBtn }}" class="show-more">
-  <view class="xsgd">向上滑动显示更多</view>
-  <view class="xsgd-d"></view>
-</view>
+<!--<view wx:if="{{ showMoreBtn }}" class="show-more">-->
+  <!--<view class="xsgd">向上滑动显示更多</view>-->
+  <!--<view class="xsgd-d"></view>-->
+<!--</view>-->
 <!--Ta的深度资料-->
 <view wx:if="{{ showTaDeep }}" class="moreInfo">
   <view class="moreInfo-title iconfont icon-shenduziliao">Ta的深度资料</view>
@@ -114,5 +115,5 @@
 </view>
 <!--视频弹窗形式-->
 <view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
-  <video bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{user.video_url || videoSrc}}"></video>
+  <video bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{ user.video_url }}"></video>
 </view>

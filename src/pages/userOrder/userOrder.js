@@ -68,6 +68,11 @@ Page({
                   title: '支付成功，订单已确认'
                   // mask: true
                 })
+                setTimeout(function () {
+                  wx.redirectTo({
+                    url: '../userOrder/userOrder'
+                  })
+                }, 1000)
               }
             },
             fail (res) {
