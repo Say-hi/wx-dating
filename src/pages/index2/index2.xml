@@ -41,7 +41,7 @@
                       <!--{{dateData.arrInfoEx[row * 7 + col].solarFestival}}-->
                     </view>
                     <!--农历-->
-                    <view class="calendar-body-dayex {{ out.dateData.arrInfoEx[row * 7 + col].solarFestival ? 'solarFestival' : '' }}">
+                    <view class="calendar-body-dayex {{ (out.dateData.arrInfoEx[row * 7 + col].solarFestival || out.dateData.arrInfoEx[row * 7 + col].lunarFestival) ? 'solarFestival' : '' }}">
                       {{out.dateData.arrInfoEx[row * 7 + col].solarFestival || out.dateData.arrInfoExShow[row * 7 + col]}}
                       <!--{{}}-->
                     </view>
@@ -77,14 +77,15 @@
 </view>
 <!--关注好友邀请信息弹窗-->
 <view catchtap="delfriend" wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">
+<!--<view wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">-->
     <view class="friend-trends">
         <view class="friend-title">好友动态</view>
         <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
             <block wx:for="{{userList}}" wx:for-item="outitem">
                 <!--todo 组件化-->
                 <swiper-item>
-                    <navigator url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
-                        <image src="{{ item.image }}"></image>
+                    <view catchtap="goPlans" data-id="{{ item.order_id }}" data-title="{{ item.name }}" url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
+                        <image src="{{ item.avatar }}"></image>
                         <view class="name-wrap">
                             <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</view>
                             <view class="title">{{ item.name }}</view>
@@ -93,7 +94,7 @@
                         </view>
                         <view class="edit">应邀</view>
                         <!--<view class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>-->
-                    </navigator>
+                    </view>
                 </swiper-item>
             </block>
         </swiper>

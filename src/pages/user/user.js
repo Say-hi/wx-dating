@@ -94,6 +94,12 @@ Page({
       maxDuration: 60,
       camera: 'front',
       success (res) {
+        console.log(res)
+        if (res.duration > 60) {
+          return wx.showToast({
+            title: '请选择视频时间小于1分钟的'
+          })
+        }
         wx.showLoading({
           title: '视频上传中',
           mask: true
@@ -236,12 +242,12 @@ Page({
   getMessage () {
     let that = this
     let obj = {
-      url: useUrl.messageList,
+      url: useUrl.userHasNewMessage,
       data: {
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        if (res.data.data.length !== 0) {
+        if (res.data.data.isHas * 1 === 1) {
           that.setData({
             hasmessage: true
           })
@@ -287,7 +293,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady () {
-    this.getMessage()
     // TODO: onReady
   },
 
@@ -295,6 +300,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.getMessage()
     this.getMyInfo()
     // TODO: onShow
   },

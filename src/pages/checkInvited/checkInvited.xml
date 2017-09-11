@@ -1,7 +1,7 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="out-wrap">
   <block wx:for="{{ userArr }}" wx:key="unique">
-    <view class="wrap">
+    <view class="wrap" data-id="{{ item.user_id }}" catchtap="goUserInfo">
       <image class="user-img" src="{{ item.avatar }}"></image>
       <view class="text">
         <text class="name iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</text>

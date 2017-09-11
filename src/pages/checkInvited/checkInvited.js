@@ -80,6 +80,12 @@ Page({
     }
     app.wxrequest(obj)
   },
+  // 去到用户信息页面
+  goUserInfo (e) {
+    wx.navigateTo({
+      url: `../userInfo/userInfo?userId=${e.currentTarget.dataset.id}`
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

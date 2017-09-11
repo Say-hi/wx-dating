@@ -16,6 +16,7 @@
     <image mode="aspectFill" src="{{ logins ?  hasvideo ? '' : '../../images/login-video.png' : '../../images/login-bg.png' }}"></image>
   <!--</view>-->
 </view>
+<!--<view catchtap="upVideo">upVideo</view>-->
 <!--用户信息-->
 <view class="user-info">
   <!--头像-->

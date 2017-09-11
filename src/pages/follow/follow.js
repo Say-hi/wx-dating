@@ -124,14 +124,18 @@ Page({
   getstranger () {
     let that = this
     let gsbj = {
-      url: useUrl.getStranger,
+      url: useUrl.userHasNewStranger,
       data: {
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        if (res.data.data.length > 0) {
+        if (res.data.data.isHas * 1 === 1) {
           that.setData({
             message: true
+          })
+        } else {
+          that.setData({
+            message: false
           })
         }
         wx.stopPullDownRefresh()

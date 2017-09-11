@@ -78,6 +78,11 @@ Page({
       friendshow: false
     })
   },
+  goPlans (e) {
+    wx.navigateTo({
+      url: `../invitedConfirm/invitedConfirm?id=${e.currentTarget.dataset.id}&title=${e.currentTarget.dataset.title}`
+    })
+  },
   // 滚动去除遮罩
   scroll () {
     if (!this.data.show) return

@@ -476,13 +476,20 @@ Page({
   // 获取套餐时间列表
   getOrderTime (id) {
     let that = this
+    let time = wx.getStorageSync('time')
     let sb = {
       url: useUrl.packageDateTimeLists,
       data: {
         session_key: wx.getStorageSync('session_key'),
-        id: id
+        id: id,
+        date: time.y + '-' + (time.m_n < 10 ? '0' + time.m_n : time.m_n) + '-' + (time.d < 10 ? '0' + time.d : time.d)
       },
       success (res) {
+        if (res.data.data.length * 1 === 0) {
+          return that.setData({
+            timeArr: ['该套餐已超时不可预定了']
+          })
+        }
         that.setData({
           timeArr: that.data.timeArr.concat(res.data.data)
         })
@@ -529,6 +536,7 @@ Page({
       // industryTwo: industryTwo,
       // industryOne: industryOne,
       price: params.price || '',
+      price2: params.price || '',
       address: params.address || '',
       title: params.title || '',
       id: params.id || '',

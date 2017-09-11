@@ -135,6 +135,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    if (params.type === 'weixin') {
+      let arr = [0, 1]
+      app.wxlogin(this.getInfo, ...arr)
+    }
     if (params.type === 'ta') {
       this.setData({
         tabCurrent: 2

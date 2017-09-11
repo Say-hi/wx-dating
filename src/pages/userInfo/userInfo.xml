@@ -14,7 +14,7 @@
   <!--头像-->
   <image class="user-avatar-url" src="{{ user.avatar }}"></image>
   <!--昵称-->
-  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.name || user.user_nicename }}</view>
+  <view class="user-nick-name iconfont {{ user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{ user.user_nicename }}</view>
   <!--身高相关信息-->
   <view class="user-info-detail">
     <view class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</view>

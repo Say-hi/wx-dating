@@ -134,7 +134,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    this.getMeal(params.id)
+    console.log(params)
+    this.setData({
+      id: params.id
+    })
+    if (params.type === 'share') {
+      let time = {
+        y: params.y,
+        m: params.m,
+        m_n: params.m_n,
+        d: params.d
+      }
+      wx.setStorageSync('time', time)
+      app.wxlogin(this.getMeal, params.id)
+      this.getMeal(params.id)
+    } else {
+      this.getMeal(params.id)
+    }
     if (params.type === 'out') {
       return this.setData({
         type: 'out',
@@ -182,5 +198,13 @@ Page({
    */
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
+  },
+  onShareAppMessage () {
+    let time = wx.getStorageSync('time')
+    console.log(time)
+    return {
+      title: '这儿有个值得分享的地方！',
+      path: `pages/setMeal/setMeal?id=${this.data.id}&d=${time.d}&m=${time.m}&m_n=${time.m_n}&y=${time.y}&type=share`
+    }
   }
 })

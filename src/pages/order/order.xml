@@ -38,7 +38,7 @@
   <!--费用-->
   <view class="text-wrap">
     <view class="name-l">费用:</view>
-    <view class="name-r redcolor">￥{{ price }}</view>
+    <view class="name-r redcolor">￥{{ (payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '' }}</view>
   </view>
   <!--手机-->
   <view class="text-wrap lxnumber">
