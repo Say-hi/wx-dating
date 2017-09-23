@@ -82,14 +82,13 @@
         <view class="friend-title">好友动态</view>
         <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
             <block wx:for="{{userList}}" wx:for-item="outitem">
-                <!--todo 组件化-->
                 <swiper-item>
                     <view catchtap="goPlans" data-id="{{ item.order_id }}" data-title="{{ item.name }}" url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
                         <image src="{{ item.avatar }}"></image>
                         <view class="name-wrap">
                             <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</view>
                             <view class="title">{{ item.name }}</view>
-                            <view>时间:{{ item.order_time }} 费用: {{item.money}}元/位</view>
+                            <view>时间:{{ item.order_time }} 费用: {{item.money}}元</view>
                             <view>地点:{{ item.area }}</view>
                         </view>
                         <view class="edit">应邀</view>

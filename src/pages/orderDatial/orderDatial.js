@@ -8,7 +8,7 @@ Page({
    */
   data: {
     title: '订单详情',
-    orderArr: ['支付未完成', '已确认', '已消费', '订单过期', '取消订单中', '订单关闭'],
+    orderArr: ['发布中', '已确认', '已消费', '订单关闭', '已取消订单', '订单关闭'],
     type: ['寻约会对象', '自带约会对象'],
     payType: ['替TA付清', '发起人付清', '各付各', '应邀者付清'],
     datingInfo: [
@@ -70,7 +70,7 @@ Page({
         datingInfo[0].text = s.order_date + '(' + s.order_week + ')' + s.order_time
         datingInfo[1].text = s.address
         datingInfo[2].text = s.duixiang.user_nicename || '暂无数据'
-        datingInfo[3].text = '￥' + s.money
+        datingInfo[3].text = s.money
         datingInfo[4].text = s.mobile || '暂无数据'
         datingInfo[5].text = that.data.type[s.is_zhidai * 1 - 1]
         datingInfo[6].text = that.data.payType[s.pay_type * 1]
@@ -98,6 +98,19 @@ Page({
     app.wxrequest(ss)
   },
   payorder () {
+    this.getUserMoney()
+    wx.showLoading({
+      title: '请求支付中...'
+    })
+    setTimeout(() => {
+      wx.hideLoading()
+      this.setData({
+        orderMask: true
+      })
+    }, 300)
+  },
+  // 支付
+  goPay () {
     let that = this
     let orderPayobj = {
       url: useUrl.payByOrder,
@@ -127,6 +140,34 @@ Page({
       }
     }
     app.wxrequest(orderPayobj)
+  },
+  // 关闭弹窗
+  closeMoneyMask () {
+    this.setData({
+      orderMask: false
+    })
+  },
+  // 获取用户金额情况
+  getUserMoney () {
+    let that = this
+    let gum = {
+      url: useUrl.payIndex,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          that.setData({
+            coin: res.data.data.coin || 0
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(gum)
   },
   moneyPay (e) {
     // console.log(e)
@@ -176,7 +217,8 @@ Page({
     } else {
       this.setData({
         id: params.id,
-        status: params.status
+        status: params.status,
+        pay: params.pay
       })
       this.getOrderInfo(params.id)
       this.getUserInfo()

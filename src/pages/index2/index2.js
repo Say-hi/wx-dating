@@ -214,18 +214,24 @@ Page({
         page: page
       },
       success (res) {
-        if (res.data.data.length > 0) {
-          that.data.userList.push(res.data.data)
-          that.getfriend(++page, time)
-        } else {
-          if (page === 1) {
-            // console.log('123')
-            return wx.navigateTo({
-              url: '../plans/plans'
+        if (res.data.code === 200) {
+          if (res.data.data.length > 0) {
+            that.data.userList.push(res.data.data)
+            that.getfriend(++page, time)
+          } else {
+            if (page === 1) {
+              // console.log('123')
+              return wx.navigateTo({
+                url: '../plans/plans'
+              })
+            }
+            that.setData({
+              userList: that.data.userList
             })
           }
-          that.setData({
-            userList: that.data.userList
+        } else {
+          wx.showToast({
+            title: '请在个人中心登陆后使用小程序'
           })
         }
       }

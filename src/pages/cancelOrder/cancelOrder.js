@@ -154,13 +154,14 @@ Page({
       data: {
         session_key: wx.getStorageSync('session_key'),
         order_id: that.data.order_id,
-        cancel_liyou: that.data.value
+        cancel_liyou: that.data.value,
+        check: that.data.items[0].checked ? '1' : '0'
       },
       success (res) {
         console.log(res)
         if (res.data.code === 200) {
           wx.showToast({
-            title: '订单取消中,请耐心等待审核',
+            title: '订单已取消，等待审核退款',
             mask: true
           })
           setTimeout(function () {

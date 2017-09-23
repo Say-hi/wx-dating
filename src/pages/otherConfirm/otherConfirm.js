@@ -38,6 +38,28 @@ Page({
       }
     ]
   },
+  // 获取用户金额情况
+  getUserMoney () {
+    let that = this
+    let gum = {
+      url: useUrl.payIndex,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          that.setData({
+            coin: res.data.data.coin || 0
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(gum)
+  },
   // 信息提交后判断是否需要支付
   moneyPay (e, type) {
     console.log(e)
@@ -54,7 +76,8 @@ Page({
         if (res.errMsg === 'requestPayment:ok') {
           if (type === 'forOther') {
             that.setData({
-              sendMask: true
+              sendMask: true,
+              orderMask: false
             })
           } else {
             that.setData({
@@ -90,6 +113,7 @@ Page({
   },
   // 获取转发订单信息
   getOrderInfo (id) {
+    this.getMyPhoto()
     let that = this
     let ocbj = {
       url: useUrl.comfireByTitaFaqi,
@@ -122,7 +146,13 @@ Page({
         }
         let photos = []
         if (res.data.data.photos.length !== 0) {
-          photos = res.data.data.photos.split(',')
+          // photoTemp = res.data.data.photos.split(',')
+          res.data.data.photos.split(',').forEach(v => {
+            photos.push({
+              photo_url: v,
+              is_ta: 1
+            })
+          })
         }
         let job1 = res.data.data.job.split('-')
         let v1 = that.data.industryOne.indexOf(job1[0])
@@ -131,11 +161,17 @@ Page({
           v2 = that.data.industryTwo[v1].indexOf(job1[1])
         }
         let vv = [v1, v2]
+        if (res.data.data.mobile.length * 1 !== 11) {
+          if (wx.getStorageSync('phoneNumber')) {
+            res.data.data.mobile = wx.getStorageSync('phoneNumber')
+          }
+        }
         that.setData({
           orderInfo: res.data.data,
           people: res.data.data.is_zhidai === '1' ? '寻约会对象' : '自带约会对象',
           pay: that.data.payArr[res.data.data.pay_type],
           payType: res.data.data.pay_type,
+          price: res.data.data.money,
           genderCur: res.data.data.sex * 1 - 1,
           photos: photos,
           marryCur: res.data.data.ganqing * 1,
@@ -147,6 +183,20 @@ Page({
       }
     }
     app.wxrequest(ocbj)
+  },
+  closeMoneyMask () {
+    this.setData({
+      orderMask: false
+    })
+    wx.showToast({
+      title: '订单已确认，请在账单页面继续完成支付',
+      mask: true
+    })
+    setTimeout(() => {
+      wx.reLaunch({
+        url: '../index2/index2'
+      })
+    }, 1000)
   },
   // 输入框内容
   inputValue (e) {
@@ -358,7 +408,10 @@ Page({
               // console.log('上传成功', res.data)
               wx.hideLoading()
               let jsonObj = JSON.parse(res.data).data.res_file
-              photos.push(jsonObj)
+              photos.push({
+                photo_url: jsonObj,
+                is_ta: 0
+              })
               that.setData({
                 photos: photos
               })
@@ -424,6 +477,12 @@ Page({
   goShare () {
     this.getMyInfo()
   },
+  // 跳转套餐详情
+  goTaocan () {
+    wx.navigateTo({
+      url: `../setMeal/setMeal?id=${this.data.orderInfo.package_id}&type=out&time=${this.data.orderInfo.order_date}`
+    })
+  },
   // 获取自己的资料
   getMyInfo () {
     // let that = this
@@ -467,7 +526,7 @@ Page({
         orderInfo.likes_books = mine.likes_books
         // console.log(mine.photos)
         // console.log(mine.cart_house)
-        console.log(mine.photos)
+        // console.log(mine.photos)
         that.setData({
           orderInfo: orderInfo,
           genderCur: mine.sex - 1,
@@ -475,12 +534,30 @@ Page({
           ageIndex: that.data.ageArr.indexOf(mine.age),
           value: vvv,
           houseIndex: mine.cart_house * 1,
-          photos: that.data.photos.concat(mine.photos)
+          photos: that.data.photos.concat(that.data.photosMy),
+          fix: true
         })
         // console.log(res)
       }
     }
     app.wxrequest(gfiObj)
+  },
+  // 获取我的相册图片数量
+  getMyPhoto () {
+    let that = this
+    let gmp = {
+      url: useUrl.myPhotos,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        that.setData({
+          photosMy: res.data.data
+        })
+        // console.log(res)
+      }
+    }
+    app.wxrequest(gmp)
   },
   // 取消确认
   orderCancel () {
@@ -508,11 +585,20 @@ Page({
   },
   // 订单确认
   orderConfirm () {
-    if (this.data.photos.length > 9) {
-      return wx.showToast({
-        title: '亲,相册最大为9张，请删除多余的图片',
-        mask: true
-      })
+    if (!this.data.fix) {
+      if (this.data.photos.length + this.data.photosMy.length > 9) {
+        return wx.showToast({
+          title: '亲,相册最大为9张，请删除多余的图片',
+          mask: true
+        })
+      }
+    } else {
+      if (this.data.photos.length > 9) {
+        return wx.showToast({
+          title: '亲,相册最大为9张，请删除多余的图片',
+          mask: true
+        })
+      }
     }
     // console.log(this.data.orderInfo.mobile.length)
     if (!this.data.orderInfo.mobile || this.data.orderInfo.mobile.length !== 11) {
@@ -521,9 +607,9 @@ Page({
         mask: true
       })
     }
+    wx.setStorageSync('phoneNumber', this.data.orderInfo.mobile)
     let that = this
     let oi = this.data.orderInfo
-    // todo  1 exchange 0
     if (this.data.is_perfect_data === '0') {
       wx.showModal({
         title: '非已有用户无保存资料',
@@ -550,7 +636,7 @@ Page({
                 likes_books: oi.likes_books,
                 likes_movies: oi.likes_movies,
                 likes_sports: oi.likes_sports,
-                photos: that.data.photos.join(',')
+                photos: JSON.stringify(that.data.photos)
               },
               success (res) {
                 if (res.data.message === '保存成功') {
@@ -566,11 +652,17 @@ Page({
       })
     }
     // 订单确认
+    // 为智能修正
+    if (!this.data.fix) {
+      that.data.photos = that.data.photos.concat(that.data.photosMy)
+    }
     let confirmObj = {
       url: useUrl.titaFaqiByComfire,
       data: {
         session_key: wx.getStorageSync('session_key'),
         order_ta_id: oi.order_ta_id,
+        pay_type: that.data.payType * 1 === 0 ? 1 : that.data.payType,
+        is_zhidai: that.data.people === '寻约会对象' ? 1 : 2,
         name: oi.name,
         mobile: that.data.orderInfo.mobile,
         sex: that.data.genderCur,
@@ -583,34 +675,29 @@ Page({
         likes_books: oi.likes_books,
         likes_movies: oi.likes_movies,
         likes_sports: oi.likes_sports,
-        photos: that.data.photos.join(',')
+        photos: JSON.stringify(that.data.photos)
       },
       success (res) {
         console.log('替他发起页面订单支付', res)
         if (res.data.data.order_id) {
+          that.setData({
+            order_id: res.data.data.order_id
+          })
           if ((that.data.payType * 1) === 1 || (that.data.payType * 1) === 2) {
-            let orderPayobj = {
-              url: useUrl.payByOrder,
-              data: {
-                session_key: wx.getStorageSync('session_key'),
-                order_id: res.data.data.order_id
-              },
-              success (res) {
-                console.log('order success', res)
-                // 需要支付的发起付款
-                if (res.data.data.length !== 0) {
-                  // todo 微信支付流程
-                  that.moneyPay(res.data.data, 'self')
-                  return
-                }
-                that.setData({
-                  datingSuccess: true
-                })
-              }
-            }
-            app.wxrequest(orderPayobj)
+            wx.showLoading({
+              title: '订单以确认,发起支付中...'
+            })
+            that.getUserMoney()
+            setTimeout(() => {
+              wx.hideLoading()
+              that.setData({
+                orderMask: true
+              })
+            }, 300)
+            // todo
           } else {
             that.setData({
+              orderMask: false,
               datingSuccess: true
             })
           }
@@ -624,6 +711,31 @@ Page({
       }
     }
     app.wxrequest(confirmObj)
+  },
+  // 订单确认支付
+  goPay () {
+    let that = this
+    let orderPayobj = {
+      url: useUrl.payByOrder,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: that.data.order_id
+      },
+      success (res) {
+        console.log('order success', res)
+        // 需要支付的发起付款
+        if (res.data.data.length !== 0) {
+          // todo 微信支付流程
+          that.moneyPay(res.data.data, 'self')
+          return
+        }
+        that.setData({
+          orderMask: false,
+          datingSuccess: true
+        })
+      }
+    }
+    app.wxrequest(orderPayobj)
   },
   // 用户资料检查
   checkUser () {
@@ -691,8 +803,8 @@ Page({
       }
       app.wxrequest(obj)
     } else {
-      this.setData({
-        cancelshow: false
+      wx.reLaunch({
+        url: '../index2/index2'
       })
     }
   },
@@ -716,20 +828,8 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    // params['orderTaId'] = 104
+    // params['orderTaId'] = 271
     app.wxlogin(that.getOrderInfo, params.orderTaId)
-    // app.wxlogin(that.getOrderInfo, 101)
-    // app.wxlogin(that.getOrderInfo, 80)
-    // app.wxlogin(that.getOrderInfo, 76)
-    // this.setData({
-    //   title: 'Mr.Rocky 双人火焰牛排餐',
-    //   address: '天河区车陂大街汇德商业大厦1号楼506',
-    //   days: '2017.05.06(周日)',
-    //   ageArr: app.data.ageArr,
-    //   industryOne: app.data.industryOne,
-    //   industryTwo: app.data.industryTwo
-    // })
-    // app.wxlogin(that.getOrderInfo, 55)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

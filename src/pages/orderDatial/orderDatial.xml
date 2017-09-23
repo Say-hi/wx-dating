@@ -5,7 +5,7 @@
     <text class="status {{ info.status == 2 ? '' : 'confirm' }}">{{ orderArr[info.order_status] }}</text>
   </view>
   <!--订单信息-->
-  <navigator url="../setMeal/setMeal?id={{ info.package_id }}" class="restaurant arrow">
+  <navigator url="../setMeal/setMeal?id={{ info.package_id }}&type=out&time={{ info.order_date }}" class="restaurant arrow">
     <image src="{{ info.image }}"></image>
     <text>{{ info.package_name }}</text>
   </navigator>
@@ -17,10 +17,10 @@
   <!--兑换码-->
   <view wx:if="{{ info.redeem_code }}" class="conversion">
     <text>兑换码: {{ info.redeem_code }}</text>
-    <navigator url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>
+    <navigator wx:if="{{ info.order_status != 2 }}" url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>
   </view>
   <!--惩罚金-->
-  <view wx:if="{{ money }}" class="punishment">
+  <view wx:if="{{ money && (info.order_status == 4 || info.order_status == 5) }}" class="punishment">
     <text>惩罚金</text>
     <text>￥10</text>
   </view>
@@ -32,17 +32,37 @@
   <!--取消回应-->
   <view wx:if="{{ info.cancel }}" class="cancel-respond">
     <view>Ta的回应:</view>
-    <view>{{ info.duixiang.user_id == info.cancel.cancel_user_id ? info.cancel.cancel_liyou : info.cancel.content_huiying }}</view>
+    <view>{{ info.duixiang.user_id == info.cancel.cancel_user_id ? (info.cancel.cancel_liyou || '对方未填写') : (info.cancel.content_huiying || '对方未填写') }}</view>
   </view>
 </view>
  <!--约会信息-->
 <view class="dating-info">
   <block wx:for="{{ datingInfo }}">
     <view>
-      <text>{{ item.title }}:</text>
-      <text class="{{ item.title == '费用' ? 'd-i-money' : ''}}">{{ item.text }}</text>
+      <text class="title">{{ item.title }}:</text>
+      <text class="{{ item.title == '费用' ? 'd-i-money' : ''}}">{{ item.title == '费用' ? '￥' : '' }}{{ item.text }}</text>
     </view>
   </block>
 </view>
 
-<view class="payfinish" catchtap="payorder" wx:if="{{ orderArr[info.order_status] == '支付未完成' }}">继续支付订单</view>
+<view class="payfinish" catchtap="payorder" wx:if="{{ pay == 1 }}">继续支付订单</view>
+
+<view wx:if="{{ orderMask }}" class="moneyMask">
+  <view class="mask-wrap">
+    <view class="m-title">
+      <text class="m-close" catchtap="closeMoneyMask">×</text>
+      支付费用
+    </view>
+    <view class="m-c-pay">
+      ￥{{ datingInfo[3].text }}
+      <view wx:if="{{ datingInfo[3].text * 1 > coin }}" class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>
+      <!--<view  class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>-->
+    </view>
+    <view class="m-footer">
+      <image class="m-icon" src="../../images/userMoney.png"></image>
+      <text>账户余额</text>
+      <text class="m-f-r">￥{{ coin }}</text>
+    </view>
+    <view catchtap="goPay" class="payBtn">立即支付</view>
+  </view>
+</view>

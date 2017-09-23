@@ -13,3 +13,4 @@
     </block>
   </view>
 </view>
+<view class="tac" wx:if="{{ people.length == 0 }}">--- 无新的内容 ---</view>

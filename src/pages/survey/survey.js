@@ -18,7 +18,7 @@ Page({
       {
         name: 'noshow',
         value: '匿名',
-        text: '等到地方收到至少2份匿名问卷后才能看到'
+        text: '等到对方收到至少2份匿名问卷后才能看到'
       },
       {
         name: 'show',

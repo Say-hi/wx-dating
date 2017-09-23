@@ -29,7 +29,7 @@ Page({
       },
       success (res) {
         that.setData({
-          userPhotos: res.data.data
+          userPhotos: res.data.data || []
         })
       }
     }
@@ -128,15 +128,15 @@ Page({
   // 更新我的相册
   upMyPhoto () {
     let that = this
-    let upPhoto = []
-    for (let i of that.data.userPhotos) {
-      upPhoto.push(i.photo_url)
-    }
+    // let upPhoto = []
+    // for (let i of that.data.userPhotos) {
+    //   upPhoto.push(i.photo_url)
+    // }
     let uMobj = {
       url: useUrl.updatePhotos,
       data: {
         session_key: wx.getStorageSync('session_key'),
-        photos: upPhoto.join(',')
+        photos: JSON.stringify(that.data.userPhotos)
       },
       success (res) {
         if (res.data.message === '更新成功') {

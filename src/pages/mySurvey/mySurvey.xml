@@ -12,7 +12,7 @@
         <image src="{{ item.image }}"></image>
         <view class="c-c-center">
           <view class="c-c-title">{{ item.name || item.package_name }}</view>
-          <view class="c-c-text">时间: {{ item.order_date }}{{ item.order_time }}</view>
+          <view class="c-c-text">时间: {{ item.order_date }}　{{ item.order_time }}</view>
           <view class="c-c-text">地点: {{ item.area }}</view>
         </view>
         <view class="c-money">￥{{ item.money }}</view>

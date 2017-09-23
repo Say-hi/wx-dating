@@ -31,7 +31,7 @@
   .restaurant {
     display: flex;
     align-items: center;
-    height: 159rpx;
+    min-height: 159rpx;
     @width: 128rpx;
     border-bottom: 1rpx solid #ccc;
     image {
@@ -40,6 +40,7 @@
       margin-right: 21rpx;
     }
     text {
+      flex: 1;
       font-size: 28rpx;
       color: #333;
     }
@@ -130,12 +131,13 @@
   > view {
     display: flex;
     align-items: center;
-    height: 87rpx;
+    min-height: 87rpx;
     border-bottom: 1rpx solid #ccc;
     text {
       font-size: 30rpx;
       color: #333;
       font-weight: 700;
+      min-width: 84rpx;
     }
     text:nth-child(1) {
       flex: 1;

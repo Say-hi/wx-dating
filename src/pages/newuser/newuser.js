@@ -156,7 +156,7 @@ Page({
       url: useUrl.updatePhotos,
       data: {
         session_key: wx.getStorageSync('session_key'),
-        photos: that.data.photos.join(',')
+        photos: JSON.stringify(that.data.photos)
       },
       success (res) {
         console.log(res)
@@ -248,7 +248,10 @@ Page({
               // console.log('上传成功', res.data)
               wx.hideLoading()
               let jsonObj = JSON.parse(res.data).data.res_file
-              photos.push(jsonObj)
+              photos.push({
+                photo_url: jsonObj,
+                is_ta: 0
+              })
               if (photos.length > 9) {
                 wx.showToast({
                   title: '超过9张啦,已删除多余的照片',
@@ -285,9 +288,13 @@ Page({
   preview (e) {
     let that = this
     let index = e.currentTarget.dataset.index
+    let s = []
+    that.data.photos.forEach(v => {
+      s.push(v.photo_url)
+    })
     let obj = {
-      current: that.data.photos[index],
-      urls: that.data.photos
+      current: s[index],
+      urls: s
     }
     wx.previewImage(obj)
   },

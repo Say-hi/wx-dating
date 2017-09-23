@@ -70,10 +70,11 @@ Page({
       success (res) {
         let i = res.data.data
         let job1 = i.job.split('-') || '不限'
-        let v1 = that.data.industryOne.indexOf(job1[0])
+        let v1 = that.data.industryOne.indexOf(job1[0]) || 0
         let v2 = 0
+        console.log(that.data.industryTwo)
         if (v1 < 24) {
-          v2 = that.data.industryTwo[v1].indexOf(job1[1])
+          v2 = that.data.industryTwo[v1].indexOf(job1[1]) || 0
         }
         let vv = [v1, v2]
         that.setData({

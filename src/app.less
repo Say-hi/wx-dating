@@ -79,6 +79,7 @@
   font-size: 30rpx;
   color: #333;
   font-weight: 700;
+  align-items: center;
   border-bottom: 1rpx solid #eee;
   .name-l {
     line-height: 88rpx;
@@ -89,6 +90,9 @@
     //height: 88rpx;
     text-align: right;
     //font-size: 30rpx;
+  }
+  .address {
+    line-height: 40rpx;
   }
   //性别选择
   .gender {
@@ -106,6 +110,9 @@
       border: 1rpx solid #ffc4a6;
       border-radius: 50%;
       margin-right: 10rpx;
+    }
+    .choose-text {
+      font-size: 30rpx;
     }
     .choose-text::after {
       color: #999;
@@ -237,15 +244,88 @@
 .placeholdercss {
   color: #ccc;
 }
+.moneyMask {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+  .mask-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 560rpx;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10rpx;
+    .m-title {
+      position: relative;
+      text-align: center;
+      font-size: 36rpx;
+      font-weight: 700;
+      border-bottom: 1rpx solid #ffc4a6;
+      line-height: 90rpx;
+      .m-close {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        font-size: 40rpx;
+        color: #ccc;
+        transform: translate(30rpx, -50%);
+      }
+    }
+    .m-c-pay {
+      line-height: 120rpx;
+      font-size: 72rpx;
+      font-weight: 700;
+      text-align: center;
+      border-bottom: 1rpx solid #ccc;
+      margin: 0 32rpx;
+      .m-c-tips {
+        line-height: 30rpx;
+        font-size: 22rpx;
+        color: #f66;
+        margin-bottom: 20rpx;
+      }
+    }
+    .m-footer {
+      margin: 0 32rpx;
+      border-bottom: 1rpx solid #ccc;
+      line-height: 87rpx;
+      font-size: 30rpx;
+      color: #999;
+      .m-icon {
+        width: 48rpx;
+        height: 48rpx;
+        vertical-align: middle;
+        margin: 0 14rpx;
+      }
+      .m-f-r {
+        float: right;
+      }
+    }
+    .payBtn {
+      font-size: 36rpx;
+      text-align: center;
+      color: #ffc4a6;
+      line-height: 100rpx;
+    }
+  }
+}
 //订单相关的
 .invited {
   padding: 24rpx;
   border-top: 1rpx solid #eee;
   margin-top: -1rpx;
   .title {
+    display: flex;
+    align-items: center;
     font-size: 32rpx;
     color: #333;
-    line-height: 76rpx;
+    //line-height: 76rpx;
+    min-height:76rpx;
     font-weight: 700;
     border-bottom: 2rpx solid #2b2f41;
   }

@@ -115,7 +115,7 @@ Page({
         mobile: that.data.mobile
       },
       success (res) {
-        // console.log(res)
+        console.log('意向应邀', res)
         // console.log(res.data.message)
         if (res.data.message === '申请邀约成功' || res.data.code === 200) {
           wx.showToast({
@@ -139,11 +139,11 @@ Page({
             duration: 1500,
             mask: true
           })
-          setTimeout(function () {
-            wx.reLaunch({
-              url: '../index2/index2'
-            })
-          }, 1500)
+          // setTimeout(function () {
+          //   wx.reLaunch({
+          //     url: '../index2/index2'
+          //   })
+          // }, 1500)
         }
       }
     }
@@ -153,6 +153,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    if (wx.getStorageSync('phoneNumber')) {
+      this.setData({
+        mobile: wx.getStorageSync('phoneNumber')
+      })
+    }
     let that = this
     // todo 获取套餐信息
     let obj = {

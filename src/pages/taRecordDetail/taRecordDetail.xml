@@ -92,7 +92,7 @@
   <!--深度资料-->
   <view class="basic-data">
     <view class="basic-one">深度资料</view>
-    <view class="basic-second">非约会成功对象不可见</view>
+    <view class="basic-second">邀约成功后对方才能看到</view>
   </view>
   <!--公司-->
   <view class="text-wrap" >

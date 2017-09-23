@@ -67,21 +67,27 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        let hasvideo = false
-        if (res.data.data.video_url.length > 0) {
-          hasvideo = true
+        if (res.data.code === 200) {
+          let hasvideo = false
+          if (res.data.data.video_url.length > 0) {
+            hasvideo = true
+          }
+          // let { userInfo } = that.data
+          // userInfo['avatarUrl'] = res.data.data.avatar
+          // userInfo['nickName'] = res.data.data.user_nicename
+          // userInfo['gender'] = res.data.data.sex
+          that.setData({
+            hasvideo: hasvideo,
+            // userInfo: that.data.userInfo,
+            userPhotos: res.data.data.photos || [],
+            videoSrc: res.data.data.video_url,
+            videoCover: res.data.data.video_image || '../../images/login-bg.png'
+          })
+        } else {
+          wx.showToast({
+            title: '未授权登陆,请点击【立即登录】'
+          })
         }
-        // let { userInfo } = that.data
-        // userInfo['avatarUrl'] = res.data.data.avatar
-        // userInfo['nickName'] = res.data.data.user_nicename
-        // userInfo['gender'] = res.data.data.sex
-        that.setData({
-          hasvideo: hasvideo,
-          // userInfo: that.data.userInfo,
-          userPhotos: res.data.data.photos,
-          videoSrc: res.data.data.video_url,
-          videoCover: res.data.data.video_image || '../../images/video_cover.jpg'
-        })
       }
     }
     app.wxrequest(getMO)
@@ -198,7 +204,7 @@ Page({
   },
   // 重新拉起授权
   getUserInfo () {
-    if (this.data.userInfo) {
+    if (this.data.logins) {
       wx.navigateTo({
         url: '../userziliao/userziliao'
       })
@@ -325,6 +331,7 @@ Page({
   onPullDownRefresh () {
     // TODO: onPullDownRefresh
     wx.stopPullDownRefresh()
+    if (!this.data.hasvideo) return
     this.playVideo()
   }
 })

@@ -18,6 +18,7 @@ Page({
     maskTitle: '信息已保存,转发给Ta确认',
     timeArr: ['请选择时间段'],
     timeIndex: 0,
+    coin: 0,
     // price: '168',
     // 意向金弹窗
     // moneyshow: false,
@@ -30,6 +31,33 @@ Page({
     one: 0,
     two: 0
     // value:[18, 0]
+  },
+  closeMoneyMask () {
+    this.setData({
+      orderMask: false
+    })
+  },
+  // 获取用户金额情况
+  getUserMoney () {
+    let that = this
+    let gum = {
+      url: useUrl.payIndex,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          that.setData({
+            coin: res.data.data.coin || 0
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message
+          })
+        }
+      }
+    }
+    app.wxrequest(gum)
   },
   // 发给本人确认
   sendToConfirmPeople () {
@@ -71,6 +99,7 @@ Page({
       complete (res) {
         // console.log(res)
         // 订单响应成功
+        console.log('订单响应成功', res)
         if (res.data.data.order_ta_id) {
           that.setData({
             order_ta_id: res.data.data.order_ta_id
@@ -78,36 +107,52 @@ Page({
           // 支付类型 0: 替ta付清
           if (that.data.payType === 0) {
             // 替Ta发起支付
-            let tiTAPay = {
-              url: useUrl.payByOrderTa,
-              data: {
-                session_key: wx.getStorageSync('session_key'),
-                order_ta_id: res.data.data.order_ta_id
-              },
-              success (res) {
-                console.log('替他支付响应成功', res)
-                // 支付响应成功
-                if (res.data.data.length !== 0) {
-                  return that.moneyPay(res.data.data, 'forOther')
-                }
-                that.setData({
-                  sendMask: true
-                })
-              }
-            }
-            app.wxrequest(tiTAPay)
+            that.getUserMoney()
+            wx.showLoading({
+              title: '请求支付中...'
+            })
+            setTimeout(() => {
+              wx.hideLoading()
+              that.setData({
+                orderMask: true
+              })
+            }, 300)
             return
             // 发起支付
             // return that.moneyPay(res.data.data.order_ta_id, 'forOther')
+          } else {
+            // 无需支付
+            that.setData({
+              sendMask: true
+            })
           }
-          // 无需支付
-          that.setData({
-            sendMask: true
-          })
         }
       }
     }
     app.wxrequest(smbj)
+  },
+  // 替ta支付
+  payforother () {
+    let that = this
+    let tiTAPay = {
+      url: useUrl.payByOrderTa,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_ta_id: that.data.order_ta_id
+      },
+      success (res) {
+        console.log('替他支付响应成功', res)
+        // 支付响应成功
+        if (res.data.data.length !== 0) {
+          return that.moneyPay(res.data.data, 'forOther')
+        }
+        that.setData({
+          sendMask: true,
+          orderMask: false
+        })
+      }
+    }
+    app.wxrequest(tiTAPay)
   },
   // 信息提交后判断是否需要支付
   moneyPay (e, type) {
@@ -125,17 +170,20 @@ Page({
         if (res.errMsg === 'requestPayment:ok') {
           if (type === 'forOther') {
             that.setData({
+              orderMask: false,
               sendMask: true
             })
           } else {
             that.setData({
+              orderMask: false,
               datingSuccess: true
             })
           }
         } else {
           wx.showToast({
-            title: '未完成支付'
+            title: '您未完成微信支付'
           })
+
           // setTimeout(function () {
           //   wx.navigateBack({
           //     delta: 1
@@ -145,7 +193,7 @@ Page({
       },
       fail (res) {
         wx.showToast({
-          title: '未完成支付'
+          title: '您未完成微信支付'
         })
         // setTimeout(function () {
         //   wx.navigateBack({
@@ -284,16 +332,6 @@ Page({
   goShare () {
     this.getMyInfo()
   },
-  // 时间选择
-  // bindChange (e) {
-  //   let time = (e.detail.value[0] < 10 ? '0' + e.detail.value[0] : e.detail.value[0]) + ':' + (e.detail.value[1] < 10 ? '0' + e.detail.value[1] : e.detail.value[1])
-  //   this.setData({
-  //     one: e.detail.value[0],
-  //     two: e.detail.value[1],
-  //     time: time,
-  //     value: e.detail.value
-  //   })
-  // },
   // 去除遮罩层
   delMask (e) {
     let that = this
@@ -345,8 +383,7 @@ Page({
       })
     }
   },
-  // 去支付
-  goPay () {
+  goPayFirst () {
     if (this.data.mobile.length !== 11) {
       return wx.showToast({
         image: '../../images/jiong.png',
@@ -354,6 +391,7 @@ Page({
         title: '请填写完整的手机号码'
       })
     }
+    wx.setStorageSync('phoneNumber', this.data.mobile)
     if (this.data.timeIndex * 1 === 0) {
       return wx.showToast({
         image: '../../images/jiong.png',
@@ -366,7 +404,43 @@ Page({
         datashows: true
       })
     }
-    this.sendOrderData()
+    wx.showLoading({
+      title: '请求支付信息中...'
+    })
+    this.getUserMoney()
+    setTimeout(() => {
+      wx.hideLoading()
+      this.setData({
+        orderMask: true
+      })
+    }, 300)
+  },
+  // 去支付
+  goPay () {
+    // if (this.data.mobile.length !== 11) {
+    //   return wx.showToast({
+    //     image: '../../images/jiong.png',
+    //     mask: true,
+    //     title: '请填写完整的手机号码'
+    //   })
+    // }
+    // if (this.data.timeIndex * 1 === 0) {
+    //   return wx.showToast({
+    //     image: '../../images/jiong.png',
+    //     mask: true,
+    //     title: '请选择约会时间'
+    //   })
+    // }
+    // if (this.data.datashow && this.data.people !== '自带约会对象') {
+    //   return this.setData({
+    //     datashows: true
+    //   })
+    // }
+    if (this.data.type === 'forOther') {
+      this.payforother()
+    } else {
+      this.sendOrderData()
+    }
   },
   // 发起邀约生成订单信息
   sendOrderData () {
@@ -417,6 +491,7 @@ Page({
                 return
               }
               that.setData({
+                orderMask: false,
                 datingSuccess: true
               })
             }
@@ -424,6 +499,7 @@ Page({
           app.wxrequest(orderPayobj)
         } else {
           that.setData({
+            orderMask: false,
             datingSuccess: true
           })
         }
@@ -509,6 +585,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    if (wx.getStorageSync('phoneNumber')) {
+      this.setData({
+        mobile: wx.getStorageSync('phoneNumber')
+      })
+    }
+    this.setData({
+      orderInfo: wx.getStorageSync('orderInfo')
+    })
     // TODO: onLoad
     if (params.type === 'forOther') {
       this.setData({
@@ -517,24 +601,7 @@ Page({
       })
     }
     this.getOrderTime(params.id)
-    // 时间选择项生成
-    // let industryOne = []
-    // let industryTwo = []
-    // for (let i = 0; i < 60; i++) {
-    //   if (i < 10) {
-    //     let s = '0' + i
-    //     industryOne.push(s)
-    //     industryTwo.push(s)
-    //   } else if (i < 24) {
-    //     industryOne.push(i)
-    //     industryTwo.push(i)
-    //   } else {
-    //     industryTwo.push(i)
-    //   }
-    // }
     this.setData({
-      // industryTwo: industryTwo,
-      // industryOne: industryOne,
       price: params.price || '',
       price2: params.price || '',
       address: params.address || '',
@@ -591,12 +658,10 @@ Page({
     })
     return {
       title: '有好友替您发起以下邀约:',
+      imageUrl: that.data.orderInfo.imgUrl,
       path: '/pages/otherConfirm/otherConfirm?orderTaId=' + that.data.order_ta_id + '&days=' + that.data.days + '&title=' + that.data.title + '&address=' + that.data.address,
       // 转发成功响应
       success () {
-        // that.setData({
-        //   datingSuccess: true
-        // })
         wx.navigateBack({
           delta: 1
         })

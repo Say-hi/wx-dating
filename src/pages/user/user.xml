@@ -32,7 +32,7 @@
   <navigator hover-class="none" open-type="navigate" url="{{ logins ? '../photo/photo' : '' }}" class="photo">
     <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
     <view class="photo-show" wx:if="{{ logins }}">
-      <block wx:for="{{ userPhotos }}" wx:for-item="photo" wx:key="unique">
+      <block wx:for="{{ userPhotos }}" wx:if="{{ index <= 3 }}" wx:for-item="photo" wx:key="unique">
         <view class="photo-wrap">
           <image mode="aspectFill" src="{{ photo.photo_url }}"></image>
           <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
@@ -45,7 +45,7 @@
   <!--用户操作-->
   <view class="operation">
     <block wx:for="{{ opertaion }}" wx:for-item="op" wx:key="unique">
-      <navigator url="{{ op.url }}" class="op arrow iconfont {{ op.ico }}">{{op.title}}</navigator>
+      <navigator url="{{ logins ? op.url : '' }}" class="op arrow iconfont {{ op.ico }}">{{op.title}}</navigator>
     </block>
   </view>
 </view>

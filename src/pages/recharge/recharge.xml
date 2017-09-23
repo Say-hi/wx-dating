@@ -13,8 +13,8 @@
       <!--<text class="kind-text">礼品卷充值</text>-->
     <!--</view>-->
     <view>
-      <text>充值码:</text>
-      <input bindinput="inputValue" type="text" placeholder="请输入礼品卷充值码"/>
+      <text>兑换码:</text>
+      <input bindinput="inputValue" type="text" placeholder="请输入优惠券兑换码"/>
     </view>
   </view>
   <!--充值失败-->

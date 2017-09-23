@@ -3,7 +3,7 @@
   <!--上传图片区域-->
   <view class="up-photo">
     <view class="photo-wrap" wx:for="{{ photos }}">
-      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item }}"></image>
+      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item.photo_url }}"></image>
       <view catchtap="delphoto" data-index="{{index}}" class="del">×</view>
     </view>
     <image wx:if="{{photos.length < 9}}" catchtap="upPhoto" class="img" src="../../images/userUpPhoto.png"></image>
@@ -92,7 +92,7 @@
   </view>
   <view class="basic-data">
     <view class="basic-one">深度资料</view>
-    <view class="basic-second">非约会成功对象不可见</view>
+    <view class="basic-second">邀约成功后对方才能看到</view>
   </view>
   <!--公司-->
   <view class="text-wrap">

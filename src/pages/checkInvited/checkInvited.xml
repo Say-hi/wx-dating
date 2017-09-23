@@ -30,7 +30,7 @@
   <view wx:else class="cm-wrap">
     <image class="cm-confirm-img" src="../../images/choose-confirm.png"></image>
     <view class="cm-tips-2">
-      选择成功，等待对方付款
+      {{ ta == 1 ? '选择成功，等待对方付款' : '邀约成功，订单已确认' }}
     </view>
     <view catchtap="btnClick" data-type="confirm-two" class="cm-btn-confirm">
       确定

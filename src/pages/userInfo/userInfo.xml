@@ -38,9 +38,9 @@
 <navigator open-type="navigate" url="../photo/photo?id={{ user.user_id }}&type=other" class="photo">
   <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
   <view class="photo-show" wx:if="true">
-    <block wx:for="{{ user.ta_photos }}" wx:for-item="photo" wx:key="unique">
+    <block wx:for="{{ user.ta_photos }}" wx:if="{{ index <= 3 }}" wx:for-item="photo" wx:key="unique">
       <view class="photo-wrap">
-        <image mode="aspectFit" src="{{ photo.photo_url }}"></image>
+        <image mode="aspectFill" src="{{ photo.photo_url }}"></image>
         <image wx:if="{{ photo.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
       </view>
     </block>
@@ -62,7 +62,7 @@
       </view>
     </view>
   </block>
-  <view wx:if="{{ user.comment_list.length == 0 }}" style="padding: 20rpx">Ta暂时还没有收到评价</view>
+  <view wx:if="{{ user.comment_list.length == 0 }}" style="padding: 20rpx;font-size: 28rpx;">Ta暂时还没有收到评价</view>
 </view>
 <!--显示更多-->
 <!--<view wx:if="{{ showMoreBtn }}" class="show-more">-->

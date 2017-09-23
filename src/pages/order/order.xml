@@ -33,7 +33,7 @@
   <!--地址-->
   <view class="text-wrap">
     <view class="name-l">地址:</view>
-    <view class="name-r">{{ address }}</view>
+    <view class="name-r address">{{ address }}</view>
   </view>
   <!--费用-->
   <view class="text-wrap">
@@ -44,8 +44,8 @@
   <view class="text-wrap lxnumber">
     <view class="name-l">联系手机:</view>
     <view class="name-r company gender">
-      <input wx:if="{{ type !== 'forOther' }}" bindinput="mobileInput" confirm-type="done" maxlength="11" type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
-      <input wx:else bindinput="mobileInput" confirm-type="done" maxlength="11" type="number" placeholder-class="placeholdercss" placeholder='请填写Ta手机号码'/>
+      <input wx:if="{{ type !== 'forOther' }}" bindinput="mobileInput" confirm-type="done" maxlength="11" value="{{ mobile == 0 ? '' : mobile  }}" type="number" placeholder-class="placeholdercss" placeholder='请填写本人手机号码'/>
+      <input wx:else bindinput="mobileInput" confirm-type="done" maxlength="11" type="number" value="{{ mobile == 0 ? '' : mobile }}" placeholder-class="placeholdercss" placeholder='请填写Ta手机号码'/>
     </view>
   </view>
   <!--约会对象-->
@@ -92,7 +92,8 @@
     </view>
   </view>
   <!--confirm-->
-  <view wx:if="{{ type !== 'forOther' }}" catchtap="goPay" class="invitedconfirm">立即发起</view>
+  <!--<view wx:if="{{ type !== 'forOther' }}" catchtap="goPay" class="invitedconfirm">立即发起</view>-->
+  <view wx:if="{{ type !== 'forOther' }}" catchtap="goPayFirst" class="invitedconfirm">立即发起</view>
   <view wx:else catchtap="sendToConfirmPeople" class="invitedconfirm">发给本人确认</view>
   <!--<button wx:if="{{ type == 'forOther' }}" open-type="share" catchtap="sendToConfirmPeople" class="invitedconfirm">发给本人确认</button>-->
   <!--意向金弹窗-->
@@ -144,7 +145,8 @@
   <!--<view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>-->
   <view class="mask-wrap">
     <view class="mask-title sc">
-      发起邀约成功，请搜索“约会日”关注公众号，否则不能及时接收动态通知
+      发起成功，等待应邀！
+      <view>请关注“约会日”公众号，以便及时接收动态通知</view>
     </view>
     <view catchtap="goShare" class="mask-confirm">
       确认
@@ -156,5 +158,25 @@
   <view class="mask-wrap">
     <view class="mask-title">{{ maskTitle }}</view>
     <button open-type="share" class="mask-confirm">发给本人确认</button>
+  </view>
+</view>
+
+<view wx:if="{{ orderMask }}" class="moneyMask">
+  <view class="mask-wrap">
+    <view class="m-title">
+      <text class="m-close" catchtap="closeMoneyMask">×</text>
+      支付费用
+    </view>
+    <view class="m-c-pay">
+      ￥{{ (payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '' }}
+      <view wx:if="{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') * 1 > coin }}" class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>
+      <!--<view  class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>-->
+    </view>
+    <view class="m-footer">
+      <image class="m-icon" src="../../images/userMoney.png"></image>
+      <text>账户余额</text>
+      <text class="m-f-r">￥{{ coin }}</text>
+    </view>
+    <view catchtap="goPay" class="payBtn">立即支付</view>
   </view>
 </view>

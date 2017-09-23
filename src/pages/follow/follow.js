@@ -9,7 +9,18 @@ Page({
   data: {
     title: 'follow',
     page: 1,
-    people: []
+    people: [],
+    content: ''
+  },
+  closeMask () {
+    this.setData({
+      mask: false
+    })
+  },
+  stillmask () {
+    this.setData({
+      mask: true
+    })
   },
   // 用户确认搜索
   searchValue (e) {
@@ -32,9 +43,10 @@ Page({
             mask: true
           })
         }
-        let s = that.data.people.reverse().concat(res.data.data).reverse()
+        // let s = that.data.people.reverse().concat(res.data.data).reverse()
+        that.data.people = []
         that.setData({
-          people: s
+          people: res.data.data
         })
       }
     }
@@ -63,6 +75,11 @@ Page({
   // 关注
   follow () {
     let that = this
+    if (that.data.content.length >= 20) {
+      return wx.showToast({
+        title: '超出字数限制'
+      })
+    }
     let fbj = {
       url: useUrl.remindSubscribe,
       data: {
@@ -88,11 +105,11 @@ Page({
   },
   // 跳转到消息页面
   goNewfollow () {
-    if (this.data.message) {
-      wx.navigateTo({
-        url: '../newfollow/newfollow'
-      })
-    }
+    // if (this.data.message) {
+    wx.navigateTo({
+      url: '../newfollow/newfollow'
+    })
+    // }
   },
   // 获取用户关注的用户的列表
   getFollowUser (page, search, text) {
@@ -106,16 +123,22 @@ Page({
       },
       success (res) {
         // console.log(res)
-        if (res.data.data.length === 0) {
-          return wx.showToast({
-            title: text || '亲，没有更多的内容啦',
-            image: '../../images/jiong.png'
+        if (res.data.code === 200) {
+          if (res.data.data.length === 0) {
+            return wx.showToast({
+              title: text || '亲，没有更多的内容啦',
+              image: '../../images/jiong.png'
+            })
+          }
+          let s = that.data.people.concat(res.data.data)
+          that.setData({
+            people: s
+          })
+        } else {
+          wx.showToast({
+            title: '请在个人中心登陆后使用小程序'
           })
         }
-        let s = that.data.people.concat(res.data.data)
-        that.setData({
-          people: s
-        })
       }
     }
     app.wxrequest(obj)

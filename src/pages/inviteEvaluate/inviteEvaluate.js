@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'inviteEvaluate'
   },
   textInput (e) {
     this.setData({
@@ -18,7 +17,7 @@ Page({
   send () {
     if (!wx.getStorageSync('session_key')) {
       return wx.showToast({
-        title: '您为授权小程序,无法发送评论，请删除小程序后,再打开链接并授权'
+        title: '您未授权小程序,无法发送评论，请删除小程序后,再打开链接并授权'
       })
     }
     if (this.data.textValue.length === 0) {

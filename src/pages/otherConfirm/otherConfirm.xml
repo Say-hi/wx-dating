@@ -6,7 +6,7 @@
 </view>
 <!--套餐头部-->
 <view class="invited">
-  <view class="title">{{title}}</view>
+  <view catchtap="goTaocan" class="title arrow">{{title}}</view>
   <!--日期-->
   <view class="text-wrap">
     <view class="name-l">日期:</view>
@@ -20,12 +20,13 @@
   <!--地址-->
   <view class="text-wrap">
     <view class="name-l">地址:</view>
-    <view catchtap="showMap" class="name-r">{{ address }}</view>
+    <view catchtap="showMap" class="name-r address">{{ address }}</view>
   </view>
   <!--费用-->
   <view class="text-wrap">
     <view class="name-l">费用:</view>
-    <view class="name-r redcolor">￥{{ orderInfo.money }}</view>
+    <!--<view class="name-r redcolor">￥{{ orderInfo.money }}</view>-->
+    <view class="name-r redcolor">￥{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') }}</view>
   </view>
   <!--手机-->
   <view class="text-wrap lxnumber" style="border-bottom: 2rpx solid #eee;">
@@ -118,7 +119,7 @@
   <!--上传图片区域-->
   <view class="up-photo">
     <view class="photo-wrap" wx:for="{{ photos }}">
-      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item }}"></image>
+      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item.photo_url }}"></image>
       <view catchtap="delphoto" data-index="{{index}}" class="del">×</view>
     </view>
     <image catchtap="upPhoto" class="img" src="../../images/userUpPhoto.png"></image>
@@ -264,5 +265,25 @@
         {{ orderInfo.comment.content }}
       </view>
     </view>
+  </view>
+</view>
+
+<view wx:if="{{ orderMask }}" class="moneyMask">
+  <view class="mask-wrap">
+    <view class="m-title">
+      <text class="m-close" catchtap="closeMoneyMask">×</text>
+      支付费用
+    </view>
+    <view class="m-c-pay">
+      ￥{{ (payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '' }}
+      <view wx:if="{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') * 1 > coin }}" class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>
+      <!--<view  class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>-->
+    </view>
+    <view class="m-footer">
+      <image class="m-icon" src="../../images/userMoney.png"></image>
+      <text>账户余额</text>
+      <text class="m-f-r">￥{{ coin }}</text>
+    </view>
+    <view catchtap="goPay" class="payBtn">立即支付</view>
   </view>
 </view>

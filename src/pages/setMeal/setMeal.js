@@ -91,7 +91,8 @@ Page({
       orderId: that.data.id,
       address: that.data.orderInfo.address,
       price: that.data.orderInfo.money,
-      title: that.data.orderInfo.name
+      title: that.data.orderInfo.name,
+      imgUrl: that.data.orderInfo.photo_list[0]
     }
     wx.setStorageSync('orderInfo', orderInfo)
     wx.navigateTo({

@@ -23,9 +23,9 @@
   </view>
 </view>
 <!--填写关注内容弹窗-->
-<view wx:if="{{ mask }}" class="mask">
+<view catchtap="closeMask" wx:if="{{ mask }}" class="mask">
     <view class="m-wrap">
-        <textarea class='itext' maxlength='20' bindinput='inputtext' placeholder='hi,快来关注我吧'></textarea>
+        <textarea catchtap="stillmask" class='itext' maxlength='20' bindinput='inputtext' placeholder='hi,快来关注我吧'></textarea>
         <view catchtap='follow' class='sendbtn'>发送</view>
     </view>
 </view>

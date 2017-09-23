@@ -144,6 +144,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    if (this.data.hide) {
+      this.setData({
+        orderArr: [],
+        page: 1
+      })
+      if (this.data.topCur * 1 === 1) {
+        this.getMySend(1)
+      } else {
+        this.getMyReceive(1)
+      }
+    }
     // TODO: onShow
   },
 
@@ -151,6 +162,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide () {
+    this.setData({
+      hide: true
+    })
     // TODO: onHide
   },
 
