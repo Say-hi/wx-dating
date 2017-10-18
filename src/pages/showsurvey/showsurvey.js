@@ -14,6 +14,11 @@ Page({
     write: false,
     hide: true
   },
+  goUser (e) {
+    wx.navigateTo({
+      url: `../userInfo/userInfo?userId=${e.currentTarget.dataset.id}`
+    })
+  },
   delMask () {
     let that = this
     this.setData({

@@ -18,9 +18,9 @@
   <!--身高相关信息-->
   <view class="user-info-detail">
     <view class="user-detail">{{ user.ganqing == '0' ? '单身' : '非单身' }}</view>
-    <view class="user-detail">{{ user.age }}</view>
-    <view class="user-detail">{{ user.user_height }}cm</view>
-    <view class="user-detail">{{ user.job }}</view>
+    <view class="user-detail">{{ user.age || '未填写' }}</view>
+    <view class="user-detail">{{ user.user_height || '未填写' }}cm</view>
+    <view class="user-detail">{{ user.job || '未填写' }}</view>
   </view>
   <button disabled="{{user.isSubscribe}}" data-id="{{ user.user_id }}" catchtap="follow" class="follow-btn">{{ user.isSubscribe ? '已关注' : btnText }}</button>
   <button wx:if="{{ type == 'self' }}" open-type="share" class="share">右上角转发邀请更多</button>

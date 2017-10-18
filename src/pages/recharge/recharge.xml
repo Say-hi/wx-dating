@@ -27,7 +27,7 @@
 <view wx:if="{{ maskshow }}" class="mask">
   <view class="mask-wrap">
     <image class="mask-img" src="../../images/choose-confirm.png"></image>
-    <text class="mask-c-center">礼品卷充值成功!</text>
+    <text class="mask-c-center">兑换成功！</text>
     <view class="mask-btn"><text catchtap="delMask">确认</text></view>
   </view>
 </view>

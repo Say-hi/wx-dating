@@ -20,7 +20,7 @@
     <navigator wx:if="{{ info.order_status != 2 }}" url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>
   </view>
   <!--惩罚金-->
-  <view wx:if="{{ money && (info.order_status == 4 || info.order_status == 5) }}" class="punishment">
+  <view wx:if="{{ info.is_weiyue == 1 && info.is_weiyue_self == 1  }}" class="punishment">
     <text>惩罚金</text>
     <text>￥10</text>
   </view>
@@ -39,13 +39,13 @@
 <view class="dating-info">
   <block wx:for="{{ datingInfo }}">
     <view>
-      <text class="title">{{ item.title }}:</text>
-      <text class="{{ item.title == '费用' ? 'd-i-money' : ''}}">{{ item.title == '费用' ? '￥' : '' }}{{ item.text }}</text>
+      <text class="title {{ item.title == '地址' ? 'addressFixTitle':'' }}">{{ item.title }}:</text>
+      <text class="address {{ item.title == '地址' ? 'addressFix':'' }} {{ item.title == '费用' ? 'd-i-money' : ''}}">{{ item.title == '费用' ? '￥' : '' }}{{ item.text }}</text>
     </view>
   </block>
 </view>
 
-<view class="payfinish" catchtap="payorder" wx:if="{{ pay == 1 }}">继续支付订单</view>
+<view class="payfinish" catchtap="payorder" wx:if="{{ pay == 1 && (info.money * 1) != 0}}">继续支付订单</view>
 
 <view wx:if="{{ orderMask }}" class="moneyMask">
   <view class="mask-wrap">

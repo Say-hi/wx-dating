@@ -135,7 +135,11 @@ Page({
               title: '该订单已完成支付'
             })
           }
+          that.setData({
+            orderMask: false
+          })
           that.getOrderInfo(that.data.id)
+          // that.onLoad(that.data.params)
         }
       }
     }
@@ -185,7 +189,11 @@ Page({
           wx.showToast({
             title: '支付成功'
           })
+          that.setData({
+            orderMask: false
+          })
           that.getOrderInfo(that.data.id)
+          // that.onLoad(that.data.params)
         }
       },
       fail (res) {
@@ -201,6 +209,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    this.setData({
+      params: params
+    })
     // console.log(!params.id)
     if (params.id === 'null') {
       // console.log(1)

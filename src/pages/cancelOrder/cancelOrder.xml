@@ -1,5 +1,5 @@
 <view class="wrap">
-  <view class="top-title">
+  <view class="top-title" wx:if="{{ order.is_zidai == 1 }}">
     {{ !zd ? '您的约会对象因故取消了与您的邀约，请确认' : '如果是对方爽约，请让对方取消赴约' }}
   </view>
   <!--订单信息-->
@@ -17,7 +17,7 @@
           {{ order.package_name }}
         </view>
         <view class="o-i-c-time">
-          时间: {{ order.order_date }}{{ order.order_time }}
+          时间: {{ order.order_date }}　{{ order.order_time }}
         </view>
         <view class="o-i-c-address">
           地点: {{ order.area }}
@@ -36,7 +36,7 @@
   <!--惩罚-->
   <view class="punishment">
     <!--todo 判断用户是否取消超过三次-->
-    <view wx:if="{{ shiYue && zd }}" class="punishment-money">
+    <view wx:if="{{ !order.content_huiying && order.is_zudong != 1 && shiYue && zd || infoTwo.is_weiyue == 1 && infoTwo.is_weiyue_self == 1 }}" class="punishment-money">
       <text>惩罚金</text>
       <text>￥10</text>
     </view>
@@ -52,7 +52,7 @@
       <view>你回复Ta的信息</view>
       <textarea value="{{ order.content_huiying }}" bindinput="inputValue" placeholder="您可以在这里写下想对TA说的话后确认，也可以直接确认"></textarea>
     </view>
-    <checkbox-group wx:if="{{ zd && order.is_zudong != 1 }}" bindchange="checkboxChange">
+    <checkbox-group wx:if="{{ zd && order.is_zudong != 1 && order.is_zhidai == 1 }}" bindchange="checkboxChange">
       <label class="checkbox" wx:for="{{ items }}">
         <checkbox color="#fff" value="{{ item.name }}" checked="{{ item.checked }}">
           {{ item.value }}

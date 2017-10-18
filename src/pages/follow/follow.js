@@ -10,7 +10,8 @@ Page({
     title: 'follow',
     page: 1,
     people: [],
-    content: ''
+    content: '',
+    nohao: false
   },
   closeMask () {
     this.setData({
@@ -124,15 +125,15 @@ Page({
       success (res) {
         // console.log(res)
         if (res.data.code === 200) {
-          if (res.data.data.length === 0) {
-            return wx.showToast({
-              title: text || '亲，没有更多的内容啦',
-              image: '../../images/jiong.png'
+          if (res.data.data.length === 0 && page * 1 === 1) {
+            that.setData({
+              nohao: true
             })
           }
           let s = that.data.people.concat(res.data.data)
           that.setData({
-            people: s
+            people: s,
+            nohao: false
           })
         } else {
           wx.showToast({
@@ -171,6 +172,12 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
+    this.setData({
+      page: 1,
+      people: []
+    })
+    this.getFollowUser(1)
+    this.getstranger()
   },
 
   /**
@@ -185,12 +192,12 @@ Page({
    */
   onShow () {
     // TODO: onShow
-    this.setData({
-      page: 1,
-      people: []
-    })
-    this.getFollowUser(1)
-    this.getstranger()
+    // this.setData({
+    //   page: 1,
+    //   people: []
+    // })
+    // this.getFollowUser(1)
+    // this.getstranger()
   },
 
   /**

@@ -45,7 +45,7 @@ Page({
     industryIndex: 0,
     value: [0, 0],
     // 车房状况
-    houseArr: ['请选择Ta的车房状况', '有房有车', '有房无车', '有车无房', '车房待购'],
+    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
     houseIndex: 0,
     industryShow: false,
     forOther: false,
@@ -89,7 +89,8 @@ Page({
             likes_movies: that.data.likesMovies || '',
             likes_books: that.data.likesBooks || '',
             comment: that.data.comment || '',
-            photos: that.data.photos.join(',')
+            photos: that.data.photos.join(','),
+            archives_id: that.data.id
           }
           wx.setStorageSync('forOtherInfo', foi)
           let s = wx.getStorageSync('orderInfo')
@@ -330,12 +331,15 @@ Page({
         comment: that.data.comment || '',
         photos: that.data.photos.join(',')
       },
-      success () {
+      success (res) {
         // console.log('保存信息成功', res)
         wx.showToast({
           title: '保存成功',
           duration: 1000,
           mask: true
+        })
+        that.setData({
+          id: res.data.archives_id
         })
         if (that.data.forOther) {
           let infos = {
@@ -354,7 +358,8 @@ Page({
             likes_movies: that.data.likesMovies || '',
             likes_books: that.data.likesBooks || '',
             comment: that.data.comment || '',
-            photos: that.data.photos.join(',')
+            photos: that.data.photos.join(','),
+            archives_id: that.data.id
           }
           wx.setStorageSync('forOtherInfo', infos)
           return setTimeout(function () {

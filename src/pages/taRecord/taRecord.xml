@@ -1,5 +1,6 @@
 <!--个人中心的ta的档案页面-->
 <view class="ta-record">
+  <view wx:if="{{ userList.length == 0 }}" class="tac">--- 还没创建TA档案 ---</view>
   <navigator url="../taRecordDetail/taRecordDetail" wx:if="{{ userList.length == 0 }}" class="no-record">创建一份Ta的档案</navigator>
   <block wx:if="{{ userList.length > 0 }}" wx:for="{{ userList }}">
     <!--catchtap="{{ !choose ? gotodetail : backChoose }}"-->

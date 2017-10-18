@@ -53,6 +53,11 @@ Page({
     }
     app.wxrequest(obj)
   },
+  goUser (e) {
+    wx.navigateTo({
+      url: `../userInfo/userInfo?userId=${e.currentTarget.dataset.id}`
+    })
+  },
   // 获取评价用户信息
   getInfo (id) {
     let that = this

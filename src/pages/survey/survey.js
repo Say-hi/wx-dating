@@ -18,7 +18,7 @@ Page({
       {
         name: 'noshow',
         value: '匿名',
-        text: '等到对方收到至少2份匿名问卷后才能看到'
+        text: '等待对方收到至少2份匿名问卷后才能看到'
       },
       {
         name: 'show',
@@ -33,6 +33,11 @@ Page({
     ],
     write: false,
     hide: true
+  },
+  goUser (e) {
+    wx.navigateTo({
+      url: `../userInfo/userInfo?userId=${e.currentTarget.dataset.id}`
+    })
   },
   delMask () {
     this.setData({
@@ -128,10 +133,10 @@ Page({
         session_key: wx.getStorageSync('session_key'),
         user_id: that.data.userInfo.user_id,
         order_id: that.data.userInfo.order_id,
-        question_one: that.data.question_one,
-        question_two: that.data.question_two,
-        question_three: that.data.question_three,
-        question_four: that.data.question_four,
+        question_one: that.data.question_one || '未填写',
+        question_two: that.data.question_two || '未填写',
+        question_three: that.data.question_three || '未填写',
+        question_four: that.data.question_four || '未填写',
         type: that.data.curChoose
       },
       success (res) {

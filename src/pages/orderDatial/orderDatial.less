@@ -130,6 +130,7 @@
   padding: 0rpx 24rpx 20rpx 24rpx;
   > view {
     display: flex;
+    position: relative;
     align-items: center;
     min-height: 87rpx;
     border-bottom: 1rpx solid #ccc;
@@ -141,6 +142,9 @@
     }
     text:nth-child(1) {
       flex: 1;
+    }
+    .address {
+      line-height: 60rpx;
     }
   }
   .d-i-money {
@@ -156,6 +160,19 @@
   font-weight: 700;
   color: #2b2f41;
   text-align: center;
-  border-radius: 10rpx;
-  background-color: #ffc4a6;
+  border-radius: 60rpx;
+  border: 1rpx solid #2b2f41;
+}
+
+.addressFix {
+  flex: 1;
+  padding-left: 80rpx;
+  line-height: 40rpx !important;
+  text-align: right !important;
+}
+
+.addressFixTitle {
+  position: absolute;
+  top: 4rpx;
+  left: 0;
 }

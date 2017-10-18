@@ -4,6 +4,7 @@
     <view class="d-w-wrap">
       <view class="left">
         <text>{{ item.desc }}</text>
+        <text wx:if="{{ item.order_sn }}">订单编号：{{ item.order_sn || '暂无订单号' }}</text>
         <text>{{ item.time }}</text>
       </view>
       <view class="right">

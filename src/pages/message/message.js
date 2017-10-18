@@ -26,12 +26,19 @@ Page({
             title: '没有更多内容啦'
           })
         }
+        res.data.data.forEach(v => {
+          v.content = that.br(v.content)
+        })
         that.setData({
           message: that.data.message.concat(res.data.data)
         })
       }
     }
     app.wxrequest(obj)
+  },
+  br (str) {
+    // console.log(str)
+    return str.split('$')
   },
   /**
    * 生命周期函数--监听页面加载

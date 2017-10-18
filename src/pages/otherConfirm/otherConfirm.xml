@@ -19,14 +19,15 @@
   </view>
   <!--地址-->
   <view class="text-wrap">
-    <view class="name-l">地址:</view>
+    <view class="name-l addressName">地址:</view>
     <view catchtap="showMap" class="name-r address">{{ address }}</view>
   </view>
   <!--费用-->
   <view class="text-wrap">
     <view class="name-l">费用:</view>
     <!--<view class="name-r redcolor">￥{{ orderInfo.money }}</view>-->
-    <view class="name-r redcolor">￥{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') }}</view>
+    <view wx:if="{{  orderInfo.pay_status == 1 }}" class="name-r redcolor">￥0.00</view>
+    <view wx:else class="name-r redcolor">￥{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') }}</view>
   </view>
   <!--手机-->
   <view class="text-wrap lxnumber" style="border-bottom: 2rpx solid #eee;">
@@ -67,7 +68,7 @@
   <!--tips...-->
   <view class="bottom-text">
     <view>
-      *在约会开始前一天24点前，仍未约会成功，费用将全额退回至个人余额账户。约会对象仅为一人。
+      *在约会开始三小时前，仍未约会成功，费用将自动全额原路返还。约会对象仅为一人。
     </view>
   </view>
   <!--confirm-->
@@ -107,7 +108,8 @@
 <!--<view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>-->
 <view class="mask-wrap">
   <view class="mask-title sc" style="padding-top: 40rpx;">
-    发起邀约成功，请搜索“约会日”关注公众号，否则不能及时接收动态通知
+      {{ people == '自带约会对象' ? '购买成功！' : '发起成功，等待应邀！' }}
+    <view>请关注“约会日”公众号，以便及时接收动态通知</view>
   </view>
   <view catchtap="goShare" class="mask-confirm">
     确认
@@ -211,7 +213,7 @@
   <!--深度资料-->
   <view class="basic-data">
     <view class="basic-one">深度资料</view>
-    <view class="basic-second">约会成功后对方可见</view>
+    <view class="basic-second">邀约成功后对方才能看到</view>
   </view>
   <!--公司-->
   <view class="text-wrap" >

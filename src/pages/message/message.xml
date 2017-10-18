@@ -7,8 +7,8 @@
       </view>
       <view class="center">
         <view class="title">通知消息</view>
-        <view class="content">
-          {{ item.content }}
+        <view class="content" wx:for="{{ item.content }}" wx:for-item="tex">
+          {{ tex }}
         </view>
       </view>
       <view class="time">

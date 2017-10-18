@@ -80,7 +80,7 @@
 <!--<view wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">-->
     <view class="friend-trends">
         <view class="friend-title">好友动态</view>
-        <swiper indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
+        <swiper class="ssssss" indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
             <block wx:for="{{userList}}" wx:for-item="outitem">
                 <swiper-item>
                     <view catchtap="goPlans" data-id="{{ item.order_id }}" data-title="{{ item.name }}" url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">

@@ -13,4 +13,5 @@
   <view class="send-btn">
     <text catchtap="sendMessage">发送</text>
   </view>
+  <view class="sb">商务合作邮箱：chasingtime@163.com</view>
 </view>

@@ -7,7 +7,7 @@
     <!--用户信息-->
     <view class="user-info">
       <!--头像-->
-      <image class="user-avatar-url" src="{{user.avatar}}"></image>
+      <image catchtap="goUser" data-id="{{ id }}" class="user-avatar-url" src="{{user.avatar}}"></image>
       <!--昵称-->
       <view class="user-nick-name iconfont {{user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{user.user_nicename}}</view>
       <!--身高相关信息-->

@@ -55,6 +55,15 @@ Page({
     // console.log(tabCurrent)
     if (status === 0 && tabCurrent === 0) {
       // todo 查看应邀
+      if (e.currentTarget.dataset.pay * 1 === 1) {
+        wx.showToast({
+          title: '您未完成支付，请继续支付订单 '
+        })
+        setTimeout(() => {
+          this.goDetail(e)
+        }, 1000)
+        return
+      }
       wx.navigateTo({
         // url: '../checkInvited/checkInvited?orderId=' + orderId +
         url: `../checkInvited/checkInvited?orderId=${orderId}&ta=${e.currentTarget.dataset.ta}`
@@ -198,6 +207,11 @@ Page({
       return wx.showToast({
         title: '对方未确认您的应邀，无法查看信息'
       })
+    } else if (e.currentTarget.dataset.status * 1 === 0) {
+      e.currentTarget.dataset['pay'] = 1
+    }
+    if (e.currentTarget.dataset.status * 1 !== 0) {
+      e.currentTarget.dataset['pay'] = 2
     }
     wx.navigateTo({
       url: `../orderDatial/orderDatial?id=${e.currentTarget.dataset.id}&status=${e.currentTarget.dataset.status}&pay=${e.currentTarget.dataset.pay}`

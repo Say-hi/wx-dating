@@ -72,7 +72,7 @@ Page({
         session_key: wx.getStorageSync('session_key')
       },
       success (res) {
-        if (res.data.data.isShiyue * 1 === 1) {
+        if (res.data.data.shiyue_num >= 4) {
           that.setData({
             shiYue: true
           })
@@ -103,6 +103,24 @@ Page({
       }
     }
     app.wxrequest(orderObj)
+  },
+
+  // 获取订单信息
+  getOrderInfoTwo (id) {
+    let that = this
+    let obj = {
+      url: useUrl.orderDetail,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      },
+      success (res) {
+        that.setData({
+          infoTwo: res.data.data || ''
+        })
+      }
+    }
+    app.wxrequest(obj)
   },
   // 回复取消订单
   replyOrder () {
@@ -160,10 +178,17 @@ Page({
       success (res) {
         console.log(res)
         if (res.data.code === 200) {
-          wx.showToast({
-            title: '订单已取消，等待审核退款',
-            mask: true
-          })
+          if (that.data.order.is_zhidai * 1 === 2) {
+            wx.showToast({
+              title: '订单已取消，款项已原路退回',
+              mask: true
+            })
+          } else {
+            wx.showToast({
+              title: '订单已取消，等待审核退款',
+              mask: true
+            })
+          }
           setTimeout(function () {
             wx.navigateBack({
               delta: 1
@@ -196,6 +221,7 @@ Page({
       status: params.status * 1
     })
     this.getOrderInfo(params.id)
+    this.getOrderInfoTwo(params.id)
     this.getUserInfo()
   },
 

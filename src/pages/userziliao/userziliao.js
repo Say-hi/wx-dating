@@ -284,7 +284,8 @@ Page({
   },
   onShareAppMessage () {
     return {
-      title: '邀请好友进行评价',
+      title: '进来帮我美言几句呀！',
+      imageUrl: '../../images/pingjia.png',
       path: '/pages/inviteEvaluate/inviteEvaluate?id=' + this.data.id,
       success () {
         wx.showToast({

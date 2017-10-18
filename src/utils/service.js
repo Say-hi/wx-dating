@@ -129,6 +129,7 @@ let serviceUrl = {
   // 系统消息
   messageList: baseDomain + '/api/user/messageList',
   userHasNewStranger: baseDomain + '/api/subscribe/userHasNewStranger',
-  userHasNewMessage: baseDomain + '/api/user/userHasNewMessage'
+  userHasNewMessage: baseDomain + '/api/user/userHasNewMessage',
+  deleteOrderByNoPayed: baseDomain + '/api/order/deleteOrderByNoPayed'
 }
 module.exports = serviceUrl

@@ -1422,6 +1422,15 @@ App({
     // }
     /*eslint-enable*/
   },
+  deleteOrder (id) {
+    this.wxrequest({
+      url: useUrl.deleteOrderByNoPayed,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        order_id: id
+      }
+    })
+  },
   // 输入框内容
   inputValue (e, _that) {
     let that = _that
@@ -1686,6 +1695,26 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch () {
+    console.log(`
+  ┏┛┻━━━┛┻┓
+  ┃｜｜｜｜｜｜｜┃
+  ┃　　　━　　　┃
+  ┃　┳┛　┗┳　┃
+  ┃　　　　　　　┃
+  ┃　　　┻　　　┃
+  ┃　　　　　　　┃
+  ┗━┓　　　┏━┛
+  　　┃　史　┃
+  　　┃　诗　┃
+  　　┃　之　┃
+  　　┃　宠　┃
+  　　┃　　　┗━━━━━━┓
+  　　┃　　　神兽坐镇　　　┣━━┓
+  　　┃　　　永不宕机　　　┃
+  　　┗┓┓┏━┳┓┏━━━┛
+  　　　┃┫┫　┃┫┫
+  　　　┗┻┛　┗┻┛
+`)
     // console.log(' ========== Application is launched ========== ')
     // this.wxlogin()
   },

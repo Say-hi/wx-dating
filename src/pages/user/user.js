@@ -37,7 +37,7 @@ Page({
         url: '../taRecord/taRecord'
       },
       {
-        title: '卷包余额',
+        title: '券包余额',
         ico: 'icon-yue',
         url: '../account/account'
       },
@@ -140,6 +140,20 @@ Page({
       }
     }
     wx.chooseVideo(videoObj)
+  },
+  edit () {
+    let that = this
+    wx.showActionSheet({
+      itemList: ['修改封面图片', '重新上传视频'],
+      itemColor: '#FCC0A4',
+      success (res) {
+        if (res.tapIndex * 1 === 0) {
+          that.editVideo()
+        } else if (res.tapIndex * 1 === 1) {
+          that.upVideo()
+        }
+      }
+    })
   },
   // 编辑相册封面
   editVideo () {
@@ -323,15 +337,15 @@ Page({
    */
   onUnload () {
     // TODO: onUnload
-  },
+  }
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh () {
-    // TODO: onPullDownRefresh
-    wx.stopPullDownRefresh()
-    if (!this.data.hasvideo) return
-    this.playVideo()
-  }
+  // onPullDownRefresh () {
+  //   // TODO: onPullDownRefresh
+  //   // wx.stopPullDownRefresh()
+  //   // if (!this.data.hasvideo) return
+  //   // this.playVideo()
+  // }
 })

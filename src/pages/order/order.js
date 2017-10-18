@@ -32,10 +32,12 @@ Page({
     two: 0
     // value:[18, 0]
   },
+  // 关闭支付界面
   closeMoneyMask () {
     this.setData({
       orderMask: false
     })
+    app.deleteOrder(this.data.order_id || this.data.order_ta_id)
   },
   // 获取用户金额情况
   getUserMoney () {
@@ -75,6 +77,7 @@ Page({
     let smbj = {
       url: useUrl.postTitaFaqi,
       data: {
+        archives_id: foi.archives_id || '',
         session_key: foi.session_key,
         name: foi.name,
         sex: foi.sex,
@@ -183,23 +186,12 @@ Page({
           wx.showToast({
             title: '您未完成微信支付'
           })
-
-          // setTimeout(function () {
-          //   wx.navigateBack({
-          //     delta: 1
-          //   })
-          // }, 1000)
         }
       },
       fail (res) {
         wx.showToast({
           title: '您未完成微信支付'
         })
-        // setTimeout(function () {
-        //   wx.navigateBack({
-        //     delta: 1
-        //   })
-        // }, 1000)
         console.log('支付失败', res)
       }
     }
@@ -330,6 +322,11 @@ Page({
   },
   // 订单生效后跳转
   goShare () {
+    if (this.data.people === '自带约会对象') {
+      return wx.redirectTo({
+        url: `../userOrder/userOrder`
+      })
+    }
     this.getMyInfo()
   },
   // 去除遮罩层
@@ -383,6 +380,7 @@ Page({
       })
     }
   },
+  // 立即发起按钮
   goPayFirst () {
     if (this.data.mobile.length !== 11) {
       return wx.showToast({
@@ -408,44 +406,53 @@ Page({
       title: '请求支付信息中...'
     })
     this.getUserMoney()
-    setTimeout(() => {
-      wx.hideLoading()
-      this.setData({
-        orderMask: true
-      })
-    }, 300)
+    this.sendOrderData()
   },
-  // 去支付
+  // 支付弹窗去支付
   goPay () {
-    // if (this.data.mobile.length !== 11) {
-    //   return wx.showToast({
-    //     image: '../../images/jiong.png',
-    //     mask: true,
-    //     title: '请填写完整的手机号码'
-    //   })
-    // }
-    // if (this.data.timeIndex * 1 === 0) {
-    //   return wx.showToast({
-    //     image: '../../images/jiong.png',
-    //     mask: true,
-    //     title: '请选择约会时间'
-    //   })
-    // }
-    // if (this.data.datashow && this.data.people !== '自带约会对象') {
-    //   return this.setData({
-    //     datashows: true
-    //   })
-    // }
+    let that = this
     if (this.data.type === 'forOther') {
       this.payforother()
     } else {
-      this.sendOrderData()
+      // this.sendOrderData()
+      if (that.data.payType === 1 || that.data.payType === 2) {
+        let orderPayobj = {
+          url: useUrl.payByOrder,
+          data: {
+            session_key: wx.getStorageSync('session_key'),
+            order_id: that.data.order_id
+          },
+          success (res) {
+            console.log('order success', res)
+            // 需要支付的发起付款
+            if (res.data.code === 400) {
+              return wx.showToast({
+                title: res.data.message
+              })
+            }
+            if (res.data.data.length !== 0) {
+              // todo 微信支付流程
+              that.moneyPay(res.data.data, 'self')
+              return
+            }
+            that.setData({
+              orderMask: false,
+              datingSuccess: true
+            })
+          }
+        }
+        app.wxrequest(orderPayobj)
+      } else {
+        that.setData({
+          orderMask: false,
+          datingSuccess: true
+        })
+      }
     }
   },
   // 发起邀约生成订单信息
   sendOrderData () {
     let that = this
-    // console.log(wx.getStorageSync('session_key'))
     let obj = {
       url: useUrl.postFaqiYaoyue,
       data: {
@@ -458,51 +465,55 @@ Page({
         pay_type: that.data.payType
       },
       success (res) {
-        // if (res.data.message === '手机号码不正确') {
-        //   return wx.showToast({
-        //     title: '请填写正确的手机号码',
-        //     mask: true
-        //   })
-        // } else if (res.data.message === '你在这个时间段内有其他邀约')
         if (res.data.code === 400) {
+          that.setData({
+            orderMask: false
+          })
           return wx.showToast({
-            title: res.data.message,
+            image: '../../images/jiong.png',
+            title: '不能重复发起相同时间邀约',
             mask: true
           })
         }
+        setTimeout(() => {
+          wx.hideLoading()
+          that.setData({
+            orderMask: true
+          })
+        }, 300)
         // 订单响应成功
         that.setData({
           order_id: res.data.data.order_id
         })
         // 普通订单支付类型为 1：我付清 2：各付一半
-        if (that.data.payType === 1 || that.data.payType === 2) {
-          let orderPayobj = {
-            url: useUrl.payByOrder,
-            data: {
-              session_key: wx.getStorageSync('session_key'),
-              order_id: res.data.data.order_id
-            },
-            success (res) {
-              console.log('order success', res)
-              // 需要支付的发起付款
-              if (res.data.data.length !== 0) {
-                // todo 微信支付流程
-                that.moneyPay(res.data.data, 'self')
-                return
-              }
-              that.setData({
-                orderMask: false,
-                datingSuccess: true
-              })
-            }
-          }
-          app.wxrequest(orderPayobj)
-        } else {
-          that.setData({
-            orderMask: false,
-            datingSuccess: true
-          })
-        }
+        // if (that.data.payType === 1 || that.data.payType === 2) {
+        //   let orderPayobj = {
+        //     url: useUrl.payByOrder,
+        //     data: {
+        //       session_key: wx.getStorageSync('session_key'),
+        //       order_id: res.data.data.order_id
+        //     },
+        //     success (res) {
+        //       console.log('order success', res)
+        //       // 需要支付的发起付款
+        //       if (res.data.data.length !== 0) {
+        //         // todo 微信支付流程
+        //         that.moneyPay(res.data.data, 'self')
+        //         return
+        //       }
+        //       that.setData({
+        //         orderMask: false,
+        //         datingSuccess: true
+        //       })
+        //     }
+        //   }
+        //   app.wxrequest(orderPayobj)
+        // } else {
+        //   that.setData({
+        //     orderMask: false,
+        //     datingSuccess: true
+        //   })
+        // }
       }
     }
     app.wxrequest(obj)

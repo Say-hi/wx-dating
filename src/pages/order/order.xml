@@ -16,23 +16,12 @@
             {{timeArr[timeIndex]}}
           </view>
         </picker>
-        <!--<view>{{industryOne[one]}}<text>:{{industryTwo[two]}}</text></view>-->
-        <!--<view wx:if="{{industryShow}}" catchtap="noMask" class="mask">-->
-          <!--<picker-view class="mask-picker" indicator-style="height: 50px;"  value="{{value}}" bindchange="bindChange">-->
-            <!--<picker-view-column>-->
-              <!--<view wx:for="{{industryOne}}" style="line-height: 50px">{{item}}</view>-->
-            <!--</picker-view-column>-->
-            <!--<picker-view-column>-->
-              <!--<view wx:for="{{industryTwo}}" style="line-height: 50px">{{item}}</view>-->
-            <!--</picker-view-column>-->
-          <!--</picker-view>-->
-        <!--</view>-->
       </view>
     </view>
   </view>
   <!--地址-->
   <view class="text-wrap">
-    <view class="name-l">地址:</view>
+    <view class="name-l addressName">地址:</view>
     <view class="name-r address">{{ address }}</view>
   </view>
   <!--费用-->
@@ -88,7 +77,7 @@
   <!--tips...-->
   <view class="bottom-text">
     <view>
-      *在约会开始前三小时，仍未约会成功，费用将全额退回至个人余额账户。约会对象仅为一人。
+      *在约会开始前三小时，仍未约会成功，费用将自动全额原路返还。约会对象仅为一人。
     </view>
   </view>
   <!--confirm-->
@@ -123,29 +112,12 @@
   <!--第一次使用完善个人资料弹窗-->
   <import src="../template/template"></import>
   <template is="finishUserData" data="{{ datashow: datashows }}"></template>
-  <!--<view wx:if="{{ datashow }}" class="usermask">-->
-    <!--<view class="usermask-wrap">-->
-      <!--<view class="user-top">-->
-        <!--<image src="../../images/nodata.png"></image>-->
-      <!--</view>-->
-      <!--<view class="u-text">第一次使用</view>-->
-      <!--<view class="u-text">请先完善个人资料</view>-->
-      <!--<view class="u-confirm-btn">-->
-        <!--<text catchtap="gofinishuserdata">确认</text>-->
-      <!--</view>-->
-    <!--</view>-->
-  <!--</view>-->
 </view>
 <!--发起成功-->
 <view wx:if="{{ datingSuccess }}" class="mask">
-  <!--<image class="success-img" src="../../images/dating-success.png"></image>-->
-  <!--<view class="success-text">发起邀约成功，请等待通知</view>-->
-  <!--<view class="success-tips">请关注公众号“<text>约会日</text>”绑定账户否则不能及时接收约会通知。</view>-->
-  <!--<image class="erweima" src="../../images/erweima.jpg"></image>-->
-  <!--<view class="erweima-text">请截屏保存本图片后使用微信扫一扫功能右上角选择相册图片</view>-->
   <view class="mask-wrap">
     <view class="mask-title sc">
-      发起成功，等待应邀！
+      {{ people == '自带约会对象' ? '购买成功！' : '发起成功，等待应邀！' }}
       <view>请关注“约会日”公众号，以便及时接收动态通知</view>
     </view>
     <view catchtap="goShare" class="mask-confirm">
@@ -170,7 +142,6 @@
     <view class="m-c-pay">
       ￥{{ (payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '' }}
       <view wx:if="{{ ((payType == 1 || payType == 0) ? (price * 2) : payType == 2 ? price : payType == 3 ? '0.00' : '') * 1 > coin }}" class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>
-      <!--<view  class="m-c-tips">*账户余额不足，剩余金额将前往微信支付</view>-->
     </view>
     <view class="m-footer">
       <image class="m-icon" src="../../images/userMoney.png"></image>

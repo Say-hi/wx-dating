@@ -65,7 +65,7 @@ Page({
         // console.log(citys[city])
         if (!citys[city]) {
           return that.setData({
-            city: '不在服务范围内',
+            city: '点击选择城市',
             ifarrow: true,
             setAdd: false,
             lat: res.result.location.lat,

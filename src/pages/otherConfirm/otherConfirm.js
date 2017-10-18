@@ -62,7 +62,7 @@ Page({
   },
   // 信息提交后判断是否需要支付
   moneyPay (e, type) {
-    console.log(e)
+    // console.log(e)
     let that = this
     // 支付参数
     let payObj = {
@@ -81,7 +81,8 @@ Page({
             })
           } else {
             that.setData({
-              datingSuccess: true
+              datingSuccess: true,
+              orderMask: false
             })
           }
         } else {
@@ -188,8 +189,10 @@ Page({
     this.setData({
       orderMask: false
     })
+    // app.deleteOrder(this.data.id)
     wx.showToast({
       title: '订单已确认，请在账单页面继续完成支付',
+      // title: '订单未完成支付,删除订单',
       mask: true
     })
     setTimeout(() => {
@@ -607,6 +610,36 @@ Page({
         mask: true
       })
     }
+    if (this.data.ageIndex * 1 === 0) {
+      return wx.showToast({
+        title: '亲,请选择年龄区间',
+        mask: true
+      })
+    }
+    if (this.data.orderInfo.user_height * 1 === 0) {
+      return wx.showToast({
+        title: '亲,请输入身高',
+        mask: true
+      })
+    }
+    if (this.data.value[0] === 0) {
+      return wx.showToast({
+        title: '亲,请选择行业',
+        mask: true
+      })
+    }
+    if (!this.data.orderInfo.compny) {
+      return wx.showToast({
+        title: '亲,请输入工作的公司',
+        mask: true
+      })
+    }
+    if (this.data.houseIndex * 1 === 0) {
+      return wx.showToast({
+        title: '亲,请选择车房状况',
+        mask: true
+      })
+    }
     wx.setStorageSync('phoneNumber', this.data.orderInfo.mobile)
     let that = this
     let oi = this.data.orderInfo
@@ -638,12 +671,12 @@ Page({
                 likes_sports: oi.likes_sports,
                 photos: JSON.stringify(that.data.photos)
               },
-              success (res) {
-                if (res.data.message === '保存成功') {
-                  wx.showToast({
-                    title: '保存成功'
-                  })
-                }
+              success () {
+                // if (res.data.message === '保存成功') {
+                //   wx.showToast({
+                //     title: '保存成功'
+                //   })
+                // }
               }
             }
             app.wxrequest(userObj)
@@ -684,9 +717,9 @@ Page({
             order_id: res.data.data.order_id
           })
           if ((that.data.payType * 1) === 1 || (that.data.payType * 1) === 2) {
-            wx.showLoading({
-              title: '订单以确认,发起支付中...'
-            })
+            // wx.showLoading({
+            //   title: '订单已确认,发起支付中...'
+            // })
             that.getUserMoney()
             setTimeout(() => {
               wx.hideLoading()
@@ -812,6 +845,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
+    if (!params.orderTaId) {
+      wx.showLoading({
+        title: '非法套餐数据,即将返回首页',
+        mask: true
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '../index2/index2'
+        })
+      }, 1500)
+      return
+    }
     let that = this
     app.data.ageArr.splice(0, 1, '请选择Ta的年龄区间')
     app.data.industryOne.splice(0, 1, '请选择Ta所在的行业')
@@ -828,7 +873,10 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    // params['orderTaId'] = 271
+    // params['orderTaId'] = 380
+    this.setData({
+      id: params.orderTaId
+    })
     app.wxlogin(that.getOrderInfo, params.orderTaId)
   },
   /**

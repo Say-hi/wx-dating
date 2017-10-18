@@ -134,11 +134,11 @@ Page({
       },
       success () {
         // console.log('保存信息成功', res)
-        wx.showToast({
-          title: '个人资料保存成功',
-          duration: 1000,
-          mask: true
-        })
+        // wx.showToast({
+        //   title: '个人资料保存成功',
+        //   duration: 1000,
+        //   mask: true
+        // })
         // setTimeout(function () {
         //   wx.navigateBack({
         //     delta: 1
