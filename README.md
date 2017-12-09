@@ -11,8 +11,6 @@
 
 ## 内容预览
 
-![image](./showImg/index.png)
+![image](./showImg/index.png) ![image](./showImg/plan.png)
 
-![image](./showImg/plan.png)
-
-![image](./showImg/detail.png)
+![image](./showImg/detail.png) ![image](./showImg/order.png)
