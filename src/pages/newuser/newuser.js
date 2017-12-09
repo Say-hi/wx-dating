@@ -50,7 +50,7 @@ Page({
     industryIndex: 0,
     value: [0, 0],
     // 车房状况
-    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
+    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '车房待购'],
     houseIndex: 0,
     show: false,
     industryShow: false
@@ -61,6 +61,16 @@ Page({
     //   show: true
     // })
     this.upDateMyInfo()
+  },
+  savePhone () {
+    let that = this
+    app.wxrequest({
+      url: useUrl.updateUserMobile,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        mobile: that.data.phone
+      }
+    })
   },
   // 取消更新
   cancelConfirm () {
@@ -97,6 +107,8 @@ Page({
       return that.error('请填写名字')
     } else if (that.data.ageIndex === 0) {
       return that.error('请选择年龄')
+    } else if (!that.data.phone || parseInt(that.data.phone.length) !== 11) {
+      return that.error('手机号有误')
     } else if (that.data.userHeight.length <= 0) {
       return that.error('请输入身高')
     } else if ((that.data.value[0] * 1 === 0) && (that.data.value[1] * 1 === 0)) {
@@ -111,10 +123,14 @@ Page({
       return that.error('至少填写一个电影')
     } else if (that.data.likesBooks.length <= 0) {
       return that.error('至少填写一本书')
+    } else if (!that.data.phone && that.data.phone.length * 1 !== 11) {
+      return that.error('请填写手机号码')
     }
     this.setData({
       show: true
     })
+    wx.setStorageSync('phoneNumber', that.data.phone)
+    that.savePhone()
     let upobj = {
       url: useUrl.updateUserInfo,
       data: {
@@ -135,9 +151,7 @@ Page({
       success () {
         // console.log('保存信息成功', res)
         // wx.showToast({
-        //   title: '个人资料保存成功',
-        //   duration: 1000,
-        //   mask: true
+        //   title: '个人资料保存成功'
         // })
         // setTimeout(function () {
         //   wx.navigateBack({

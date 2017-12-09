@@ -26,11 +26,11 @@ Page({
     open_types: 'navigate',
     // 用户操作
     opertaion: [
-      // {
-      //   title: '我的资料',
-      //   ico: 'icon-ziliao',
-      //   url: '../userziliao/userziliao'
-      // },
+      {
+        title: '消息箱',
+        ico: 'icon-xiaoxi',
+        url: '../message/message'
+      },
       {
         title: 'TA的档案',
         ico: 'icon-dangan',
@@ -47,7 +47,7 @@ Page({
         url: '../mySurvey/mySurvey'
       },
       {
-        title: 'FAQ',
+        title: '帮助指南',
         ico: 'icon-FAQ',
         url: '../faq/faq'
       },
@@ -84,9 +84,9 @@ Page({
             videoCover: res.data.data.video_image || '../../images/login-bg.png'
           })
         } else {
-          wx.showToast({
-            title: '未授权登陆,请点击【立即登录】'
-          })
+          // wx.showToast({
+          //   title: '未授权登陆,请点击【立即登录】'
+          // })
         }
       }
     }
@@ -144,13 +144,45 @@ Page({
   edit () {
     let that = this
     wx.showActionSheet({
-      itemList: ['修改封面图片', '重新上传视频'],
+      itemList: ['修改封面图片', '重新上传视频', '删除视频', '删除封面'],
       itemColor: '#FCC0A4',
       success (res) {
         if (res.tapIndex * 1 === 0) {
           that.editVideo()
         } else if (res.tapIndex * 1 === 1) {
           that.upVideo()
+        } else if (res.tapIndex * 1 === 2) {
+          let upVideo = {
+            url: useUrl.updateVideoUrl,
+            data: {
+              session_key: wx.getStorageSync('session_key'),
+              file: ''
+            },
+            success (res) {
+              wx.hideLoading()
+              // console.log(res)
+              // let jsonObj = JSON.parse(res.data).data.res_file
+              that.setData({
+                videoSrc: '',
+                hasvideo: false
+              })
+            }
+          }
+          app.wxrequest(upVideo)
+        } else if (res.tapIndex * 1 === 3) {
+          app.wxrequest({
+            url: useUrl.updateVideoImage,
+            data: {
+              session_key: wx.getStorageSync('session_key'),
+              video_image: ''
+            },
+            success () {
+              wx.hideLoading()
+              that.setData({
+                videoCover: '../../images/login-bg.png'
+              })
+            }
+          })
         }
       }
     })
@@ -216,6 +248,22 @@ Page({
       show: true
     })
   },
+  // 获取自己的资料
+  getMyInfoid () {
+    // let that = this
+    let getobj = {
+      url: useUrl.getUserInfoBySelf,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        wx.navigateTo({
+          url: `../userInfo/userInfo?userId=${res.data.data.user_id}&type=self`
+        })
+      }
+    }
+    app.wxrequest(getobj)
+  },
   // 重新拉起授权
   getUserInfo () {
     if (this.data.logins) {
@@ -245,11 +293,52 @@ Page({
   },
   // 播放视屏
   playVideo () {
-    this.setData({
-      autoplay: true,
-      show: false,
-      playStatus: true
-    })
+    let s = wx.getSystemInfoSync()
+    let ss = false
+    // console.log(s)
+    if (s.brand === 'iPhone' && parseInt(s.system.split(' ')[1]) <= 10) {
+      // console.log(1)
+      ss = true
+      wx.showModal({
+        title: '视频播放',
+        content: '由于IOS版本较低，视频无法播放',
+        showCancel: false,
+        success (res) {
+          if (res.confirm) {
+            return
+          }
+        }
+      })
+    }
+    // if (ss) {
+    //   setTimeout(() => {
+    //     this.setData({
+    //       autoplay: true,
+    //       show: false,
+    //       playStatus: true
+    //     })
+    //   }, 1500)
+    // } else {
+    //   this.setData({
+    //     autoplay: true,
+    //     show: false,
+    //     playStatus: true
+    //   })
+    // }
+    if (!ss) {
+      this.setData({
+        autoplay: true,
+        show: false,
+        playStatus: true
+      })
+    }
+    // console.log('s', parseInt(s.system))
+    // // if (s.brand && parseInt(s.system < 10.3))
+    // this.setData({
+    //   autoplay: true,
+    //   show: false,
+    //   playStatus: true
+    // })
   },
   // 视频播放结束
   playFinish () {
@@ -322,6 +411,9 @@ Page({
   onShow () {
     this.getMessage()
     this.getMyInfo()
+    // let s =
+    // console.log('s',s.system.split(" "))
+    // console.log('s', )
     // TODO: onShow
   },
 

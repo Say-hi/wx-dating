@@ -165,9 +165,12 @@ Page({
     } else {
       this.getMyInfo(useUrl.myPhotos)
     }
-    if (params.type === 'other') {
+    if (params.type === 'other' || params.type === 's') {
       this.setData({
         type: 'other'
+      })
+      wx.setNavigationBarTitle({
+        title: 'Ta的相册'
       })
       this.getOther(params.id)
     }

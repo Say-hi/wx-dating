@@ -207,12 +207,12 @@ Page({
       return wx.showToast({
         title: '对方未确认您的应邀，无法查看信息'
       })
-    } else if (e.currentTarget.dataset.status * 1 === 0) {
+    } else if (e.currentTarget.dataset.status * 1 === 0 && this.data.tabCurrent * 1 === 1) {
       e.currentTarget.dataset['pay'] = 1
     }
-    if (e.currentTarget.dataset.status * 1 !== 0) {
-      e.currentTarget.dataset['pay'] = 2
-    }
+    // else if (e.currentTarget.dataset.status * 1 !== 0) {
+    //   e.currentTarget.dataset['pay'] = 2
+    // }
     wx.navigateTo({
       url: `../orderDatial/orderDatial?id=${e.currentTarget.dataset.id}&status=${e.currentTarget.dataset.status}&pay=${e.currentTarget.dataset.pay}`
     })

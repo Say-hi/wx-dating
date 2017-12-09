@@ -1,0 +1,170 @@
+.wrap {
+  padding: 0 24rpx;
+  border-top: 1rpx solid #ccc;
+}
+.wrap .arrow::after {
+  width: 16rpx;
+  height: 16rpx;
+  right: 0rpx;
+  color: #ccc;
+}
+.wrap .top {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+  height: 68rpx;
+}
+.wrap .top .number {
+  color: #333;
+  font-size: 26rpx;
+  font-weight: 700;
+  flex: 1;
+}
+.wrap .top .status {
+  font-size: 28rpx;
+  color: #ccc;
+}
+.wrap .top .confirm {
+  color: #ffc4a6;
+}
+.wrap .restaurant {
+  display: flex;
+  align-items: center;
+  min-height: 159rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.wrap .restaurant image {
+  width: 128rpx;
+  height: 128rpx;
+  margin-right: 21rpx;
+}
+.wrap .restaurant text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+.wrap .people {
+  height: 87rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+}
+.wrap .people image {
+  height: 68rpx;
+  width: 68rpx;
+  border-radius: 50%;
+  margin-right: 9rpx;
+}
+.wrap .people text {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 700;
+}
+.wrap .people text:after {
+  margin-left: 9rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+.wrap .conversion {
+  display: flex;
+  align-items: center;
+  height: 67rpx;
+}
+.wrap .conversion text,
+.wrap .conversion .cancel-btn {
+  color: #ffc4a6;
+  font-size: 26rpx;
+}
+.wrap .conversion text:nth-child(1) {
+  flex: 1;
+}
+.wrap .conversion .cancel-btn {
+  color: #2b2f41;
+  padding: 6rpx 12rpx;
+  border: 1rpx solid #2b2f41;
+  border-radius: 20rpx;
+}
+.wrap .punishment {
+  display: flex;
+  align-items: center;
+  height: 87rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.wrap .punishment text {
+  color: #333;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.wrap .punishment text:nth-child(1) {
+  flex: 1;
+}
+.wrap .punishment text:nth-child(2) {
+  color: #f66;
+}
+.wrap .cancel-reson,
+.wrap .cancel-respond {
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.wrap .cancel-reson view:nth-child(1),
+.wrap .cancel-respond view:nth-child(1) {
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 60rpx;
+}
+.wrap .cancel-reson view:nth-child(2),
+.wrap .cancel-respond view:nth-child(2) {
+  font-size: 26rpx;
+  color: #999;
+}
+.wrap .cancel-respond {
+  border-bottom: none;
+}
+.dating-info {
+  border-top: 10rpx solid #eee;
+  padding: 0rpx 24rpx 20rpx 24rpx;
+}
+.dating-info > view {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-height: 87rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.dating-info > view text {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 700;
+  min-width: 84rpx;
+}
+.dating-info > view text:nth-child(1) {
+  flex: 1;
+}
+.dating-info > view .address {
+  line-height: 60rpx;
+}
+.dating-info .d-i-money {
+  color: #f66;
+}
+.payfinish {
+  margin: 20rpx auto;
+  width: 60%;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2b2f41;
+  text-align: center;
+  border-radius: 60rpx;
+  border: 1rpx solid #2b2f41;
+}
+.addressFix {
+  flex: 1;
+  padding-left: 80rpx;
+  line-height: 40rpx !important;
+  text-align: right !important;
+}
+.addressFixTitle {
+  position: absolute;
+  top: 4rpx;
+  left: 0;
+}

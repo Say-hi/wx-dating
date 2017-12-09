@@ -50,7 +50,7 @@ Page({
     industryIndex: 0,
     value: [0, 0],
     // 车房状况
-    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
+    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '车房待购'],
     houseIndex: 0,
     show: true,
     industryShow: false
@@ -58,6 +58,16 @@ Page({
   // 确认更新
   confirmUpdate () {
     this.upDateMyInfo()
+  },
+  savePhone () {
+    let that = this
+    app.wxrequest({
+      url: useUrl.updateUserMobile,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        mobile: that.data.phone
+      }
+    })
   },
   // 首先获取自己的资料
   getMyInfo () {
@@ -72,7 +82,7 @@ Page({
         let job1 = i.job.split('-') || '不限'
         let v1 = that.data.industryOne.indexOf(job1[0]) || 0
         let v2 = 0
-        console.log(that.data.industryTwo)
+        // console.log(that.data.industryTwo)
         if (v1 < 24) {
           v2 = that.data.industryTwo[v1].indexOf(job1[1]) || 0
         }
@@ -92,6 +102,7 @@ Page({
           comment_list: i.comment_lists,
           id: i.user_id
         })
+        app.getPhone(that)
       }
     }
     app.wxrequest(getobj)
@@ -112,6 +123,8 @@ Page({
       return that.error('请填写名字')
     } else if (that.data.ageIndex === 0) {
       return that.error('请选择年龄')
+    } else if (!that.data.phone || parseInt(that.data.phone.length) !== 11) {
+      return that.error('手机号有误')
     } else if (that.data.userHeight.length <= 0) {
       return that.error('请输入身高')
     } else if ((that.data.value[0] * 1 === 0) && (that.data.value[1] * 1 === 0)) {
@@ -127,6 +140,8 @@ Page({
     } else if (that.data.likesBooks.length <= 0) {
       return that.error('至少填写一本书')
     }
+    wx.setStorageSync('phoneNumber', that.data.phone)
+    that.savePhone()
     let upobj = {
       url: useUrl.updateUserInfo,
       data: {

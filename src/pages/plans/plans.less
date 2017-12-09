@@ -72,6 +72,7 @@
   .plans-content-wrap {
     padding: 0 24rpx;
     .plans-content {
+      position: relative;
       border-bottom: 1rpx solid #ccc;
       margin-top: 19rpx;
       image {
@@ -181,6 +182,16 @@
 }
 page {
   height: 100%;
+}
+.nogoods::after {
+  content: '已售罄';
+  position: absolute;
+  font-size: 30rpx;
+  color: #fff;
+  top: 0;
+  right: 12rpx;
+  padding: 14rpx 20rpx;
+  background-color: rgba(0,0,0,0.3);
 }
 //没有列表信息
 .nolist {

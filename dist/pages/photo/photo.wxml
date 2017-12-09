@@ -1,0 +1,12 @@
+<!--点击查看相册-->
+<view class="photo">
+  <block wx:for="{{ userPhotos }}" wx:key="unique">
+    <view data-index="{{ index }}" catchtap="showImg" class="photo-wrap">
+      <image mode="aspectFill" class="imgs" src="{{ item.photo_url }}"></image>
+      <image wx:if="{{ item.is_ta == '1' }}" class="other-up" src="../../images/other-up.png"></image>
+      <view wx:if="{{ !id }}" catchtap="delphoto" data-index="{{ index }}" class="del">×</view>
+    </view>
+  </block>
+  <view catchtap="upPhoto" class="camera" wx:if="{{ userPhotos.length < 9 && !type}}"><image src="../../images/camera.png"></image></view>
+</view>
+<view wx:if="{{ !id }}" class="upBtn" catchtap="upMyPhoto">更新我的相册</view>

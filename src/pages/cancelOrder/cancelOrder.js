@@ -10,6 +10,7 @@ Page({
     title: 'cancelOrder',
     value: '',
     shiYue: false,
+    flag: false,
     // order: {
     //   number: 1232416,
     //   type: 0, // 0 自己发起的 1 别人发起的
@@ -42,6 +43,8 @@ Page({
     })
   },
   confirmBtn () {
+    if (this.data.flag) return
+    this.data.flag = true
     let that = this
     if (this.data.status === 1) {
       that.cancelOrder()
@@ -126,6 +129,7 @@ Page({
   replyOrder () {
     let that = this
     if (this.data.value.length === 0) {
+      this.data.flag = false
       return wx.showToast({
         title: '您还没有填写回复理由呢',
         mask: true
@@ -139,6 +143,7 @@ Page({
         content: that.data.value
       },
       success (res) {
+        that.data.flag = false
         if (res.data.code === 200) {
           wx.showToast({
             title: '回复成功',
@@ -161,6 +166,7 @@ Page({
   // 取消订单
   cancelOrder () {
     if (this.data.value.length === 0) {
+      this.data.flag = false
       return wx.showToast({
         title: '您还没有填写理由呢~~',
         mask: true
@@ -177,6 +183,7 @@ Page({
       },
       success (res) {
         console.log(res)
+        that.data.flag = false
         if (res.data.code === 200) {
           if (that.data.order.is_zhidai * 1 === 2) {
             wx.showToast({

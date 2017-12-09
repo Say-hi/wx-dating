@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2017/6/2.
  */
+// let baseDomain = 'https://yuehuiri.chinawr.net'
 let baseDomain = 'https://www.lanzhangxiu.cn'
-// let baseDomain = 'http://yuehui.lanzhangxiu.cn'
 let serviceUrl = {
   packageDateTimeLists: baseDomain + '/api/engagement/packageDateTimeLists',
   // 登陆 post | code iv encryptedData
@@ -130,6 +130,8 @@ let serviceUrl = {
   messageList: baseDomain + '/api/user/messageList',
   userHasNewStranger: baseDomain + '/api/subscribe/userHasNewStranger',
   userHasNewMessage: baseDomain + '/api/user/userHasNewMessage',
-  deleteOrderByNoPayed: baseDomain + '/api/order/deleteOrderByNoPayed'
+  deleteOrderByNoPayed: baseDomain + '/api/order/deleteOrderByNoPayed',
+  updateUserMobile: baseDomain + '/api/user/updateUserMobile',
+  getUserMobile: baseDomain + '/api/user/getUserMobile'
 }
 module.exports = serviceUrl

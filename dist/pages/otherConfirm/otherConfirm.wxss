@@ -1,0 +1,114 @@
+.wrap {
+  border-top: 1rpx solid #ccc;
+}
+.wrap .wrap-top {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 28rpx;
+  color: #333;
+  padding: 13rpx 0;
+  background-color: #ebedf4;
+}
+.choosepeople {
+  padding-right: 20rpx;
+}
+.choosepeople::after {
+  right: 0;
+  height: 16rpx;
+  width: 16rpx;
+}
+.mask-bottom-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+.mask-bottom-wrap view {
+  line-height: 114rpx;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 20rpx;
+  font-size: 40rpx;
+  color: #000;
+}
+.mask-bottom-wrap view:nth-child(1) {
+  border-bottom-left-radius: 0rpx;
+  border-bottom-right-radius: 0rpx;
+  border-bottom: 1rpx solid #d7d7d7;
+}
+.mask-bottom-wrap .qwe {
+  margin-bottom: 16rpx;
+  border-top-left-radius: 0rpx;
+  border-top-right-radius: 0rpx;
+}
+.mask-bottom-wrap view:nth-last-child(1) {
+  color: #157efb;
+  margin-bottom: 20rpx;
+}
+.paymask .noborder {
+  border-radius: 0rpx;
+  border-bottom: 1rpx solid #d7d7d7;
+}
+.paymask .lastborder {
+  margin-bottom: 16rpx;
+  border-top-left-radius: 0rpx;
+  border-top-right-radius: 0rpx;
+}
+.invitedconfirm {
+  z-index: 96;
+  display: flex;
+}
+.invitedconfirm .invCancel {
+  border-top: 1rpx solid #ccc;
+  box-sizing: border-box;
+  flex: 1;
+  color: #2b2f41;
+  background-color: #fff;
+}
+.invitedconfirm .invConfirm {
+  flex: 1;
+}
+.fixData {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ffc4a6;
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+  width: 140rpx;
+  line-height: 50rpx;
+}
+.friendComment {
+  display: flex;
+  padding: 10rpx;
+  align-items: center;
+  border-bottom: 90rpx solid transparent;
+}
+.friendComment image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.friendComment .fc-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+}
+.friendComment .fc-wrap .iconfont::after {
+  margin-left: 10rpx;
+  font-size: 20rpx;
+  color: #999;
+}
+.friendComment .fc-wrap .comment {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #666;
+}

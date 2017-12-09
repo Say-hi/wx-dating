@@ -1,0 +1,73 @@
+.wrap {
+  border-top: 1rpx solid #ccc;
+  padding: 0 24rpx;
+  padding-top: 30rpx;
+}
+.wrap .kefu-img {
+  text-align: center;
+  border-bottom: 1rpx solid #2b2f41;
+  padding-bottom: 30rpx ;
+}
+.wrap .kefu-img .kefu-btn {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  width: 190rpx;
+  height: 135rpx;
+  background-color: #fff;
+  border: none;
+}
+.wrap .kefu-img .kefu-btn image {
+  width: 100%;
+  height: 100%;
+}
+.wrap .kefu-img .kefu-btn::after {
+  border: none;
+}
+.wrap .kefu-img view {
+  font-size: 28rpx;
+  color: #ccc;
+  line-height: 40rpx;
+}
+.wrap .fktext {
+  margin-top: 30rpx;
+  width: 100%;
+  font-size: 30rpx;
+  color: #ccc;
+  line-height: 40rpx;
+  height: 428rpx;
+  border-bottom: 1rpx solid #2b2f41;
+}
+.wrap .lx {
+  border-bottom: 1rpx solid #2b2f41;
+  padding-left: 20rpx;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 700;
+  line-height: 87rpx;
+  display: flex;
+  align-items: center;
+}
+.wrap .lx input {
+  display: inline-block;
+  flex: 1;
+}
+.wrap .send-btn {
+  text-align: center;
+  margin-top: 70rpx;
+}
+.wrap .send-btn text {
+  display: inline-block;
+  width: 260rpx;
+  line-height: 78rpx;
+  font-size: 30rpx;
+  color: #ffc4a6;
+  background-color: #2b2f41;
+  border-radius: 78rpx;
+}
+.sb {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}

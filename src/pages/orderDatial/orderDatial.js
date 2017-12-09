@@ -111,6 +111,7 @@ Page({
   },
   // 支付
   goPay () {
+    wx.showLoading({title: '等待中'})
     let that = this
     let orderPayobj = {
       url: useUrl.payByOrder,
@@ -119,6 +120,7 @@ Page({
         order_id: that.data.id
       },
       success (res) {
+        wx.hideLoading()
         console.log('pay order', res)
         // 需要支付的发起付款
         if (res.data.data.length !== 0) {
@@ -126,19 +128,29 @@ Page({
           that.moneyPay(res.data.data)
           return
         } else {
-          if (res.data.message === '应邀者付清') {
-            return wx.showToast({
-              title: '需应邀者付清'
-            })
-          } else if (res.data.message === '该订单已经完成支付') {
-            return wx.showToast({
-              title: '该订单已完成支付'
+          if (res.data.code === 400) {
+            wx.showToast({
+              title: res.data.message
             })
           }
+          // if (res.data.message === '应邀者付清') {
+          //   return wx.showToast({
+          //     title: '需应邀者付清'
+          //   })
+          // } else if (res.data.message === '该订单已经完成支付') {
+          //   return wx.showToast({
+          //     title: '该订单已完成支付'
+          //   })
+          // }
           that.setData({
             orderMask: false
           })
-          that.getOrderInfo(that.data.id)
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 500)
+          // that.getOrderInfo(that.data.id)
           // that.onLoad(that.data.params)
         }
       }

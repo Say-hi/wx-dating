@@ -26,7 +26,7 @@ Page({
     })
     wx.redirectTo({
       // url: '../survey/survey?orderId=' + that.data.orderId
-      url: '../survey/survey?id=0' + '&write=true' + '&orderId=' + that.data.orderId
+      url: '../survey/survey?id=0' + '&write=true' + '&orderId=' + that.data.orderId + '&from=show'
     })
   },
   goback () {

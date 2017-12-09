@@ -51,6 +51,12 @@ Page({
   },
   // 选择交换方式
   chooseArr (e) {
+    if (this.data.noChange) {
+      return wx.showToast({
+        title: '不可修改',
+        image: '../../images/jiong.png'
+      })
+    }
     this.setData({
       curChoose: e.currentTarget.dataset.index
     })
@@ -161,6 +167,12 @@ Page({
   onLoad (params) {
     // let that = this
     // 填写问卷
+    if (params.from === 'show') {
+      this.setData({
+        curChoose: 1,
+        noChange: true
+      })
+    }
     if (params.id * 1 === 0) {
       this.setData({
         write: true

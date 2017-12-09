@@ -18,7 +18,7 @@ Page({
     autoplay: true,
     circular: true,
     interval: 5000,
-    duration: 1000,
+    duration: 500,
     height: '500rpx',
     width: '750rpx',
     mode: 'aspectFill'

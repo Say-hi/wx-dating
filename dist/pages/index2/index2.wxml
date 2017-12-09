@@ -1,0 +1,103 @@
+<!--无月份切换的滑动日历-->
+<view class="calendar-root">
+  <!--logo-->
+    <!--<image class='logo' src='../../images/follow_hl.png'></image>-->
+  <scroll-view class="calendar-out-wrap" bindscroll="scroll" scroll-y style="height: 100%;">
+    <block wx:for="{{dateArr}}" wx:for-item="out" wx:key="unique" wx:for-index="i">
+        <!--top-->
+        <view class="calendar-navbar">
+            <!--约会日图标-->
+            <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABCUExURUxpcf/Epv/Epv/Epv/Epv/Epv/Epv3Dpf/Epv/Epv/EpisvQf/EptCjkEZCTlhPVnNhY6ODeoxzbzY3RrWQg+u2nBvcjnUAAAALdFJOUwCYOwpig8X4IeWypwO3ogAAA7BJREFUeNrtXNmSozAMjMEHxrIxR/7/VzfZncpkkoDEYKAftt+mapx0ZFmHLely2Yam0ka11nvniJzz3rbK6Kq5nIZGK3vj8hnOKt2cQKn1xMK3R1KrlIDSg5qqDpGTWcHpi5nZWWa1tvQrWF0jCWp/kTXK0SY41eCR2oNYbQqQ+kvMFNQx7akYvC61f5aKwhbZyVL797yTcKIqIzDtaBe4LRpWK9oNqsbawK0bWXnaFb5CUqttCqbpAKzmZegQGEhWK3kdxmoVrwNZreCl6VAI9b4iAuRVuaNpOYFdbTwdDs/6odrSCbCc31Z0ChTUIRSqfePOouWW1MvSabAg1l1s7c/bwsVttHQqLNgpXDyNtT+blq/R9H1W68/V91mtVwQAhSisD+KCENabuDCE9SYuQyAwWDbro+3SBAON4w1nPGNDQGjwFP6n0nskWv60NHoZFZaFf7X0HouWBzyH32eRs6XXMHa5j1u9pot97sZwlVrUlvmvKfxDN/yamotD9/UpE//frUi1hvDAmKf1zNyUx++PGITKxapWDs8Yc1xFKj5zuiELlYt10ym8oBOLzE3d6+IkdNec1XLhHamXEHN9+rDWySwXFz3E8AmJV90pfVwp0IF7FOGEB/FtK5c/P3Yz6wRH0Qk0vg9zGOZ/kRtmV/UinWf99PwXhDQnsJjmFwksxM1b63X2QfTT+6UlWXQUzSZaIb9vpGNWiEJBNqrpFr8kdNf4vJXXeOUWiGKbdiOtkNLNlQ9Df8OQ0/3P7bRaPunhvmYtJGbe8jHgWJjWKIoEQWmxLiqUhsSbotIiRFqESuu/bq2h5RFpwdoti0jL8q6a84np5stTHu64Z82sq04iV6020roHNk/HJrKBTRIFNmZbYLM+DJQENoYPmrvCQbOEluZTjFw4xZAEzRWfkA2FEzJJ5tPw6WtfOH3tJUaeT/anwsn+JDFb/NVILHw1EiX2QXJHWfQiSXpL2ayzp1uv3ZJM4/lLylz0klJgH7zoSrcveqUrOIgt8gU46HMB6OMK6lMU6MMd6DMn6qMw6BM6aMEBankGaDELaOkPaqEUaFkZahEeaMkiaoEnaDksavEwaKk1amE6ahk/aNMDaosIakMNaPsRarMWamsbaCMgatvkCWovbH49mJe4VRizgRm13Ru1OR51lADq4AXUMRWoQz1QR6CgDoxBHa8DO4wIdXQT7KAr1LFgsEPUUEfOwQ7ogx1nCDv8EXZUJu5gUdwxrA9qcENrv7ntM+L3D3KCNcKiUdQQAAAAAElFTkSuQmCC"></image>
+            <!--当前日期信息-->
+            <view class="current-day-info">
+                <view class="current-day-info-top">
+                    <!--<view class="cur-month-left" bindtap="goNextMonthAnimate"></view>-->
+                    <view class="cur-Month" catchtap="goToday">
+                        {{ dateArr[i].dateData.curMonth }}月
+                    </view>
+                    <!--<view class="cur-month-right" bindtap="goLastMonthAnimate"></view>-->
+                </view>
+                <view class="current-week" >
+                    {{ dateArr[i].dateData.month }}<text class="current-week-year">,{{ dateArr[i].dateData.curYear }}</text>
+                </view>
+            </view>
+        </view>
+        <!--week-->
+        <view class="calendar-head">
+            <view wx:for="一二三四五六日" wx:key="*this" class="{{ index==5 || index==6 ? 'week':'' }}">{{item}}</view>
+        </view>
+        <!--日历主体-->
+        <view class="calendar-body-wrap out{{ i }}">
+          <!--当月数据-->
+          <view class="calendar-body">
+            <view  wx:if="{{ !(!out.dateData.arrIsShow[35] && row == 5) }}" class="{{ !out.dateData.arrIsShow[35] ? 'calendar-body-rows-height' : '' }}   calendar-body-rows" wx:for="012345" wx:for-index="row" wx:key="*this">
+              <view class="calendar-body-cols" wx:for="0123456" wx:for-index="col" wx:key="*this">
+                <view data-type="{{ (out.dateData.arrInfoEx[row * 7 + col].sMonth < out.dateData.curMonth || out.dateData.arrInfoEx[row * 7 + col].sDay < out.dateData.curDay || out.dateData.arrInfoEx[row * 7 + col].sYear < out.dateData.curYear) ? 'nochoose' : '' }}" class=" {{ (out.dateData.arrInfoEx[row * 7 + col]['week'] == '六' || out.dateData.arrInfoEx[row * 7 + col]['week'] == '日') ? 'week' : '' }} {{ (out.dateData.arrInfoEx[row * 7 + col].sMonth < out.dateData.curMonth || out.dateData.arrInfoEx[row * 7 + col].sDay < out.dateData.curDay || out.dateData.arrInfoEx[row * 7 + col].sYear < out.dateData.curYear) ? 'nochoose' : '' }} {{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }} {{ out.dateData.arrInfoEx[row * 7 + col].sYear == detailData.curYear && out.dateData.arrInfoEx[row * 7 + col].sMonth == detailData.curMonth && out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.curDay ? 'chooseDay':''}} {{ out.dateData.arrInfoEx[row * 7 + col].sYear + '年'+ out.dateData.arrInfoEx[row * 7 + col].sMonth + '月' + out.dateData.arrInfoEx[row * 7 + col].sDay == detailData.date ? 'curToday' : '' }} calendar-body-item {{ dateData.arrInfoEx[row * 7 + col].week == '六' || dateData.arrInfoEx[row * 7 + col].week == '日' ? 'week' : '' }}" hover="true" hover-class="view-hover"  data-day-false="{{ dateData.arrIsShow[row * 7 + col] }}" data-day-index="{{row * 7 + col}}" data-i="{{ i }}" bindtap="selectDay">
+                  <!--<view  class="{{ !out.dateData.arrIsShow[row * 7 + col] ? 'not-cur' : 'cur-month' }}">-->
+                  <view>
+                    <!--阳历-->
+                    <view class="calendar-body-day">
+                      {{out.dateData.arrDays[row * 7 + col]}}
+                      <!--{{dateData.arrInfoEx[row * 7 + col].solarFestival}}-->
+                    </view>
+                    <!--农历-->
+                    <view class="calendar-body-dayex {{ (out.dateData.arrInfoEx[row * 7 + col].solarFestival || out.dateData.arrInfoEx[row * 7 + col].lunarFestival) ? 'solarFestival' : '' }}">
+                      {{out.dateData.arrInfoEx[row * 7 + col].solarFestival || out.dateData.arrInfoExShow[row * 7 + col]}}
+                      <!--{{}}-->
+                    </view>
+                    <!--国假调休-->
+                    <view wx:if="{{ out.dateData.arrInfoEx[row * 7 + col].workRestDay }}" class="work-rest">
+                      <!--{{ dateData.arrInfoEx[row * 7 + col].workRestDay == 1 ? '休息' : '上班' }}-->
+                      <image class="tx-img" src="{{ out.dateData.arrInfoEx[row * 7 + col].workRestDay == 1 ? '../../images/x.png' : '../../images/b.png' }}"></image>
+                    </view>
+                    <!--<view class="calendar-body-workturn" style="color:{{workTurnData.arrWorkTurn[row * 7 + col] === '休' ? '#09BB07' : '#e64340'}}" hidden="{{!isWorkTurn}}">
+                        {{workTurnData.arrWorkTurn[row * 7 + col]}}
+                    </view>-->
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+    </block>
+  </scroll-view>
+  <!--遮罩层-->
+  <!--<view class="masks"></view>-->
+  <!--底部标题-->
+  <view class="bottom-wrap">
+      <view class="schedule"></view>
+      <view class="show-bottom">
+          <view catchtap="goPlan" class="show-bottom-wrap">
+              <view class="show">
+                  今日约会
+              </view>
+          </view>
+      </view>
+  </view>
+</view>
+<!--关注好友邀请信息弹窗-->
+<view catchtap="delfriend" wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">
+<!--<view wx:if="{{friendshow && (userList.length > 0) }}" class="friend-mask">-->
+    <view class="friend-trends">
+        <view class="friend-title">好友动态</view>
+        <swiper class="ssssss" indicator-dots="true" autoplay="false" interval="5000000" duration="1000">
+            <block wx:for="{{userList}}" wx:for-item="outitem">
+                <swiper-item>
+                    <view catchtap="goPlans" data-id="{{ item.order_id }}" data-title="{{ item.name }}" url="../invitedConfirm/invitedConfirm?id={{ item.order_id }}&title={{ item.name }}" class="wrap" wx:for="{{ outitem }}" wx:for-item="item">
+                        <image src="{{ item.avatar }}"></image>
+                        <view class="name-wrap">
+                            <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.user_nicename }}</view>
+                            <view class="title">{{ item.name }}</view>
+                            <view>时间:{{ item.order_time }} 费用: {{item.money}}元</view>
+                            <view>地点:{{ item.area }}</view>
+                        </view>
+                        <view class="edit">应邀</view>
+                        <!--<view class="edit" catchtap="gotodetail" data-id="{{item.id}}">应邀</view>-->
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <!--<view class="f-t" wx:else>啊哦，这一天暂无小伙伴发起邀约哦~</view>-->
+        <navigator hover-class="none" url="../plans/plans" class="enter">直接进入</navigator>
+    </view>
+</view>

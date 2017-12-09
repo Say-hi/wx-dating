@@ -1,0 +1,26 @@
+<!--邀请评价好友页面-->
+<view class="invite-evaluate">
+  <view class="title">以下好友邀请你给TA评价</view>
+  <!--好友信息-->
+  <view class="info">
+    <view class="top-height"></view>
+    <!--用户信息-->
+    <view class="user-info">
+      <!--头像-->
+      <image catchtap="goUser" data-id="{{ id }}" class="user-avatar-url" src="{{user.avatar}}"></image>
+      <!--昵称-->
+      <view class="user-nick-name iconfont {{user.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{user.user_nicename}}</view>
+      <!--身高相关信息-->
+      <view class="user-info-detail">
+        <text class="user-detail">{{user.ganqing == 0 ? '单身' : '非单身'}}</text>
+        <text class="user-detail">{{user.age}}</text>
+        <text class="user-detail">{{user.user_height}}cm</text>
+        <text class="user-detail">{{user.job}}</text>
+      </view>
+    </view>
+    <view class="textarea-out">
+      <textarea bindinput="textInput" placeholder-class="cccc" class="evaluate-text" placeholder="请写下您对Ta的评论"></textarea>
+    </view>
+  </view>
+  <view catchtap="send" class="send">发送</view>
+</view>

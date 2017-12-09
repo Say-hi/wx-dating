@@ -45,7 +45,7 @@ Page({
     industryIndex: 0,
     value: [0, 0],
     // 车房状况
-    houseArr: ['请选择您的车房状况', '有车有房', '有车无房', '有房无车', '无房无车'],
+    houseArr: ['请选择Ta的车房状况', '有车有房', '有车无房', '有房无车', '车房待购'],
     houseIndex: 0,
     industryShow: false,
     forOther: false,
@@ -69,10 +69,10 @@ Page({
       confirmColor: '#ffc4a6',
       success (res) {
         if (res.confirm) {
-          console.log(1)
+          // console.log(1)/
           that.updateTaArchives()
         } else if (res.cancel) {
-          console.log(2)
+          // console.log(2)
           let foi = {
             session_key: wx.getStorageSync('session_key'),
             id: that.data.id || '',
@@ -90,6 +90,7 @@ Page({
             likes_books: that.data.likesBooks || '',
             comment: that.data.comment || '',
             photos: that.data.photos.join(','),
+            mobile: that.data.mobile || '',
             archives_id: that.data.id
           }
           wx.setStorageSync('forOtherInfo', foi)
@@ -275,6 +276,7 @@ Page({
         // console.log(res)
         // console.log(res.data.data)
         let job1 = res.data.data.job.split('-')
+        // console.log('job1', job1)
         let v1 = that.data.industryOne.indexOf(job1[0])
         let v2 = 0
         if (v1 < 24) {
@@ -295,11 +297,18 @@ Page({
           likesBooks: res.data.data.likes_books,
           comment: res.data.data.comment,
           photos: res.data.data.photos || [],
+          mobile: res.data.data.mobile || '',
           id: id
         })
       }
     }
     app.wxrequest(gc)
+  },
+  // 手机号输入
+  mobileInput (e) {
+    this.setData({
+      mobile: e.detail.value
+    })
   },
   // 更新信息
   updateTaArchives () {
@@ -329,6 +338,7 @@ Page({
         likes_movies: that.data.likesMovies || '',
         likes_books: that.data.likesBooks || '',
         comment: that.data.comment || '',
+        mobile: that.data.mobile || '',
         photos: that.data.photos.join(',')
       },
       success (res) {
@@ -338,10 +348,13 @@ Page({
           duration: 1000,
           mask: true
         })
+        // console.log('save', res)
         that.setData({
-          id: res.data.archives_id
+          id: res.data.data.archives_id
         })
+        console.log('id', that.data.id)
         if (that.data.forOther) {
+          // console.log('asdf')
           let infos = {
             url: useUrl.addUpdateTaArchives,
             session_key: wx.getStorageSync('session_key'),
@@ -361,6 +374,7 @@ Page({
             photos: that.data.photos.join(','),
             archives_id: that.data.id
           }
+          // console.log('infos', infos)
           wx.setStorageSync('forOtherInfo', infos)
           return setTimeout(function () {
             let s = wx.getStorageSync('orderInfo')

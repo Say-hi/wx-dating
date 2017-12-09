@@ -9,7 +9,7 @@
   "navigationBarTextStyle": "black",
   // 类型：String；默认值：无
   // 导航栏标题文字内容
-  "navigationBarTitleText": "约会套餐详情",
+  "navigationBarTitleText": "详情",
   // 类型：HexColor；默认值：#ffffff
   // 窗口的背景色
   "backgroundColor": "#fff",

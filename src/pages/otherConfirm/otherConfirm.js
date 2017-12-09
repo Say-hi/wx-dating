@@ -76,6 +76,7 @@ Page({
         if (res.errMsg === 'requestPayment:ok') {
           if (type === 'forOther') {
             that.setData({
+              payflag: false,
               sendMask: true,
               orderMask: false
             })
@@ -100,9 +101,11 @@ Page({
       fail (res) {
         console.log('支付失败', res)
         wx.showToast({
-          title: '尚未支付完成,请到订单中继续支付',
+          title: '未完成支付,订单关闭',
           mask: true
         })
+        app.deleteOrder(that.data.order_id)
+        that.orderCancel()
         setTimeout(function () {
           wx.reLaunch({
             url: '../index2/index2'
@@ -162,11 +165,11 @@ Page({
           v2 = that.data.industryTwo[v1].indexOf(job1[1])
         }
         let vv = [v1, v2]
-        if (res.data.data.mobile.length * 1 !== 11) {
-          if (wx.getStorageSync('phoneNumber')) {
-            res.data.data.mobile = wx.getStorageSync('phoneNumber')
-          }
-        }
+        // if (res.data.data.mobile.length * 1 !== 11) {
+        //   if (wx.getStorageSync('phoneNumber')) {
+        //     res.data.data.mobile = wx.getStorageSync('phoneNumber')
+        //   }
+        // }
         that.setData({
           orderInfo: res.data.data,
           people: res.data.data.is_zhidai === '1' ? '寻约会对象' : '自带约会对象',
@@ -178,8 +181,11 @@ Page({
           marryCur: res.data.data.ganqing * 1,
           ageIndex: that.data.ageArr.indexOf(res.data.data.age),
           value: vv,
-          houseIndex: res.data.data.cart_house
+          houseIndex: res.data.data.cart_house,
+          mobile: res.data.data.mobile || ''
+          // phone: wx.getStorageSync('phoneNumber') || ''
         })
+        // app.getPhone(that)
         that.checkUser()
       }
     }
@@ -189,17 +195,18 @@ Page({
     this.setData({
       orderMask: false
     })
-    // app.deleteOrder(this.data.id)
-    wx.showToast({
-      title: '订单已确认，请在账单页面继续完成支付',
-      // title: '订单未完成支付,删除订单',
-      mask: true
-    })
-    setTimeout(() => {
-      wx.reLaunch({
-        url: '../index2/index2'
-      })
-    }, 1000)
+    app.deleteOrder(this.data.order_id)
+    this.orderCancel()
+    // wx.showToast({
+    //   title: '订单已确认，请在账单页面继续完成支付',
+    //   // title: '订单未完成支付,删除订单',
+    //   mask: true
+    // })
+    // setTimeout(() => {
+    //   wx.reLaunch({
+    //     url: '../index2/index2'
+    //   })
+    // }, 1000)
   },
   // 输入框内容
   inputValue (e) {
@@ -372,7 +379,9 @@ Page({
     let that = this
     this.data.orderInfo.mobile = e.detail.value
     this.setData({
-      orderInfo: that.data.orderInfo
+      orderInfo: that.data.orderInfo,
+      phone: e.detail.value,
+      mobile: e.detail.value
     })
   },
   // 去到地图地址上
@@ -530,6 +539,7 @@ Page({
         // console.log(mine.photos)
         // console.log(mine.cart_house)
         // console.log(mine.photos)
+        app.getPhone(that)
         that.setData({
           orderInfo: orderInfo,
           genderCur: mine.sex - 1,
@@ -572,6 +582,9 @@ Page({
         order_ta_id: that.data.orderInfo.order_ta_id
       },
       success (res) {
+        // that.setData({
+        //   payflag: true
+        // })
         wx.showToast({
           title: '取消成功',
           mask: true
@@ -604,7 +617,7 @@ Page({
       }
     }
     // console.log(this.data.orderInfo.mobile.length)
-    if (!this.data.orderInfo.mobile || this.data.orderInfo.mobile.length !== 11) {
+    if (!this.data.mobile || parseInt(this.data.mobile.length) !== 11) {
       return wx.showToast({
         title: '亲,请输入正确的手机号码',
         mask: true
@@ -694,10 +707,10 @@ Page({
       data: {
         session_key: wx.getStorageSync('session_key'),
         order_ta_id: oi.order_ta_id,
-        pay_type: that.data.payType * 1 === 0 ? 1 : that.data.payType,
+        pay_type: that.data.payType,
         is_zhidai: that.data.people === '寻约会对象' ? 1 : 2,
         name: oi.name,
-        mobile: that.data.orderInfo.mobile,
+        mobile: that.data.mobile,
         sex: that.data.genderCur,
         ganqing: that.data.marryCur,
         age: that.data.ageArr[that.data.ageIndex],
@@ -724,7 +737,8 @@ Page({
             setTimeout(() => {
               wx.hideLoading()
               that.setData({
-                orderMask: true
+                orderMask: true,
+                payflag: true
               })
             }, 300)
             // todo
@@ -755,14 +769,30 @@ Page({
         order_id: that.data.order_id
       },
       success (res) {
+        if (res.data.code === 400) {
+          wx.showToast({
+            title: res.data.message,
+            image: '../../images/jiong.png'
+          })
+          return setTimeout(() => {
+            wx.reLaunch({
+              url: '../index2/index2'
+            })
+          }, 1500)
+        }
         console.log('order success', res)
         // 需要支付的发起付款
         if (res.data.data.length !== 0) {
+          // asdfasdfasdf
           // todo 微信支付流程
+          that.setData({
+            payflag: false
+          })
           that.moneyPay(res.data.data, 'self')
           return
         }
         that.setData({
+          payflag: false,
           orderMask: false,
           datingSuccess: true
         })
@@ -845,7 +875,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    if (!params.orderTaId) {
+    // params['orderTaId'] = 873
+    // console.log(params)
+    if (params.orderTaId === 'undefined' || !params.orderTaId) {
       wx.showLoading({
         title: '非法套餐数据,即将返回首页',
         mask: true
@@ -873,7 +905,7 @@ Page({
       industryOne: app.data.industryOne,
       industryTwo: app.data.industryTwo
     })
-    // params['orderTaId'] = 380
+
     this.setData({
       id: params.orderTaId
     })
@@ -904,6 +936,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload () {
+    if (this.data.payflag) {
+      app.deleteOrder(this.data.order_id)
+      this.orderCancel()
+    }
     // TODO: onUnload
   },
 

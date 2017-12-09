@@ -1,8 +1,36 @@
 @import "../template/template.less";
+
+.topasd {
+  display: flex;
+  align-items: center;
+  padding: 50rpx 0;
+  view {
+    //flex: 1;
+    width: 50%;
+  }
+  image {
+    width: 200rpx;
+    height: 200rpx;
+  }
+  .asdfsss {
+    text-align: center;
+  }
+  .asdfs {
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 70rpx;
+    display: inline;
+    max-height: 60rpx;
+    line-height: 60rpx;
+    font-size: 40rpx;
+    font-weight: 700;
+    border-left: 1rpx solid #2b2f41;
+  }
+}
 // 视屏区域样式
 .video-area {
   width: 100%;
-  height: 420rpx; // 视屏区域高度
+  height: 120rpx; // 视屏区域高度
   position: relative;
   .user-video {
     width: 100%;
@@ -161,7 +189,7 @@
     line-height: 90rpx;
     font-size: 26rpx;
     padding: 0 10rpx;
-    color: #999;
+    //color: #999;
     position: relative;
     padding-left: 80rpx;
   }
@@ -251,12 +279,13 @@
      width: 80%;
    }
 }
+
 //深度资料
 .moreInfo {
   .moreInfo-title {
     line-height: 87rpx;
-    font-size: 32rpx;
-    color: #666;
+    //font-size: 32rpx;
+    //color: #666;
     padding-left: 85rpx;
     position: relative;
     border-bottom: 1rpx solid #ccc;
@@ -274,9 +303,9 @@
   .text-wrap {
     border-bottom-color: #ccc;
   }
-  .text-wrap:nth-last-child(1) {
-    margin-bottom: 40rpx;
-  }
+  //.text-wrap:nth-last-child(1) {
+  //  //margin-bottom: 40rpx;/**/
+  //}
   .input {
     color: #333;
   }
@@ -294,4 +323,9 @@
 }
 .share::after {
   border: none;
+}
+
+.fset {
+  //font-size: 28rpx !important;
+  color: #333 !important;
 }

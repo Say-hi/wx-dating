@@ -153,11 +153,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    if (wx.getStorageSync('phoneNumber')) {
-      this.setData({
-        mobile: wx.getStorageSync('phoneNumber')
-      })
-    }
+    // if (wx.getStorageSync('phoneNumber')) {
+    //   this.setData({
+    //     mobile: app.getPhone()
+    //   })
+    // }
     let that = this
     // todo 获取套餐信息
     let obj = {
@@ -218,6 +218,11 @@ Page({
    */
   onShow () {
     this.checkUser()
+    // this.setData({
+    //   mobile: app.getPhone()
+    // })
+    app.getPhone(this)
+    // console.log(app.getPhone())
     // TODO: onShow
   },
 

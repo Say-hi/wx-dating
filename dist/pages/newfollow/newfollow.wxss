@@ -1,0 +1,70 @@
+.wrap {
+  border-top: 1rpx solid #ccc;
+}
+.people {
+  padding: 0 24rpx;
+}
+.people .p-wrap {
+  min-height: 180rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+  position: relative;
+}
+.people .p-wrap .p-img {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+.people .p-wrap .centers {
+  flex: 1;
+  max-width: 380rpx;
+}
+.people .p-wrap .p-name {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 700;
+  position: relative;
+}
+.people .p-wrap .p-name::after {
+  position: absolute;
+  top: 50%;
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 8rpx;
+  transform: translateY(-50%);
+}
+.people .p-wrap .p-introduce {
+  line-height: 40rpx;
+  font-size: 26rpx;
+  color: #666;
+  word-break: break-all;
+}
+.people .p-wrap .p-follow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 24rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #ffc4a6;
+  border-radius: 10rpx;
+  padding: 8rpx;
+  color: #ffc4a6;
+}
+.people .p-wrap .p-follow {
+  border-color: #ccc;
+  color: #ccc;
+}
+.people .p-wrap .icon-huxiangguanzhu::before {
+  position: absolute;
+  color: #ccc;
+  left: 0;
+  transform: translateX(-150%);
+}
+.tac {
+  text-align: center;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: #999;
+}

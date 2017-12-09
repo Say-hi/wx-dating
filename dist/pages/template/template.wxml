@@ -1,0 +1,42 @@
+<!--相册-->
+<template name="photo">
+    <navigator open-type="{{ open_type }}" url="{{ login ? '../photo/photo' : '' }}" class="photo">
+        <view class="photo-top iconfont arrow icon-xiangce">我的相册</view>
+        <view class="photo-show" wx:if="{{ login }}">
+            <block wx:for="{{ userPhoto }}" wx:for-item="photo" wx:key="unique">
+                <image src="{{ photo }}"></image>
+            </block>
+            <view class="camera" wx:if="{{ userPhoto.length <= 3 }}"><image src="../../images/camera.png"></image></view>
+        </view>
+    </navigator>
+</template>
+<!--视屏区域-->
+<template name="video">
+    <view class="video-area">
+        <video objectFit="{{objectFit}}" bindended="playFinish" wx:if="{{!show}}" autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video" src="{{videoSrc}}"></video>
+        <view wx:if="{{show}}" class="video-cover-wrap">
+            <image class="video-cover" src="{{videoCover}}"></image>
+            <image catchtap="playVideo" class="video-play" src="{{videoPlay}}"></image>
+        </view>
+    </view>
+</template>
+<!--第一次使用完善个人资料弹窗-->
+<template name="finishUserData">
+    <view wx:if="{{ datashow }}" class="usermask">
+        <view class="usermask-wrap">
+            <view class="user-top">
+                <image src="../../images/nodata.png"></image>
+            </view>
+            <view class="u-text">第一次使用</view>
+            <view class="u-text">请先完善个人资料</view>
+            <view class="u-confirm-btn">
+                <navigator open-type="navigate" url="../newuser/newuser">确认</navigator>
+            </view>
+        </view>
+    </view>
+</template>
+<!--视频弹窗形式-->
+<view catchtap="videodel" wx:if="{{ !show }}" class="video-mask">
+    <video objectFit="{{objectFit}}" bindended="playFinish"  autoplay="{{autoplay}}" controls="{{videoControls}}" class="user-video-two" src="{{videoSrc}}"></video>
+</view>
+

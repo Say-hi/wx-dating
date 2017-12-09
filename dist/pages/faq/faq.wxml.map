@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["pages/faq/faq.xml"],"sourcesContent":["<import src=\"../../wxParse/wxParse\"></import>\n<view class=\"faq\">\n  <template is=\"wxParse\" data=\"{{ wxParseData:answer.nodes }}\"></template>\n</view>"],"file":"faq.wxml"}

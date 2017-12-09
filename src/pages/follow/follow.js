@@ -36,7 +36,7 @@ Page({
       },
       success (res) {
         // console.log(res)
-        if (res.data.data.length === 0) {
+        if (res.data.data.length === 0 || !res.data.data) {
           return wx.showToast({
             title: '亲，没有搜索到相关用户',
             image: '../../images/jiong.png',
@@ -81,6 +81,7 @@ Page({
         title: '超出字数限制'
       })
     }
+    // console.log(that.data.id)
     let fbj = {
       url: useUrl.remindSubscribe,
       data: {
@@ -125,8 +126,8 @@ Page({
       success (res) {
         // console.log(res)
         if (res.data.code === 200) {
-          if (res.data.data.length === 0 && page * 1 === 1) {
-            that.setData({
+          if (!res.data.data && page * 1 === 1) {
+            return that.setData({
               nohao: true
             })
           }
@@ -172,12 +173,12 @@ Page({
    */
   onLoad () {
     // TODO: onLoad
-    this.setData({
-      page: 1,
-      people: []
-    })
-    this.getFollowUser(1)
-    this.getstranger()
+    // this.setData({
+    //   page: 1,
+    //   people: []
+    // })
+    // this.getFollowUser(1)
+    // this.getstranger()
   },
 
   /**
@@ -192,12 +193,12 @@ Page({
    */
   onShow () {
     // TODO: onShow
-    // this.setData({
-    //   page: 1,
-    //   people: []
-    // })
-    // this.getFollowUser(1)
-    // this.getstranger()
+    this.setData({
+      page: 1,
+      people: []
+    })
+    this.getFollowUser(1)
+    this.getstranger()
   },
 
   /**

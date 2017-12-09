@@ -1,0 +1,63 @@
+<!--问卷调查-->
+<view class="survey">
+    <view wx:if="{{ type != 0 }}" class="top-title">约会对象</view>
+    <!--约会对象信息-->
+    <view wx:if="{{ type != 0 }}" class="p-info">
+        <view class="p-i-top"></view>
+        <!--用户信息-->
+        <view class="user-wrap">
+            <view class="user-info">
+                <!--头像-->
+                <image catchtap="goUser" data-id="{{ userInfo.user_id }}" class="user-avatar-url" src="{{ userInfo.avatar }}"></image>
+                <!--昵称-->
+                <view class="user-nick-name iconfont {{ userInfo.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.user_nicename}}</view>
+                <!--身高相关信息-->
+                <view class="user-info-detail">
+                    <text class="user-detail">{{userInfo.ganqing == 1 ? '非单身' : '单身'}}</text>
+                    <text class="user-detail">{{userInfo.age}}</text>
+                    <text class="user-detail">{{userInfo.user_height}}cm</text>
+                    <text class="user-detail">{{userInfo.job}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--约会感觉-->
+    <view class="sentiment">
+        <view class="s-title">Ta对此次约会的感想</view>
+        <view class="s-impression">
+            <view>1、TA对你的第一印象如何</view>
+            <input value="{{ question_one }}" data-type="impression" placeholder="　请写下..."/>
+        </view>
+        <view class="s-moment">
+            <view>2、你最打动TA的一瞬间是什么？</view>
+            <view>(可以是一句话、一个小动作、一件事等关于TA的细节)</view>
+            <input value="{{ question_two }}" data-type="moment" placeholder="　请写下..."/>
+        </view>
+        <view class="s-possible">
+            <view>3、这次见面后，TA觉得有多大可能与你开始一段恋情？</view>
+            <view>(以百分比回答)</view>
+            <input value="{{ question_three }}" data-type="possible" placeholder="　请写下..."/>
+        </view>
+        <view class="s-doing">
+            <view>4、这次见面后，TA最希望你做什么？</view>
+            <!--<view>(以百分比回答)</view>-->
+            <input value="{{ question_four }}"  data-type="doing" placeholder="　请写下..."/>
+        </view>
+    </view>
+</view>
+<!--弹窗-->
+<view wx:if="{{ show }}" class="mask">
+    <view class="mask-wrap">
+        <view class="ts">交换问卷</view>
+        <view class="ts-two">
+            对方选择的是交换方式，需要填写
+        </view>
+        <view class="ts-three">
+            问卷调查才能查看对方问卷
+        </view>
+        <view class="mask-confirm">
+            <text class="mask-cancel-btn" catchtap="goback">放弃</text>
+            <text class="mask-confirm-btn" catchtap="delMask">去填写</text>
+        </view>
+    </view>
+</view>

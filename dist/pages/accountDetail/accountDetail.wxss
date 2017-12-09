@@ -1,0 +1,40 @@
+.detail-wrap {
+  border-top: 1rpx solid #ccc;
+}
+.detail-wrap .d-w-wrap {
+  border-bottom: 1rpx solid #ccc;
+  display: flex;
+  padding: 30rpx 12rpx;
+}
+.detail-wrap .d-w-wrap .left {
+  flex: 1;
+}
+.detail-wrap .d-w-wrap .left text {
+  display: block;
+  line-height: 40rpx;
+}
+.detail-wrap .d-w-wrap .left text:nth-child(1) {
+  font-size: 30rpx;
+  color: #000;
+  font-weight: 700;
+}
+.detail-wrap .d-w-wrap .left text:nth-child(2),
+.detail-wrap .d-w-wrap .left text:nth-child(3) {
+  font-size: 26rpx;
+  color: #ccc;
+}
+.detail-wrap .d-w-wrap .right {
+  text-align: right;
+}
+.detail-wrap .d-w-wrap .right text {
+  display: block;
+  line-height: 40rpx;
+}
+.detail-wrap .d-w-wrap .right text:nth-child(1) {
+  font-size: 32rpx;
+  color: #666;
+}
+.detail-wrap .d-w-wrap .right text:nth-child(2) {
+  font-size: 26rpx;
+  color: #ccc;
+}

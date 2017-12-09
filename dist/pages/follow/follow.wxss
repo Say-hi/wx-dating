@@ -1,0 +1,146 @@
+.search {
+  height: 98rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+  padding: 9rpx 24rpx 19rpx 18rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.search .ring {
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+}
+.search .has-message::before {
+  position: absolute;
+  top: 6rpx;
+  right: 8rpx;
+  content: '';
+  display: inline-block;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #f00;
+}
+.search .icon-sousuo {
+  position: absolute;
+  left: 270rpx;
+  top: 50%;
+  transform: rotateY(180deg) translateY(-60%);
+}
+.search .icon-sousuo::before {
+  color: #999;
+}
+.search .search-input {
+  margin-left: 17rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 50rpx;
+  flex: 1;
+  height: 70rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+.search .search-input-p {
+  color: #999;
+  font-size: 28rpx;
+}
+.people {
+  padding: 0 24rpx;
+}
+.people .p-wrap {
+  position: relative;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+}
+.people .p-wrap .p-img {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  margin-right: 70rpx;
+}
+.people .p-wrap .p-number {
+  position: absolute;
+  top: 20rpx;
+  left: 110rpx;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  font-size: 28rpx;
+  color: #fff;
+  background-color: #f66;
+  line-height: 32rpx;
+  text-align: center;
+}
+.people .p-wrap .p-name-w {
+  width: 250rpx;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.people .p-wrap .p-name {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 700;
+  position: relative;
+  max-width: 250rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.people .p-wrap .sasd::after {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+.people .p-wrap .p-follow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #ffc4a6;
+  border-radius: 10rpx;
+  padding: 10rpx 15rpx;
+  color: #ffc4a6;
+}
+.people .p-wrap .p-follow {
+  border-color: #ccc;
+  color: #ccc;
+}
+.people .p-wrap .icon-huxiangguanzhu::before {
+  position: absolute;
+  color: #ccc;
+  left: 0;
+  transform: translateX(-150%);
+}
+.m-wrap {
+  padding: 20rpx;
+  width: 80%;
+  height: 300rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 20rpx;
+}
+.m-wrap .itext {
+  width: 100%;
+  height: 50%;
+}
+.m-wrap .sendbtn {
+  width: 40%;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 40rpx);
+  line-height: 60rpx;
+  background-color: #ffc4a6;
+  color: #fff;
+  text-align: center;
+  border-radius: 50rpx;
+}

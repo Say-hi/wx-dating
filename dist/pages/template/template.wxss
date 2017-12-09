@@ -1,0 +1,107 @@
+.photo {
+  line-height: 88rpx;
+}
+.photo .photo-top {
+  border-bottom: 2rpx solid #ccc;
+  padding-left: 70rpx;
+}
+.photo .arrow::after {
+  width: 20rpx;
+  height: 20rpx;
+  color: #ccc;
+}
+.photo .photo-top::before {
+  font-size: 70rpx;
+  position: absolute;
+  top: 50%;
+  transform: translate(-70rpx, -50%);
+}
+.photo .photo-show {
+  box-sizing: border-box;
+  height: 199rpx;
+  padding: 15rpx 20rpx;
+  display: flex;
+  border-bottom: 10rpx solid #eee;
+}
+.photo .photo-show .photo-wrap {
+  position: relative;
+}
+.photo .photo-show .photo-wrap .other-up {
+  width: 48rpx !important;
+  height: 48rpx !important;
+  position: absolute;
+  right: 0rpx !important;
+  top: 0rpx !important;
+}
+.photo .photo-show image {
+  height: 168rpx;
+  width: 168rpx;
+  margin-right: 10rpx;
+}
+.photo .photo-show image:nth-child(4) {
+  margin: 0;
+}
+.video-mask {
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.video-mask .user-video-two {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 400rpx;
+  transform: translate(0, -50%);
+}
+.usermask {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.usermask .usermask-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 560rpx;
+  height: 480rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+.usermask .usermask-wrap .user-top {
+  text-align: center;
+}
+.usermask .usermask-wrap .user-top image {
+  width: 272rpx;
+  height: 220rpx;
+}
+.usermask .usermask-wrap .u-text {
+  color: #999;
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 700;
+  line-height: 40rpx;
+}
+.usermask .usermask-wrap .u-confirm-btn {
+  margin-top: 43rpx;
+  text-align: center;
+}
+.usermask .usermask-wrap .u-confirm-btn text {
+  display: inline-block;
+  width: 240rpx;
+  line-height: 68rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #ffc4a6;
+  border-radius: 68rpx;
+  box-shadow: 0rpx 4rpx 10rpx 6rpx #ffd7c2;
+}

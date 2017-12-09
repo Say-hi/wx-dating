@@ -273,7 +273,7 @@ Page({
     })
     // 初始化本月和后三个月的数据
     let dateArr =[]
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 2; i++) {
       if( i !== 0 ) curDay = 1
       dateArr.push(this.initCurDate(curYear, curMonth, curDay))
       if (curMonth === 11) {

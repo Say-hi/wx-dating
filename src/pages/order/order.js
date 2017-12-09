@@ -16,7 +16,7 @@ Page({
     payType: 2,
     mobile: 0,
     maskTitle: '信息已保存,转发给Ta确认',
-    timeArr: ['请选择时间段'],
+    timeArr: [],
     timeIndex: 0,
     coin: 0,
     // price: '168',
@@ -64,7 +64,7 @@ Page({
   // 发给本人确认
   sendToConfirmPeople () {
     let that = this
-    if (that.data.timeIndex * 1 === 0) {
+    if (that.data.timeArr[that.data.timeIndex].indexOf(':') * 1 === -1) {
       return wx.showToast({
         image: '../../images/jiong.png',
         mask: true,
@@ -103,6 +103,12 @@ Page({
         // console.log(res)
         // 订单响应成功
         console.log('订单响应成功', res)
+        if (res.data.code === 400) {
+          return wx.showToast({
+            title: res.data.message,
+            image: '../../images/jiong.png'
+          })
+        }
         if (res.data.data.order_ta_id) {
           that.setData({
             order_ta_id: res.data.data.order_ta_id
@@ -145,6 +151,13 @@ Page({
       },
       success (res) {
         console.log('替他支付响应成功', res)
+        wx.hideLoading()
+        if (res.data.code === 400) {
+          return wx.showToast({
+            title: res.data.message,
+            image: '../../images/jiong.png'
+          })
+        }
         // 支付响应成功
         if (res.data.data.length !== 0) {
           return that.moneyPay(res.data.data, 'forOther')
@@ -186,6 +199,7 @@ Page({
           wx.showToast({
             title: '您未完成微信支付'
           })
+          // app.deleteOrder(that.data.order_id || that.data.order_ta_id)
         }
       },
       fail (res) {
@@ -193,6 +207,7 @@ Page({
           title: '您未完成微信支付'
         })
         console.log('支付失败', res)
+        app.deleteOrder(that.data.order_id || that.data.order_ta_id)
       }
     }
     app.wxpay(payObj)
@@ -390,7 +405,7 @@ Page({
       })
     }
     wx.setStorageSync('phoneNumber', this.data.mobile)
-    if (this.data.timeIndex * 1 === 0) {
+    if (this.data.timeArr[this.data.timeIndex].indexOf(':') * 1 === -1) {
       return wx.showToast({
         image: '../../images/jiong.png',
         mask: true,
@@ -403,13 +418,16 @@ Page({
       })
     }
     wx.showLoading({
-      title: '请求支付信息中...'
+      title: '等待中'
     })
     this.getUserMoney()
     this.sendOrderData()
   },
   // 支付弹窗去支付
   goPay () {
+    wx.showLoading({
+      title: '等待中'
+    })
     let that = this
     if (this.data.type === 'forOther') {
       this.payforother()
@@ -423,6 +441,7 @@ Page({
             order_id: that.data.order_id
           },
           success (res) {
+            wx.hideLoading()
             console.log('order success', res)
             // 需要支付的发起付款
             if (res.data.code === 400) {
@@ -443,6 +462,7 @@ Page({
         }
         app.wxrequest(orderPayobj)
       } else {
+        wx.hideLoading()
         that.setData({
           orderMask: false,
           datingSuccess: true
@@ -471,7 +491,7 @@ Page({
           })
           return wx.showToast({
             image: '../../images/jiong.png',
-            title: '不能重复发起相同时间邀约',
+            title: res.data.message,
             mask: true
           })
         }
@@ -592,15 +612,21 @@ Page({
       timeIndex: value
     })
   },
+  // getmobile () {
+  //   app.getPhone(this)
+  //   this.setData({
+  //     mobile: this.data.phoneNumber
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad (params) {
-    if (wx.getStorageSync('phoneNumber')) {
-      this.setData({
-        mobile: wx.getStorageSync('phoneNumber')
-      })
-    }
+    // if (wx.getStorageSync('phoneNumber')) {
+    //   this.setData({
+    //     mobile: wx.getStorageSync('phoneNumber')
+    //   })
+    // }
     this.setData({
       orderInfo: wx.getStorageSync('orderInfo')
     })
@@ -608,7 +634,8 @@ Page({
     if (params.type === 'forOther') {
       this.setData({
         pay: '各付各',
-        payType: 2
+        payType: 2,
+        phonenoshow: true
       })
     }
     this.getOrderTime(params.id)
@@ -636,6 +663,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    // if (wx.getStorageSync('phoneNumber')) {
+    //   this.setData({
+    //     mobile: app.getPhone()
+    //   })
+    app.getPhone(this)
+    // }
     // console.log(params)
     // TODO: onShow
     if (this.data.pay === '替Ta付清') return

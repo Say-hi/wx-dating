@@ -41,11 +41,20 @@
   }
 }
 .novideo {
-  height: 240rpx;
+  height: 178rpx;
   image {
     height: 100%;
     width: 100%;
   }
+}
+.redpoint {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: 14rpx;
+  left: -20rpx;
+  background-color: #f66;
 }
 // 个人信息样式
 .user-info {
@@ -142,6 +151,32 @@
     }
   }
 }
+
+.message::before {
+  position: absolute;
+  top: -90rpx;
+  left: -10rpx;
+  font-size: 80rpx;
+}
+.messages {
+  navigator {
+    margin-left: 86rpx !important;
+  }
+}
+.has::after {
+  content: '';
+  display: block;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: 10rpx;
+  left: -30rpx;
+  background-color: #f66;
+}
+//.icon-guanzhu::before {
+//  font-size: 60rpx !important;
+//}
 // 视屏弹窗显示
 .video-mask {
   position: fixed;
@@ -178,4 +213,8 @@
       top: 0rpx !important;
     }
   }
+}
+
+.messages {
+  border-bottom: 1rpx solid #ccc;
 }

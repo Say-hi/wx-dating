@@ -57,9 +57,35 @@
     border: none;
   }
 }
+.zw {
+  height: 80rpx;
+  width: 100%;
+}
 .confirm {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  line-height: 98rpx;
+  button {
+    line-height: 98rpx;
+    border: none;
+    border-top: 1rpx solid #EEEEEE;
+    flex: 1;
+    border-radius: 0;
+    background-color: #fff;
+    color: #2b2f41;
+    font-weight: 700;
+    font-size: 32rpx;
+  }
+  button::after {
+    border: none;
+    border-radius: 0;
+  }
   .save {
-    width: 100%;
+    width: 50%;
     background-color: #2b2f41;
     color: #ffc4a6;
     font-size: 32rpx;

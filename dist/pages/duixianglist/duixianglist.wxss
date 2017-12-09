@@ -1,0 +1,115 @@
+.wrap {
+  border-top: 1rpx solid #ccc;
+}
+.wrap .top {
+  line-height: 88rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #ccc;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  color: #999;
+}
+.wrap .top .top-left {
+  font-size: 36rpx;
+}
+.wrap .top .top-right {
+  flex: 1;
+  text-align: right;
+  font-size: 30rpx;
+}
+.wrap .top .top-right:after {
+  font-size: 70rpx;
+  vertical-align: middle;
+}
+.wrap .aaa {
+  padding: 0 20rpx;
+}
+.wrap .dx {
+  display: flex;
+  align-items: center;
+  height: 179rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.wrap .dx image {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  margin-right: 32rpx;
+}
+.wrap .dx .dx-center {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.wrap .dx .dx-center .gender {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 700;
+}
+.wrap .dx .dx-center .gender:after {
+  margin-left: 9rpx;
+  margin-right: 16rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+.wrap .dx .dx-center .job {
+  font-size: 26rpx;
+  color: #333;
+}
+.wrap .dx .dx-center .time {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+.wrap .dx .dx-right {
+  display: flex;
+  flex-direction: column;
+}
+.wrap .dx .dx-right .yingyao {
+  color: #ffc4a6;
+  border-radius: 10rpx;
+  text-align: center;
+  font-size: 26rpx;
+  border: 2rpx solid #ffc4a6;
+  padding: 9rpx 10rpx;
+}
+.wrap .dx .dx-right .money {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+.mm {
+  position: fixed;
+  top: 88rpx;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 1rpx solid #ccc;
+}
+.mm .mm-left {
+  float: right;
+  background-color: #fff;
+}
+.mm .mm-left view {
+  text-align: right;
+  line-height: 80rpx;
+  padding-right: 40rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.mm .mm-left .cur {
+  width: 300rpx;
+  color: #ffc4a6;
+  position: relative;
+}
+.icon-duihao {
+  color: #ffc4a6;
+  font-size: 28rpx;
+  margin-right: 40rpx;
+}
+.pink {
+  color: #ffc4a6 !important;
+}
