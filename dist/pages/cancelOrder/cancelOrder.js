@@ -13,6 +13,7 @@ Page({
     value: '',
     shiYue: false,
     flag: false,
+    flagTwo: false,
     // order: {
     //   number: 1232416,
     //   type: 0, // 0 自己发起的 1 别人发起的
@@ -133,22 +134,21 @@ Page({
   // 回复取消订单
   replyOrder: function replyOrder() {
     var that = this;
-    if (this.data.value.length === 0) {
-      this.data.flag = false;
-      return wx.showToast({
-        title: '您还没有填写回复理由呢',
-        mask: true
-      });
-    }
+    // if (this.data.value.length === 0) {
+    //   this.data.flag = false
+    //   return wx.showToast({
+    //     title: '您还没有填写回复理由呢',
+    //     mask: true
+    //   })
+    // }
     var replyObj = {
       url: useUrl.huifuOrderCancel,
       data: {
         session_key: wx.getStorageSync('session_key'),
         order_id: that.data.order_id,
-        content: that.data.value
+        content: that.data.value || '未填写理由'
       },
       success: function success(res) {
-        that.data.flag = false;
         if (res.data.code === 200) {
           wx.showToast({
             title: '回复成功',
@@ -160,6 +160,7 @@ Page({
             });
           }, 1500);
         } else {
+          that.data.flag = false;
           wx.showToast({
             title: res.data.message
           });
@@ -171,6 +172,7 @@ Page({
 
   // 取消订单
   cancelOrder: function cancelOrder() {
+    // if (this.data.flagTwo) return
     if (this.data.value.length === 0) {
       this.data.flag = false;
       return wx.showToast({
@@ -178,18 +180,18 @@ Page({
         mask: true
       });
     }
+    // this.data.flag = true
     var that = this;
     var cancelObj = {
       url: useUrl.cancelOrder,
       data: {
         session_key: wx.getStorageSync('session_key'),
         order_id: that.data.order_id,
-        cancel_liyou: that.data.value,
+        cancel_liyou: that.data.value || '未填写理由',
         check: that.data.items[0].checked ? '1' : '0'
       },
       success: function success(res) {
-        console.log(res);
-        that.data.flag = false;
+        // console.log(res)
         if (res.data.code === 200) {
           if (that.data.order.is_zhidai * 1 === 2) {
             wx.showToast({
@@ -208,6 +210,7 @@ Page({
             });
           }, 1500);
         } else {
+          that.data.flag = false;
           wx.showToast({
             title: res.data.message
           });

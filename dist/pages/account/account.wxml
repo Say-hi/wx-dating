@@ -18,7 +18,8 @@
   <view class="mask-in">
     <view class="title">申请退款</view>
     <view class="content">您正在申请保证金的退款，请确认</view>
-    <input bindinput="inputValue" placeholder="请输入您的微信号"/>
+    <!--<input bindinput="inputValue" placeholder="请输入您的微信号"/>-->
+    <view >金额为:<span style="color: #f00; font-size: 28rpx;">{{ sincerityMoney }}元</span></view>
     <view class="mask-btn">
       <view catchtap="mOp" data-type="cancel">取消</view>
       <view catchtap="mOp" data-type="confirm">确认</view>

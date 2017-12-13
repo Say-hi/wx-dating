@@ -145,6 +145,16 @@ Page({
               url: '../userOrder/userOrder?type=ta'
             });
           }, 1500);
+        } else if (res.data.code === 400) {
+          wx.showToast({
+            title: res.data.message,
+            mask: true
+          });
+          return setTimeout(function () {
+            wx.reLaunch({
+              url: '../index2/index2'
+            });
+          }, 1500);
         }
         var photos = [];
         if (res.data.data.photos.length !== 0) {
@@ -787,11 +797,16 @@ Page({
             });
           }
         } else {
-          console.log(res);
+          // console.log(res)
           wx.showToast({
             title: res.data.message,
             mask: true
           });
+          setTimeout(function () {
+            wx.redirectTo({
+              url: '../index2/index2'
+            });
+          }, 1000);
         }
       }
     };
@@ -917,7 +932,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad(params) {
-    // params['orderTaId'] = 873
+    // params['orderTaId'] = 929
     // console.log(params)
     if (params.orderTaId === 'undefined' || !params.orderTaId) {
       wx.showLoading({

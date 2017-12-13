@@ -95,7 +95,7 @@ Page({
         id: that.data.id,
         date: that.data.day,
         time: that.data.timeArr[that.data.timeIndex],
-        mobile: that.data.mobile,
+        mobile: foi.mobile,
         is_zhidai: (that.data.people === '寻约会对象') ? '1' : '2',
         pay_type: that.data.payType
       },

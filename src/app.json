@@ -5,15 +5,15 @@
   "pages": [
     "pages/index2/index2",// 首页
     "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
-    "pages/newuser/newuser", // 用户首次完善个人资料
+    "pages/userziliao/userziliao", // 用户的个人资料
     "pages/user/user", // 用户个人中心
+    "pages/newuser/newuser", // 用户首次完善个人资料
     "pages/account/account", // 用户账户
     "pages/kefu/kefu", // 客服与反馈
     "pages/message/message", // 用户消息通知列表
     "pages/userOrder/userOrder", // 用户订单信息
     "pages/newfollow/newfollow", // 陌生人提醒关注,
     "pages/duixianglist/duixianglist", // 套餐列表
-    "pages/userziliao/userziliao", // 用户的个人资料
     "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
     "pages/faq/faq", // faq问答页面
     "pages/follow/follow", // 关注

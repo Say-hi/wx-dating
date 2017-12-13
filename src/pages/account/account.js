@@ -34,16 +34,16 @@ Page({
   mOp (e) {
     let that = this
     if (e.currentTarget.dataset.type === 'confirm') {
-      if (!this.data.wechat) {
-        return wx.showToast({
-          title: '请输入您的微信号码'
-        })
-      }
+      // if (!this.data.wechat) {
+      //   return wx.showToast({
+      //     title: '请输入您的微信号码'
+      //   })
+      // }
       let backobj = {
         url: useUrl.userBondBack,
         data: {
           session_key: wx.getStorageSync('session_key'),
-          wechat_no: that.data.wechat
+          wechat_no: that.data.wechat || '未填写'
         },
         success (res) {
           if (res.data.code === 400) {
