@@ -17,7 +17,7 @@
   <!--兑换码-->
   <view wx:if="{{ info.redeem_code }}" class="conversion">
     <text>兑换码: {{ info.redeem_code }}</text>
-    <navigator wx:if="{{ info.order_status != 2 }}" url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>
+    <!--<navigator wx:if="{{ info.order_status != 2 }}" url="../cancelOrder/cancelOrder?id={{ id }}&status={{ status }}" class="cancel-btn">取消赴约</navigator>-->
   </view>
   <!--惩罚金-->
   <view wx:if="{{ info.is_weiyue == 1 && info.is_weiyue_self == 1  }}" class="punishment">

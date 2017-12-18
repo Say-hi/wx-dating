@@ -123,6 +123,8 @@ Page({
       return that.error('请填写名字')
     } else if (that.data.ageIndex === 0) {
       return that.error('请选择年龄')
+    } else if (that.data.genderCur < 0 || that.data.genderCur >= 2) {
+      return that.error('请选择性别')
     } else if (!that.data.phone || parseInt(that.data.phone.length) !== 11) {
       return that.error('手机号有误')
     } else if (that.data.userHeight.length <= 0) {

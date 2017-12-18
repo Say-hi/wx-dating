@@ -613,7 +613,7 @@ Page({
       success: function success(res) {
         if (res.data.data.length * 1 === 0) {
           return that.setData({
-            timeArr: ['该套餐已超时不可预定了']
+            timeArr: ['该套餐已不可预定了']
           });
         }
         that.setData({

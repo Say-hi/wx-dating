@@ -712,6 +712,10 @@ Page({
     if (!this.data.fix) {
       that.data.photos = that.data.photos.concat(that.data.photosMy)
     }
+    if (this.data.ssss) return
+    this.setData({
+      ssss: true
+    })
     let confirmObj = {
       url: useUrl.titaFaqiByComfire,
       data: {
@@ -734,7 +738,7 @@ Page({
         photos: JSON.stringify(that.data.photos)
       },
       success (res) {
-        console.log('替他发起页面订单支付', res)
+        // console.log('替他发起页面订单支付', res)
         if (res.data.data.order_id) {
           that.setData({
             order_id: res.data.data.order_id
@@ -765,11 +769,14 @@ Page({
             mask: true
           })
           setTimeout(function () {
-            wx.redirectTo({
+            wx.reLaunch({
               url: '../index2/index2'
             })
-          }, 1000)
+          }, 1500)
         }
+        that.setData({
+          ssss: false
+        })
       }
     }
     app.wxrequest(confirmObj)

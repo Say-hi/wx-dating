@@ -97,9 +97,6 @@
   line-height: 40rpx;
   text-align: right;
 }
-.text-wrap .addressName {
-  transform: translateY(-25%);
-}
 .text-wrap .gender {
   display: flex;
   align-items: center;

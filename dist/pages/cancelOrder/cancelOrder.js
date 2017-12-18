@@ -195,7 +195,7 @@ Page({
         if (res.data.code === 200) {
           if (that.data.order.is_zhidai * 1 === 2) {
             wx.showToast({
-              title: '订单已取消，款项已原路退回',
+              title: '订单已取消，款项将原路退回',
               mask: true
             });
           } else {

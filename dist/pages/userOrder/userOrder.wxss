@@ -59,12 +59,12 @@
 }
 .wrap .order-center {
   display: flex;
-  padding: 15rpx 0;
+  padding: 30rpx 0;
   align-items: center;
 }
 .wrap .order-center .order-img {
   width: 168rpx;
-  height: 168rpx;
+  height: 124.7rpx;
   margin-right: 18rpx;
 }
 .wrap .order-center .o-c-center {
