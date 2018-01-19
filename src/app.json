@@ -3,13 +3,37 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/index2/index2",
-    "pages/user/user",
-    "pages/demo/demo",
-    "pages/index/index",
-    "pages/WeChat/WeChat",
-    "pages/userInfo/userInfo",
-    "pages/photo/photo"
+    "pages/index2/index2",// 首页
+    "pages/otherConfirm/otherConfirm", // 替Ta发起，Ta确认
+    "pages/userziliao/userziliao", // 用户的个人资料
+    "pages/user/user", // 用户个人中心
+    "pages/newuser/newuser", // 用户首次完善个人资料
+    "pages/account/account", // 用户账户
+    "pages/kefu/kefu", // 客服与反馈
+    "pages/message/message", // 用户消息通知列表
+    "pages/userOrder/userOrder", // 用户订单信息
+    "pages/newfollow/newfollow", // 陌生人提醒关注,
+    "pages/duixianglist/duixianglist", // 套餐列表
+    "pages/invitedConfirm/invitedConfirm", // 意向应邀确认
+    "pages/faq/faq", // faq问答页面
+    "pages/follow/follow", // 关注
+    "pages/accountDetail/accountDetail", // 账户消费详情
+    "pages/orderDatial/orderDatial", // 订单详情
+    "pages/mySurvey/mySurvey", // 我的问卷
+    "pages/order/order", // 填写订单
+    "pages/taRecord/taRecord", // Ta档案 （和选择约会对象共用，传参type修改显示）
+    "pages/plans/plans",// 约会计划-套餐列表
+    "pages/recharge/recharge", // 充值
+    "pages/survey/survey", // 我的问卷调查
+    "pages/showsurvey/showsurvey", // 我收到的问卷
+    "pages/userInfo/userInfo", // 个人资料
+    "pages/inviteEvaluate/inviteEvaluate", // 评价好友（好友邀请评价）
+    "pages/cancelOrder/cancelOrder", // 取消赴约
+    "pages/checkInvited/checkInvited", // 选择确认应邀的人
+    "pages/setMeal/setMeal", // 套餐详情
+    "pages/taRecordDetail/taRecordDetail",// 替ta发起，编辑ta的资料
+    "pages/photo/photo" // 相册
+
     // Dont remove this comment
   ],
   // Window configuration
@@ -20,7 +44,7 @@
     "navigationBarBackgroundColor": "#ffffff",
     // 类型：String；默认值：white
     // 导航栏标题颜色，仅支持 black/white
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     // 类型：String；默认值：无
     // 导航栏标题文字内容
     "navigationBarTitleText": "约会日",
@@ -45,19 +69,19 @@
     "list": [
       {
         "text": "首页",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/index2/index2",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home_hl.png"
       },
       {
         "text": "关注",
-        "pagePath": "pages/demo/demo",
+        "pagePath": "pages/follow/follow",
         "iconPath": "images/follow.png",
         "selectedIconPath": "images/follow_hl.png"
       },
       {
         "text": "我",
-        "pagePath": "pages/index2/index2",
+        "pagePath": "pages/user/user",
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user_hl.png"
       }

@@ -1,0 +1,59 @@
+<!--问卷调查-->
+<view class="survey">
+    <view class="top-title">约会对象</view>
+    <!--约会对象信息-->
+    <view class="p-info">
+        <view class="p-i-top"></view>
+        <!--用户信息-->
+        <view class="user-wrap">
+            <view class="user-info">
+                <!--头像-->
+                <image catchtap="goUser" data-id="{{ userInfo.user_id }}" class="user-avatar-url" src="{{ userInfo.avatar }}"></image>
+                <!--昵称-->
+                <view class="user-nick-name iconfont {{ userInfo.sex == 1 ? 'icon-nanxing':'icon-nvxing' }}">{{userInfo.user_nicename}}</view>
+                <!--身高相关信息-->
+                <view class="user-info-detail">
+                    <text class="user-detail">{{userInfo.ganqing == 1 ? '非单身' : '单身'}}</text>
+                    <text class="user-detail">{{userInfo.age}}</text>
+                    <text class="user-detail">{{userInfo.user_height}}cm</text>
+                    <text class="user-detail">{{userInfo.job}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--约会感觉-->
+    <view class="sentiment">
+        <view class="s-title">请写下你对此次约会的感想</view>
+        <view class="s-impression">
+            <view>1、对TA的第一印象如何？</view>
+            <input value="{{ question_one }}" bindinput="InputValue" data-type="impression" placeholder="　请写下..."/>
+        </view>
+        <view class="s-moment">
+            <view>2、TA最打动你的一瞬间是什么？</view>
+            <view>(可以是一句话、一个小动作、一件事等关于TA的细节)</view>
+            <input value="{{ question_two }}" bindinput="InputValue" data-type="moment" placeholder="　请写下..."/>
+        </view>
+        <view class="s-possible">
+            <view>3、这次见面后，你觉得有多大可能与TA开始一段恋情？</view>
+            <view>(以百分比回答)</view>
+            <input value="{{ question_three }}" bindinput="InputValue" data-type="possible" placeholder="　请写下..."/>
+        </view>
+        <view class="s-doing">
+            <view>4、这次见面后，你最希望TA做什么？</view>
+            <!--<view>(以百分比回答)</view>-->
+            <input value="{{ question_four }}" bindinput="InputValue"  data-type="doing" placeholder="　请写下..."/>
+        </view>
+        <view class="s-show">
+            <view>5、这份问卷愿意让TA看到吗？</view>
+            <block wx:for="{{ chooseArr }}">
+                <view data-index="{{ index }}" class="choose-wrap" catchtap="chooseArr">
+                    <text class="choose {{ curChoose == index ? 'cur' : '' }}" ></text>
+                    <text>{{ item.value }}</text>
+                    <text class="choose-text">{{ item.text }}</text>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+<!--按钮-->
+<view wx:if="{{ hide }}" catchtap="sendMessage" class="confirm-btn">提交问卷</view>

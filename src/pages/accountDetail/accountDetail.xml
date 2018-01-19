@@ -1,0 +1,17 @@
+<!--交易详情-->
+<view class="detail-wrap">
+  <block wx:for="{{ info }}">
+    <view class="d-w-wrap">
+      <view class="left">
+        <text>{{ item.desc }}</text>
+        <text wx:if="{{ item.order_sn }}">订单编号：{{ item.order_sn || '暂无订单号' }}</text>
+        <text>{{ item.time }}</text>
+      </view>
+      <view class="right">
+        <text>{{ item.money }}(元)</text>
+        <text>{{ item.pay_desc }}</text>
+      </view>
+    </view>
+  </block>
+  <view style="text-align: center; margin-top: 20rpx; color: #ccc; font-weight: 700;" wx:if="{{ info.length == 0 || !info }}">暂无交易记录</view>
+</view>

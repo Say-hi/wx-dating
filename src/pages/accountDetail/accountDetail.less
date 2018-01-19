@@ -1,0 +1,39 @@
+.detail-wrap {
+  border-top: 1rpx solid #ccc;
+  .d-w-wrap {
+    border-bottom: 1rpx solid #ccc;
+    display: flex;
+    padding: 30rpx 12rpx;
+    .left {
+      flex: 1;
+      text {
+        display: block;
+        line-height: 40rpx;
+      }
+      text:nth-child(1) {
+        font-size: 30rpx;
+        color: #000;
+        font-weight: 700;
+      }
+      text:nth-child(2), text:nth-child(3) {
+        font-size: 26rpx;
+        color: #ccc;
+      }
+    }
+    .right {
+      text-align: right;
+      text {
+        display: block;
+        line-height: 40rpx;
+      }
+      text:nth-child(1) {
+        font-size: 32rpx;
+        color: #666;
+      }
+      text:nth-child(2) {
+        font-size: 26rpx;
+        color: #ccc;
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+//搜索
+.wrap {
+  border-top: 1rpx solid #ccc;
+}
+//内容排列
+.people {
+  padding: 0 24rpx;
+  .p-wrap {
+    @width: 140rpx;
+    min-height: 180rpx;
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #ccc;
+    position: relative;
+    .p-img {
+      height: @width;
+      width: @width;
+      border-radius: 50%;
+      margin-right: 30rpx;
+    }
+    .centers {
+      flex: 1;
+      max-width: 380rpx;
+    }
+    .p-name {
+      font-size: 36rpx;
+      color: #333;
+      font-weight: 700;
+      position: relative;
+    }
+    .p-name::after {
+      position: absolute;
+      top: 50%;
+      font-size: 24rpx;
+      color: #999;
+      margin-left: 8rpx;
+      transform: translateY(-50%);
+    }
+    .p-introduce {
+      line-height: 40rpx;
+      font-size: 26rpx;
+      color: #666;
+      word-break: break-all;
+    }
+    .p-follow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 24rpx;
+      font-size: 28rpx;
+      border: 1rpx solid #ffc4a6;
+      border-radius: 10rpx;
+      padding: 8rpx;
+      color: #ffc4a6;
+    }
+    .p-follow {
+      border-color: #ccc;
+      color: #ccc;
+    }
+    .icon-huxiangguanzhu::before {
+      position: absolute;
+      color: #ccc;
+      left: 0;
+      transform: translateX(-150%);
+    }
+  }
+}
+.tac {
+  text-align: center;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: #999;
+}

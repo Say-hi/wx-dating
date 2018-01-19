@@ -1,0 +1,126 @@
+page {
+  border-top: 1rpx solid #ccc;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  border-top: 1rpx solid #ccc;
+  padding: 0 24rpx;
+  .wx {
+    > view {
+      border-bottom: 1rpx solid #ccc;
+      display: flex;
+      align-items: center;
+      height: 87rpx;
+      .circle {
+        width: 36rpx;
+        height: 36rpx;
+        display: inline-block;
+        border: 1rpx solid #ffc4a6;
+        border-radius: 50%;
+        position: relative;
+      }
+      .cur::after {
+        content: '';
+        width: 20rpx;
+        height: 20rpx;
+        display: inline-block;
+        position: absolute;
+        background-color: #ffc4a6;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+      }
+      text:nth-child(1) {
+      }
+      text:nth-child(2) {
+        color: #333;
+        font-size: 28rpx;
+        font-weight: 700;
+        margin-left: 18rpx;
+      }
+      input {
+        flex: 1;
+        text-align: right;
+        font-size: 30rpx;
+      }
+    }
+    //> view:nth-child(2n) {
+    //  display: flex;
+    //  text {
+    //    font-size: 30rpx;
+    //    color: #000;
+    //    font-weight: 700;
+    //  }
+    //  input {
+    //    margin-right: 10rpx;
+    //    font-size: 30rpx;
+    //    flex: 1;
+    //    text-align: right;
+    //  }
+    //}
+    .lipin {
+      margin-top: 30rpx;
+    }
+  }
+  .btn {
+    text-align: center;
+    margin-top: 80rpx;
+    text {
+      display: inline-block;
+      color: #ffc4a6;
+      background-color: #2b2f41;
+      line-height: 78rpx;
+      padding: 0 100rpx;
+      border-radius: 78rpx;
+    }
+  }
+}
+
+.recharge-status {
+  font-size: 26rpx;
+  color: #f66;
+  text-align: right;
+  margin-top: 10rpx;
+}
+
+.mask {
+  .mask-wrap {
+    height: 480rpx;
+    text-align: center;
+    .mask-img {
+      margin-top: 24rpx;
+      width: 325rpx;
+      height: 263rpx;
+    }
+    .mask-c-center {
+      font-weight: 700;
+      text-align: center;
+      display: block;
+      font-size: 32rpx;
+      color: #999;
+    }
+    .mask-btn {
+      margin-top: 40rpx;
+      text {
+        line-height: 68rpx;
+        padding: 0 89rpx;
+        border-radius: 68rpx;
+        display: inline-block;
+        font-size: 32rpx;
+        color: #000;
+        background-color: #ffc4a6;
+        box-shadow: 0rpx 2rpx 10rpx 5rpx #ffc4a6;
+      }
+    }
+  }
+}

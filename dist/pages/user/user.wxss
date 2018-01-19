@@ -1,0 +1,306 @@
+.photo {
+  line-height: 88rpx;
+}
+.photo .photo-top {
+  border-bottom: 2rpx solid #ccc;
+  padding-left: 70rpx;
+}
+.photo .arrow::after {
+  width: 20rpx;
+  height: 20rpx;
+  color: #ccc;
+}
+.photo .photo-top::before {
+  font-size: 70rpx;
+  position: absolute;
+  top: 50%;
+  transform: translate(-70rpx, -50%);
+}
+.photo .photo-show {
+  box-sizing: border-box;
+  height: 199rpx;
+  padding: 15rpx 20rpx;
+  display: flex;
+  border-bottom: 10rpx solid #eee;
+}
+.photo .photo-show .photo-wrap {
+  position: relative;
+}
+.photo .photo-show .photo-wrap .other-up {
+  width: 48rpx !important;
+  height: 48rpx !important;
+  position: absolute;
+  right: 0rpx !important;
+  top: 0rpx !important;
+}
+.photo .photo-show image {
+  height: 168rpx;
+  width: 168rpx;
+  margin-right: 10rpx;
+}
+.photo .photo-show image:nth-child(4) {
+  margin: 0;
+}
+.video-mask {
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.video-mask .user-video-two {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 400rpx;
+  transform: translate(0, -50%);
+}
+.usermask {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.usermask .usermask-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 560rpx;
+  height: 480rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+.usermask .usermask-wrap .user-top {
+  text-align: center;
+}
+.usermask .usermask-wrap .user-top image {
+  width: 272rpx;
+  height: 220rpx;
+}
+.usermask .usermask-wrap .u-text {
+  color: #999;
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 700;
+  line-height: 40rpx;
+}
+.usermask .usermask-wrap .u-confirm-btn {
+  margin-top: 43rpx;
+  text-align: center;
+}
+.usermask .usermask-wrap .u-confirm-btn text {
+  display: inline-block;
+  width: 240rpx;
+  line-height: 68rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #ffc4a6;
+  border-radius: 68rpx;
+  box-shadow: 0rpx 4rpx 10rpx 6rpx #ffd7c2;
+}
+.video-area {
+  width: 100%;
+  height: 420rpx;
+  position: relative;
+}
+.video-area .user-video {
+  width: 100%;
+  height: 100%;
+}
+.video-area .video-cover-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.video-area .video-cover-wrap .video-cover {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 100%;
+  width: 100%;
+}
+.video-area .video-cover-wrap .video-play {
+  width: 128rpx;
+  height: 128rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.video-area .video-edit {
+  background-color: #2f2b41;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 10rpx;
+}
+.novideo {
+  height: 178rpx;
+}
+.novideo image {
+  height: 100%;
+  width: 100%;
+}
+.redpoint {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: 14rpx;
+  left: -20rpx;
+  background-color: #f66;
+}
+.user-info {
+  position: relative;
+  z-index: 1000;
+}
+.user-info .user-avatar-url {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  z-index: 1001;
+  background-color: #ffe5d7;
+  border: 6rpx solid #ffe5d7;
+}
+.user-info .no-show {
+  z-index: 10;
+}
+.user-info .user-nick-name-wrap {
+  position: relative;
+  box-sizing: border-box;
+  border-bottom: 2rpx solid #ccc;
+  height: 180rpx;
+}
+.user-info .user-nick-name-wrap .order,
+.user-info .user-nick-name-wrap .message {
+  position: absolute;
+  top: 120rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: #666;
+}
+.user-info .user-nick-name-wrap .order::before,
+.user-info .user-nick-name-wrap .message::before {
+  position: absolute;
+  top: -90rpx;
+  left: -10rpx;
+  font-size: 80rpx;
+}
+.user-info .user-nick-name-wrap .has::after {
+  content: '';
+  display: block;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: -72rpx;
+  right: 0;
+  background-color: #f66;
+}
+.user-info .user-nick-name-wrap .order {
+  left: 100rpx;
+}
+.user-info .user-nick-name-wrap .message {
+  right: 100rpx;
+}
+.user-info .user-nick-name-wrap .user-nick-name {
+  padding-top: 120rpx;
+  text-align: center;
+}
+.user-info .user-nick-name-wrap .user-nick-name::after {
+  margin-left: 7rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+.user-info .operation .op {
+  font-size: 30rpx;
+  line-height: 74rpx;
+  margin-left: 70rpx;
+  border-bottom: 1rpx solid #ccc;
+  position: relative;
+  color: #666;
+}
+.user-info .operation .op:nth-last-child(1) {
+  border: none;
+}
+.user-info .operation .op::before {
+  position: absolute;
+  font-size: 80rpx;
+  top: 50%;
+  color: #666;
+  transform: translate(-74rpx, -50%);
+}
+.user-info .operation .arrow::after {
+  width: 20rpx;
+  height: 20rpx;
+}
+.message::before {
+  position: absolute;
+  top: -90rpx;
+  left: -10rpx;
+  font-size: 80rpx;
+}
+.messages navigator {
+  margin-left: 86rpx !important;
+}
+.has::after {
+  content: '';
+  display: block;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: 10rpx;
+  left: -30rpx;
+  background-color: #f66;
+}
+.video-mask {
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.video-mask .user-video-two {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+}
+.photo-top {
+  font-size: 30rpx;
+  line-height: 88rpx;
+  color: #666;
+}
+.photo-show {
+  border-bottom: 2rpx solid #ccc !important;
+}
+.photo-show .photo-wrap {
+  position: relative;
+}
+.photo-show .photo-wrap .other-up {
+  width: 48rpx !important;
+  height: 48rpx !important;
+  position: absolute;
+  right: 0rpx !important;
+  top: 0rpx !important;
+}
+.messages {
+  border-bottom: 1rpx solid #ccc;
+}

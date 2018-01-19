@@ -1,0 +1,88 @@
+<view class="wrap">
+  <view class="top-title" wx:if="{{ order.is_zidai == 1 }}">
+    {{ !zd ? '您的约会对象因故取消了与您的邀约，请确认' : '如果是对方爽约，请让对方取消赴约' }}
+  </view>
+  <!--订单信息-->
+  <view class="order-info">
+    <!--编号-->
+    <view class="o-i-top">
+      <text class="o-i-number">订单编号:<text>{{ order.order_sn }}</text></text>
+      <text class="o-i-status">{{ status == 4 ? '订单已取消' : '已确认'}}</text>
+    </view>
+    <!--套餐-->
+    <view class="o-i-center">
+      <image class="o-i-c-img" src="{{ order.image }}"></image>
+      <view class="o-i-c-center">
+        <view class="o-i-c-title">
+          {{ order.package_name }}
+        </view>
+        <view class="o-i-c-time">
+          时间: {{ order.order_date }}　{{ order.order_time }}
+        </view>
+        <view class="o-i-c-address">
+          地点: {{ order.area }}
+        </view>
+      </view>
+      <view class="o-i-c-money">
+        ￥{{ order.money }}
+      </view>
+    </view>
+    <!--约会对象-->
+    <navigator wx:if="{{ order.user_info }}" url="../userInfo/userInfo?userId={{ order.user_info.user_id }}"  class="dating-people arrow">
+      <image class="p-img" src="{{ order.user_info.avatar }}"></image>
+      <view class="p-name iconfont {{ order.user_info.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ order.user_info.user_nicename || order.user_info.name }}</view>
+    </navigator>
+  </view>
+  <!--惩罚-->
+  <view class="punishment">
+    <!--todo 判断用户是否取消超过三次-->
+    <view wx:if="{{ !order.content_huiying && order.is_zudong != 1 && shiYue && zd || infoTwo.is_weiyue == 1 && infoTwo.is_weiyue_self == 1 }}" class="punishment-money">
+      <text>惩罚金</text>
+      <text>￥10</text>
+    </view>
+    <!--主动取消理由-->
+    <view wx:if="{{ zd }}" class="cancel-reason">
+      <view>取消理由</view>
+      <textarea value="{{ order.cancel_liyou }}" bindinput="inputValue" placeholder="请写下取消此次约会的理由"></textarea>
+    </view>
+    <!--被动理由-->
+    <view wx:else class="cancel-reason">
+      <view>Ta的理由</view>
+      <view class="c-p-reason">{{ order.cancel_liyou }}</view>
+      <view>你回复Ta的信息</view>
+      <textarea value="{{ order.content_huiying }}" bindinput="inputValue" placeholder="您可以在这里写下想对TA说的话后确认，也可以直接确认"></textarea>
+    </view>
+    <checkbox-group wx:if="{{ zd && order.is_zudong != 1 && order.is_zhidai == 1 }}" bindchange="checkboxChange">
+      <label class="checkbox" wx:for="{{ items }}">
+        <checkbox color="#fff" value="{{ item.name }}" checked="{{ item.checked }}">
+          {{ item.value }}
+        </checkbox>
+      </label>
+    </checkbox-group>
+    <!--提交按钮-->
+    <view wx:if="{{ !order.content_huiying && order.is_zudong != 1 }}" class="confrim-btn">
+      <text catchtap="confirmBtn">提交</text>
+    </view>
+    <!--提醒-->
+    <view wx:if="{{ zd && order.is_zudong != 1 }}" class="tips">
+      <view>*用户连续主动取消赴约超过四次，将从第五次开始，适用以下制约措施。</view>
+      <view>1.发起方面:发起和替TA发起邀约功能被禁用，只能应邀;应邀后成功赴约一次，便可解除发起禁令。</view>
+      <view>2.应邀方面:之后每次应邀，如果爽约将扣除意向保证金十元，扣完为止;重新充值保证金(20元)后，爽约记录清零。</view>
+    </view>
+  </view>
+</view>
+<!--弹窗-->
+<view wx:if="{{ show }}" class="mask">
+  <view class="mask-wrap">
+    <view class="ts">订单关闭</view>
+    <view class="ts-two">
+      约会取消，后台经审核确认后
+    </view>
+    <view class="ts-three">
+      将在10个工作日内退款至支付者账户
+    </view>
+    <view catchtap="delMask" class="mask-confirm">
+      确认
+    </view>
+  </view>
+</view>

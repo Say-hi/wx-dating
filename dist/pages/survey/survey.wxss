@@ -1,0 +1,160 @@
+.survey {
+  border-top: 1rpx solid #ccc;
+}
+.survey .top-title {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 700;
+  text-align: center;
+  line-height: 88rpx;
+}
+.survey .p-info .p-i-top {
+  height: 110rpx;
+  width: 100%;
+  background-color: #ffe7db;
+}
+.survey .p-info .user-wrap {
+  padding: 0 24rpx;
+}
+.survey .p-info .user-info {
+  position: relative;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #2b2f41;
+}
+.survey .p-info .user-info .user-avatar-url {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 16rpx solid #ffe7db;
+}
+.survey .p-info .user-info .user-nick-name {
+  padding-top: 110rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 700;
+}
+.survey .p-info .user-info .user-nick-name::after {
+  font-weight: 500;
+  color: #999;
+  margin-left: 10rpx;
+  font-size: 24rpx;
+}
+.survey .p-info .user-info .user-info-detail {
+  padding: 20rpx 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #666;
+  font-size: 30rpx;
+}
+.survey .p-info .user-info .user-info-detail .user-detail::after {
+  content: '|';
+  color: #eee;
+  margin-left: 30rpx;
+}
+.survey .p-info .user-info .user-info-detail .user-detail:nth-child(4)::after {
+  content: '';
+  margin-left: 0rpx;
+}
+.survey .sentiment {
+  padding: 0 24rpx;
+}
+.survey .sentiment .s-title {
+  text-align: center;
+  font-size: 30rpx;
+  color: #ffc4a6;
+  font-weight: 700;
+  line-height: 90rpx;
+}
+.survey .sentiment .s-impression,
+.survey .sentiment .s-moment,
+.survey .sentiment .s-possible,
+.survey .sentiment .s-show,
+.survey .sentiment .s-doing {
+  margin-top: 20rpx;
+}
+.survey .sentiment .s-impression view,
+.survey .sentiment .s-moment view,
+.survey .sentiment .s-possible view,
+.survey .sentiment .s-show view,
+.survey .sentiment .s-doing view {
+  color: #000;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+.survey .sentiment .s-impression input,
+.survey .sentiment .s-moment input,
+.survey .sentiment .s-possible input,
+.survey .sentiment .s-show input,
+.survey .sentiment .s-doing input {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: #ffc4a6;
+  border-bottom: 1rpx solid #ccc;
+}
+.survey .sentiment .choose-wrap {
+  font-size: 30rpx;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+}
+.survey .sentiment .choose-wrap .choose {
+  margin-right: 18rpx;
+  display: inline-block;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ffc5a8;
+  position: relative;
+}
+.survey .sentiment .choose-wrap .cur::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  background-color: #ffc4a6;
+}
+.survey .sentiment .choose-wrap .choose-text {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #ccc;
+}
+.confirm-btn {
+  margin-top: 75rpx;
+  line-height: 98rpx;
+  background-color: #2b2f41;
+  color: #ffc4a6;
+  font-size: 30rpx;
+  font-weight: 700;
+  text-align: center;
+}
+.mask .ts {
+  font-size: 36rpx;
+  font-weight: 900;
+  line-height: 80rpx;
+}
+.mask .ts-two,
+.mask .ts-three {
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+.mask .mask-cancel-btn,
+.mask .mask-confirm-btn {
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+  font-size: 36rpx;
+  border-left: 1rpx solid #ccc;
+}
+.mask .mask-cancel-btn {
+  color: #999;
+  border-left: none;
+}

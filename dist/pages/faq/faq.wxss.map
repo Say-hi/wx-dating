@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/faq/faq.less"],"names":[],"mappings":"AAAA;EACE,2BAAA;EACA,4BAAA","sourcesContent":[".faq {\n  border-top: 1rpx solid #ccc;\n  padding: 40rpx 24rpx 0 24rpx;\n}"],"file":"faq.wxss"}

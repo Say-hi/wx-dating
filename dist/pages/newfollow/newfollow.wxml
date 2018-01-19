@@ -1,0 +1,16 @@
+<view class="wrap">
+  <!--内容排列-->
+  <view class="people">
+    <block wx:for="{{people}}" wx:key="unique" wx:for-item="item">
+      <navigator hover-class="none" url="../userInfo/userInfo?userId={{ item.user_id }}" catchtap="goUserZY" data-id="{{ item.id }}" class="p-wrap">
+        <image class="p-img" src="{{ item.avatar }}"></image>
+        <view class="centers">
+          <view class="p-name iconfont {{ item.sex == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{item.user_nicename}}</view>
+          <view class="p-introduce">{{ item.content }}</view>
+        </view>
+        <!--<view data-type='{{ item.is_ignore }}' data-id="{{ item.id }}" data-index="{{ index }}" catchtap="follow" class="p-follow-btn {{ item.is_ignore == 1 ? 'p-follow' : 'p-nofollow' }}">{{ item.is_ignore == 1 ? '取消忽略' : '忽略此人' }}</view>-->
+      </navigator>
+    </block>
+  </view>
+</view>
+<view class="tac" wx:if="{{ people.length == 0 }}">--- 无新的内容 ---</view>

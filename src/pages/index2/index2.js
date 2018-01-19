@@ -1,14 +1,18 @@
 // 获取全局应用程序实例对象
 /*eslint-disable*/
 const app = getApp()
+const useUrl = require('../../utils/service')
 // const plugin = require('../../utils/plugin')
 const ccFile = require('../../utils/calendar-converter')
 // const common = require('../../utils/common')
-const curDate = new Date()
+let curDate = new Date()
 let calendarConverter = new ccFile.CalendarConverter()
-let curYear = curDate.getFullYear()
-let curMonth = curDate.getMonth()
-let curDay = curDate.getDate()
+// let curYear = curDate.getFullYear()
+// console.log('curYear1', curYear)
+// let curMonth = curDate.getMonth()
+// console.log('curMonth1', curMonth)
+// let curDay = curDate.getDate()
+// console.log('curDay1', curDay)
 
 //月份天数表
 var DAY_OF_MONTH = [
@@ -43,13 +47,48 @@ Page({
   data: {
     title: '约会日',
     userInfo: {},
-    showText: '进入约会',
+    showText: '今日约会',
     vertical: true,
     indicatorDots: false,
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    i: 0
+    i: 0,
+    show: true,
+    friendshow: false,
+    userList: []
+  },
+  // 去到约会列表
+  goPlan () {
+    let date = this.data.detailData.date.split('年')
+    console.log(date)
+    let y = date[0]
+    let m = MONTH_ENGLISH[date[1].split('月')[0] - 1]
+    let m_n = date[1].split('月')[0]
+    // console.log(m)
+    let d = date[1].split('月')[1]
+    // console.log(d)
+    wx.setStorageSync('time', {y:y, m:m, m_n:m_n, d:d})
+    wx.navigateTo({
+      url: '../plans/plans'
+    })
+  },
+  delfriend () {
+    this.setData({
+      friendshow: false
+    })
+  },
+  goPlans (e) {
+    wx.navigateTo({
+      url: `../invitedConfirm/invitedConfirm?id=${e.currentTarget.dataset.id}&title=${e.currentTarget.dataset.title}`
+    })
+  },
+  // 滚动去除遮罩
+  scroll () {
+    if (!this.data.show) return
+    this.setData({
+      show: false
+    })
   },
   // swiper 切换月份
   swiperChange (e) {
@@ -138,18 +177,16 @@ Page({
       }
     }
     return pageData
-    // refreshDetailData(pageData, offset + day - 1);
-    // this.setData({
-    //   dateData: pageData.dateData,
-    //   detailData: pageData.detailData
-    // })
   },
   // 选择日期
   selectDay (e) {
+    let type = e.currentTarget.dataset.type
+    if (type === 'nochoose') return
     let that = this
     let i = e.currentTarget.dataset.i
     let currentMonth = this.data.dateArr[i].dateData.arrInfoEx
     let d = e.currentTarget.dataset.dayIndex
+
     let detailDate = {
       curYear: currentMonth[d].sYear,
       curMonth: currentMonth[d].sMonth,
@@ -157,27 +194,87 @@ Page({
       date: that.data.detailData.date
     }
     this.setData({
+      friendshow: true,
       detailData: detailDate
     })
+    this.setTime()
+    this.setData({
+      userList: []
+    })
+    this.getfriend(1, currentMonth[d].sYear + '-' + (currentMonth[d].sMonth < 10 ?  "0" + currentMonth[d].sMonth : currentMonth[d].sMonth)  + '-' + (currentMonth[d].sDay < 10 ?  "0" + currentMonth[d].sDay : currentMonth[d].sDay))
+  },
+  //获取对应日期的好友发起的套餐
+  getfriend (page, time) {
+    let that = this
+    let obj = {
+      url: useUrl.getSubscribeUserYaoyue,
+      data: {
+        session_key: wx.getStorageSync('session_key'),
+        time: time,
+        page: page
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          if (res.data.data.length > 0) {
+            that.data.userList.push(res.data.data)
+            that.getfriend(++page, time)
+          } else {
+            if (page === 1) {
+              // console.log('123')
+              return wx.navigateTo({
+                url: '../plans/plans'
+              })
+            }
+            that.setData({
+              userList: that.data.userList
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '请在个人中心登陆后使用小程序'
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
+  },
+  // 缓存设置日期
+  setTime () {
+    let y = this.data.detailData.curYear
+    let m = MONTH_ENGLISH[this.data.detailData.curMonth - 1]
+    let m_n = this.data.detailData.curMonth
+    // console.log(m)
+    let d = this.data.detailData.curDay
+    // console.log(d)
+    wx.setStorageSync('time', {y:y, m:m, m_n:m_n, d:d})
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    let curYear = curDate.getFullYear()
+// console.log('curYear1', curYear)
+    let curMonth = curDate.getMonth()
+// console.log('curMonth1', curMonth)
+    let curDay = curDate.getDate()
     // 设置当前日期和判断基准日期
     let detailDate = {
       curYear: curYear,
       curMonth: curMonth === 11 ? 1 : curMonth + 1,
       curDay: curDay
     }
+    // console.log('cruDate', curDate)
+    // console.log('curYear2', curYear)
+    // console.log('curMonth2', curMonth)
+    // console.log('curDay2', curDay)
     detailDate.date = this.topDate(curYear, (curMonth + 1), curDay)
     this.setData({
       detailData: detailDate
     })
     // 初始化本月和后三个月的数据
     let dateArr =[]
-    for (let i = 0; i <= 3; i++) {
-      if( i!==0 ) curDay = 1
+    for (let i = 0; i <= 2; i++) {
+      if( i !== 0 ) curDay = 1
       dateArr.push(this.initCurDate(curYear, curMonth, curDay))
       if (curMonth === 11) {
         curMonth = 0
@@ -189,6 +286,9 @@ Page({
     this.setData({
       dateArr: dateArr
     })
+    // 用户登陆
+    app.wxlogin()
+    // app.upLogin()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -200,6 +300,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.setTime()
     // console.log(' ---------- onShow ----------')
   },
   /**

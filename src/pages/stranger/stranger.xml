@@ -1,0 +1,13 @@
+<!--新的陌生人提醒-->
+<view class="stranger">
+  <block wx:for="{{ strangerList }}">
+    <view class="wrap">
+      <image src="{{ item.src }}"></image>
+      <view class="name-wrap">
+        <view class="iconfont {{ item.gender == 1 ? 'icon-nanxing' : 'icon-nvxing' }}">{{ item.name }}</view>
+        <view>hi,我是{{ item.nickName }}，快来关注我吧</view>
+      </view>
+      <view class="edit {{ item.miss != 1 ? 'cancel' : '' }}" catchtap="getmiss" data-id="{{item.id}}">{{ item.miss == '1' ? '忽略此人' : '取消忽略' }}</view>
+    </view>
+  </block>
+</view>

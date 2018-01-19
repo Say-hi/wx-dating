@@ -1,0 +1,220 @@
+page {
+  padding-top: 50rpx;
+  border-top: 1rpx solid #eee;
+}
+.logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  transform: translate(100rpx, 50rpx);
+  background: #FCC0A4;
+  z-index: 999;
+}
+.out2 {
+  margin-bottom: 260rpx !important;
+}
+.out0,
+.out1,
+.out2 {
+  margin-bottom: 120rpx;
+}
+.calendar-navbar {
+  position: relative;
+}
+.calendar-navbar image {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  transform: translate(100rpx, -50%);
+  background: #FCC0A4;
+}
+.calendar-navbar .current-day-info {
+  position: absolute;
+  top: 50%;
+  right: 100rpx;
+  transform: translate(0, -50%);
+}
+.calendar-navbar .current-day-info-top {
+  display: flex;
+  align-items: center;
+}
+.calendar-navbar .current-day-info-top .cur-Month {
+  width: 100%;
+  font-size: 80rpx;
+  text-align: right;
+}
+.calendar-navbar .current-day-info-top .cur-month-left::before,
+.calendar-navbar .current-day-info-top .cur-month-right::before {
+  content: '';
+  margin: 0 10rpx;
+  border: 4rpx solid #000;
+  border-color: transparent transparent #000 #000;
+  height: 30rpx;
+  width: 30rpx;
+  display: block;
+  transform: scaleX(0.45) rotate(45deg);
+}
+.calendar-navbar .current-day-info-top .cur-month-right::before {
+  border-color: #000 #000 transparent transparent;
+}
+.calendar-navbar .current-week {
+  text-align: right;
+}
+.calendar-navbar .current-week .current-week-year {
+  border-bottom: 14rpx solid #000;
+}
+.masks {
+  position: absolute;
+  width: 100%;
+  height: 150rpx;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), #fff);
+  transform: translateY(-100%);
+}
+.bottom-wrap {
+  position: fixed;
+  width: 100%;
+  height: 220rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  bottom: 0;
+}
+.schedule {
+  text-align: center;
+  margin: 0 40rpx;
+  box-sizing: border-box;
+  border: 1rpx dashed #ededed;
+  background-color: #ffffff;
+}
+.show-bottom {
+  transform: translateY(26rpx);
+}
+.show-bottom .show-bottom-wrap {
+  position: absolute;
+  width: 272rpx;
+  height: 80rpx;
+  border: 4rpx solid #FCC0A4;
+  padding: 4rpx;
+  top: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.show-bottom .show-bottom-wrap .show {
+  line-height: 80rpx;
+  font-size: 44rpx;
+  background-color: #FCC0A4;
+  color: #fff;
+}
+.friend-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.friend-mask .f-t {
+  padding-top: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #ffc4a6;
+  font-weight: 700;
+}
+.friend-mask .friend-trends {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  min-height: 826rpx;
+  width: 750rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 0 24rpx;
+}
+.friend-mask .friend-trends .friend-title {
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2b2f41;
+  line-height: 78rpx;
+  border-bottom: 3rpx solid #2b2f41;
+}
+.friend-mask .friend-trends swiper {
+  height: 700rpx;
+}
+.friend-mask .friend-trends .wrap {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 20rpx 0rpx;
+  margin: 0 20rpx;
+  min-height: 200rpx;
+  box-sizing: border-box;
+  border-top: 1rpx solid #ccc;
+}
+.friend-mask .friend-trends .wrap image {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+.friend-mask .friend-trends .wrap .name-wrap {
+  margin-left: 40rpx;
+  margin-right: 78rpx;
+  flex: 1;
+}
+.friend-mask .friend-trends .wrap .name-wrap view {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 39rpx;
+}
+.friend-mask .friend-trends .wrap .name-wrap .title {
+  color: #666;
+}
+.friend-mask .friend-trends .wrap .name-wrap .iconfont {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 700;
+}
+.friend-mask .friend-trends .wrap .name-wrap .iconfont::after {
+  margin-left: 8rpx;
+  color: #999;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+.friend-mask .friend-trends .wrap .edit {
+  position: absolute;
+  top: 50%;
+  right: 5rpx;
+  transform: translate(0, -50%);
+  font-size: 28rpx;
+  box-sizing: border-box;
+  color: #ffc4a6;
+  width: 80rpx;
+  line-height: 42rpx;
+  border: 2rpx solid #ffc4a6;
+  border-radius: 2rpx;
+  text-align: center;
+}
+.friend-mask .friend-trends .wrap:nth-child(1) {
+  border-top: none;
+}
+.friend-mask .friend-trends .wrap:nth-last-child(1) {
+  border-bottom: 1rpx solid #ccc;
+}
+.friend-mask .friend-trends .ssssss {
+  padding-bottom: 100rpx;
+}
+.friend-mask .friend-trends .enter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 98rpx;
+  background-color: #2b2f41;
+  color: #ffc4a6;
+  text-align: center;
+}

@@ -1,0 +1,172 @@
+<!--新用户首次登陆-->
+<view class="new">
+  <!--上传图片区域-->
+  <view class="up-photo">
+    <view class="photo-wrap" wx:for="{{ photos }}">
+      <image catchtap="preview" data-index="{{ index }}" class="img" src="{{ item.photo_url }}"></image>
+      <view catchtap="delphoto" data-index="{{index}}" class="del">×</view>
+    </view>
+    <image wx:if="{{photos.length < 9}}" catchtap="upPhoto" class="img" src="../../images/userUpPhoto.png"></image>
+  </view>
+  <view class="basic-data">基本资料</view>
+  <!--昵称-->
+  <view class="text-wrap">
+    <view class="name-l">昵称:</view>
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" class="name-r" placeholder='输入您的昵称'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="name" type="text" value="{{ name }}" placeholder='输入您的昵称'/>
+    </view>
+  </view>
+  <!--性别-->
+  <view class="text-wrap">
+    <view class="name-l">性别:</view>
+    <!--choose-->
+    <view class="name-r gender">
+      <block wx:for="{{ genderChoose }}">
+        <view data-type="gender" data-index="{{index}}" catchtap="chooseChange" class="choose-wrap">
+          <view class="choose-box {{ genderCur == index ? 'cur' : '' }}"></view>
+          <view class="choose-text iconfont {{ item.ico }}">{{ item.value }}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!--婚姻-->
+  <view class="text-wrap">
+    <view class="name-l">感情状况:</view>
+    <!--choose-->
+    <view class="name-r marry gender">
+      <block wx:for="{{ marryChoose }}">
+        <view data-type="marry" data-index="{{index}}" catchtap="chooseChange" class="choose-wrap">
+          <view class="choose-box {{ marryCur == index ? 'cur' : '' }}"></view>
+          <view class="choose-text">{{ item.value }}</view>
+        </view>
+      </block>
+    </view>
+    <!--<radio-group class="radio-group" bindchange="radioChange">-->
+    <!--<label class="radio" wx:for="{{gender}}">-->
+    <!--<radio color="#ffc4a6" value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}-->
+    <!--</label>-->
+    <!--</radio-group>-->
+  </view>
+  <!--年龄区间-->
+  <view class="text-wrap">
+    <view class="name-l">年龄区间:</view>
+    <!--picker-->
+    <view class="name-r age gender">
+      <view class="age-text arrow">
+        <picker data-type="age" bindchange="bindPickerChange" value="{{ageIndex}}" range="{{ageArr}}">
+          <view class="picker">
+            {{ageArr[ageIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!--身高-->
+  <view class="text-wrap">
+    <view class="name-l">身高:</view>
+    <!--picker-->
+    <view class="name-r height gender">
+      <!--<input placeholder-class="placeholdercss" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="height" value="{{ userHeight }}" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>
+    </view>
+  </view>
+  <!--行业-->
+  <view class="text-wrap" catchtap="chooseIndustry">
+    <view class="name-l">行业:</view>
+    <view class="name-r age gender">
+      <view class="age-text arrow">
+        <view>{{industryOne[value[0]]}}<text wx:if="{{industryOne[value[0]] != industryTwo[value[0]][value[1]]}}">-{{industryTwo[value[0]][value[1]]}}</text></view>
+        <view wx:if="{{industryShow}}" catchtap="noMask" class="mask">
+          <picker-view style="height: 480rpx" class="mask-picker" indicator-style="height: 50px;"  value="{{value}}" bindchange="bindChange">
+            <picker-view-column>
+              <view wx:for="{{industryOne}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{industryTwo[two]}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="basic-data">
+    <view class="basic-one">深度资料</view>
+    <view class="basic-second">邀约成功后对方才能看到</view>
+  </view>
+  <!--公司-->
+  <view class="text-wrap">
+    <view class="name-l">公司:</view>
+    <!--picker-->
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" placeholder='请输入您工作的公司'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" data-type="company" value="{{ compny }}" type="text" placeholder='请输入您工作的公司'/>
+    </view>
+  </view>
+  <!--车房状况-->
+  <view class="text-wrap">
+    <view class="name-l">车房状况:</view>
+    <!--picker-->
+    <view class="name-r age gender">
+      <view class="age-text arrow">
+        <picker data-type="house" bindchange="bindPickerChange" value="{{houseIndex}}" range="{{houseArr}}">
+          <view class="picker">
+            {{houseArr[houseIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!--手机-->
+  <view class="text-wrap">
+    <view class="name-l">联系手机:</view>
+    <!--picker-->
+    <view class="name-r height">
+      <!--<input placeholder-class="placeholdercss" type="number" placeholder='请输入您的身高'/><text class="cm">cm</text>-->
+      <input maxlength="11" placeholder-class="placeholdercss" bindinput="inputValue" data-type="phone" value="{{ phone }}" type="number" placeholder='请输入您的手机号码'/>
+    </view>
+  </view>
+  <!--运动-->
+  <view class="text-wrap">
+    <view class="name-l">最喜欢/最近做过的运动:</view>
+    <!--picker-->
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesSports }}" data-type="sport"  placeholder='点击输入'/>
+    </view>
+  </view>
+  <!--电影-->
+  <view class="text-wrap">
+    <view class="name-l">最喜欢/最近看过的电影:</view>
+    <!--picker-->
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesMovies }}" data-type="movie" placeholder='点击输入'/>
+    </view>
+  </view>
+  <!--读书-->
+  <view class="text-wrap">
+    <view class="name-l">最喜欢/最近看过的书:</view>
+    <!--picker-->
+    <view class="name-r company gender">
+      <!--<input placeholder-class="placeholdercss" placeholder='点击输入'/>-->
+      <input placeholder-class="placeholdercss" bindinput="inputValue" value="{{ likesBooks }}" data-type="book" placeholder='点击输入'/>
+    </view>
+  </view>
+</view>
+<!--确认-->
+<view class="confirm">
+  <view class="c-one" catchtap="cancelConfirm">放弃</view>
+  <view class="c-two" catchtap="confirmUpdate">确认</view>
+</view>
+<!--mask弹窗-->
+<view wx:if="{{ show }}" class="mask">
+  <view class="mask-wrap">
+    <veiw class="mask-title">
+      前往个人中心头像处，可继续完善资料及邀请好友评价
+    </veiw>
+    <view catchtap="delMask" class="mask-confirm">
+      我知道了
+    </view>
+  </view>
+</view>

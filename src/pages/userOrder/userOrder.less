@@ -1,0 +1,158 @@
+//顶部tab栏
+.top-tab {
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #ccc;
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 84rpx;
+  view {
+    flex: 1;
+    text-align: center;
+    color: #999;
+    font-size: 30rpx;
+    line-height: 84rpx;
+    font-weight: 700;
+    border-bottom: 4rpx solid #fff;
+  }
+  .choose {
+    color: #ffc4a6;
+    border-bottom-color: #ffc4a6;
+  }
+}
+//订单部分
+.wrap {
+  margin-top: 84rpx;
+  border-top: 10rpx solid #eee;
+  padding: 0 24rpx;
+  > view {
+    border-bottom: 10rpx solid #eee;
+  }
+  > view:nth-last-child(1) {
+    border-bottom: none;
+  }
+  .close {
+    .order-center {
+      border-bottom: none;
+    }
+  }
+  //顶部
+  .order-top {
+    display: flex;
+    align-items: center;
+    line-height: 70rpx;
+    border-bottom: 1rpx solid #ccc;
+    .order-number {
+      flex: 1;
+      color: #333;
+      font-size: 26rpx;
+      font-weight: 700;
+    }
+    .order-status {
+      color: #ffc4a6;
+      font-size: 28rpx;
+      font-weight: 700;
+    }
+    .order-close {
+      color: #ccc;
+    }
+  }
+  //中间
+  .order-center {
+    @imgWidth: 168rpx;
+    display: flex;
+    padding: 30rpx 0;
+    align-items: center;
+    //border-bottom: 1rpx solid #ccc;
+    .order-img {
+      width: @imgWidth;
+      height: 124.7rpx;
+      margin-right: 18rpx;
+    }
+    .o-c-center {
+      flex: 1;
+      .o-c-c-title {
+        font-size: 28rpx;
+        color: #333;
+        font-weight: 700;
+        line-height: 30rpx;
+        transform: translateY(-20rpx);
+      }
+      .o-c-c-time, .o-c-c-address {
+        font-size: 26rpx;
+        color: #999;
+        line-height: 40rpx;
+      }
+    }
+    .o-c-money {
+      font-size: 28rpx;
+      color: #333;
+      font-weight: 700;
+    }
+  }
+  // 底部
+  .order-bottom-one {
+    border-top: 1rpx solid #ccc;
+    .user {
+      display: flex;
+      //height: 87rpx;
+      align-items: center;
+      border-bottom: 1rpx solid #ccc;
+      .userImg {
+        width: 68rpx;
+        height: 68rpx;
+        border-radius: 50%;
+      }
+      .username {
+        margin-left: 9rpx;
+        font-size: 28rpx;
+        color: #333;
+        line-height: 87rpx;
+        font-weight: 700;
+      }
+      .username::after {
+        font-weight: 500;
+        margin-left: 9rpx;
+        color: #999;
+        font-size: 26rpx;
+      }
+    }
+    .arrow::after {
+      color: #ccc;
+      width: 16rpx;
+      height: 16rpx;
+      right: 2rpx;
+    }
+    .noline {
+      border-bottom: none;
+    }
+    .o-b-o-number {
+      display: flex;
+      align-items: center;
+      height: 67rpx;
+      .codeNumber {
+        color: #ffc4a6;
+        font-size: 26rpx;
+        font-weight: 700;
+        line-height: 67rpx;
+        flex: 1;
+        .codeUse {
+          color: #ccc;
+          text-decoration: line-through;
+        }
+      }
+      .cancel {
+        font-size: 26rpx;
+        color: #2b2f41;
+        font-weight: 700;
+        border: 1rpx solid #2b2f41;
+        border-radius: 20rpx;
+        padding: 6rpx 18rpx;
+      }
+    }
+  }
+}

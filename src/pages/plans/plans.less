@@ -1,0 +1,216 @@
+.plans {
+  //顶部栏
+  .plans-top {
+    line-height: 88rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 24rpx;
+    box-shadow: 0rpx 0rpx 10rpx 5rpx #fff5f0;
+    .address {
+      position: relative;
+      text-align: left;
+      width: 240rpx;
+      height: 88rpx;
+      //background-color: #ff0;/
+      .showcitys {
+        color: #999;
+        font-size: 30rpx;
+      }
+      .pink {
+        color: #ffc4a6;
+      }
+      .s-i {
+        display: inline-block;
+        margin: 0 5rpx;
+        transform: translateY(-2rpx);
+        //background-color: #f00;
+      }
+    }
+    .time {
+      text-align: center;
+      flex: 1;
+      //background-color: #f00;
+      font-size: 36rpx;
+      color: #ffc4a6;
+      text {
+        font-size:  28rpx;
+      }
+    }
+    .rank {
+      text-align: right;
+      width: 200rpx;
+      height: 100%;
+      color: #999;
+      font-size: 30rpx;
+      text {
+        display: inline-block;
+        transform: rotate(180deg);
+      }
+      //background-color: #0094ff;
+    }
+    .pinks {
+      color: #ffc4a6;
+    }
+    .as {
+      width: 160rpx;
+      font-size: 30rpx;
+      border-bottom: 1rpx solid #ccc;
+      border-top: 1rpx solid #ccc;
+      text-align: center;
+      color: #333;
+      line-height: 80rpx;
+      background-color: #fff;
+    }
+    .as:nth-last-child(1) {
+      border-top: none;
+    }
+    .asa {
+      color: #ffc4a6;
+    }
+  }
+  //约会计划内容
+  .plans-content-wrap {
+    padding: 0 24rpx;
+    .plans-content {
+      position: relative;
+      border-bottom: 1rpx solid #ccc;
+      margin-top: 19rpx;
+      image {
+        width: 690rpx;
+        height: 518rpx;
+      }
+      .p-c-title {
+        font-size: 30rpx;
+        color: #333;
+        font-weight: 700;
+        line-height: 44rpx;
+      }
+      .p-c-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30rpx;
+        margin-top: 18rpx;
+        .p-c-b-left {
+          line-height: 36rpx;
+          font-size: 24rpx;
+          color: #999;
+          background-color: #e6e6e6;
+          padding: 0 6rpx;
+          position: relative;
+          transform: translate(8rpx, 0);
+          border-radius: 5rpx;
+        }
+        .p-c-b-left::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          border: 14rpx solid #e6e6e6;
+          border-color:  transparent transparent #e6e6e6 #e6e6e6;
+          transform: translate(-12rpx, -50%) rotate(45deg);
+        }
+        .p-c-b-left::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 6rpx;
+          height: 6rpx;
+          background: #fff;
+          transform: translate(-8rpx, -50%);
+        }
+        .p-c-b-right {
+          font-size: 32rpx;
+          color: #ff4d4d;
+        }
+      }
+    }
+  }
+  .setheight {
+    height: 1100rpx;
+    overflow: hidden;
+  }
+}
+//city
+.city-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 88rpx;
+  left: 0;
+  z-index: 999;
+  background-color: rgba(0,0,0,.6);
+}
+.citys {
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+  display: flex;
+  .sv-wrap {
+    height: 312rpx;
+    width: 220rpx;
+    overflow: hidden;
+  }
+  .sv {
+    margin-top: -1rpx;
+    border-top: 1rpx solid #ccc;
+  }
+  .city-one, .city-two {
+    font-size: 30rpx;
+    color: #333;
+    border-top: 1rpx solid #ccc;
+    border-bottom: 1rpx solid #ccc;
+    margin-top: -1rpx;
+    line-height: 78rpx;
+    width: 220rpx;
+    background-color: #fff;
+    padding-left: 26rpx;
+  }
+  .city-two {
+    background-color: #eee;
+  }
+  .current {
+    background-color: #f5f5f5;
+    color: #ffc4a6;
+  }
+}
+.c-m-out {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+page {
+  height: 100%;
+}
+.nogoods::after {
+  content: '已售罄';
+  position: absolute;
+  font-size: 30rpx;
+  color: #fff;
+  top: 0;
+  right: 12rpx;
+  padding: 14rpx 20rpx;
+  background-color: rgba(0,0,0,0.3);
+}
+//没有列表信息
+.nolist {
+  padding-top: 20rpx;
+  border-top: 1rpx solid #ccc;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #ffc4a6;
+  //margin-top: 300rpx;
+  text {
+    transform: translateY(-90rpx);
+  }
+}
+.ssss {
+  height: 100%;
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

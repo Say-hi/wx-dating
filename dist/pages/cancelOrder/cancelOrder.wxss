@@ -1,0 +1,169 @@
+.top-title {
+  border-top: 1rpx solid #ccc;
+  line-height: 88rpx;
+  background-color: #ebedf4;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+  font-weight: 700;
+}
+.order-info {
+  padding: 0 24rpx;
+  border-bottom: 10rpx solid #eee;
+}
+.order-info .o-i-top {
+  display: flex;
+  align-items: center;
+  height: 68rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.order-info .o-i-top text {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 700;
+}
+.order-info .o-i-top .o-i-number {
+  flex: 1;
+}
+.order-info .o-i-top .o-i-number text {
+  font-size: 28rpx;
+}
+.order-info .o-i-top .o-i-status {
+  color: #ffc4a6;
+}
+.order-info .o-i-center {
+  display: flex;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #ccc;
+}
+.order-info .o-i-center image {
+  width: 168rpx;
+  height: 168rpx;
+  margin-right: 18rpx;
+}
+.order-info .o-i-center .o-i-c-center .o-i-c-title {
+  font-size: 28rpx;
+  color: #333;
+  transform: translateY(-14rpx);
+}
+.order-info .o-i-center .o-i-c-center .o-i-c-time,
+.order-info .o-i-center .o-i-c-center .o-i-c-address {
+  color: #999;
+  font-size: 26rpx;
+  line-height: 40rpx;
+}
+.order-info .o-i-center .o-i-c-money {
+  flex: 1;
+  text-align: right;
+  color: #f66;
+  font-size: 28rpx;
+}
+.dating-people {
+  height: 87rpx;
+  display: flex;
+  align-items: center;
+}
+.dating-people image {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  margin-right: 9rpx;
+}
+.dating-people .p-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 700;
+}
+.dating-people .p-name::after {
+  font-size: 26rpx;
+  color: #999;
+  font-weight: 500;
+  margin-left: 9rpx;
+}
+.dating-people::after {
+  right: 0;
+  color: #d1d1d1;
+  width: 16rpx;
+  height: 16rpx;
+}
+.punishment {
+  padding: 0 24rpx;
+}
+.punishment .punishment-money {
+  border-bottom: 1rpx solid #ccc;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+}
+.punishment .punishment-money text {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 700;
+}
+.punishment .punishment-money text:nth-child(2) {
+  flex: 1;
+  text-align: right;
+  color: #f66;
+}
+.punishment .cancel-reason view {
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 700;
+  line-height: 70rpx;
+}
+.punishment .cancel-reason .c-p-reason {
+  font-size: 30rpx;
+  font-weight: 500;
+  line-height: 40rpx;
+  text-align: left;
+  margin-bottom: 38rpx;
+}
+.punishment .cancel-reason textarea {
+  width: 100%;
+  font-size: 30rpx;
+  height: 264rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.punishment checkbox {
+  color: #999;
+  font-size: 26rpx;
+}
+.punishment .wx-checkbox-input {
+  width: 28rpx !important;
+  height: 28rpx !important;
+  border-color: #ffc4a6 !important;
+  background-color: #ffc4a6 !important;
+}
+.confrim-btn {
+  margin-top: 30rpx;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+.confrim-btn text {
+  display: inline-block;
+  width: 260rpx;
+  line-height: 78rpx;
+  border-radius: 78rpx;
+  color: #ffc4a6;
+  background-color: #2b2f41;
+}
+.tips {
+  border-top: 4rpx dashed #ededed;
+  padding-top: 27rpx;
+  color: #999;
+  font-size: 26rpx;
+  line-height: 40rpx;
+}
+.mask .ts {
+  font-size: 36rpx;
+  color: #000;
+  line-height: 90rpx;
+}
+.mask .ts-two,
+.mask .ts-three {
+  color: #999;
+  line-height: 40rpx;
+  font-size: 30rpx;
+}

@@ -1,0 +1,57 @@
+.stranger {
+  padding: 0 24rpx;
+  border-top: 1rpx solid #ccc;
+}
+.wrap {
+  //position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0rpx;
+  //padding-left: 24rpx;
+  //padding-right: 50rpx;
+  border-bottom: 1rpx solid #ccc;
+  //background-color: #f00;
+  image {
+    width: 128rpx;
+    height: 128rpx;
+    border-radius: 50%;
+  }
+  .name-wrap {
+    margin-left: 30rpx;
+    flex: 1;
+    view {
+      font-size: 26rpx;
+      color: #999;
+    }
+    .iconfont {
+      font-size: 32rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    .iconfont::after {
+      margin-left: 8rpx;
+      color: #999;
+      font-size: 26rpx;
+    }
+  }
+  .edit {
+    //flex: ;
+    //position: absolute;
+    font-size: 26rpx;
+    box-sizing: border-box;
+    color: #ffc4a6;
+    width: 120rpx;
+    box-sizing: border-box;
+    line-height: 42rpx;
+    border: 2rpx solid #ffc4a6;
+    border-radius: 5rpx;
+    text-align: center;
+  }
+  .cancel {
+    color: #ccc;
+    border-color: #ccc;
+  }
+}
+.wrap:nth-last-child(1) {
+  border-bottom: 1rpx solid #ccc;
+}

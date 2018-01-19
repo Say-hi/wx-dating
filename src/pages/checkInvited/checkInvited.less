@@ -1,0 +1,152 @@
+page {
+  background-color: #fff;
+}
+.out-wrap {
+  border-top: 1rpx solid #ccc;
+  padding: 0 24rpx;
+  .wrap {
+    height: 178rpx;
+    border-bottom: 1rpx solid #ccc;
+    @legth: 128rpx;
+    display: flex;
+    align-items: center;
+    //头像
+    .user-img {
+      width: @legth;
+      height: @legth;
+      border-radius: 50%;
+      margin-right: 30rpx;
+    }
+    .text {
+      flex: 1;
+    }
+    //名字
+    .name {
+      color: #333;
+      font-size: 32rpx;
+      font-weight: 700;
+    }
+    .name::after {
+      font-weight: 500;
+      font-size: 26rpx;
+      color: #999;
+      margin-left: 9rpx;
+    }
+    .marry {
+      margin-left: 16rpx;
+      color: #333;
+      font-size: 26rpx;
+    }
+    .job {
+      color: #666;
+      font-size: 26rpx;
+      margin-top: 18rpx;
+    }
+    .choose {
+      color: #2b2f41;
+      font-size: 26rpx;
+      padding: 9rpx 16rpx 8rpx 14rpx;
+      border: 1rpx solid #2b2f41;
+      border-radius: 6rpx;
+    }
+  }
+}
+//选择弹窗
+.choose-mask {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  .cm-wrap {
+    width: 560rpx;
+    height: 360rpx;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 20rpx;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @width: 128rpx;
+    .cm-img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: @width;
+      height: @width;
+      border-radius: 50%;
+      border: 4rpx solid #fff;
+      transform: translate(-50%,-50%);
+    }
+    .cm-name {
+      margin-top: 77rpx;
+      font-size: 32rpx;
+      color: #333;
+      font-weight: 700;
+    }
+    .cm-name::after {
+      margin-left: 12rpx;
+      color: #999;
+      font-size: 30rpx;
+    }
+    .cm-m-j {
+      color: #666;
+      font-size: 26rpx;
+      margin-top: 19rpx;
+    }
+    .cm-tips {
+      color: #333;
+      font-size: 36rpx;
+      font-weight: 700;
+      margin-top: 20rpx;
+    }
+    .cm-tips-2 {
+      line-height: 60rpx;
+    }
+    //按钮
+    .cm-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-top: 1rpx solid #ccc;
+      .btn {
+        width: 49%;
+        font-size: 36rpx;
+        color: #999;
+        line-height: 100rpx;
+        text-align: center;
+        display: inline-block;
+        border-left: 1rpx solid #ccc;
+      }
+      .btn:nth-child(1) {
+        border-left: none;
+      }
+      .cm-confirm {
+        color: #ffc4a6;
+      }
+    }
+    //确认后的样式
+    .cm-confirm-img {
+      width: 272rpx;
+      height: 220rpx;
+    }
+    .cm-tips-2 {
+      font-size: 36rpx;
+      color: #333;
+      margin-bottom: 10rpx;
+    }
+    .cm-btn-confirm {
+      width: 100%;
+      text-align: center;
+      border-top: 1rpx solid #ccc;
+      line-height: 80rpx;
+      font-size: 36rpx;
+      color: #ffc4a6;
+    }
+  }
+}

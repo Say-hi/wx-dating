@@ -1,0 +1,56 @@
+<!--约会计划-->
+<view class="plans">
+  <!--顶部栏-->
+  <view class="plans-top">
+    <view class="address">
+      <view catchtap="showcitys" class="showcitys {{ status ? 'pink' : '' }}">{{ city }}<text wx:if="{{ !ifarrow }}" class="s-i">></text>{{ area }}</view>
+      <!--城市列表-->
+      <view wx:if="{{ status }}" catchtap="cancel" class="city-mask">
+        <view class="citys">
+          <view>
+            <block wx:for="{{ cityslist }}" wx:for-item="city">
+              <view class="city-one {{ current == city ? 'current' : '' }}" catchtap="showcitydetail" data-city="{{city}}">{{ city }}</view>
+            </block>
+          </view>
+          <!--<view class="sv-wrap">-->
+            <scroll-view class="sv" scroll-y style="height: 396rpx; width: 220rpx"  >
+              <block wx:for="{{ citydetail }}" wx:for-item="area">
+                <view catchtap="choosearea" class="city-two"  data-area="{{area}}">{{ area }}</view>
+              </block>
+            </scroll-view>
+          <!--</view>-->
+        </view>
+      </view>
+    </view>
+    <view class="time" catchtap="chooseTime">{{ day }}<text>th,</text>{{ month }}</view>
+    <view class="rank {{ statustwo ? 'pinks' : '' }}" catchtap="select">{{ selectBy }}<text>▲</text>
+    </view>
+    <view catchtap="cancel" wx:if="{{ statustwo }}" class="city-mask">
+      <view class="c-m-out">
+        <view data-choose="0" catchtap="selectchoose" class="as {{ selectdata == 0 ? 'asa' : '' }}">美食</view>
+        <view data-choose="1" catchtap="selectchoose" class="as {{ selectdata == 1 ? 'asa' : '' }}">体验</view>
+      </view>
+    </view>
+  </view>
+  <!--约会计划内容-->
+  <view class="plans-content-wrap {{ status || statustwo ? 'setheight': ''}}">
+    <block wx:for="{{ content }}">
+      <navigator hover-class="none" url="../setMeal/setMeal?id={{ item.id }}" class="plans-content {{ item.kucun == 0 ? 'nogoods' : '' }}">
+      <!--<navigator hover-class="none" url="../setMeal/setMeal?id={{ item.id }}" class="plans-content nogoods}}">-->
+        <image src="{{ item.image }}"></image>
+        <view class="p-c-title">{{ item.name }}</view>
+        <view class="p-c-bottom">
+          <view class="p-c-b-left">{{ item.city }}·{{ item.district }}</view>
+          <view class="p-c-b-right">{{ (item.money * 1) }}元/位</view>
+        </view>
+      </navigator>
+    </block>
+    <!--<view class="nolist" wx:if="{{ content.length <=0 && city == '定位中' }}">-->
+      <!--亲爱的小主，正在定位您当前的位置中，请稍作等待~~-->
+    <!--</view>-->
+  </view>
+</view>
+
+<!--<view class="nolist ssss" wx:if="{{ show }}">-->
+  <!--<text>{{ showText }}</text>-->
+<!--</view>-->

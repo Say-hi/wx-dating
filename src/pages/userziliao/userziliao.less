@@ -1,0 +1,94 @@
+// 评价
+.estimate {
+  border-top: 12rpx solid #eee;
+  .es-title {
+    border-bottom: 3rpx solid #2b2f41;
+    line-height: 88rpx;
+    font-size: 32rpx;
+    text-align: center;
+    color: #333;
+  }
+  .es-wrap {
+    margin: 20rpx;
+    display: flex;
+    border-bottom: 1rpx solid #ccc;
+    padding-bottom: 20rpx;
+    align-items: center;
+    @length: 100rpx;
+    image {
+      width: @length;
+      height: @length;
+      border-radius: 50%;
+    }
+    .es-es {
+      flex: 1;
+      margin-left: 10rpx;
+      font-size: 26rpx;
+      line-height: 40rpx;
+      .es-name::after  {
+        margin-left: 11rpx;
+        font-size: 24rpx;
+      }
+      .icon-nanxing::after {
+        color: #b6e9ff;
+      }
+      .icon-nvxing::after {
+        color: #ffc4a6;
+      }
+      .es-text {
+        color: #666;
+        font-size: 28rpx;
+      }
+    }
+  }
+  .es-wrap:nth-last-child(1) {
+    border: none;
+  }
+  .invitedBtn {
+    color: #ffc4a6;
+    font-size: 28rpx;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1rpx solid #ccc;
+    border-radius: 0;
+    box-shadow: 2rpx 2rpx 6rpx 2rpx #ffc4a6;
+  }
+  .invitedBtn::after {
+    border: none;
+  }
+}
+.zw {
+  height: 80rpx;
+  width: 100%;
+}
+.confirm {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  line-height: 98rpx;
+  button {
+    line-height: 98rpx;
+    border: none;
+    border-top: 1rpx solid #EEEEEE;
+    flex: 1;
+    border-radius: 0;
+    background-color: #fff;
+    color: #2b2f41;
+    font-weight: 700;
+    font-size: 32rpx;
+  }
+  button::after {
+    border: none;
+    border-radius: 0;
+  }
+  .save {
+    width: 50%;
+    background-color: #2b2f41;
+    color: #ffc4a6;
+    font-size: 32rpx;
+    font-weight: 700;
+  }
+}

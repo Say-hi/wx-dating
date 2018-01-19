@@ -1,0 +1,20 @@
+<!--消息列表页面-->
+<view class="wrap">
+  <blcok wx:for="{{ message }}">
+    <view class="out">
+      <view class="left">
+        <image src="../../images/laba.png"></image>
+      </view>
+      <view class="center">
+        <view class="title">通知消息</view>
+        <view class="content" wx:for="{{ item.content }}" wx:for-item="tex">
+          {{ tex }}
+        </view>
+      </view>
+      <view class="time">
+        {{ item.add_time }}
+      </view>
+    </view>
+  </blcok>
+  <view style="color: #999; margin-top: 20rpx; text-align: center; font-size: 26rpx;" wx:if="{{ message.length === 0 }}">没有更多消息了</view>
+</view>

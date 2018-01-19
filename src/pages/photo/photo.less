@@ -1,3 +1,53 @@
-.title {
-  font-size: 40rpx;
+.photo {
+  padding: 23rpx 14rpx 0 24rpx;
+  .photo-wrap {
+    position: relative;
+    display: inline-block;
+    width: 168rpx;
+    height: 168rpx;
+    padding: 0rpx 10rpx 10rpx 0;
+    .imgs {
+      width: 168rpx;
+      height: 168rpx;
+    }
+    .other-up {
+      width: 48rpx !important;
+      height: 48rpx !important;
+      position: absolute;
+      right: 10rpx !important;
+      top: 0rpx !important;
+    }
+  }
 }
+.camera {
+  image {
+    width: 168rpx;
+    height: 168rpx;
+  }
+}
+.upBtn {
+  background-color: #ffc4a6;
+  color: #2b2f41;
+  font-size: 30rpx;
+  border-radius: 10rpx;
+  font-weight: 700;
+  text-align: center;
+  line-height: 80rpx;
+  width: 300rpx;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.del {
+   position: absolute;
+   width: 40rpx;
+   line-height: 40rpx;
+   font-size: 30rpx;
+   border-radius: 50%;
+   background-color: #ff4d4d;
+   text-align: center;
+   color: #fff;
+   top: 10rpx;
+   right: 30rpx;
+   transform: translate(50%, -50%);
+ }

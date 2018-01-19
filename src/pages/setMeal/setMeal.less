@@ -1,0 +1,119 @@
+
+// 顶部轮播图
+swiper {
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+// 中间内容区域
+.center {
+  padding: 24rpx;
+  border-bottom: 98rpx solid #fff;
+  .title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: #333;
+  }
+  .title-bottom {
+    line-height: 86rpx;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 8rpx solid #eee;
+    .address {
+      font-size: 28rpx;
+      color: #999;
+    }
+    .price {
+      font-size: 36rpx;
+      color: #f66;
+    }
+  }
+  .shopInfo {
+    padding: 30rpx 0;
+    overflow: hidden;
+    //.wxParse-p {
+    //  view {
+    //    display: inline-block !important;
+    //  }
+    //}
+  }
+  .shop-title {
+    font-size: 32rpx;
+    color: #333;
+    font-weight: 700;
+    line-height: 90rpx;
+    border-bottom: 1rpx solid #eee;
+  }
+  .iconfont::before {
+    color: #ffc4a6;
+    font-size: 50rpx;
+    display: inline-block;
+    transform: translate(0rpx, 6rpx);
+    font-weight: 500;
+    margin-right: 11rpx;
+  }
+  .shop-time, .shop-address {
+    font-size: 30rpx;
+    color: #333;
+    line-height: 87rpx ;
+    min-height: 87rpx;
+    font-weight: 700;
+    border-bottom: 1rpx solid #eee;
+  }
+  .shop-address {
+    display: flex;
+    align-items: center;
+    border-bottom: 8rpx solid #eee;
+    line-height: 60rpx;
+    padding-right: 30rpx;
+  }
+  .menu {
+    text-align: center;
+    font-size: 32rpx;
+    font-weight: 700;
+    line-height: 92rpx;
+  }
+  .menu-content {
+    padding-bottom: 20rpx;
+    border-bottom: 8rpx solid #eee;
+  }
+  .tips {
+    margin-top: 17rpx;
+    font-size: 28rpx;
+    color: #666;
+  }
+}
+// 底部区域
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  view {
+    background-color: #fff;
+    display: inline-block;
+    width: 33.33%;
+    line-height: 98rpx;
+    font-size: 30rpx;
+    color: #2b2f41;
+    text-align: center;
+    border-top: 1rpx solid #eee;
+  }
+  view:nth-child(2) {
+    position: relative;
+    font-size: 32rpx;
+    color: #ffc4a6;
+    background-color: #2b2f41;
+    border-top: 10rpx solid #2b2f41;
+    box-shadow: 0rpx 18rpx 8rpx 8rpx #c7c8cd;
+  }
+}
+
+.homebtn {
+  position: fixed;
+  bottom: 120rpx;
+  right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+}

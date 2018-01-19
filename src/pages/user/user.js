@@ -1,6 +1,6 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
-
+const app = getApp()
+const useUrl = require('../../utils/service')
 // 创建页面实例对象
 Page({
   /**
@@ -8,54 +8,339 @@ Page({
    */
   data: {
     title: 'user',
+    userInfo: {
+      avatarUrl: '../../images/login-img.png'
+    },
     // 视屏
-    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
-    videoCover: '../../images/video_cover.jpg',
+    hasmessage: false, // 有消息状态
+    videoSrc: '',
+    videoCover: '',
     videoPlay: '../../images/play.png',
-    videoControls: false,
-    autoplay: false,
+    videoControls: true,
+    autoplay: true,
     show: true,
     playStatus: false,
     objectFit: 'fill',
     // 相册
-    userPhoto: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    userPhotos: [],
+    open_types: 'navigate',
     // 用户操作
     opertaion: [
       {
-        title: 'TA的档案',
-        ico: ''
+        title: '消息箱',
+        ico: 'icon-xiaoxi',
+        url: '../message/message'
       },
       {
-        title: '账户余额',
-        ico: ''
+        title: 'TA的档案',
+        ico: 'icon-dangan',
+        url: '../taRecord/taRecord'
+      },
+      {
+        title: '券包余额',
+        ico: 'icon-yue',
+        url: '../account/account'
       },
       {
         title: '问卷调查',
-        ico: ''
+        ico: 'icon-wenjuan',
+        url: '../mySurvey/mySurvey'
       },
       {
-        title: 'FAQ',
-        ico: ''
+        title: '帮助指南',
+        ico: 'icon-FAQ',
+        url: '../faq/faq'
       },
       {
-        title: '反馈',
-        ico: ''
+        title: '反馈与客服',
+        ico: 'icon-fankui',
+        url: '../kefu/kefu'
       }
     ]
   },
-  // 播放视屏
-  playVideo () {
-    this.setData({
-      autoplay: true,
-      show: false,
-      playStatus: true
+  // 获取个人信息
+  getMyInfo () {
+    let that = this
+    let getMO = {
+      url: useUrl.getUserinfo,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.code === 200) {
+          let hasvideo = false
+          if (res.data.data.video_url.length > 0) {
+            hasvideo = true
+          }
+          // let { userInfo } = that.data
+          // userInfo['avatarUrl'] = res.data.data.avatar
+          // userInfo['nickName'] = res.data.data.user_nicename
+          // userInfo['gender'] = res.data.data.sex
+          that.setData({
+            hasvideo: hasvideo,
+            // userInfo: that.data.userInfo,
+            userPhotos: res.data.data.photos || [],
+            videoSrc: res.data.data.video_url,
+            videoCover: res.data.data.video_image || '../../images/login-bg.png'
+          })
+        } else {
+          // wx.showToast({
+          //   title: '未授权登陆,请点击【立即登录】'
+          // })
+        }
+      }
+    }
+    app.wxrequest(getMO)
+  },
+  // 上传视频
+  upVideo () {
+    let that = this
+    let videoObj = {
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'front',
+      success (res) {
+        console.log(res)
+        if (res.duration > 60) {
+          return wx.showToast({
+            title: '请选择视频时间小于1分钟的'
+          })
+        }
+        wx.showLoading({
+          title: '视频上传中',
+          mask: true
+        })
+        let i = res.tempFilePath
+        let upVideo = {
+          url: useUrl.updateVideoUrl,
+          filePath: i,
+          formData: {
+            session_key: wx.getStorageSync('session_key'),
+            file: i
+          },
+          success (res) {
+            wx.hideLoading()
+            // console.log(res)
+            let jsonObj = JSON.parse(res.data).data.res_file
+            that.setData({
+              videoSrc: jsonObj,
+              hasvideo: true
+            })
+          },
+          fail (res) {
+            console.log('上传错误', res)
+            wx.showToast({
+              title: '视频上传失败，请重新尝试',
+              mask: true,
+              duration: 1000
+            })
+          }
+        }
+        app.wxUpload(upVideo)
+      }
+    }
+    wx.chooseVideo(videoObj)
+  },
+  edit () {
+    let that = this
+    wx.showActionSheet({
+      itemList: ['修改封面图片', '重新上传视频', '删除视频', '删除封面'],
+      itemColor: '#FCC0A4',
+      success (res) {
+        if (res.tapIndex * 1 === 0) {
+          that.editVideo()
+        } else if (res.tapIndex * 1 === 1) {
+          that.upVideo()
+        } else if (res.tapIndex * 1 === 2) {
+          let upVideo = {
+            url: useUrl.updateVideoUrl,
+            data: {
+              session_key: wx.getStorageSync('session_key'),
+              file: ''
+            },
+            success (res) {
+              wx.hideLoading()
+              // console.log(res)
+              // let jsonObj = JSON.parse(res.data).data.res_file
+              that.setData({
+                videoSrc: '',
+                hasvideo: false
+              })
+            }
+          }
+          app.wxrequest(upVideo)
+        } else if (res.tapIndex * 1 === 3) {
+          app.wxrequest({
+            url: useUrl.updateVideoImage,
+            data: {
+              session_key: wx.getStorageSync('session_key'),
+              video_image: ''
+            },
+            success () {
+              wx.hideLoading()
+              that.setData({
+                videoCover: '../../images/login-bg.png'
+              })
+            }
+          })
+        }
+      }
     })
   },
+  // 编辑相册封面
+  editVideo () {
+    let that = this
+    let obj = {
+      count: 1,
+      success (res) {
+        wx.showLoading({
+          title: '图片上传中',
+          mask: true
+        })
+        let i = res.tempFilePaths[0]
+        let upImg = {
+          url: useUrl.uploadPhotos,
+          filePath: i,
+          formData: {
+            session_key: wx.getStorageSync('session_key'),
+            file: i
+          },
+          success (res) {
+            wx.hideLoading()
+            let jsonObj = JSON.parse(res.data).data.res_file
+            let coverObj = {
+              url: useUrl.updateVideoImage,
+              data: {
+                session_key: wx.getStorageSync('session_key'),
+                video_image: jsonObj
+              },
+              success (res) {
+                // console.log(res)
+                that.setData({
+                  videoCover: jsonObj
+                })
+                wx.showToast({
+                  title: res.data.message
+                })
+              }
+            }
+            app.wxrequest(coverObj)
+          },
+          fail (res) {
+            // console.log('上传错误', res)
+            wx.showToast({
+              title: '图片上传失败，请重新尝试',
+              mask: true,
+              duration: 1000
+            })
+          }
+        }
+        app.wxUpload(upImg)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    }
+    wx.chooseImage(obj)
+  },
+  videodel () {
+    this.setData({
+      show: true
+    })
+  },
+  // 获取自己的资料
+  getMyInfoid () {
+    // let that = this
+    let getobj = {
+      url: useUrl.getUserInfoBySelf,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        wx.navigateTo({
+          url: `../userInfo/userInfo?userId=${res.data.data.user_id}&type=self`
+        })
+      }
+    }
+    app.wxrequest(getobj)
+  },
+  // 重新拉起授权
+  getUserInfo () {
+    if (this.data.logins) {
+      wx.navigateTo({
+        url: '../userziliao/userziliao'
+      })
+      return
+    }
+    let that = this
+    wx.openSetting({
+      success (res) {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success (data) {
+              // console.log(data)
+              wx.setStorageSync('userInfo', data.userInfo)
+              that.setData({
+                userInfo: data.userInfo,
+                logins: true
+              })
+              app.wxlogin(that.getMyInfo)
+            }
+          })
+        }
+      }
+    })
+  },
+  // 播放视屏
+  playVideo () {
+    let s = wx.getSystemInfoSync()
+    let ss = false
+    // console.log(s)
+    if (s.brand === 'iPhone' && parseInt(s.system.split(' ')[1]) <= 10) {
+      // console.log(1)
+      ss = true
+      wx.showModal({
+        title: '视频播放',
+        content: '由于IOS版本较低，视频无法播放',
+        showCancel: false,
+        success (res) {
+          if (res.confirm) {
+            return
+          }
+        }
+      })
+    }
+    // if (ss) {
+    //   setTimeout(() => {
+    //     this.setData({
+    //       autoplay: true,
+    //       show: false,
+    //       playStatus: true
+    //     })
+    //   }, 1500)
+    // } else {
+    //   this.setData({
+    //     autoplay: true,
+    //     show: false,
+    //     playStatus: true
+    //   })
+    // }
+    if (!ss) {
+      this.setData({
+        autoplay: true,
+        show: false,
+        playStatus: true
+      })
+    }
+    // console.log('s', parseInt(s.system))
+    // // if (s.brand && parseInt(s.system < 10.3))
+    // this.setData({
+    //   autoplay: true,
+    //   show: false,
+    //   playStatus: true
+    // })
+  },
+  // 视频播放结束
   playFinish () {
     this.setData({
       autoplay: false,
@@ -63,20 +348,54 @@ Page({
       playStatus: false
     })
   },
+  getMessage () {
+    let that = this
+    let obj = {
+      url: useUrl.userHasNewMessage,
+      data: {
+        session_key: wx.getStorageSync('session_key')
+      },
+      success (res) {
+        if (res.data.data.isHas * 1 === 1) {
+          that.setData({
+            hasmessage: true
+          })
+        } else {
+          that.setData({
+            hasmessage: false
+          })
+        }
+      }
+    }
+    app.wxrequest(obj)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
     // TODO: onLoad
+    // app.wxlogin()
     let that = this
-    wx.getUserInfo({
-      success (res) {
-        // console.log(res)
-        that.setData({
-          userInfo: res.userInfo
-        })
-      }
-    })
+    if (wx.getStorageSync('userInfo')) {
+      wx.login({
+        success () {
+          wx.getUserInfo({
+            success (res) {
+              // console.log(res)
+              res.userInfo['check'] = true
+              that.setData({
+                userInfo: res.userInfo,
+                logins: true
+              })
+            }
+          })
+        }
+      })
+    } else {
+      this.setData({
+        logins: false
+      })
+    }
   },
 
   /**
@@ -90,6 +409,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.getMessage()
+    this.getMyInfo()
+    // let s =
+    // console.log('s',s.system.split(" "))
+    // console.log('s', )
     // TODO: onShow
   },
 
@@ -105,12 +429,15 @@ Page({
    */
   onUnload () {
     // TODO: onUnload
-  },
+  }
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh () {
-    // TODO: onPullDownRefresh
-  }
+  // onPullDownRefresh () {
+  //   // TODO: onPullDownRefresh
+  //   // wx.stopPullDownRefresh()
+  //   // if (!this.data.hasvideo) return
+  //   // this.playVideo()
+  // }
 })
